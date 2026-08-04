@@ -33,3 +33,22 @@ test("ships the complete audited roadmap", async () => {
   assert.ok(roadmap.weeks.every((week) => week.sabatina.length === 10));
   assert.ok(roadmap.weeks.every((week) => week.project.repo));
 });
+
+test("ships a dedicated study center and a specific project guide for every week", async () => {
+  const route = await readFile(new URL("app/semanas/[numero]/page.tsx", templateRoot), "utf8");
+  const center = await readFile(new URL("components/WeekMissionPage.tsx", templateRoot), "utf8");
+  const guides = await readFile(new URL("lib/project-guides.ts", templateRoot), "utf8");
+
+  assert.match(route, /generateStaticParams/);
+  assert.match(route, /WeekMissionPage/);
+  assert.match(center, /Ementa desta semana/);
+  assert.match(center, /PRIMEIROS 30 MINUTOS/);
+  assert.match(center, /Passo a passo do projeto/);
+
+  const blueprintWeeks = [...guides.matchAll(/^\s{2}(\d+): \{$/gm)].map((match) => Number(match[1]));
+  assert.deepEqual(blueprintWeeks, Array.from({ length: 22 }, (_, index) => index + 1));
+  assert.ok((guides.match(/businessQuestion:/g) ?? []).length >= 22);
+  assert.ok((guides.match(/implementation:/g) ?? []).length >= 22);
+  assert.ok((guides.match(/validation:/g) ?? []).length >= 22);
+  assert.ok((guides.match(/tests:/g) ?? []).length >= 22);
+});

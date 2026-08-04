@@ -37,6 +37,7 @@ export type QuestWorkspace = {
   weekStatus: Record<string, MasteryStatus>;
   projectStatus: Record<string, "planejado" | "em-andamento" | "publicado">;
   projectUrls: Record<string, string>;
+  projectChecklist?: Record<string, string[]>;
   notes: QuestNote[];
   sessions: StudySession[];
   errors: ErrorEntry[];
@@ -56,6 +57,7 @@ export const emptyWorkspace: QuestWorkspace = {
   weekStatus: {},
   projectStatus: {},
   projectUrls: {},
+  projectChecklist: {},
   notes: [],
   sessions: [],
   errors: [],
