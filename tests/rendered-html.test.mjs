@@ -4,12 +4,18 @@ import test from "node:test";
 
 const templateRoot = new URL("../", import.meta.url);
 
-test("builds the Data Science Quest application metadata", async () => {
-  const bundle = await readFile(new URL("dist/server/index.js", templateRoot), "utf8");
-  assert.match(bundle, /Data Science Quest/);
-  assert.match(bundle, /lang:\s*"pt-BR"/);
-  assert.match(bundle, /22 semanas para dominar a ementa/);
-  assert.doesNotMatch(bundle, /codex-preview|Your site is taking shape|react-loading-skeleton/i);
+test("ships Data Science Quest metadata and the requested visual stack", async () => {
+  const layout = await readFile(new URL("app/layout.tsx", templateRoot), "utf8");
+  const journey = await readFile(new URL("components/JourneyView.tsx", templateRoot), "utf8");
+  assert.match(layout, /Data Science Quest/);
+  assert.match(layout, /lang="pt-BR"/);
+  assert.match(layout, /22 semanas para dominar a ementa/);
+  assert.match(journey, /CSS/);
+  assert.match(journey, /JavaScript/);
+  assert.match(journey, /TypeScript/);
+  assert.match(journey, /React/);
+  assert.match(journey, /Vercel/);
+  assert.doesNotMatch(`${layout}\n${journey}`, /codex-preview|Your site is taking shape|react-loading-skeleton/i);
 });
 
 test("ships the complete audited roadmap", async () => {

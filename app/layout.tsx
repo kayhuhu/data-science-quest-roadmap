@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "katex/dist/katex.min.css";
 import "./globals.css";
 
+const appUrl = process.env.NEXT_PUBLIC_APP_URL?.trim() || "https://data-science-quest-roadmap.vercel.app";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -14,7 +16,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Data Science Quest — Jornada de 22 semanas",
+  metadataBase: new URL(appUrl),
+  title: {
+    default: "Data Science Quest — Jornada de 22 semanas",
+    template: "%s · Data Science Quest",
+  },
   description:
     "Roadmap completo para dominar a ementa de Cientista de Dados, construir 22 projetos e treinar prova prática e sabatina.",
   applicationName: "Data Science Quest",
@@ -25,13 +31,18 @@ export const metadata: Metadata = {
       "22 semanas para dominar a ementa, construir projetos e defender decisões.",
     type: "website",
     locale: "pt_BR",
+    url: "/",
+    siteName: "Data Science Quest",
+    images: [{ url: "/og.png", width: 1792, height: 928, alt: "Data Science Quest — jornada visual de 22 semanas" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Data Science Quest",
     description:
       "22 semanas para dominar a ementa, construir projetos e defender decisões.",
+    images: ["/og.png"],
   },
+  alternates: { canonical: "/" },
 };
 
 export default function RootLayout({

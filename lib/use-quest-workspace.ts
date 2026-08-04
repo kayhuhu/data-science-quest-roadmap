@@ -69,6 +69,8 @@ export const emptyWorkspace: QuestWorkspace = {
   },
 };
 
+const LOCAL_WORKSPACE_KEY = "data-science-quest:workspace:v1";
+
 function isWorkspace(value: unknown): value is QuestWorkspace {
   return Boolean(value && typeof value === "object" && (value as { version?: number }).version === 1);
 }
@@ -81,28 +83,25 @@ export function useQuestWorkspace() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/state?kind=workspace&key=main")
-      .then(async (response) => {
-        if (!response.ok) throw new Error("storage unavailable");
-        return (await response.json()) as { records?: Array<{ value: unknown }> };
-      })
-      .then((data) => {
+    try {
+      const serialized = window.localStorage.getItem(LOCAL_WORKSPACE_KEY);
+      const stored = serialized ? (JSON.parse(serialized) as unknown) : null;
+      const next = isWorkspace(stored) ? stored : emptyWorkspace;
+      queueMicrotask(() => {
         if (cancelled) return;
-        const stored = data.records?.[0]?.value;
-        const next = isWorkspace(stored) ? stored : emptyWorkspace;
         setWorkspace(next);
         lastSaved.current = JSON.stringify(next);
         setSaveState("saved");
-      })
-      .catch(() => {
-        if (!cancelled) setSaveState("offline");
-      })
-      .finally(() => {
-        if (!cancelled) setReady(true);
+        setReady(true);
       });
-    return () => {
-      cancelled = true;
-    };
+    } catch {
+      queueMicrotask(() => {
+        if (cancelled) return;
+        setSaveState("offline");
+        setReady(true);
+      });
+    }
+    return () => { cancelled = true; };
   }, []);
 
   useEffect(() => {
@@ -111,17 +110,13 @@ export function useQuestWorkspace() {
     if (serialized === lastSaved.current) return;
     setSaveState("saving");
     const timeout = window.setTimeout(() => {
-      fetch("/api/state", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ kind: "workspace", key: "main", value: workspace }),
-      })
-        .then((response) => {
-          if (!response.ok) throw new Error("save failed");
-          lastSaved.current = serialized;
-          setSaveState("saved");
-        })
-        .catch(() => setSaveState("offline"));
+      try {
+        window.localStorage.setItem(LOCAL_WORKSPACE_KEY, serialized);
+        lastSaved.current = serialized;
+        setSaveState("saved");
+      } catch {
+        setSaveState("offline");
+      }
     }, 600);
     return () => window.clearTimeout(timeout);
   }, [ready, workspace]);

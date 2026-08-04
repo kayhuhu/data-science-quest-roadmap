@@ -10,11 +10,10 @@ import {
   ChevronLeft,
   ChevronRight,
   CircleHelp,
-  Cloud,
-  CloudOff,
   Command,
   FlaskConical,
   FolderGit2,
+  HardDrive,
   LayoutDashboard,
   Medal,
   Menu,
@@ -90,7 +89,13 @@ const navGroups = [
   },
 ] as const;
 
-const mobileNav = ["jornada", "ementa", "pomodoro", "estudio", "flashcards"] as ActiveView[];
+const mobileNav = [
+  { id: "jornada", label: "Início", icon: LayoutDashboard },
+  { id: "ementa", label: "Ementa", icon: BookOpenCheck },
+  { id: "pomodoro", label: "Foco", icon: TimerReset },
+  { id: "estudio", label: "Notas", icon: NotebookPen },
+  { id: "flashcards", label: "Cards", icon: BrainCircuit },
+] as const;
 
 export function QuestApp({
   initialView = "jornada",
@@ -207,7 +212,7 @@ export function QuestApp({
           <button className="mobile-menu-button" onClick={() => setMobileMenu(true)} aria-label="Abrir menu"><Menu size={20} /></button>
           <button className="global-search" onClick={() => setCommandOpen(true)}><Search size={17} /><span>Buscar semanas, temas, notas e perguntas...</span><kbd><Command size={12} /> K</kbd></button>
           <div className="topbar-actions">
-            <span className={`sync-status ${saveState}`}>{saveState === "offline" ? <CloudOff size={15} /> : <Cloud size={15} />}{!collapsed && (saveState === "saved" ? "Sincronizado" : saveState === "saving" ? "Salvando" : "Reconectando")}</span>
+            <span className={`sync-status ${saveState}`} title="Seus dados pessoais ficam salvos neste navegador"><HardDrive size={15} />{!collapsed && (saveState === "saved" ? "Salvo neste dispositivo" : saveState === "saving" ? "Salvando" : "Falha ao salvar")}</span>
             <button className="icon-button" onClick={() => update((current) => ({ ...current, settings: { ...current.settings, theme: current.settings.theme === "dark" ? "light" : "dark" } }))} aria-label="Alternar tema">{workspace.settings.theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}</button>
             <button className="icon-button notification-button" aria-label="Notificações"><Bell size={18} /><i /></button>
             <button className="user-chip"><span>YK</span><div><strong>Explorador</strong><small>Nível {Math.floor(workspace.xp / 500) + 1}</small></div></button>
@@ -220,10 +225,9 @@ export function QuestApp({
       </div>
 
       <nav className="mobile-bottom-nav">
-        {mobileNav.map((id) => {
-          const item = navGroups.flatMap((group) => group.items).find((entry) => entry.id === id)!;
+        {mobileNav.map((item) => {
           const Icon = item.icon;
-          return <button key={id} className={active === id ? "active" : ""} onClick={() => navigate(id)}><Icon size={19} /><span>{id === "jornada" ? "Início" : item.label.split(" ")[0]}</span></button>;
+          return <button key={item.id} className={active === item.id ? "active" : ""} onClick={() => navigate(item.id)}><Icon size={19} /><span>{item.label}</span></button>;
         })}
       </nav>
       <button className="floating-action" onClick={() => navigate("estudio")} aria-label="Criar anotação"><Plus size={22} /></button>

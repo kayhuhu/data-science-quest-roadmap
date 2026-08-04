@@ -1,18 +1,25 @@
 "use client";
 
 import {
+  Atom,
   ArrowRight,
   BookOpen,
+  Braces,
   BrainCircuit,
   Clock3,
+  Code2,
+  FileCode2,
   Flame,
   FolderGit2,
+  GitFork,
+  Layers3,
   MessageCircleQuestion,
   NotebookPen,
   Play,
   Sparkles,
   Target,
   TimerReset,
+  Triangle,
 } from "lucide-react";
 import { blockPalette, currentRoadmapWeek, roadmap, type RoadmapWeek } from "@/lib/quest-data";
 import type { QuestWorkspace } from "@/lib/use-quest-workspace";
@@ -32,6 +39,16 @@ const quickActions = [
   { id: "flashcards", label: "Revisar cards", hint: "220 disponíveis", icon: BrainCircuit, accent: "green" },
   { id: "sabatina", label: "Treinar sabatina", hint: "Resposta em voz alta", icon: MessageCircleQuestion, accent: "coral" },
 ];
+
+const productStack = [
+  { label: "CSS", detail: "Interface e responsividade", icon: Braces, tone: "css" },
+  { label: "JavaScript", detail: "Interações", icon: Code2, tone: "javascript" },
+  { label: "TypeScript", detail: "Código seguro", icon: FileCode2, tone: "typescript" },
+  { label: "React", detail: "Componentes", icon: Atom, tone: "react" },
+  { label: "Next.js", detail: "Aplicação full-stack", icon: Layers3, tone: "next" },
+  { label: "Vercel", detail: "Deploy contínuo", icon: Triangle, tone: "vercel" },
+  { label: "GitHub", detail: "Código versionado", icon: GitFork, tone: "github" },
+] as const;
 
 export function JourneyView({
   workspace,
@@ -196,6 +213,27 @@ export function JourneyView({
             </button>
           );
         })}
+      </section>
+
+      <section className="stack-showcase" aria-labelledby="stack-title">
+        <header>
+          <div>
+            <span className="eyebrow muted">STACK DO PRODUTO</span>
+            <h2 id="stack-title">Tecnologia visível, código aberto.</h2>
+          </div>
+          <p>Uma base moderna para estudar todos os dias e evoluir o projeto no GitHub.</p>
+        </header>
+        <div className="stack-grid">
+          {productStack.map((technology) => {
+            const Icon = technology.icon;
+            return (
+              <article className={`stack-card tone-${technology.tone}`} key={technology.label}>
+                <span><Icon size={20} /></span>
+                <div><strong>{technology.label}</strong><small>{technology.detail}</small></div>
+              </article>
+            );
+          })}
+        </div>
       </section>
     </div>
   );

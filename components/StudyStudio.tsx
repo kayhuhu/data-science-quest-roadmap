@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState, type ComponentPropsWithoutRef } from "react";
 import {
   BookOpenText,
   FileText,
@@ -19,6 +19,7 @@ import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import { roadmap } from "@/lib/quest-data";
+import { loadStudyImage, saveStudyImage } from "@/lib/local-assets";
 import type { QuestWorkspace } from "@/lib/use-quest-workspace";
 
 type StudyStudioProps = {
@@ -28,6 +29,37 @@ type StudyStudioProps = {
 };
 
 const starterBody = `# Nova anotação\n\nEscreva o conceito com suas próprias palavras.\n\n## O que preciso conseguir defender\n\n- [ ] Explicar sem consultar\n- [ ] Aplicar em um cenário bancário\n- [ ] Interpretar resultado e limitações\n`;
+
+const MAX_IMAGE_SIZE = 8 * 1024 * 1024;
+const ALLOWED_IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
+
+function StoredMarkdownImage({ src, alt, ...props }: ComponentPropsWithoutRef<"img">) {
+  const [localSource, setLocalSource] = useState<string | null>(null);
+  const source = typeof src === "string" ? src : undefined;
+
+  useEffect(() => {
+    if (!source?.startsWith("/local-assets/")) return;
+    let objectUrl: string | null = null;
+    let cancelled = false;
+    const id = source.slice("/local-assets/".length);
+    void loadStudyImage(id).then((blob) => {
+      if (!blob || cancelled) return;
+      objectUrl = URL.createObjectURL(blob);
+      setLocalSource(objectUrl);
+    });
+    return () => {
+      cancelled = true;
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
+  }, [source]);
+
+  if (source?.startsWith("/local-assets/") && !localSource) {
+    return <span className="image-loading">Carregando imagem privada…</span>;
+  }
+  // Blob URLs do IndexedDB não podem passar pelo otimizador remoto do next/image.
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img {...props} src={localSource ?? source} alt={alt ?? "Imagem da anotação"} />;
+}
 
 export function StudyStudio({ workspace, onUpdate, saveState }: StudyStudioProps) {
   const [selectedId, setSelectedId] = useState<string | null>(workspace.notes[0]?.id ?? null);
@@ -76,13 +108,17 @@ export function StudyStudio({ workspace, onUpdate, saveState }: StudyStudioProps
 
   const uploadImage = async (file: File | undefined) => {
     if (!file || !selected) return;
+    if (!ALLOWED_IMAGE_TYPES.has(file.type)) {
+      window.alert("Envie uma imagem JPG, PNG, WebP ou GIF.");
+      return;
+    }
+    if (file.size > MAX_IMAGE_SIZE) {
+      window.alert("A imagem deve ter no máximo 8 MB.");
+      return;
+    }
     setUploading(true);
     try {
-      const form = new FormData();
-      form.append("file", file);
-      const response = await fetch("/api/uploads", { method: "POST", body: form });
-      const result = (await response.json()) as { url?: string; fileName?: string; error?: string };
-      if (!response.ok || !result.url) throw new Error(result.error ?? "Falha no envio");
+      const result = await saveStudyImage(file);
       insertText(`\n![Descreva a imagem: ${result.fileName}](${result.url})\n*Legenda e fonte da imagem.*\n`);
     } catch (error) {
       window.alert(error instanceof Error ? error.message : "Não foi possível enviar a imagem.");
@@ -114,7 +150,7 @@ export function StudyStudio({ workspace, onUpdate, saveState }: StudyStudioProps
           <>
             <header className="editor-header">
               <div className="editor-title-block"><input value={selected.title} onChange={(event) => updateNote({ title: event.target.value })} aria-label="Título da nota" /><div><label>Semana <select value={selected.week} onChange={(event) => updateNote({ week: Number(event.target.value) })}>{roadmap.weeks.map((week) => <option key={week.number} value={week.number}>{week.number} · {week.title}</option>)}</select></label><span><Tags size={13} /> {selected.tags.join(", ")}</span></div></div>
-              <div className={`save-indicator ${saveState}`}><Save size={14} />{saveState === "saved" ? "Salvo" : saveState === "saving" ? "Salvando..." : "Reconectando"}</div>
+              <div className={`save-indicator ${saveState}`}><Save size={14} />{saveState === "saved" ? "Salvo neste dispositivo" : saveState === "saving" ? "Salvando..." : "Falha ao salvar"}</div>
             </header>
 
             <div className="editor-toolbar">
@@ -130,10 +166,10 @@ export function StudyStudio({ workspace, onUpdate, saveState }: StudyStudioProps
               {mode === "write" ? (
                 <textarea ref={textareaRef} value={selected.body} onChange={(event) => updateNote({ body: event.target.value })} spellCheck placeholder="Use Markdown, $$ LaTeX $$, listas, tabelas e blocos de código..." />
               ) : (
-                <article className="markdown-preview"><ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>{selected.body}</ReactMarkdown></article>
+                <article className="markdown-preview"><ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]} components={{ img: StoredMarkdownImage }}>{selected.body}</ReactMarkdown></article>
               )}
             </div>
-            <footer className="editor-footer"><span>{selected.body.trim().split(/\s+/).filter(Boolean).length} palavras</span><span>Privada por padrão · imagens em armazenamento protegido</span></footer>
+            <footer className="editor-footer"><span>{selected.body.trim().split(/\s+/).filter(Boolean).length} palavras</span><span>Privada por padrão · salva neste dispositivo</span></footer>
           </>
         )}
       </section>
