@@ -8,15 +8,17 @@ import {
   roadmap,
   statusLabel,
   type MasteryStatus,
+  type RoadmapWeek,
 } from "@/lib/quest-data";
 import type { QuestWorkspace } from "@/lib/use-quest-workspace";
 
 type SyllabusViewProps = {
   workspace: QuestWorkspace;
   onUpdate: (recipe: (current: QuestWorkspace) => QuestWorkspace) => void;
+  onSelectWeek: (week: RoadmapWeek) => void;
 };
 
-export function SyllabusView({ workspace, onUpdate }: SyllabusViewProps) {
+export function SyllabusView({ workspace, onUpdate, onSelectWeek }: SyllabusViewProps) {
   const [query, setQuery] = useState("");
   const [block, setBlock] = useState("todos");
   const [statusFilter, setStatusFilter] = useState<MasteryStatus | "todos">("todos");
@@ -69,6 +71,8 @@ export function SyllabusView({ workspace, onUpdate }: SyllabusViewProps) {
         <span className="result-count">{filtered.length} de {roadmap.metrics.syllabusItems} itens</span>
       </section>
 
+      <p className="syllabus-navigation-help">Clique no nome do bloco para filtrar a ementa. Clique em <strong>S01–S22</strong> para abrir a semana correspondente nesta mesma tela.</p>
+
       <section className="syllabus-table">
         <div className="syllabus-head"><span>Domínio</span><span>Item oficial</span><span>Bloco</span><span>Semana</span><span>Evidência</span></div>
         {filtered.map((item) => {
@@ -77,8 +81,8 @@ export function SyllabusView({ workspace, onUpdate }: SyllabusViewProps) {
             <article className="syllabus-row" key={item.id}>
               <button className={`mastery-toggle ${status}`} onClick={() => cycleStatus(item.id)} aria-label={`Alterar status: ${statusLabel(status)}`}><i />{statusLabel(status)}</button>
               <div className="syllabus-copy"><strong>{item.text}</strong><small>{item.id.toUpperCase()}</small></div>
-              <span className="block-chip" style={{ "--chip-color": blockPalette[item.block] ?? "#4dd7fa" } as React.CSSProperties}>{item.block}</span>
-              <button className="week-chip">S{item.week.toString().padStart(2, "0")}</button>
+              <button className="block-chip block-chip-button" style={{ "--chip-color": blockPalette[item.block] ?? "#4dd7fa" } as React.CSSProperties} onClick={() => setBlock(item.block)} title={`Filtrar pelo bloco ${item.block}`}>{item.block}</button>
+              <button className="week-chip" onClick={() => onSelectWeek(roadmap.weeks[item.week - 1])} title={`Abrir a Semana ${item.week}`}>S{item.week.toString().padStart(2, "0")}</button>
               <button className="evidence-button"><CheckCircle2 size={15} /> Vincular</button>
             </article>
           );

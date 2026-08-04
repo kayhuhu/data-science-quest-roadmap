@@ -29,6 +29,7 @@ import {
   X,
 } from "lucide-react";
 import { JourneyView } from "@/components/JourneyView";
+import { WeekDrawer } from "@/components/WeekDrawer";
 import { SyllabusView } from "@/components/SyllabusView";
 import { StudyStudio } from "@/components/StudyStudio";
 import {
@@ -42,7 +43,7 @@ import {
   SabatinaView,
   SettingsView,
 } from "@/components/LearningViews";
-import { roadmap } from "@/lib/quest-data";
+import { roadmap, type RoadmapWeek } from "@/lib/quest-data";
 import { useQuestWorkspace } from "@/lib/use-quest-workspace";
 
 type ActiveView =
@@ -98,13 +99,18 @@ const mobileNav = [
 
 export function QuestApp({
   initialView = "jornada",
+  initialWeek,
 }: {
   initialView?: ActiveView;
+  initialWeek?: number;
 }) {
   const { workspace, update, ready, saveState, totals } = useQuestWorkspace();
   const [active, setActive] = useState<ActiveView>(initialView);
   const [collapsed, setCollapsed] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
+  const [selectedWeek, setSelectedWeek] = useState<RoadmapWeek | null>(
+    initialWeek ? roadmap.weeks[initialWeek - 1] ?? null : null,
+  );
   const [commandOpen, setCommandOpen] = useState(false);
   const [commandQuery, setCommandQuery] = useState("");
 
@@ -116,6 +122,7 @@ export function QuestApp({
       }
       if (event.key === "Escape") {
         setCommandOpen(false);
+        setSelectedWeek(null);
       }
     };
     window.addEventListener("keydown", onKeyDown);
@@ -138,7 +145,7 @@ export function QuestApp({
     const weeks = roadmap.weeks
       .filter((week) => `${week.number} ${week.title} ${week.block}`.toLocaleLowerCase("pt-BR").includes(query))
       .slice(0, 5)
-      .map((week) => ({ id: `w-${week.number}`, type: "Semana", title: `Semana ${week.number} · ${week.title}`, action: () => window.open(`/semanas/${week.number}`, "_blank", "noopener,noreferrer") }));
+      .map((week) => ({ id: `w-${week.number}`, type: "Semana", title: `Semana ${week.number} · ${week.title}`, action: () => setSelectedWeek(week) }));
     const syllabus = roadmap.syllabus
       .filter((item) => item.text.toLocaleLowerCase("pt-BR").includes(query))
       .slice(0, 5)
@@ -153,7 +160,7 @@ export function QuestApp({
   const renderView = () => {
     const common = { workspace, onUpdate: update };
     switch (active) {
-      case "ementa": return <SyllabusView {...common} />;
+      case "ementa": return <SyllabusView {...common} onSelectWeek={setSelectedWeek} />;
       case "pomodoro": return <PomodoroView {...common} />;
       case "estudio": return <StudyStudio {...common} saveState={saveState} />;
       case "flashcards": return <FlashcardsView {...common} />;
@@ -165,7 +172,7 @@ export function QuestApp({
       case "conquistas": return <AchievementsView {...common} />;
       case "configuracoes": return <SettingsView {...common} />;
       default:
-        return <JourneyView workspace={workspace} studySeconds={totals.studySeconds} greenItems={totals.greenItems} onOpenWeek={(week) => window.open(`/semanas/${week.number}`, "_blank", "noopener,noreferrer")} onNavigate={navigate} onStartFocus={() => navigate("pomodoro")} />;
+        return <JourneyView workspace={workspace} studySeconds={totals.studySeconds} greenItems={totals.greenItems} onSelectWeek={setSelectedWeek} onNavigate={navigate} onStartFocus={() => navigate("pomodoro")} />;
     }
   };
 
@@ -224,6 +231,8 @@ export function QuestApp({
         })}
       </nav>
       <button className="floating-action" onClick={() => navigate("estudio")} aria-label="Criar anotação"><Plus size={22} /></button>
+
+      <WeekDrawer week={selectedWeek} workspace={workspace} onClose={() => setSelectedWeek(null)} onUpdate={update} onNavigate={(view) => { setSelectedWeek(null); navigate(view); }} onSelectWeek={setSelectedWeek} />
 
       {commandOpen && (
         <div className="command-backdrop" onMouseDown={(event) => event.target === event.currentTarget && setCommandOpen(false)}>

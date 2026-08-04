@@ -27,6 +27,14 @@ export default async function RoutedQuestPage({
 }) {
   const { slug } = await params;
   const section = slug[0] ?? "app";
-  const initialView = viewByRoute[section as keyof typeof viewByRoute] ?? "jornada";
-  return <QuestApp initialView={initialView} />;
+  const initialWeek = section === "semanas" ? Number(slug[1]) : undefined;
+  const initialView = section === "semanas"
+    ? "jornada"
+    : viewByRoute[section as keyof typeof viewByRoute] ?? "jornada";
+  return (
+    <QuestApp
+      initialView={initialView}
+      initialWeek={Number.isInteger(initialWeek) && initialWeek! >= 1 && initialWeek! <= 22 ? initialWeek : undefined}
+    />
+  );
 }

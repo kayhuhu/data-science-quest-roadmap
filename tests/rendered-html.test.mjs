@@ -34,16 +34,21 @@ test("ships the complete audited roadmap", async () => {
   assert.ok(roadmap.weeks.every((week) => week.project.repo));
 });
 
-test("ships a dedicated study center and a specific project guide for every week", async () => {
-  const route = await readFile(new URL("app/semanas/[numero]/page.tsx", templateRoot), "utf8");
-  const center = await readFile(new URL("components/WeekMissionPage.tsx", templateRoot), "utf8");
+test("ships an integrated study center and a specific project guide for every week", async () => {
+  const route = await readFile(new URL("app/[...slug]/page.tsx", templateRoot), "utf8");
+  const app = await readFile(new URL("components/QuestApp.tsx", templateRoot), "utf8");
+  const center = await readFile(new URL("components/WeekDrawer.tsx", templateRoot), "utf8");
+  const syllabus = await readFile(new URL("components/SyllabusView.tsx", templateRoot), "utf8");
   const guides = await readFile(new URL("lib/project-guides.ts", templateRoot), "utf8");
 
-  assert.match(route, /generateStaticParams/);
-  assert.match(route, /WeekMissionPage/);
-  assert.match(center, /Ementa desta semana/);
-  assert.match(center, /PRIMEIROS 30 MINUTOS/);
-  assert.match(center, /Passo a passo do projeto/);
+  assert.match(route, /initialWeek/);
+  assert.match(app, /setSelectedWeek/);
+  assert.doesNotMatch(app, /window\.open/);
+  assert.match(center, /Ementa correspondente à Semana/);
+  assert.match(center, /Primeiros 30 minutos/);
+  assert.match(center, /Passo a passo do início à publicação/);
+  assert.match(syllabus, /onSelectWeek\(roadmap\.weeks\[item\.week - 1\]\)/);
+  assert.match(syllabus, /setBlock\(item\.block\)/);
 
   const blueprintWeeks = [...guides.matchAll(/^\s{2}(\d+): \{$/gm)].map((match) => Number(match[1]));
   assert.deepEqual(blueprintWeeks, Array.from({ length: 22 }, (_, index) => index + 1));
