@@ -1,0 +1,2455 @@
+{
+  "sourceVersion": "roadmap-v12",
+  "syllabusVersion": "itau-data-scientist-original",
+  "metrics": {
+    "weeks": 22,
+    "blocks": 12,
+    "syllabusItems": 72,
+    "projects": 22,
+    "questions": 220,
+    "answers": 220
+  },
+  "blocks": [
+    {
+      "id": 1,
+      "title": "ESTATÍSTICA BÁSICA",
+      "weekNumbers": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "id": 2,
+      "title": "ÁLGEBRA",
+      "weekNumbers": [
+        4
+      ]
+    },
+    {
+      "id": 3,
+      "title": "DATA PREP",
+      "weekNumbers": [
+        5,
+        6
+      ]
+    },
+    {
+      "id": 4,
+      "title": "PROGRAMAÇÃO",
+      "weekNumbers": [
+        7
+      ]
+    },
+    {
+      "id": 5,
+      "title": "BANCO DE DADOS",
+      "weekNumbers": [
+        8
+      ]
+    },
+    {
+      "id": 6,
+      "title": "REGRESSÃO + AVALIAÇÃO",
+      "weekNumbers": [
+        9,
+        10
+      ]
+    },
+    {
+      "id": 7,
+      "title": "CLASSIFICAÇÃO + AVALIAÇÃO",
+      "weekNumbers": [
+        11,
+        12,
+        13,
+        14
+      ]
+    },
+    {
+      "id": 8,
+      "title": "AGRUPAMENTO + AVALIAÇÃO",
+      "weekNumbers": [
+        15,
+        16
+      ]
+    },
+    {
+      "id": 9,
+      "title": "IA GENERATIVA",
+      "weekNumbers": [
+        17,
+        18
+      ]
+    },
+    {
+      "id": 10,
+      "title": "PESQUISA OPERACIONAL, PROGRAMAÇÃO INTEIRA E MIP",
+      "weekNumbers": [
+        19
+      ]
+    },
+    {
+      "id": 11,
+      "title": "OUTROS",
+      "weekNumbers": [
+        20,
+        21
+      ]
+    },
+    {
+      "id": 12,
+      "title": "CONSOLIDAÇÃO",
+      "weekNumbers": [
+        22
+      ]
+    }
+  ],
+  "syllabus": [
+    {
+      "id": "ementa-001",
+      "text": "Propriedades de distribuições: médias, medianas, quartis, moda, variância, etc.",
+      "block": "ESTATÍSTICA BÁSICA",
+      "week": 1
+    },
+    {
+      "id": "ementa-002",
+      "text": "Variáveis aleatórias contínuas e discretas",
+      "block": "ESTATÍSTICA BÁSICA",
+      "week": 2
+    },
+    {
+      "id": "ementa-003",
+      "text": "Função densidade de probabilidade e distribuição acumulada",
+      "block": "ESTATÍSTICA BÁSICA",
+      "week": 2
+    },
+    {
+      "id": "ementa-004",
+      "text": "Principais distribuições: Normal, Bernoulli, Binomial, Uniforme, Poisson, Geométrica",
+      "block": "ESTATÍSTICA BÁSICA",
+      "week": 2
+    },
+    {
+      "id": "ementa-005",
+      "text": "Testes de hipóteses",
+      "block": "ESTATÍSTICA BÁSICA",
+      "week": 3
+    },
+    {
+      "id": "ementa-006",
+      "text": "Matrizes e Vetores",
+      "block": "ÁLGEBRA",
+      "week": 4
+    },
+    {
+      "id": "ementa-007",
+      "text": "Álgebra Matricial",
+      "block": "ÁLGEBRA",
+      "week": 4
+    },
+    {
+      "id": "ementa-008",
+      "text": "Distâncias e produto interno",
+      "block": "ÁLGEBRA",
+      "week": 4
+    },
+    {
+      "id": "ementa-009",
+      "text": "Tratamento de missings",
+      "block": "DATA PREP",
+      "week": 5
+    },
+    {
+      "id": "ementa-010",
+      "text": "Tratamento de outliers",
+      "block": "DATA PREP",
+      "week": 5
+    },
+    {
+      "id": "ementa-011",
+      "text": "Categorização de variáveis contínuas e discretas",
+      "block": "DATA PREP",
+      "week": 5
+    },
+    {
+      "id": "ementa-012",
+      "text": "PCA",
+      "block": "DATA PREP",
+      "week": 6
+    },
+    {
+      "id": "ementa-013",
+      "text": "Correlação / associação entre dados contínuos e entre dados discretos",
+      "block": "DATA PREP",
+      "week": 6
+    },
+    {
+      "id": "ementa-014",
+      "text": "Seleção de variáveis",
+      "block": "DATA PREP",
+      "week": 6
+    },
+    {
+      "id": "ementa-015",
+      "text": "Fluência na sintaxe básica",
+      "block": "PROGRAMAÇÃO",
+      "week": 7
+    },
+    {
+      "id": "ementa-016",
+      "text": "Métodos e pacotes para leitura e escrita de dados",
+      "block": "PROGRAMAÇÃO",
+      "week": 7
+    },
+    {
+      "id": "ementa-017",
+      "text": "Fluência nos principais pacotes de machine learning, como: Python: sklearn; R: caret, mlr",
+      "block": "PROGRAMAÇÃO",
+      "week": 7
+    },
+    {
+      "id": "ementa-018",
+      "text": "Modelo de banco de dados relacional",
+      "block": "BANCO DE DADOS",
+      "week": 8
+    },
+    {
+      "id": "ementa-019",
+      "text": "Sintaxe de SQL",
+      "block": "BANCO DE DADOS",
+      "week": 8
+    },
+    {
+      "id": "ementa-020",
+      "text": "Álgebra relacional: join, group by, order by e etc.",
+      "block": "BANCO DE DADOS",
+      "week": 8
+    },
+    {
+      "id": "ementa-021",
+      "text": "Chaves primárias, secundárias e estrangeiras",
+      "block": "BANCO DE DADOS",
+      "week": 8
+    },
+    {
+      "id": "ementa-022",
+      "text": "Regressão Linear",
+      "block": "REGRESSÃO + AVALIAÇÃO",
+      "week": 9
+    },
+    {
+      "id": "ementa-023",
+      "text": "Análise de Resíduos",
+      "block": "REGRESSÃO + AVALIAÇÃO",
+      "week": 9
+    },
+    {
+      "id": "ementa-024",
+      "text": "Métricas de avaliação de modelo: KS, Gini, AUC, RMSE, MAE, F1, Recall, Precision, R2",
+      "block": "REGRESSÃO + AVALIAÇÃO",
+      "week": 9
+    },
+    {
+      "id": "ementa-025",
+      "text": "Validações holdout, leave one out, k-fold, out of sample, out of time",
+      "block": "REGRESSÃO + AVALIAÇÃO",
+      "week": 9
+    },
+    {
+      "id": "ementa-026",
+      "text": "Regularização L1 e L2",
+      "block": "REGRESSÃO + AVALIAÇÃO",
+      "week": 10
+    },
+    {
+      "id": "ementa-027",
+      "text": "Árvore de Regressão",
+      "block": "REGRESSÃO + AVALIAÇÃO",
+      "week": 10
+    },
+    {
+      "id": "ementa-028",
+      "text": "Modelos lineares generalizados (GLM)",
+      "block": "REGRESSÃO + AVALIAÇÃO",
+      "week": 10
+    },
+    {
+      "id": "ementa-029",
+      "text": "Regressão Logística",
+      "block": "CLASSIFICAÇÃO + AVALIAÇÃO",
+      "week": 11
+    },
+    {
+      "id": "ementa-030",
+      "text": "Naive Bayes (Gaussiano x Bernoulli)",
+      "block": "CLASSIFICAÇÃO + AVALIAÇÃO",
+      "week": 11
+    },
+    {
+      "id": "ementa-031",
+      "text": "KNN",
+      "block": "CLASSIFICAÇÃO + AVALIAÇÃO",
+      "week": 12
+    },
+    {
+      "id": "ementa-032",
+      "text": "SVM",
+      "block": "CLASSIFICAÇÃO + AVALIAÇÃO",
+      "week": 12
+    },
+    {
+      "id": "ementa-033",
+      "text": "Árvore de classificação",
+      "block": "CLASSIFICAÇÃO + AVALIAÇÃO",
+      "week": 13
+    },
+    {
+      "id": "ementa-034",
+      "text": "Random Forest",
+      "block": "CLASSIFICAÇÃO + AVALIAÇÃO",
+      "week": 13
+    },
+    {
+      "id": "ementa-035",
+      "text": "Estratégias de Boosting: Gradient Boosting, ADA Boosting, etc.",
+      "block": "CLASSIFICAÇÃO + AVALIAÇÃO",
+      "week": 13
+    },
+    {
+      "id": "ementa-036",
+      "text": "ensemble modelling",
+      "block": "CLASSIFICAÇÃO + AVALIAÇÃO",
+      "week": 13
+    },
+    {
+      "id": "ementa-037",
+      "text": "Redes Neurais",
+      "block": "CLASSIFICAÇÃO + AVALIAÇÃO",
+      "week": 14
+    },
+    {
+      "id": "ementa-038",
+      "text": "deep learning e tensor flow",
+      "block": "CLASSIFICAÇÃO + AVALIAÇÃO",
+      "week": 14
+    },
+    {
+      "id": "ementa-039",
+      "text": "K-means / K-medoids",
+      "block": "AGRUPAMENTO + AVALIAÇÃO",
+      "week": 15
+    },
+    {
+      "id": "ementa-040",
+      "text": "Estratégias de definição do número de cluster (joelho/elbow, silhueta, distância, intra-cluster, etc.)",
+      "block": "AGRUPAMENTO + AVALIAÇÃO",
+      "week": 15
+    },
+    {
+      "id": "ementa-041",
+      "text": "DBSCAN",
+      "block": "AGRUPAMENTO + AVALIAÇÃO",
+      "week": 16
+    },
+    {
+      "id": "ementa-042",
+      "text": "Algoritmos Hierárquicos",
+      "block": "AGRUPAMENTO + AVALIAÇÃO",
+      "week": 16
+    },
+    {
+      "id": "ementa-043",
+      "text": "Gaussian Mixture Models (GMM)",
+      "block": "AGRUPAMENTO + AVALIAÇÃO",
+      "week": 16
+    },
+    {
+      "id": "ementa-044",
+      "text": "detecção de anomalia",
+      "block": "AGRUPAMENTO + AVALIAÇÃO",
+      "week": 16
+    },
+    {
+      "id": "ementa-045",
+      "text": "Conceitos fundamentais de IA Generativa",
+      "block": "IA GENERATIVA",
+      "week": 17
+    },
+    {
+      "id": "ementa-046",
+      "text": "Conceitos fundamentais de NLP",
+      "block": "IA GENERATIVA",
+      "week": 17
+    },
+    {
+      "id": "ementa-047",
+      "text": "Arquitetura transformer",
+      "block": "IA GENERATIVA",
+      "week": 17
+    },
+    {
+      "id": "ementa-048",
+      "text": "Embeddings",
+      "block": "IA GENERATIVA",
+      "week": 17
+    },
+    {
+      "id": "ementa-049",
+      "text": "text mining",
+      "block": "IA GENERATIVA",
+      "week": 17
+    },
+    {
+      "id": "ementa-050",
+      "text": "In Context Learning",
+      "block": "IA GENERATIVA",
+      "week": 18
+    },
+    {
+      "id": "ementa-051",
+      "text": "RAGs e bancos de dados vetoriais",
+      "block": "IA GENERATIVA",
+      "week": 18
+    },
+    {
+      "id": "ementa-052",
+      "text": "Técnicas de Engenharia de Prompt",
+      "block": "IA GENERATIVA",
+      "week": 18
+    },
+    {
+      "id": "ementa-053",
+      "text": "Técnicas de treinamento e fine tuning",
+      "block": "IA GENERATIVA",
+      "week": 18
+    },
+    {
+      "id": "ementa-054",
+      "text": "Quantization",
+      "block": "IA GENERATIVA",
+      "week": 18
+    },
+    {
+      "id": "ementa-055",
+      "text": "RLHF",
+      "block": "IA GENERATIVA",
+      "week": 18
+    },
+    {
+      "id": "ementa-056",
+      "text": "Safeguards e Guardrails",
+      "block": "IA GENERATIVA",
+      "week": 18
+    },
+    {
+      "id": "ementa-057",
+      "text": "Programação linear",
+      "block": "PESQUISA OPERACIONAL, PROGRAMAÇÃO INTEIRA E MIP",
+      "week": 19
+    },
+    {
+      "id": "ementa-058",
+      "text": "Modelos de programação linear: mix de produção, mistura, transporte",
+      "block": "PESQUISA OPERACIONAL, PROGRAMAÇÃO INTEIRA E MIP",
+      "week": 19
+    },
+    {
+      "id": "ementa-059",
+      "text": "Solução em programação linear: gráfica e simplex",
+      "block": "PESQUISA OPERACIONAL, PROGRAMAÇÃO INTEIRA E MIP",
+      "week": 19
+    },
+    {
+      "id": "ementa-060",
+      "text": "Variáveis inteiras e binárias, otimização discreta",
+      "block": "PESQUISA OPERACIONAL, PROGRAMAÇÃO INTEIRA E MIP",
+      "week": 19
+    },
+    {
+      "id": "ementa-061",
+      "text": "Relaxação linear",
+      "block": "PESQUISA OPERACIONAL, PROGRAMAÇÃO INTEIRA E MIP",
+      "week": 19
+    },
+    {
+      "id": "ementa-062",
+      "text": "Arredondamento",
+      "block": "PESQUISA OPERACIONAL, PROGRAMAÇÃO INTEIRA E MIP",
+      "week": 19
+    },
+    {
+      "id": "ementa-063",
+      "text": "Método Branch-and-bound",
+      "block": "PESQUISA OPERACIONAL, PROGRAMAÇÃO INTEIRA E MIP",
+      "week": 19
+    },
+    {
+      "id": "ementa-064",
+      "text": "O que é",
+      "block": "PESQUISA OPERACIONAL, PROGRAMAÇÃO INTEIRA E MIP",
+      "week": 19
+    },
+    {
+      "id": "ementa-065",
+      "text": "GAP e Best Bound",
+      "block": "PESQUISA OPERACIONAL, PROGRAMAÇÃO INTEIRA E MIP",
+      "week": 19
+    },
+    {
+      "id": "ementa-066",
+      "text": "Solvers",
+      "block": "PESQUISA OPERACIONAL, PROGRAMAÇÃO INTEIRA E MIP",
+      "week": 19
+    },
+    {
+      "id": "ementa-067",
+      "text": "hadoop e hive",
+      "block": "OUTROS",
+      "week": 20
+    },
+    {
+      "id": "ementa-068",
+      "text": "spark e pyspark",
+      "block": "OUTROS",
+      "week": 20
+    },
+    {
+      "id": "ementa-069",
+      "text": "redes complexas e teoria de grafos",
+      "block": "OUTROS",
+      "week": 20
+    },
+    {
+      "id": "ementa-070",
+      "text": "análise de séries temporais",
+      "block": "OUTROS",
+      "week": 20
+    },
+    {
+      "id": "ementa-071",
+      "text": "reconhecimento de imagens",
+      "block": "OUTROS",
+      "week": 21
+    },
+    {
+      "id": "ementa-072",
+      "text": "speech analytics",
+      "block": "OUTROS",
+      "week": 21
+    }
+  ],
+  "weeks": [
+    {
+      "number": 1,
+      "title": "Propriedades das distribuições e análise exploratória",
+      "period": "03/08 a 09/08/2026",
+      "block": "ESTATÍSTICA BÁSICA",
+      "objective": "Olhar uma base e descrever corretamente centro, dispersão, forma, assimetria, valores extremos e limitações da amostra.",
+      "syllabus": [
+        "Propriedades de distribuições: médias, medianas, quartis, moda, variância, etc."
+      ],
+      "content": [
+        "População, amostra, observação, variável e tipos de variável.",
+        "Média, mediana, moda, quartis e percentis.",
+        "Amplitude, variância, desvio padrão, IQR e coeficiente de variação.",
+        "Histograma, boxplot, barras, dispersão e ECDF.",
+        "Assimetria, caudas, multimodalidade e efeito de outliers.",
+        "EDA univariada, bivariada e análise por segmentos de negócio."
+      ],
+      "materials": [
+        "Livro 2: Cap. 1 e Cap. 4 (material principal).",
+        "Luiza: p. 1-4.",
+        "Douglas: Cap. 2 - Estatística.",
+        "Livro 3: Cap. 7-8 para pandas e gráficos."
+      ],
+      "videos": [
+        "StatQuest: mean, median, variance, standard deviation, histograms e boxplots (https://statquest.org/video_index.html)",
+        "Hashtag Programação: análise exploratória e pandas (https://www.youtube.com/@HashtagProgramacao)"
+      ],
+      "project": {
+        "repo": "01-banking-portfolio-eda",
+        "title": "Relatório executivo de carteira",
+        "objective": "EDA completa de clientes, com relatório técnico e executivo.",
+        "deliverables": [
+          "Notebook com medidas/gráficos e interpretação.",
+          "src/ com funções de EDA.",
+          "README com problema, dados, achados e limitações.",
+          "Relatório executivo de uma página.",
+          "Testes das funções principais."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "Quando a mediana é mais informativa que a média?",
+          "answer": "Quando há assimetria ou valores extremos que puxam a média."
+        },
+        {
+          "question": "O que a variância mede?",
+          "answer": "O espalhamento quadrático em torno da média; quanto maior, maior a dispersão."
+        },
+        {
+          "question": "Por que o desvio padrão é mais interpretável que a variância?",
+          "answer": "Volta à unidade original da variável."
+        },
+        {
+          "question": "O que os quartis representam?",
+          "answer": "Pontos que dividem os dados ordenados em quatro partes; Q2 é a mediana."
+        },
+        {
+          "question": "O que o IQR mede?",
+          "answer": "A amplitude do miolo central de 50% dos dados: Q3 - Q1."
+        },
+        {
+          "question": "Moda serve apenas para variável categórica?",
+          "answer": "Não; pode existir em numéricas, mas é especialmente útil em categorias e distribuições multimodais."
+        },
+        {
+          "question": "Correlação é parte da EDA?",
+          "answer": "Sim, mas deve ser acompanhada de gráfico, contexto e análise de não linearidade/segmentos."
+        },
+        {
+          "question": "O que diferencia uma EDA boa de uma lista de gráficos?",
+          "answer": "Perguntas orientadas ao negócio, validação da qualidade e interpretação conectada a decisões."
+        },
+        {
+          "question": "Como você aplicaria propriedades de distribuições e EDA em um problema bancário real?",
+          "answer": "Eu começaria pela decisão de negócio, definiria a unidade e os dados disponíveis, aplicaria propriedades de distribuições e EDA com pipeline reproduzível, validaria fora da amostra e traduziria o resultado em ação, limitações e monitoramento."
+        },
+        {
+          "question": "Qual erro mais comum ao usar propriedades de distribuições e EDA?",
+          "answer": "O erro mais comum é aplicar a técnica mecanicamente, sem checar pressupostos, leakage, qualidade dos dados, métrica adequada e custo operacional. Eu compararia alternativas e documentaria o motivo da escolha."
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Variáveis aleatórias, FDP/FDA e distribuições da ementa",
+      "period": "10/08 a 16/08/2026",
+      "block": "ESTATÍSTICA BÁSICA",
+      "objective": "Reconhecer o tipo de experimento, definir X e seus parâmetros, escolher uma distribuição plausível e interpretar média/variância no contexto bancário.",
+      "syllabus": [
+        "Variáveis aleatórias contínuas e discretas",
+        "Função densidade de probabilidade e distribuição acumulada",
+        "Principais distribuições: Normal, Bernoulli, Binomial, Uniforme, Poisson, Geométrica"
+      ],
+      "content": [
+        "Experimento aleatório, espaço de resultados e variável aleatória.",
+        "Discreta: função de probabilidade; contínua: FDP e área sob a curva.",
+        "FDA como P(X <= x), quantis e percentis.",
+        "Esperança, variância e parâmetros versus estimativas.",
+        "Bernoulli, Binomial e Geométrica.",
+        "Poisson, Uniforme contínua e Normal.",
+        "Como reconhecer, estimar parâmetros, verificar ajuste e rejeitar uma distribuição inadequada."
+      ],
+      "materials": [
+        "Livro 2: Cap. 2, 3 e 6 (material principal).",
+        "Livro didático criado nesta conversa: variáveis aleatórias, distribuições e testes.",
+        "Luiza: p. 8-11.",
+        "Douglas: Cap. 2."
+      ],
+      "videos": [
+        "StatQuest: probability distributions, Normal, Binomial e Poisson (https://statquest.org/video_index.html)",
+        "Google MLCC: dados numéricos e estatísticas (https://developers.google.com/machine-learning/crash-course?hl=pt-br)"
+      ],
+      "project": {
+        "repo": "02-banking-risk-distributions-lab",
+        "title": "Laboratório de distribuições",
+        "objective": "Simular e validar fenômenos Bernoulli, Binomial, Geométrico, Poisson, Uniforme e Normal.",
+        "deliverables": [
+          "Definição de X, suporte e parâmetros.",
+          "Fórmulas e simulação Monte Carlo.",
+          "Mapa de decisão da distribuição.",
+          "Comparação teórica versus amostra.",
+          "README com hipóteses e falhas."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "Qual é a diferença entre variável aleatória discreta e contínua?",
+          "answer": "Discreta assume valores contáveis; contínua pode assumir qualquer valor em intervalos."
+        },
+        {
+          "question": "O que a FDP representa?",
+          "answer": "Densidade; probabilidades são áreas em intervalos, não a altura isolada."
+        },
+        {
+          "question": "O que a FDA representa?",
+          "answer": "Probabilidade acumulada até x: P(X <= x); é não decrescente e vai de 0 a 1."
+        },
+        {
+          "question": "Quando usar Bernoulli e quando usar Binomial?",
+          "answer": "Bernoulli para uma tentativa binária; Binomial para número de sucessos em n tentativas independentes com p constante."
+        },
+        {
+          "question": "Quando Poisson é adequada?",
+          "answer": "Para contagens em uma exposição/intervalo com taxa aproximadamente estável e eventos independentes."
+        },
+        {
+          "question": "O que 1/p significa na Geométrica?",
+          "answer": "Número esperado de tentativas até o primeiro sucesso, conforme a convenção adotada."
+        },
+        {
+          "question": "O que mu e sigma representam na Normal?",
+          "answer": "Mu é centro/média; sigma é desvio padrão e controla espalhamento."
+        },
+        {
+          "question": "Como decidir se uma distribuição é adequada?",
+          "answer": "Mecanismo gerador, suporte, parâmetros, gráficos/quantis, frequências e diagnóstico de ajuste."
+        },
+        {
+          "question": "Como você aplicaria variáveis aleatórias e distribuições em um problema bancário real?",
+          "answer": "Eu começaria pela decisão de negócio, definiria a unidade e os dados disponíveis, aplicaria variáveis aleatórias e distribuições com pipeline reproduzível, validaria fora da amostra e traduziria o resultado em ação, limitações e monitoramento."
+        },
+        {
+          "question": "Qual erro mais comum ao usar variáveis aleatórias e distribuições?",
+          "answer": "O erro mais comum é aplicar a técnica mecanicamente, sem checar pressupostos, leakage, qualidade dos dados, métrica adequada e custo operacional. Eu compararia alternativas e documentaria o motivo da escolha."
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Testes de hipótese, intervalos e decisão experimental",
+      "period": "17/08 a 23/08/2026",
+      "block": "ESTATÍSTICA BÁSICA",
+      "objective": "Transformar uma pergunta de negócio em H0/H1, escolher o teste, interpretar p-valor/intervalo e separar significância estatística de relevância prática.",
+      "syllabus": [
+        "Testes de hipóteses"
+      ],
+      "content": [
+        "Parâmetro, estimador, erro padrão e distribuição amostral.",
+        "Intervalo de confiança e margem de erro.",
+        "H0, H1, alfa, estatística de teste e p-valor.",
+        "Erros Tipo I/II, potência e tamanho amostral.",
+        "Teste unilateral versus bilateral.",
+        "Testes de média, proporção, pareado/independente e qui-quadrado.",
+        "Pressupostos, alternativas não paramétricas, efeito e decisão de negócio."
+      ],
+      "materials": [
+        "Livro 2: Cap. 7 e 8 (material principal).",
+        "Luiza: p. 5-8.",
+        "Douglas: Cap. 3 - Testes de hipótese.",
+        "Livro 1: Cap. 10.4 como aplicação futura em comparação de modelos."
+      ],
+      "videos": [
+        "StatQuest: null hypothesis, p-value, t-tests, chi-square e power (https://statquest.org/video_index.html)",
+        "Google MLCC Exercises: quizzes para interpretação (https://developers.google.com/machine-learning/crash-course/exercises)"
+      ],
+      "project": {
+        "repo": "03-banking-ab-test-credit-policy",
+        "title": "Experimento de política de crédito",
+        "objective": "Avaliar conversão e inadimplência de controle/tratamento.",
+        "deliverables": [
+          "Plano experimental.",
+          "Testes e intervalos.",
+          "Tamanho de efeito e power.",
+          "Análise por segmento.",
+          "Decisão de negócio documentada."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "O que é H0?",
+          "answer": "Hipótese de referência, normalmente ausência de diferença/efeito, avaliada contra os dados."
+        },
+        {
+          "question": "O que o p-valor não significa?",
+          "answer": "Não é a probabilidade de H0 ser verdadeira nem o tamanho do efeito."
+        },
+        {
+          "question": "O que é erro Tipo I?",
+          "answer": "Rejeitar H0 quando ela é verdadeira; falso positivo, controlado por alfa."
+        },
+        {
+          "question": "O que é erro Tipo II?",
+          "answer": "Não rejeitar H0 quando existe efeito; falso negativo, relacionado à potência."
+        },
+        {
+          "question": "Significância estatística garante relevância de negócio?",
+          "answer": "Não; efeito pode ser minúsculo. É preciso tamanho de efeito, custo e intervalo."
+        },
+        {
+          "question": "Quando usar teste pareado?",
+          "answer": "Quando observações estão naturalmente vinculadas, como antes/depois no mesmo cliente."
+        },
+        {
+          "question": "Por que testar pressupostos?",
+          "answer": "O teste depende do desenho e distribuição; violação pode alterar validade ou exigir método robusto/não paramétrico."
+        },
+        {
+          "question": "Como escolher tamanho de amostra?",
+          "answer": "Efeito mínimo relevante, variabilidade, alfa, potência, desenho e perdas esperadas."
+        },
+        {
+          "question": "Como você aplicaria testes de hipótese em um problema bancário real?",
+          "answer": "Eu começaria pela decisão de negócio, definiria a unidade e os dados disponíveis, aplicaria testes de hipótese com pipeline reproduzível, validaria fora da amostra e traduziria o resultado em ação, limitações e monitoramento."
+        },
+        {
+          "question": "Qual erro mais comum ao usar testes de hipótese?",
+          "answer": "O erro mais comum é aplicar a técnica mecanicamente, sem checar pressupostos, leakage, qualidade dos dados, métrica adequada e custo operacional. Eu compararia alternativas e documentaria o motivo da escolha."
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Matrizes, vetores, álgebra matricial, distâncias e produto interno",
+      "period": "24/08 a 30/08/2026",
+      "block": "ÁLGEBRA",
+      "objective": "Representar dados matematicamente e entender a geometria usada por regressão, KNN, SVM, clustering, PCA, embeddings e redes.",
+      "syllabus": [
+        "Matrizes e Vetores",
+        "Álgebra Matricial",
+        "Distâncias e produto interno"
+      ],
+      "content": [
+        "Vetores, matrizes, dimensões, transposta e operações.",
+        "Multiplicação matricial, identidade, inversa, posto e dependência linear.",
+        "Produto interno, norma e similaridade de cosseno.",
+        "Distâncias Euclidiana, Manhattan, Minkowski e Mahalanobis.",
+        "Efeito de escala e correlação.",
+        "Sistemas lineares e forma X beta = y.",
+        "Projeção e interpretação geométrica.",
+        "Boas práticas numéricas."
+      ],
+      "materials": [
+        "Douglas: Cap. 1 - Álgebra (material principal).",
+        "Livro 1: Cap. 2 e Cap. 4.",
+        "Luiza: p. 12-16 como aplicação de distância.",
+        "Livro 3: Cap. 7 para NumPy."
+      ],
+      "videos": [
+        "3Blue1Brown: Vectors - Essence of Linear Algebra (https://www.youtube.com/watch?v=fNk_zzaMoSs)",
+        "3Blue1Brown: Linear transformations and matrices (https://www.youtube.com/watch?v=kYB8IZa5AuE)",
+        "StatQuest: distâncias e similaridade (https://statquest.org/video_index.html)"
+      ],
+      "project": {
+        "repo": "04-customer-similarity-linear-algebra",
+        "title": "Motor de similaridade",
+        "objective": "Implementar distâncias, produto interno e ranking de clientes.",
+        "deliverables": [
+          "Cálculos manuais e NumPy.",
+          "Comparação com/sem escala.",
+          "Cosseno e Mahalanobis.",
+          "Testes unitários.",
+          "README com geometria e limitações."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "Qual é a diferença entre matriz e vetor?",
+          "answer": "Vetor é uma sequência 1D; matriz organiza valores em linhas e colunas."
+        },
+        {
+          "question": "O que o produto interno indica?",
+          "answer": "Alinhamento combinado com magnitude; após normalização, relaciona-se ao cosseno."
+        },
+        {
+          "question": "Por que StandardScaler é importante para distância?",
+          "answer": "Evita que features de escala maior dominem o cálculo."
+        },
+        {
+          "question": "Qual é a diferença entre distância Euclidiana e Manhattan?",
+          "answer": "Euclidiana mede linha reta e penaliza mais diferenças grandes; Manhattan soma diferenças absolutas. A escolha depende da geometria, escala e robustez desejada."
+        },
+        {
+          "question": "Quando a distância de Mahalanobis é útil?",
+          "answer": "Quando features possuem escalas e correlações; ela usa a covariância para medir quão incomum é um deslocamento em relação à estrutura dos dados."
+        },
+        {
+          "question": "Quando uma multiplicação de matrizes é possível?",
+          "answer": "Quando o número de colunas da primeira matriz é igual ao número de linhas da segunda. Se A é m x n e B é n x p, AB é m x p."
+        },
+        {
+          "question": "Por que colunas linearmente dependentes são um problema?",
+          "answer": "Criam redundância, reduzem posto e podem tornar coeficientes/soluções instáveis, especialmente em regressão e inversões."
+        },
+        {
+          "question": "Como produto interno aparece em embeddings?",
+          "answer": "Embeddings são vetores; produto interno ou cosseno mede alinhamento e permite recuperar itens semanticamente semelhantes."
+        },
+        {
+          "question": "Por que não calcular inversa explicitamente sempre?",
+          "answer": "Pode ser numericamente instável e caro. Solucionadores e decomposições são mais robustos para sistemas e regressão."
+        },
+        {
+          "question": "Como você aplicaria álgebra linear para ciência de dados em um problema bancário real?",
+          "answer": "Eu começaria pela decisão de negócio, definiria a unidade e os dados disponíveis, aplicaria álgebra linear para ciência de dados com pipeline reproduzível, validaria fora da amostra e traduziria o resultado em ação, limitações e monitoramento."
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Missings, outliers e categorização",
+      "period": "31/08 a 06/09/2026",
+      "block": "DATA PREP",
+      "objective": "Tratar qualidade de dados sem apagar sinal útil, evitando leakage e documentando cada decisão.",
+      "syllabus": [
+        "Tratamento de missings",
+        "Tratamento de outliers",
+        "Categorização de variáveis contínuas e discretas"
+      ],
+      "content": [
+        "Auditoria de schema, duplicatas, faixas e consistência.",
+        "Mecanismos de missing e diagnóstico.",
+        "Remoção, imputação simples/por grupo/modelos e flags.",
+        "Outlier como erro, caso raro, fraude ou segmento.",
+        "IQR, z-score robusto, winsorização e log.",
+        "Binning por negócio/quantis.",
+        "One-hot, ordinal, frequência e target encoding com cuidado.",
+        "Pipeline ajustado apenas no treino."
+      ],
+      "materials": [
+        "Luiza: p. 17-24.",
+        "Livro 1: Cap. 3 - Pré-processamento.",
+        "Douglas: Cap. 4 - Data Prep.",
+        "Livro 3: Cap. 7."
+      ],
+      "videos": [
+        "Hashtag Programação: Data Cleaning e Feature Engineering (https://www.youtube.com/@HashtagProgramacao)",
+        "Google MLCC: dados numéricos/categóricos e leakage (https://developers.google.com/machine-learning/crash-course?hl=pt-br)"
+      ],
+      "project": {
+        "repo": "05-banking-data-quality-pipeline",
+        "title": "Pipeline de qualidade",
+        "objective": "Tratar nulos, outliers e categóricas sem leakage.",
+        "deliverables": [
+          "Relatório de qualidade.",
+          "Pipeline/ColumnTransformer.",
+          "Comparação de estratégias.",
+          "Testes de schema.",
+          "Data card."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "Por que imputar pela média pode ser ruim?",
+          "answer": "É sensível a assimetria/outliers, reduz variância e pode distorcer relações."
+        },
+        {
+          "question": "Quando criar uma flag de missing?",
+          "answer": "Quando a ausência pode carregar informação de processo/segmento."
+        },
+        {
+          "question": "Todo outlier deve ser removido?",
+          "answer": "Não; pode ser valor real, fraude ou evento de interesse. Primeiro investigar origem e objetivo."
+        },
+        {
+          "question": "One-hot e ordinal encoding são intercambiáveis?",
+          "answer": "Não; ordinal impõe ordem/distância, one-hot evita ordem artificial."
+        },
+        {
+          "question": "O que é data leakage no preprocessamento?",
+          "answer": "Usar estatísticas/informação do teste ou futuro para ajustar transformações."
+        },
+        {
+          "question": "Por que usar Pipeline?",
+          "answer": "Reprodutibilidade, ordem consistente, CV correto e menor risco de leakage."
+        },
+        {
+          "question": "Quando winsorizar um outlier?",
+          "answer": "Quando o valor é legítimo, mas sua influência extrema prejudica o objetivo; deve ser comparado com transformação/modelo robusto e documentado."
+        },
+        {
+          "question": "Qual o risco de target encoding?",
+          "answer": "Leakage e overfitting. Deve ser feito out-of-fold, com suavização e tratamento de categorias novas."
+        },
+        {
+          "question": "Por que criar faixas de variável contínua?",
+          "answer": "Pode melhorar interpretação e capturar não linearidade, mas perde informação e cria fronteiras artificiais; deve ser validado."
+        },
+        {
+          "question": "Como avaliar o tratamento de dados?",
+          "answer": "Comparar distribuição, qualidade, estabilidade e desempenho em validação, verificando se o tratamento não destruiu sinal nem criou viés."
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Correlação, associação, PCA e seleção de variáveis",
+      "period": "07/09 a 13/09/2026",
+      "block": "DATA PREP",
+      "objective": "Reduzir redundância e dimensionalidade sem confundir correlação com causalidade nem selecionar usando o teste.",
+      "syllabus": [
+        "PCA",
+        "Correlação / associação entre dados contínuos e entre dados discretos",
+        "Seleção de variáveis"
+      ],
+      "content": [
+        "Pearson e Spearman.",
+        "Tabelas de contingência, qui-quadrado e V de Cramér.",
+        "Multicolinearidade e variáveis derivadas.",
+        "PCA: escala, componentes, variância explicada, loadings e scores.",
+        "Limites de interpretabilidade do PCA.",
+        "Seleção filter, wrapper e embedded.",
+        "Mutual information, RFE, L1 e permutation importance.",
+        "Seleção dentro da validação e estabilidade temporal."
+      ],
+      "materials": [
+        "Luiza: p. 12-13 e p. 25-27.",
+        "Livro 1: Cap. 3.7 e Cap. 10.",
+        "Livro 2: Cap. 5.",
+        "Douglas: Cap. 4 e 5."
+      ],
+      "videos": [
+        "StatQuest: correlation, PCA e feature selection (https://statquest.org/video_index.html)",
+        "Google MLCC: generalização e dados (https://developers.google.com/machine-learning/crash-course?hl=pt-br)"
+      ],
+      "project": {
+        "repo": "06-feature-engineering-pca-selection",
+        "title": "Seleção e PCA",
+        "objective": "Comparar associação, PCA e métodos de seleção.",
+        "deliverables": [
+          "Mapa de associação.",
+          "PCA e loadings.",
+          "Filter/wrapper/embedded.",
+          "Pipeline com CV.",
+          "Estabilidade temporal."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "Pearson e Spearman medem a mesma coisa?",
+          "answer": "Pearson mede relação linear; Spearman mede associação monotônica via postos."
+        },
+        {
+          "question": "Como medir associação entre categóricas?",
+          "answer": "Tabela de contingência, qui-quadrado e medida como V de Cramér."
+        },
+        {
+          "question": "O que o PCA otimiza?",
+          "answer": "Direções ortogonais que capturam máxima variância sucessiva."
+        },
+        {
+          "question": "PCA seleciona variáveis?",
+          "answer": "Não; cria combinações lineares. Feature selection mantém subconjunto das originais."
+        },
+        {
+          "question": "Qual a limitação central do PCA?",
+          "answer": "Perda de interpretabilidade e foco em variância, que nem sempre é relevância preditiva."
+        },
+        {
+          "question": "Como selecionar variáveis sem vazar informação?",
+          "answer": "Fazer seleção dentro do pipeline e dentro de cada fold de validação."
+        },
+        {
+          "question": "O que é loading no PCA?",
+          "answer": "É o peso de cada feature original em um componente; magnitude indica contribuição e sinal indica direção relativa."
+        },
+        {
+          "question": "PCA é seleção de variáveis?",
+          "answer": "Não. PCA cria combinações lineares; seleção mantém subconjunto das variáveis originais."
+        },
+        {
+          "question": "Qual a diferença entre filter, wrapper e embedded?",
+          "answer": "Filter usa critério independente; wrapper testa subconjuntos com modelo; embedded seleciona durante o treino, como Lasso/árvores."
+        },
+        {
+          "question": "Como provar estabilidade de features?",
+          "answer": "Comparar seleção/importância em folds, períodos e amostras, além de disponibilidade no momento real da previsão."
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Python, leitura/escrita, sklearn e engenharia mínima de projeto",
+      "period": "14/09 a 20/09/2026",
+      "block": "PROGRAMAÇÃO",
+      "objective": "Consolidar a programação praticada desde a primeira semana e transformar notebooks em código testável e reproduzível.",
+      "syllabus": [
+        "Fluência na sintaxe básica",
+        "Métodos e pacotes para leitura e escrita de dados",
+        "Fluência nos principais pacotes de machine learning, como: Python: sklearn; R: caret, mlr"
+      ],
+      "content": [
+        "Ambiente: Anaconda/Jupyter, venv, terminal e instalação de pacotes.",
+        "Tipos, operadores, strings, listas, tuplas, conjuntos e dicionários.",
+        "Condições, laços, comprehensions, funções, parâmetros, retorno e escopo.",
+        "Tratamento de erros, módulos, leitura/escrita de CSV e JSON.",
+        "NumPy básico, pandas básico e primeiro contato com sklearn.",
+        "Git: init, add, commit, branch, merge, README, .gitignore e publicação no GitHub.",
+        "pytest, organização em src/ e dependências.",
+        "Issues, branches, pull requests e releases."
+      ],
+      "materials": [
+        "Livro 3: Cap. 1-8 (material principal).",
+        "Luiza: p. 17-18 e p. 28-31 como exemplos.",
+        "Douglas: Cap. 15 como checklist.",
+        "Documentação do sklearn."
+      ],
+      "videos": [
+        "Curso em Vídeo: Python Mundo 1 (https://www.youtube.com/playlist?list=PLHz_AreHm4dlKP6QQCekuIPky1CiwmdI6)",
+        "Hashtag Programação: Python, pandas e ciência de dados (https://www.youtube.com/@HashtagProgramacao)"
+      ],
+      "project": {
+        "repo": "07-banking-data-toolkit",
+        "title": "Pacote Python",
+        "objective": "Transformar notebooks em biblioteca reutilizável.",
+        "deliverables": [
+          "Pacote src/.",
+          "CLI simples.",
+          "pytest.",
+          "requirements/pyproject.",
+          "Release v1.0 e documentação."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "Por que funções são importantes em um projeto de dados?",
+          "answer": "Reutilização, teste isolado, redução de duplicação e separação de responsabilidades."
+        },
+        {
+          "question": "Qual é a diferença entre lista, tupla, conjunto e dicionário?",
+          "answer": "Lista é ordenada e mutável; tupla é ordenada e imutável; conjunto remove duplicatas; dicionário associa chave a valor."
+        },
+        {
+          "question": "Quando usar try/except?",
+          "answer": "Para tratar falhas previsíveis e produzir mensagem/ação controlada, sem esconder erros de programação."
+        },
+        {
+          "question": "Qual é a diferença entre NumPy e pandas?",
+          "answer": "NumPy trabalha principalmente com arrays numéricos; pandas adiciona rótulos, tipos heterogêneos e operações tabulares."
+        },
+        {
+          "question": "Por que usar .gitignore?",
+          "answer": "Evitar versionar ambientes, caches, credenciais, arquivos grandes e dados sensíveis."
+        },
+        {
+          "question": "O que torna um experimento reproduzível?",
+          "answer": "Versões de dependências, seed, dados/geração documentados, código versionado e passos de execução."
+        },
+        {
+          "question": "O que sklearn oferece?",
+          "answer": "API consistente de estimadores, preprocessamento, pipelines, validação, modelos e métricas."
+        },
+        {
+          "question": "Como você investigaria um CSV que falhou ao carregar?",
+          "answer": "Verificar caminho, encoding, separador, cabeçalho, tipos, linhas quebradas e mensagem de erro."
+        },
+        {
+          "question": "Como você aplicaria programação Python para ciência de dados em um problema bancário real?",
+          "answer": "Eu começaria pela decisão de negócio, definiria a unidade e os dados disponíveis, aplicaria programação Python para ciência de dados com pipeline reproduzível, validaria fora da amostra e traduziria o resultado em ação, limitações e monitoramento."
+        },
+        {
+          "question": "Qual erro mais comum ao usar programação Python para ciência de dados?",
+          "answer": "O erro mais comum é aplicar a técnica mecanicamente, sem checar pressupostos, leakage, qualidade dos dados, métrica adequada e custo operacional. Eu compararia alternativas e documentaria o motivo da escolha."
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Modelo relacional, SQL, álgebra relacional e chaves",
+      "period": "21/09 a 27/09/2026",
+      "block": "BANCO DE DADOS",
+      "objective": "Entender como os dados nascem em sistemas transacionais e montar, com SQL, uma tabela analítica sem duplicar clientes nem introduzir vazamento.",
+      "syllabus": [
+        "Modelo de banco de dados relacional",
+        "Sintaxe de SQL",
+        "Álgebra relacional: join, group by, order by e etc.",
+        "Chaves primárias, secundárias e estrangeiras"
+      ],
+      "content": [
+        "Entidade, tabela, linha, coluna, cardinalidade e normalização básica.",
+        "Chave primária, estrangeira, composta, candidata e índice secundário.",
+        "SELECT, WHERE, CASE WHEN, funções de data e tratamento de NULL.",
+        "JOINs e cardinalidade: 1:1, 1:N e N:N.",
+        "GROUP BY, HAVING, ORDER BY, subqueries, CTEs e funções de janela.",
+        "Construção de uma tabela cliente-mês e auditoria da granularidade.",
+        "CTEs, funções de janela e performance básica.",
+        "Features temporais sem vazamento."
+      ],
+      "materials": [
+        "Hashtag Programação: curso de SQL.",
+        "Livro 3: sqlite3/pandas.read_sql como integração.",
+        "Douglas: Cap. 15.",
+        "Ementa oficial como checklist literal."
+      ],
+      "videos": [
+        "Hashtag Programação: curso de SQL e banco relacional (https://www.youtube.com/@HashtagProgramacao)",
+        "freeCodeCamp: buscar SQL full course (https://www.youtube.com/@freecodecamp)"
+      ],
+      "project": {
+        "repo": "08-banking-sql-feature-mart",
+        "title": "Data mart SQL",
+        "objective": "Criar uma linha por cliente/data com features temporais.",
+        "deliverables": [
+          "DDL e chaves.",
+          "CTEs/joins/janelas.",
+          "Testes de cardinalidade.",
+          "ERD.",
+          "Python para validação."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "O que é uma chave primária?",
+          "answer": "Identificador único e não nulo de cada registro; garante integridade da entidade."
+        },
+        {
+          "question": "O que é uma chave estrangeira?",
+          "answer": "Coluna que referencia a chave de outra tabela e sustenta integridade referencial."
+        },
+        {
+          "question": "Por que um JOIN pode multiplicar linhas?",
+          "answer": "Porque a chave usada não é única em um ou nos dois lados; a cardinalidade precisa ser entendida antes."
+        },
+        {
+          "question": "Qual é a diferença entre WHERE e HAVING?",
+          "answer": "WHERE filtra linhas antes da agregação; HAVING filtra grupos depois do GROUP BY."
+        },
+        {
+          "question": "Quando usar LEFT JOIN?",
+          "answer": "Quando é necessário preservar todas as linhas da tabela da esquerda, inclusive sem correspondência."
+        },
+        {
+          "question": "O que é granularidade?",
+          "answer": "O significado de cada linha; por exemplo, uma linha por transação ou uma linha por cliente-mês."
+        },
+        {
+          "question": "Como SQL entra no trabalho de cientista de dados?",
+          "answer": "Extração, integração, validação e criação de features antes da modelagem."
+        },
+        {
+          "question": "O que é vazamento temporal em uma query?",
+          "answer": "Usar informação posterior ao momento em que a previsão deveria ser feita."
+        },
+        {
+          "question": "Como você aplicaria SQL e banco relacional em um problema bancário real?",
+          "answer": "Eu começaria pela decisão de negócio, definiria a unidade e os dados disponíveis, aplicaria SQL e banco relacional com pipeline reproduzível, validaria fora da amostra e traduziria o resultado em ação, limitações e monitoramento."
+        },
+        {
+          "question": "Qual erro mais comum ao usar SQL e banco relacional?",
+          "answer": "O erro mais comum é aplicar a técnica mecanicamente, sem checar pressupostos, leakage, qualidade dos dados, métrica adequada e custo operacional. Eu compararia alternativas e documentaria o motivo da escolha."
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Regressão linear, resíduos, métricas e validação",
+      "period": "28/09 a 04/10/2026",
+      "block": "REGRESSÃO + AVALIAÇÃO",
+      "objective": "Entender o modelo linear, avaliar erro fora da amostra e diagnosticar violações por resíduos.",
+      "syllabus": [
+        "Regressão Linear",
+        "Análise de Resíduos",
+        "Métricas de avaliação de modelo: KS, Gini, AUC, RMSE, MAE, F1, Recall, Precision, R2",
+        "Validações holdout, leave one out, k-fold, out of sample, out of time"
+      ],
+      "content": [
+        "Modelo linear e interpretação de coeficientes.",
+        "Mínimos quadrados, MSE e gradiente.",
+        "Resíduo versus erro.",
+        "Linearidade, independência, homocedasticidade e multicolinearidade.",
+        "MAE, RMSE e R2.",
+        "Holdout, k-fold, LOOCV, out-of-sample e out-of-time.",
+        "Baseline, extrapolação e estabilidade temporal."
+      ],
+      "materials": [
+        "Livro 2: Cap. 9.",
+        "Livro 3: Cap. 9-10.",
+        "Luiza: p. 28-39 e p. 45-48.",
+        "Douglas: Cap. 8-9; Livro 1: Cap. 10."
+      ],
+      "videos": [
+        "Google MLCC: regressão linear, loss e gradiente (https://developers.google.com/machine-learning/crash-course?hl=pt-br)",
+        "StatQuest: linear regression, residuals e R-squared (https://statquest.org/video_index.html)"
+      ],
+      "project": {
+        "repo": "09-credit-limit-regression",
+        "title": "Regressão de gasto/limite",
+        "objective": "Prever alvo contínuo e diagnosticar resíduos.",
+        "deliverables": [
+          "Baseline.",
+          "Regressão linear.",
+          "Resíduos e segmentos.",
+          "MAE/RMSE/R2 em out-of-time.",
+          "Model card."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "O que um coeficiente representa?",
+          "answer": "Variação esperada no target por unidade da feature, mantendo as demais constantes, dentro do modelo."
+        },
+        {
+          "question": "O que é um resíduo?",
+          "answer": "Valor observado menos previsto; evidencia erro não explicado."
+        },
+        {
+          "question": "O que é heterocedasticidade?",
+          "answer": "Variância do erro muda com nível previsto/feature, afetando inferência e incerteza."
+        },
+        {
+          "question": "MAE ou RMSE?",
+          "answer": "MAE é robusto e interpretable; RMSE penaliza mais erros grandes. Escolha pelo custo."
+        },
+        {
+          "question": "R2 alto garante modelo bom?",
+          "answer": "Não; pode haver leakage, erro alto relevante, instabilidade ou extrapolação ruim."
+        },
+        {
+          "question": "Por que RMSE pune erros grandes?",
+          "answer": "Porque eleva erros ao quadrado antes da média."
+        },
+        {
+          "question": "Como detectar overfitting?",
+          "answer": "Desempenho muito melhor no treino que em validação/teste, com instabilidade entre folds."
+        },
+        {
+          "question": "O que significa R2 negativo no teste?",
+          "answer": "O modelo generaliza pior que o baseline de prever a média do treino; pode indicar overfitting, drift, features fracas ou erro de pipeline."
+        },
+        {
+          "question": "Quando usar out-of-time?",
+          "answer": "Quando o modelo será aplicado no futuro e a ordem temporal pode mudar a distribuição."
+        },
+        {
+          "question": "Por que normalidade dos resíduos não é requisito absoluto de previsão?",
+          "answer": "É mais importante para inferência clássica; para previsão, importam generalização, padrões de resíduos e incerteza."
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Regularização, árvore de regressão e GLM",
+      "period": "05/10 a 11/10/2026",
+      "block": "REGRESSÃO + AVALIAÇÃO",
+      "objective": "Comparar modelos lineares regularizados, árvores e GLMs usando o mesmo protocolo de validação.",
+      "syllabus": [
+        "Regularização L1 e L2",
+        "Árvore de Regressão",
+        "Modelos lineares generalizados (GLM)"
+      ],
+      "content": [
+        "Ridge/L2, Lasso/L1 e Elastic Net.",
+        "Padronização e regularização.",
+        "Árvore de regressão, critérios e poda.",
+        "GLM: família, preditor e link.",
+        "Gaussian/identity, Poisson/log e Binomial/logit.",
+        "Overdispersion.",
+        "Tunagem e viés-variância.",
+        "Comparação no mesmo split e baseline."
+      ],
+      "materials": [
+        "Luiza: p. 49-52 e p. 66-71.",
+        "Livro 3: Cap. 11-12 e 15.",
+        "Livro 1: Cap. 6 e 10.",
+        "Douglas: Cap. 8-9."
+      ],
+      "videos": [
+        "StatQuest: Ridge, Lasso, regression trees e GLM (https://statquest.org/video_index.html)",
+        "Google MLCC: overfitting e validação (https://developers.google.com/machine-learning/crash-course?hl=pt-br)"
+      ],
+      "project": {
+        "repo": "10-loss-severity-model-benchmark",
+        "title": "Benchmark de regressão",
+        "objective": "Comparar Ridge/Lasso, árvore e GLM.",
+        "deliverables": [
+          "Pipeline e tunagem.",
+          "Mesmos splits.",
+          "Tabela de métricas.",
+          "Interpretação/importance.",
+          "Recomendação champion/challenger."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "Ridge e Lasso resolvem o mesmo problema?",
+          "answer": "Ambos regularizam; Ridge contrai coeficientes, Lasso pode selecionar zerando alguns."
+        },
+        {
+          "question": "O que é GLM?",
+          "answer": "Estrutura que relaciona média do target a preditor linear por função de ligação e família de distribuição."
+        },
+        {
+          "question": "Quando árvore supera linear?",
+          "answer": "Quando há não linearidades/interações/cortes; ainda precisa controlar overfitting."
+        },
+        {
+          "question": "Como uma árvore escolhe split?",
+          "answer": "Busca divisão que reduz impureza/erro segundo critério e restrições."
+        },
+        {
+          "question": "Por que árvore única overfita?",
+          "answer": "Pode crescer regras muito específicas para ruído do treino."
+        },
+        {
+          "question": "Qual a diferença prática entre L1 e L2?",
+          "answer": "L2 contrai coeficientes e estabiliza correlação; L1 pode zerar coeficientes e produzir esparsidade."
+        },
+        {
+          "question": "O que define um GLM?",
+          "answer": "Família de distribuição, preditor linear e função de ligação entre a média do alvo e o preditor."
+        },
+        {
+          "question": "Quando usar GLM Poisson?",
+          "answer": "Para contagens não negativas com exposição e relação log, verificando overdispersion."
+        },
+        {
+          "question": "Como uma árvore de regressão prevê?",
+          "answer": "A observação percorre regras até uma folha; a previsão é uma estatística dos alvos na folha."
+        },
+        {
+          "question": "Modelo mais preciso sempre é melhor?",
+          "answer": "Não; estabilidade, explicabilidade, latência, governança e custo também importam."
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Regressão logística e Naive Bayes",
+      "period": "12/10 a 18/10/2026",
+      "block": "CLASSIFICAÇÃO + AVALIAÇÃO",
+      "objective": "Produzir probabilidades de classe, interpretar threshold/odds e entender um classificador Bayesiano como baseline probabilístico.",
+      "syllabus": [
+        "Regressão Logística",
+        "Naive Bayes (Gaussiano x Bernoulli)",
+        "Métricas de avaliação de modelo: KS, Gini, AUC, RMSE, MAE, F1, Recall, Precision, R2",
+        "Validações holdout, leave one out, k-fold, out of sample, out of time"
+      ],
+      "content": [
+        "Classificação binária, probabilidade e score.",
+        "Sigmoide, logit, odds e interpretação dos coeficientes.",
+        "Log Loss e máxima verossimilhança.",
+        "Regularização e calibração.",
+        "Threshold, Precision/Recall e matriz de custo.",
+        "Teorema de Bayes aplicado a classe/features.",
+        "Hipótese de independência condicional.",
+        "GaussianNB versus BernoulliNB e quando cada um faz sentido.",
+        "Métricas, threshold e validação apropriada ao cenário."
+      ],
+      "materials": [
+        "Luiza: p. 53-61.",
+        "Livro 1: Cap. 5.",
+        "Livro 3: Cap. 13.",
+        "Douglas: Cap. 6-7; Livro 2 para Bayes."
+      ],
+      "videos": [
+        "Google MLCC: logística, threshold, matriz de confusão e AUC (https://developers.google.com/machine-learning/crash-course?hl=pt-br)",
+        "StatQuest: logística e Naive Bayes (https://statquest.org/video_index.html)"
+      ],
+      "project": {
+        "repo": "11-default-propensity-probabilistic-models",
+        "title": "Probabilidade de inadimplência",
+        "objective": "Comparar logística e Naive Bayes e escolher threshold.",
+        "deliverables": [
+          "Logística e NB.",
+          "ROC/PR, KS/Gini.",
+          "Calibração.",
+          "Matriz de custo.",
+          "Out-of-time."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "Por que regressão logística é classificação?",
+          "answer": "Modela probabilidade de classe e aplica threshold; o nome vem do preditor linear/logit."
+        },
+        {
+          "question": "O que a sigmoide faz?",
+          "answer": "Mapeia qualquer número real para intervalo 0-1."
+        },
+        {
+          "question": "O que é odds?",
+          "answer": "Razão p/(1-p); compara chance do evento com a do não evento."
+        },
+        {
+          "question": "Por que usar Log Loss?",
+          "answer": "Penaliza probabilidades confiantes e erradas e é adequada ao ajuste probabilístico."
+        },
+        {
+          "question": "O que muda ao reduzir threshold?",
+          "answer": "Aumenta positivos previstos/Recall e tende a reduzir Precision."
+        },
+        {
+          "question": "Qual é a hipótese naive?",
+          "answer": "Features são condicionalmente independentes dada a classe."
+        },
+        {
+          "question": "GaussianNB e BernoulliNB diferem como?",
+          "answer": "Gaussiano modela feature contínua por Normal por classe; Bernoulli modela presença/ausência binária."
+        },
+        {
+          "question": "Probabilidade prevista é automaticamente calibrada?",
+          "answer": "Não; discriminação e calibração são propriedades diferentes."
+        },
+        {
+          "question": "Como você aplicaria classificadores probabilísticos em um problema bancário real?",
+          "answer": "Eu começaria pela decisão de negócio, definiria a unidade e os dados disponíveis, aplicaria classificadores probabilísticos com pipeline reproduzível, validaria fora da amostra e traduziria o resultado em ação, limitações e monitoramento."
+        },
+        {
+          "question": "Qual erro mais comum ao usar classificadores probabilísticos?",
+          "answer": "O erro mais comum é aplicar a técnica mecanicamente, sem checar pressupostos, leakage, qualidade dos dados, métrica adequada e custo operacional. Eu compararia alternativas e documentaria o motivo da escolha."
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "KNN e SVM",
+      "period": "19/10 a 25/10/2026",
+      "block": "CLASSIFICAÇÃO + AVALIAÇÃO",
+      "objective": "Entender como geometria, escala, K, margem e kernel determinam as previsões e o custo computacional.",
+      "syllabus": [
+        "KNN",
+        "SVM"
+      ],
+      "content": [
+        "KNN como aprendizado baseado em instâncias/lazy learner.",
+        "Distância, escala, escolha de K, pesos e maldição da dimensionalidade.",
+        "Fronteira de decisão e custo de predição.",
+        "SVM linear, hiperplano, margem e vetores de suporte.",
+        "Margem rígida/suave e parâmetro C.",
+        "Kernel trick, RBF e gamma.",
+        "Pipeline de escala + CV + tunagem.",
+        "Comparação de desempenho, latência e explicabilidade.",
+        "Métricas, threshold e validação apropriada ao cenário."
+      ],
+      "materials": [
+        "Luiza: p. 62-65 e p. 72-75.",
+        "Livro 1: Cap. 4 e 8.",
+        "Livro 3: Cap. 14 e 16.",
+        "Douglas: Cap. 6-7."
+      ],
+      "videos": [
+        "StatQuest: KNN, SVM, kernels, C e gamma (https://statquest.org/video_index.html)",
+        "Google MLCC: classificação e escala (https://developers.google.com/machine-learning/crash-course?hl=pt-br)"
+      ],
+      "project": {
+        "repo": "12-fraud-knn-svm-benchmark",
+        "title": "KNN versus SVM",
+        "objective": "Comparar distância, margem e latência em fraude.",
+        "deliverables": [
+          "Pipeline com escala.",
+          "Busca K/C/gamma.",
+          "ROC/PR e threshold.",
+          "Tempo de treino/inferência.",
+          "Análise de dimensionalidade."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "Por que KNN precisa de escala?",
+          "answer": "A distância seria dominada por features numericamente maiores."
+        },
+        {
+          "question": "K pequeno e K grande causam o quê?",
+          "answer": "Pequeno: alta variância/overfit; grande: maior viés/suavização."
+        },
+        {
+          "question": "Por que KNN é lazy learner?",
+          "answer": "Não aprende parâmetros globais; armazena dados e calcula vizinhos na predição."
+        },
+        {
+          "question": "O que o SVM maximiza?",
+          "answer": "A margem entre fronteira e pontos mais próximos das classes."
+        },
+        {
+          "question": "O que são vetores de suporte?",
+          "answer": "Observações críticas que definem a margem/fronteira."
+        },
+        {
+          "question": "O que C controla?",
+          "answer": "Trade-off entre margem ampla e penalidade por violações/erros."
+        },
+        {
+          "question": "O que gamma controla no RBF?",
+          "answer": "Alcance de influência de cada ponto; alto pode criar fronteira muito local."
+        },
+        {
+          "question": "Quando evitar KNN/SVM?",
+          "answer": "KNN em bases enormes/alta dimensão sem estrutura; SVM em escala massiva ou quando explicabilidade simples é crucial."
+        },
+        {
+          "question": "Como você aplicaria KNN e SVM em um problema bancário real?",
+          "answer": "Eu começaria pela decisão de negócio, definiria a unidade e os dados disponíveis, aplicaria KNN e SVM com pipeline reproduzível, validaria fora da amostra e traduziria o resultado em ação, limitações e monitoramento."
+        },
+        {
+          "question": "Qual erro mais comum ao usar KNN e SVM?",
+          "answer": "O erro mais comum é aplicar a técnica mecanicamente, sem checar pressupostos, leakage, qualidade dos dados, métrica adequada e custo operacional. Eu compararia alternativas e documentaria o motivo da escolha."
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Árvore de classificação, Random Forest, Boosting e ensembles",
+      "period": "26/10 a 01/11/2026",
+      "block": "CLASSIFICAÇÃO + AVALIAÇÃO",
+      "objective": "Explicar como árvores dividem o espaço, controlar sua complexidade e comparar bagging/boosting em dados tabulares.",
+      "syllabus": [
+        "Árvore de classificação",
+        "Random Forest",
+        "Estratégias de Boosting: Gradient Boosting, ADA Boosting, etc.",
+        "ensemble modelling"
+      ],
+      "content": [
+        "Árvore, nó, folha, profundidade e regra de divisão.",
+        "Gini, entropia e ganho; árvore de regressão como revisão.",
+        "Overfitting, pré/pós-poda e hiperparâmetros.",
+        "Bagging, amostras bootstrap e subamostragem de features.",
+        "Random Forest e redução de variância.",
+        "AdaBoost e foco em erros.",
+        "Gradient Boosting, learning rate, estimadores e árvores rasas.",
+        "Importância por impureza versus permutation importance e limites.",
+        "Métricas, threshold e validação apropriada ao cenário."
+      ],
+      "materials": [
+        "Luiza: p. 66-81.",
+        "Livro 1: Cap. 6 e 9.",
+        "Livro 3: Cap. 12.",
+        "Douglas: Cap. 6-7."
+      ],
+      "videos": [
+        "StatQuest: árvores, Random Forest, AdaBoost e Gradient Boosting (https://statquest.org/video_index.html)",
+        "Google ML: Decision Forests (https://developers.google.com/machine-learning/crash-course?hl=pt-br)"
+      ],
+      "project": {
+        "repo": "13-credit-risk-ensemble-challenge",
+        "title": "Desafio de ensembles",
+        "objective": "Comparar árvore, Random Forest e Boosting.",
+        "deliverables": [
+          "Baseline árvore.",
+          "RF/Boosting tunados.",
+          "Permutation importance.",
+          "Validação temporal.",
+          "Relatório de champion/challenger."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "Como uma árvore escolhe split?",
+          "answer": "Busca divisão que reduz impureza/erro segundo critério e restrições."
+        },
+        {
+          "question": "Por que árvore única overfita?",
+          "answer": "Pode crescer regras muito específicas para ruído do treino."
+        },
+        {
+          "question": "O que bagging faz?",
+          "answer": "Treina modelos em amostras/variações e agrega para reduzir variância."
+        },
+        {
+          "question": "Por que Random Forest descorrelaciona árvores?",
+          "answer": "Usa bootstrap e subconjuntos aleatórios de features."
+        },
+        {
+          "question": "O que distingue boosting?",
+          "answer": "Modelos são sequenciais e cada etapa corrige resíduos/erros anteriores."
+        },
+        {
+          "question": "Learning rate baixo sempre é melhor?",
+          "answer": "Pode generalizar melhor, mas exige mais estimadores e custo; precisa validação."
+        },
+        {
+          "question": "Feature importance prova causalidade?",
+          "answer": "Não; mede uso/impacto no modelo sob os dados e pode ter vieses."
+        },
+        {
+          "question": "Qual modelo você escolheria para sabatina?",
+          "answer": "Depende de métrica, estabilidade, latência, explicabilidade e custo, não apenas melhor score."
+        },
+        {
+          "question": "Como você aplicaria árvores e ensembles em um problema bancário real?",
+          "answer": "Eu começaria pela decisão de negócio, definiria a unidade e os dados disponíveis, aplicaria árvores e ensembles com pipeline reproduzível, validaria fora da amostra e traduziria o resultado em ação, limitações e monitoramento."
+        },
+        {
+          "question": "Qual erro mais comum ao usar árvores e ensembles?",
+          "answer": "O erro mais comum é aplicar a técnica mecanicamente, sem checar pressupostos, leakage, qualidade dos dados, métrica adequada e custo operacional. Eu compararia alternativas e documentaria o motivo da escolha."
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Redes neurais, deep learning e avaliação",
+      "period": "02/11 a 08/11/2026",
+      "block": "CLASSIFICAÇÃO + AVALIAÇÃO",
+      "objective": "Entender o funcionamento de uma rede neural, treinar uma MLP e comparar com modelos tabulares fortes.",
+      "syllabus": [
+        "Redes Neurais",
+        "deep learning e tensor flow"
+      ],
+      "content": [
+        "Neurônio, pesos, bias e ativação.",
+        "Camadas e forward pass.",
+        "Função custo e backpropagation.",
+        "Learning rate, batch e épocas.",
+        "ReLU, sigmoid e softmax.",
+        "Dropout, weight decay e early stopping.",
+        "Padronização e estabilidade.",
+        "TensorFlow/Keras e comparação com ensembles.",
+        "Métricas, calibração e validação temporal."
+      ],
+      "materials": [
+        "Livro 1: Cap. 7.",
+        "Douglas: Cap. 6, 7 e 14.",
+        "Luiza: p. 97-109 apenas como revisão.",
+        "Google ML Crash Course: Neural Networks."
+      ],
+      "videos": [
+        "Google MLCC: Neural Networks (https://developers.google.com/machine-learning/crash-course?hl=pt-br)",
+        "StatQuest: neural networks e backpropagation (https://statquest.org/video_index.html)",
+        "3Blue1Brown: Neural Networks playlist (https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr)"
+      ],
+      "project": {
+        "repo": "14-neural-network-risk-classifier",
+        "title": "Rede neural tabular",
+        "objective": "Treinar MLP e comparar com ensemble.",
+        "deliverables": [
+          "MLP/TensorFlow.",
+          "Curvas treino/validação.",
+          "Early stopping.",
+          "Métricas/calibração.",
+          "Discussão quando a rede não vale."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "O que um neurônio calcula?",
+          "answer": "Combinação ponderada das entradas + bias, seguida de ativação."
+        },
+        {
+          "question": "Por que usar função de ativação?",
+          "answer": "Introduz não linearidade; sem ela, várias camadas equivaleriam a transformação linear."
+        },
+        {
+          "question": "O que é backpropagation?",
+          "answer": "Cálculo de gradientes da perda em relação aos pesos, propagado da saída para trás."
+        },
+        {
+          "question": "O que learning rate controla?",
+          "answer": "Tamanho da atualização dos pesos; alto pode divergir, baixo pode ser lento."
+        },
+        {
+          "question": "O que é epoch e batch?",
+          "answer": "Epoch é passagem completa pelos dados; batch é subconjunto usado em uma atualização."
+        },
+        {
+          "question": "Quando evitar deep learning?",
+          "answer": "Poucos dados, baixa capacidade computacional, forte exigência de explicabilidade ou quando modelo simples resolve."
+        },
+        {
+          "question": "Como detectar overfitting em rede?",
+          "answer": "Loss de treino cai enquanto validação piora; diferença de métricas cresce. Early stopping e regularização ajudam."
+        },
+        {
+          "question": "O que dropout faz?",
+          "answer": "Desativa unidades aleatoriamente no treino para reduzir coadaptação e overfitting."
+        },
+        {
+          "question": "Por que calibrar uma rede de risco?",
+          "answer": "A sigmoid pode produzir probabilidades superconfiantes; faixas de score devem refletir frequências reais."
+        },
+        {
+          "question": "Quando uma árvore pode superar uma rede em tabular?",
+          "answer": "Em bases pequenas/médias e heterogêneas, boosting costuma exigir menos preparação e ser mais interpretável."
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "K-means, K-medoids e escolha do número de clusters",
+      "period": "09/11 a 15/11/2026",
+      "block": "AGRUPAMENTO + AVALIAÇÃO",
+      "objective": "Criar segmentos interpretáveis, justificar K e mostrar que clustering é uma hipótese analítica, não uma verdade automática.",
+      "syllabus": [
+        "K-means / K-medoids",
+        "Estratégias de definição do número de cluster (joelho/elbow, silhueta, distância, intra-cluster, etc.)"
+      ],
+      "content": [
+        "Objetivo de clustering e diferença para classificação.",
+        "Preparação: seleção, escala, outliers e distância.",
+        "K-means, centróide, função objetivo e inicialização.",
+        "K-medoids e robustez.",
+        "Inércia/intra-cluster e método do cotovelo.",
+        "Silhueta, estabilidade e validação de negócio.",
+        "Perfil dos clusters e ação possível.",
+        "Limitações: forma esférica, K fixo e sensibilidade."
+      ],
+      "materials": [
+        "Luiza: p. 82-85.",
+        "Livro 1: Cap. 12-13 e 15.",
+        "Douglas: Cap. 10-11."
+      ],
+      "videos": [
+        "StatQuest: K-means, elbow e silhouette (https://statquest.org/video_index.html)",
+        "Google ML: Clustering (https://developers.google.com/machine-learning/clustering)"
+      ],
+      "project": {
+        "repo": "15-customer-segmentation-kmeans",
+        "title": "Segmentação acionável",
+        "objective": "Criar clusters com ações de negócio.",
+        "deliverables": [
+          "Features/escala.",
+          "K-means/K-medoids.",
+          "Elbow/silhouette.",
+          "Perfis e estabilidade.",
+          "Playbook por cluster."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "Qual é a diferença entre cluster e classe?",
+          "answer": "Classe é rótulo conhecido; cluster é estrutura inferida sem target."
+        },
+        {
+          "question": "O que K-means minimiza?",
+          "answer": "Soma das distâncias quadráticas aos centróides dentro dos clusters."
+        },
+        {
+          "question": "Por que escala é crucial?",
+          "answer": "Features maiores dominam distância e centróides."
+        },
+        {
+          "question": "K-means e K-medoids diferem como?",
+          "answer": "Centróide pode não ser observação; medoid é ponto real e tende a ser mais robusto."
+        },
+        {
+          "question": "O que o elbow procura?",
+          "answer": "Ponto de retornos decrescentes na redução da inércia."
+        },
+        {
+          "question": "O que silhueta mede?",
+          "answer": "Coesão com próprio cluster versus separação do cluster vizinho."
+        },
+        {
+          "question": "Silhueta alta garante valor de negócio?",
+          "answer": "Não; precisa interpretação, estabilidade e ação."
+        },
+        {
+          "question": "Como validar clusters sem target?",
+          "answer": "Índices internos, estabilidade, coerência, perfil e validação com especialistas/uso."
+        },
+        {
+          "question": "Como você aplicaria K-means e avaliação de clusters em um problema bancário real?",
+          "answer": "Eu começaria pela decisão de negócio, definiria a unidade e os dados disponíveis, aplicaria K-means e avaliação de clusters com pipeline reproduzível, validaria fora da amostra e traduziria o resultado em ação, limitações e monitoramento."
+        },
+        {
+          "question": "Qual erro mais comum ao usar K-means e avaliação de clusters?",
+          "answer": "O erro mais comum é aplicar a técnica mecanicamente, sem checar pressupostos, leakage, qualidade dos dados, métrica adequada e custo operacional. Eu compararia alternativas e documentaria o motivo da escolha."
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "title": "DBSCAN, hierárquico, GMM e detecção de anomalia",
+      "period": "16/11 a 22/11/2026",
+      "block": "AGRUPAMENTO + AVALIAÇÃO",
+      "objective": "Comparar agrupamento por densidade, hierarquia e mistura probabilística e transformar ruído/anomalia em investigação, não em remoção automática.",
+      "syllabus": [
+        "DBSCAN",
+        "Algoritmos Hierárquicos",
+        "Gaussian Mixture Models (GMM)",
+        "detecção de anomalia",
+        "Estratégias de definição do número de cluster (joelho/elbow, silhueta, distância, intra-cluster, etc.)"
+      ],
+      "content": [
+        "DBSCAN: eps, MinPts, core, border e noise.",
+        "Variação de densidade, distância e escala.",
+        "Hierárquico aglomerativo, linkage e dendrograma.",
+        "GMM, gaussianas, covariância e soft clustering.",
+        "Algoritmo EM em nível intuitivo.",
+        "Detecção de anomalia: z/IQR, densidade, Isolation Forest e contexto.",
+        "Comparação de algoritmos por formato, ruído e objetivo.",
+        "Avaliação e análise dos casos extremos.",
+        "AIC/BIC e estabilidade dos clusters."
+      ],
+      "materials": [
+        "Luiza: p. 86-96.",
+        "Livro 1: Cap. 13 e 15.",
+        "Douglas: Cap. 10-11.",
+        "Livro 2: Normal como apoio ao GMM."
+      ],
+      "videos": [
+        "StatQuest: DBSCAN, hierarchical clustering, GMM e EM (https://statquest.org/video_index.html)",
+        "Google ML: Clustering (https://developers.google.com/machine-learning/clustering)"
+      ],
+      "project": {
+        "repo": "16-behavior-clustering-anomaly-lab",
+        "title": "Clustering e anomalias",
+        "objective": "Comparar DBSCAN, hierárquico e GMM.",
+        "deliverables": [
+          "k-distance/dendrograma.",
+          "Hard/soft clustering.",
+          "AIC/BIC.",
+          "Ranking de anomalias.",
+          "Validação amostral."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "O que é ponto core no DBSCAN?",
+          "answer": "Ponto com vizinhança suficientemente densa segundo eps e MinPts."
+        },
+        {
+          "question": "O que eps controla?",
+          "answer": "Raio de vizinhança; depende de escala/métrica."
+        },
+        {
+          "question": "Qual limitação do DBSCAN?",
+          "answer": "Sensível a parâmetros/escala e difícil com densidades muito diferentes."
+        },
+        {
+          "question": "O que linkage define?",
+          "answer": "Como a distância entre clusters é calculada durante a fusão."
+        },
+        {
+          "question": "O que significa cortar dendrograma?",
+          "answer": "Escolher nível de distância e obter número de grupos."
+        },
+        {
+          "question": "K-means e GMM diferem como?",
+          "answer": "K-means gera pertença rígida e esférica; GMM modela mistura probabilística/covariância."
+        },
+        {
+          "question": "O que o EM faz?",
+          "answer": "Alterna estimar responsabilidades e atualizar parâmetros até convergência."
+        },
+        {
+          "question": "Anomalia é sinônimo de fraude?",
+          "answer": "Não; é desvio do padrão e precisa investigação/contexto."
+        },
+        {
+          "question": "Como você aplicaria DBSCAN, hierárquico, GMM e anomalias em um problema bancário real?",
+          "answer": "Eu começaria pela decisão de negócio, definiria a unidade e os dados disponíveis, aplicaria DBSCAN, hierárquico, GMM e anomalias com pipeline reproduzível, validaria fora da amostra e traduziria o resultado em ação, limitações e monitoramento."
+        },
+        {
+          "question": "Qual erro mais comum ao usar DBSCAN, hierárquico, GMM e anomalias?",
+          "answer": "O erro mais comum é aplicar a técnica mecanicamente, sem checar pressupostos, leakage, qualidade dos dados, métrica adequada e custo operacional. Eu compararia alternativas e documentaria o motivo da escolha."
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "PLN, text mining, embeddings, Transformer e fundamentos de IA Generativa",
+      "period": "23/11 a 29/11/2026",
+      "block": "IA GENERATIVA",
+      "objective": "Entender a passagem de texto bruto para representações vetoriais e modelos Transformer.",
+      "syllabus": [
+        "Conceitos fundamentais de IA Generativa",
+        "Conceitos fundamentais de NLP",
+        "Arquitetura transformer",
+        "Embeddings",
+        "text mining"
+      ],
+      "content": [
+        "Pipeline de PLN, tokenização e vocabulário.",
+        "Text mining, frequência, TF-IDF e classificação.",
+        "Embeddings e similaridade.",
+        "Limites e vieses dos embeddings.",
+        "Transformer, self-attention e posição.",
+        "Tokens, contexto e pretraining.",
+        "Modelo de linguagem e próximo token.",
+        "Discriminativo versus generativo."
+      ],
+      "materials": [
+        "Livro 1: Cap. 19 e Cap. 7.7.",
+        "Douglas: Cap. 12.",
+        "Luiza: p. 97-109 como glossário.",
+        "Hugging Face Course."
+      ],
+      "videos": [
+        "Hugging Face: curso de Transformers e NLP (https://huggingface.co/learn/llm-course)",
+        "StatQuest: embeddings, attention e transformers (https://statquest.org/video_index.html)"
+      ],
+      "project": {
+        "repo": "17-banking-complaints-embeddings",
+        "title": "Reclamações e embeddings",
+        "objective": "Classificar textos e criar busca semântica.",
+        "deliverables": [
+          "Baseline TF-IDF.",
+          "Embeddings/cosseno.",
+          "Classificador.",
+          "Avaliação retrieval@k.",
+          "Privacidade e vieses."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "O que é text mining?",
+          "answer": "Extração de padrões/informação de coleções textuais."
+        },
+        {
+          "question": "O que tokenização faz?",
+          "answer": "Divide texto em unidades processáveis; a definição depende do modelo/idioma."
+        },
+        {
+          "question": "O que TF-IDF representa?",
+          "answer": "Peso alto para termos frequentes no documento e relativamente raros no corpus."
+        },
+        {
+          "question": "Por que não remover toda stopword automaticamente?",
+          "answer": "Pode apagar negação/contexto e depende da tarefa."
+        },
+        {
+          "question": "O que é embedding?",
+          "answer": "Vetor denso que representa características/semântica aprendida."
+        },
+        {
+          "question": "Por que usar cosseno?",
+          "answer": "Compara direção e reduz efeito de magnitude em representações vetoriais."
+        },
+        {
+          "question": "Embeddings iguais significam textos equivalentes?",
+          "answer": "Não; são aproximações e podem carregar vieses/erros."
+        },
+        {
+          "question": "Como avaliar classificador de reclamações?",
+          "answer": "Métricas por classe, matriz de confusão, erro qualitativo e impacto operacional."
+        },
+        {
+          "question": "O que atenção faz?",
+          "answer": "Pondera relações entre representações para incorporar contexto."
+        },
+        {
+          "question": "Por que Transformer precisa de posição?",
+          "answer": "A atenção pura não conhece ordem; embeddings/encodings posicionais distinguem sequências."
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": "In Context Learning, Prompt, RAG, fine-tuning, quantization, RLHF e guardrails",
+      "period": "30/11 a 06/12/2026",
+      "block": "IA GENERATIVA",
+      "objective": "Construir e avaliar uma aplicação fundamentada em documentos e distinguir prompt, RAG e fine-tuning.",
+      "syllabus": [
+        "In Context Learning",
+        "RAGs e bancos de dados vetoriais",
+        "Técnicas de Engenharia de Prompt",
+        "Técnicas de treinamento e fine tuning",
+        "Quantization",
+        "RLHF",
+        "Safeguards e Guardrails"
+      ],
+      "content": [
+        "Zero/one/few-shot.",
+        "Prompt: objetivo, contexto, restrições, exemplos e formato.",
+        "RAG: ingestão, chunking, embeddings, índice, retrieval e geração.",
+        "Banco vetorial e filtros.",
+        "Groundedness, relevância e citações.",
+        "Fine-tuning e PEFT/LoRA.",
+        "Quantization e trade-off.",
+        "RLHF e alinhamento.",
+        "Guardrails, prompt injection e PII.",
+        "Avaliação offline e red teaming."
+      ],
+      "materials": [
+        "Douglas: Cap. 12.",
+        "Hugging Face Course.",
+        "Google ML Crash Course: LLMs/embeddings/responsible AI.",
+        "Luiza: p. 97-109 como revisão."
+      ],
+      "videos": [
+        "Hugging Face: fine-tuning e ecossistema Transformers (https://huggingface.co/learn/llm-course)",
+        "Google MLCC: LLMs, embeddings e responsible AI (https://developers.google.com/machine-learning/crash-course?hl=pt-br)"
+      ],
+      "project": {
+        "repo": "18-bank-policy-rag-assistant",
+        "title": "Assistente RAG",
+        "objective": "Responder políticas com citação e recusa.",
+        "deliverables": [
+          "Ingestão/chunking.",
+          "Índice vetorial.",
+          "Prompt e fontes.",
+          "Avaliação de retrieval/groundedness.",
+          "Testes de prompt injection."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "O que é In Context Learning?",
+          "answer": "Resolver tarefa a partir de instruções/exemplos no prompt sem atualizar pesos."
+        },
+        {
+          "question": "O que RAG acrescenta?",
+          "answer": "Recupera contexto externo antes da geração, permitindo usar documentos atualizados/privados."
+        },
+        {
+          "question": "O que é chunking?",
+          "answer": "Dividir documentos em unidades recuperáveis; tamanho/overlap afetam contexto e precisão."
+        },
+        {
+          "question": "Banco vetorial substitui banco relacional?",
+          "answer": "Não; resolve busca por similaridade, enquanto relacional atende integridade/consulta estruturada."
+        },
+        {
+          "question": "Como avaliar RAG?",
+          "answer": "Separar cobertura/relevância da recuperação, fidelidade ao contexto, resposta e citações."
+        },
+        {
+          "question": "Quando fine-tuning faz sentido?",
+          "answer": "Mudança consistente de comportamento/formato/domínio com dados de qualidade; não para simples atualização factual."
+        },
+        {
+          "question": "RAG ou fine-tuning para documentos novos?",
+          "answer": "RAG geralmente, pois atualiza conhecimento externo sem mexer nos pesos."
+        },
+        {
+          "question": "O que quantization faz?",
+          "answer": "Reduz precisão numérica dos pesos/ativação para diminuir memória/custo, com possível perda."
+        },
+        {
+          "question": "O que é RLHF?",
+          "answer": "Ajuste/alinhamento usando preferências humanas e aprendizado por reforço ou métodos relacionados."
+        },
+        {
+          "question": "O que é prompt injection?",
+          "answer": "Entrada tenta substituir instruções ou induzir acesso/ação não autorizada."
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Programação linear, inteira, Branch-and-Bound, GAP e solvers",
+      "period": "07/12 a 13/12/2026",
+      "block": "PESQUISA OPERACIONAL, PROGRAMAÇÃO INTEIRA E MIP",
+      "objective": "Modelar decisões ótimas e interpretar viabilidade, bounds e qualidade da solução.",
+      "syllabus": [
+        "Programação linear",
+        "Modelos de programação linear: mix de produção, mistura, transporte",
+        "Solução em programação linear: gráfica e simplex",
+        "Variáveis inteiras e binárias, otimização discreta",
+        "Relaxação linear",
+        "Arredondamento",
+        "Método Branch-and-bound",
+        "O que é",
+        "GAP e Best Bound",
+        "Solvers"
+      ],
+      "content": [
+        "Variáveis de decisão, objetivo e restrições.",
+        "Mix, mistura e transporte.",
+        "Região viável, solução gráfica e simplex.",
+        "Inteiras e binárias.",
+        "Relaxação linear e arredondamento.",
+        "Branch-and-Bound.",
+        "MIP, incumbent, Best Bound e GAP.",
+        "Solvers e OR-Tools."
+      ],
+      "materials": [
+        "Douglas: Cap. 13 - Pesquisa Operacional.",
+        "Google OR-Tools: LP/MIP/CP-SAT.",
+        "Ementa oficial como checklist literal."
+      ],
+      "videos": [
+        "Google OR-Tools: programação linear e exemplos Python (https://developers.google.com/optimization)",
+        "Google OR-Tools MIP: inteiras, binárias, solvers e GAP (https://developers.google.com/optimization/mip)"
+      ],
+      "project": {
+        "repo": "19-credit-budget-optimization",
+        "title": "Otimização de orçamento",
+        "objective": "LP e MIP de alocação sob risco e capacidade.",
+        "deliverables": [
+          "Formulação matemática.",
+          "LP contínuo.",
+          "Versão binária.",
+          "Relaxação/GAP.",
+          "Sensibilidade e relatório."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "O que é função objetivo?",
+          "answer": "Quantidade a maximizar/minimizar em função das decisões."
+        },
+        {
+          "question": "O que é região viável?",
+          "answer": "Conjunto de soluções que satisfaz todas as restrições."
+        },
+        {
+          "question": "Quando variável precisa ser binária?",
+          "answer": "Decisão sim/não, selecionar/não selecionar, abrir/não abrir."
+        },
+        {
+          "question": "O que é relaxação linear?",
+          "answer": "Remover integralidade para obter problema contínuo e bound."
+        },
+        {
+          "question": "Por que arredondar pode falhar?",
+          "answer": "Pode violar restrições ou produzir solução longe do ótimo."
+        },
+        {
+          "question": "O que branch-and-bound faz?",
+          "answer": "Divide espaço em ramos e poda usando limites/viabilidade."
+        },
+        {
+          "question": "O que GAP informa?",
+          "answer": "Distância relativa entre melhor solução viável e bound; mede qualidade comprovada."
+        },
+        {
+          "question": "O que é incumbent?",
+          "answer": "É a melhor solução viável inteira conhecida; serve de referência para o GAP."
+        },
+        {
+          "question": "O que é Best Bound?",
+          "answer": "É o melhor limite teórico disponível para o ótimo entre os ramos ainda possíveis."
+        },
+        {
+          "question": "Como escolher um solver?",
+          "answer": "Pelo tipo de modelo, escala, licença e recursos; validar status, tolerância e tempo."
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "title": "Big Data, Spark/PySpark, Hadoop/Hive, grafos e séries temporais",
+      "period": "14/12 a 20/12/2026",
+      "block": "OUTROS",
+      "objective": "Conhecer processamento distribuído, relações em rede e validação temporal, implementando protótipos locais.",
+      "syllabus": [
+        "hadoop e hive",
+        "spark e pyspark",
+        "redes complexas e teoria de grafos",
+        "análise de séries temporais"
+      ],
+      "content": [
+        "Hadoop/HDFS, MapReduce e Hive.",
+        "Spark: driver, executors, partitions, lazy evaluation.",
+        "PySpark DataFrame, joins, groupBy e windows.",
+        "Shuffle, cache e skew.",
+        "Grafos: nós, arestas, grau, componentes e centralidade.",
+        "Séries: tendência, sazonalidade, autocorrelação e lags.",
+        "Split temporal e walk-forward.",
+        "Métricas e drift."
+      ],
+      "materials": [
+        "Douglas: Cap. 15.",
+        "Livro 1: Cap. 16-17.",
+        "Documentação oficial PySpark.",
+        "Luiza: p. 97-109 como revisão."
+      ],
+      "videos": [
+        "Apache PySpark: documentação e exemplos (https://spark.apache.org/docs/latest/api/python/)",
+        "freeCodeCamp: buscar PySpark e time series (https://www.youtube.com/@freecodecamp)",
+        "StatQuest: time series basics (https://statquest.org/video_index.html)"
+      ],
+      "project": {
+        "repo": "20-distributed-fraud-network-forecast",
+        "title": "Spark, grafo e série",
+        "objective": "ETL distribuído, rede de fraude e previsão temporal.",
+        "deliverables": [
+          "PySpark ETL.",
+          "Análise de shuffle.",
+          "Grafo cliente-dispositivo.",
+          "Lags/backtesting.",
+          "README de arquitetura."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "O que Hadoop resolve?",
+          "answer": "Armazenamento/processamento distribuído tolerante a falhas para grandes volumes."
+        },
+        {
+          "question": "O que Hive oferece?",
+          "answer": "Camada de consulta estilo SQL sobre dados distribuídos."
+        },
+        {
+          "question": "Por que Spark pode ser rápido?",
+          "answer": "Processamento otimizado, em memória quando útil, DAG e execução distribuída."
+        },
+        {
+          "question": "O que é partition?",
+          "answer": "Unidade de dados/trabalho distribuída entre executors."
+        },
+        {
+          "question": "O que é lazy evaluation?",
+          "answer": "Transformações são planejadas e só executadas quando uma ação exige resultado."
+        },
+        {
+          "question": "O que é shuffle?",
+          "answer": "Redistribuição de dados entre partições/nós, geralmente custosa."
+        },
+        {
+          "question": "PySpark substitui SQL?",
+          "answer": "Não; Spark SQL e DataFrame complementam bancos e pipelines conforme escala/arquitetura."
+        },
+        {
+          "question": "Quando Spark é exagero?",
+          "answer": "Dados pequenos e operações simples, pois overhead e complexidade superam benefício."
+        },
+        {
+          "question": "Por que não embaralhar série temporal?",
+          "answer": "Quebra causalidade temporal e permite treinar com futuro."
+        },
+        {
+          "question": "O que é tendência?",
+          "answer": "Mudança persistente de nível ao longo do tempo."
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "title": "Ensembles, anomalias, text mining, deep learning, imagens e fala",
+      "period": "21/12 a 27/12/2026",
+      "block": "OUTROS",
+      "objective": "Consolidar os itens transversais e aplicar visão multimodal com avaliação e governança.",
+      "syllabus": [
+        "ensemble modelling",
+        "detecção de anomalia",
+        "text mining",
+        "deep learning e tensor flow",
+        "reconhecimento de imagens",
+        "speech analytics"
+      ],
+      "content": [
+        "Revisão de ensembles.",
+        "Detecção de anomalia supervisionada/não supervisionada.",
+        "Text mining e embeddings.",
+        "Deep learning/TensorFlow.",
+        "CNN, transfer learning e visão.",
+        "OCR e reconhecimento de documentos.",
+        "ASR, transcrição e speech analytics.",
+        "Avaliação por modalidade.",
+        "Viés, privacidade e human-in-the-loop."
+      ],
+      "materials": [
+        "Livro 1: Cap. 7, 9, 18 e 19.",
+        "Douglas: Cap. 14-15.",
+        "Google ML Crash Course.",
+        "Luiza: p. 97-109 como glossário."
+      ],
+      "videos": [
+        "Google MLCC: redes, embeddings e responsible AI (https://developers.google.com/machine-learning/crash-course?hl=pt-br)",
+        "StatQuest: CNNs, ensembles e anomaly detection (https://statquest.org/video_index.html)",
+        "freeCodeCamp: buscar computer vision e speech recognition (https://www.youtube.com/@freecodecamp)"
+      ],
+      "project": {
+        "repo": "21-multimodal-banking-triage",
+        "title": "Triagem multimodal",
+        "objective": "Combinar texto, imagem e áudio/transcrição.",
+        "deliverables": [
+          "Pipeline textual.",
+          "Protótipo de imagem.",
+          "Protótipo de fala.",
+          "Ensemble de scores.",
+          "Riscos e avaliação por modalidade."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "O que um neurônio calcula?",
+          "answer": "Combinação ponderada das entradas + bias, seguida de ativação."
+        },
+        {
+          "question": "Por que usar função de ativação?",
+          "answer": "Introduz não linearidade; sem ela, várias camadas equivaleriam a transformação linear."
+        },
+        {
+          "question": "O que é backpropagation?",
+          "answer": "Cálculo de gradientes da perda em relação aos pesos, propagado da saída para trás."
+        },
+        {
+          "question": "O que learning rate controla?",
+          "answer": "Tamanho da atualização dos pesos; alto pode divergir, baixo pode ser lento."
+        },
+        {
+          "question": "O que é epoch e batch?",
+          "answer": "Epoch é passagem completa pelos dados; batch é subconjunto usado em uma atualização."
+        },
+        {
+          "question": "Por que CNN funciona em imagem?",
+          "answer": "Explora estrutura local e compartilhamento de filtros."
+        },
+        {
+          "question": "O que é speech analytics?",
+          "answer": "Extração de informação de áudio/transcrição: tema, sentimento, qualidade, intenção, conformidade."
+        },
+        {
+          "question": "Quando evitar deep learning?",
+          "answer": "Poucos dados, baixa capacidade computacional, forte exigência de explicabilidade ou quando modelo simples resolve."
+        },
+        {
+          "question": "O que bagging faz?",
+          "answer": "Treina modelos em amostras/variações e agrega para reduzir variância."
+        },
+        {
+          "question": "Por que Random Forest descorrelaciona árvores?",
+          "answer": "Usa bootstrap e subconjuntos aleatórios de features."
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "title": "Capstone integrado, simulado prático e sabatina final",
+      "period": "28/12 a 31/12/2026",
+      "block": "CONSOLIDAÇÃO",
+      "objective": "Entregar um projeto ponta a ponta defensável, realizar simulado prático cronometrado e responder oralmente cada bloco da ementa.",
+      "syllabus": [
+        "Nenhum item novo."
+      ],
+      "content": [
+        "Escolher problema bancário único e formular decisão/target.",
+        "Montar dados em SQL e pipeline de qualidade.",
+        "EDA, baseline, modelo e validação temporal/estratificada.",
+        "Métricas e threshold/custo.",
+        "Explicabilidade, erro por segmento, limitações e ética.",
+        "Componente extra: clustering, otimização ou RAG.",
+        "Empacotamento, testes, README, arquitetura e demo.",
+        "Simulado de até 4 horas e sabatina gravada."
+      ],
+      "materials": [
+        "Ementa oficial completa.",
+        "Douglas: todos os capítulos como banco de sabatina.",
+        "Luiza: p. 97-109.",
+        "Livros 1, 2 e 3 somente para lacunas dos simulados."
+      ],
+      "videos": [
+        "Google MLCC Exercises: exercícios de regressão, classificação, dados e redes (https://developers.google.com/machine-learning/crash-course/exercises)",
+        "StatQuest: revisar apenas itens amarelos/vermelhos (https://statquest.org/video_index.html)"
+      ],
+      "project": {
+        "repo": "22-banking-decision-platform-capstone",
+        "title": "Capstone end-to-end",
+        "objective": "SQL, Data Prep, modelo, avaliação e apresentação.",
+        "deliverables": [
+          "Banco e features.",
+          "Pacote Python/testes.",
+          "Modelos comparados.",
+          "Relatório e apresentação.",
+          "Release reproduzível."
+        ]
+      },
+      "sabatina": [
+        {
+          "question": "Como você começou o projeto?",
+          "answer": "Problema/decisão, unidade, target, janela, métrica e restrições antes do algoritmo."
+        },
+        {
+          "question": "Como garantiu ausência de leakage?",
+          "answer": "Corte temporal/granularidade, pipeline fit no treino e auditoria das features."
+        },
+        {
+          "question": "Por que escolheu esse modelo?",
+          "answer": "Baseline, protocolo comparável, métrica/custo, estabilidade, latência e explicabilidade."
+        },
+        {
+          "question": "Qual é o maior risco do projeto?",
+          "answer": "Deve citar risco técnico/dados/viés/drift e mitigação concreta."
+        },
+        {
+          "question": "Como o modelo seria monitorado?",
+          "answer": "Qualidade de dados, drift, performance, calibração, segmentos, latência e alertas."
+        },
+        {
+          "question": "O que faria com mais tempo?",
+          "answer": "Melhoria priorizada por impacto e evidência, não lista genérica."
+        },
+        {
+          "question": "Como reproduzir o repositório?",
+          "answer": "Ambiente/dependências, comando de execução, seeds, dados/geração e testes."
+        },
+        {
+          "question": "O que você aprendeu que mudaria em um próximo projeto?",
+          "answer": "Reflexão específica sobre dados, validação, escopo, decisão e comunicação."
+        },
+        {
+          "question": "Como você aplicaria capstone end-to-end em um problema bancário real?",
+          "answer": "Eu começaria pela decisão de negócio, definiria a unidade e os dados disponíveis, aplicaria capstone end-to-end com pipeline reproduzível, validaria fora da amostra e traduziria o resultado em ação, limitações e monitoramento."
+        },
+        {
+          "question": "Qual erro mais comum ao usar capstone end-to-end?",
+          "answer": "O erro mais comum é aplicar a técnica mecanicamente, sem checar pressupostos, leakage, qualidade dos dados, métrica adequada e custo operacional. Eu compararia alternativas e documentaria o motivo da escolha."
+        }
+      ]
+    }
+  ]
+}
