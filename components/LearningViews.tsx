@@ -3,15 +3,14 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   AlertTriangle,
+  ArrowLeft,
   ArrowRight,
   BarChart3,
   BookOpen,
   BrainCircuit,
   Check,
   CheckCircle2,
-  ChevronRight,
   Clock3,
-  ExternalLink,
   FileJson,
   Flame,
   FolderGit2,
@@ -31,6 +30,7 @@ import {
   Zap,
 } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { ProjectGuidePanel } from "@/components/ProjectGuidePanel";
 import { blockPalette, currentRoadmapWeek, roadmap } from "@/lib/quest-data";
 import type { ErrorEntry, QuestWorkspace } from "@/lib/use-quest-workspace";
 
@@ -162,16 +162,49 @@ export function SabatinaView({ workspace, onUpdate }: WorkspaceProps) {
 }
 
 export function ProjectsView({ workspace, onUpdate }: WorkspaceProps) {
-  const setStatus = (repo: string) => {
-    onUpdate((current) => {
-      const previous = current.projectStatus[repo] ?? "planejado";
-      const next = previous === "planejado" ? "em-andamento" : previous === "em-andamento" ? "publicado" : "planejado";
-      return { ...current, projectStatus: { ...current.projectStatus, [repo]: next }, xp: current.xp + (next === "publicado" ? 150 : 0) };
-    });
-  };
+  const [selectedWeekNumber, setSelectedWeekNumber] = useState(currentRoadmapWeek());
+  const [statusFilter, setStatusFilter] = useState<"todos" | "planejado" | "em-andamento" | "publicado">("todos");
+  const selectedWeek = roadmap.weeks[selectedWeekNumber - 1];
+  const visibleWeeks = roadmap.weeks.filter((week) => {
+    const status = workspace.projectStatus[week.project.repo] ?? "planejado";
+    return statusFilter === "todos" || status === statusFilter;
+  });
+  const previousWeek = selectedWeekNumber > 1 ? roadmap.weeks[selectedWeekNumber - 2] : null;
+  const nextWeek = selectedWeekNumber < roadmap.weeks.length ? roadmap.weeks[selectedWeekNumber] : null;
+
   return (
-    <div className="projects-view view-stack"><header className="page-intro"><div><span className="eyebrow"><FolderGit2 size={14} /> PORTFÓLIO DE EVIDÊNCIAS</span><h1>22 projetos. Um argumento profissional.</h1><p>Cada repositório prova um pedaço da ementa — com problema, código, teste, resultado e limitação.</p></div><div className="project-summary"><strong>{Object.values(workspace.projectStatus).filter((value) => value === "publicado").length}/22</strong><span>publicados</span></div></header>
-      <section className="project-board">{roadmap.weeks.map((week) => { const status = workspace.projectStatus[week.project.repo] ?? "planejado"; const url = workspace.projectUrls[week.project.repo] ?? ""; return <article className="project-card" key={week.number}><div className="project-card-accent" style={{ background: blockPalette[week.block] }} /><header><span>S{week.number.toString().padStart(2, "0")}</span><button className={`project-status ${status}`} onClick={() => setStatus(week.project.repo)}>{status === "planejado" ? "Planejado" : status === "em-andamento" ? "Em andamento" : "Publicado"}</button></header><small>{week.block}</small><h3>{week.project.title}</h3><p>{week.project.objective}</p><code>{week.project.repo}</code><div className="project-url"><input value={url} onChange={(event) => onUpdate((current) => ({ ...current, projectUrls: { ...current.projectUrls, [week.project.repo]: event.target.value } }))} placeholder="URL do GitHub" />{url && <a href={url} target="_blank" rel="noreferrer" aria-label="Abrir repositório"><ExternalLink size={16} /></a>}</div><footer><span>{week.project.deliverables.length} entregas</span><ChevronRight size={16} /></footer></article>; })}</section>
+    <div className="projects-view view-stack">
+      <header className="page-intro">
+        <div><span className="eyebrow"><FolderGit2 size={14} /> PORTFÓLIO DE EVIDÊNCIAS</span><h1>22 projetos. Execução completa.</h1><p>Selecione um projeto para ver problema, dados, stack, primeiros 30 minutos, oito etapas, comandos, testes, evidências e critérios de conclusão.</p></div>
+        <div className="project-summary"><strong>{Object.values(workspace.projectStatus).filter((value) => value === "publicado").length}/22</strong><span>publicados</span></div>
+      </header>
+
+      <section className="projects-workspace">
+        <aside className="project-index">
+          <header><div><span>PROJETOS</span><strong>Escolha a missão</strong></div><select value={statusFilter} onChange={(event) => setStatusFilter(event.target.value as typeof statusFilter)}><option value="todos">Todos</option><option value="planejado">Planejados</option><option value="em-andamento">Em andamento</option><option value="publicado">Publicados</option></select></header>
+          <div className="project-index-list">
+            {visibleWeeks.map((week) => {
+              const status = workspace.projectStatus[week.project.repo] ?? "planejado";
+              const completed = workspace.projectChecklist?.[String(week.number)]?.length ?? 0;
+              return (
+                <button key={week.number} className={selectedWeekNumber === week.number ? "active" : ""} onClick={() => setSelectedWeekNumber(week.number)} style={{ "--project-color": blockPalette[week.block] ?? "#4dd7fa" } as React.CSSProperties}>
+                  <span className="project-index-number">S{week.number.toString().padStart(2, "0")}</span>
+                  <span className="project-index-copy"><small>{week.block}</small><strong>{week.project.title}</strong><em>{status === "planejado" ? "Planejado" : status === "em-andamento" ? "Em andamento" : "Publicado"} · {completed}/8 etapas</em></span>
+                  <span className="project-index-progress"><i style={{ width: `${completed / 8 * 100}%` }} /></span>
+                </button>
+              );
+            })}
+          </div>
+        </aside>
+
+        <main className="project-page-detail">
+          <header className="project-page-toolbar">
+            <div><span>PROJETO SELECIONADO</span><strong>Semana {selectedWeek.number} de 22</strong></div>
+            <nav aria-label="Navegar entre projetos"><button disabled={!previousWeek} onClick={() => previousWeek && setSelectedWeekNumber(previousWeek.number)}><ArrowLeft size={15} /> Anterior</button><button disabled={!nextWeek} onClick={() => nextWeek && setSelectedWeekNumber(nextWeek.number)}>Próximo <ArrowRight size={15} /></button></nav>
+          </header>
+          <ProjectGuidePanel week={selectedWeek} workspace={workspace} onUpdate={onUpdate} variant="page" />
+        </main>
+      </section>
     </div>
   );
 }

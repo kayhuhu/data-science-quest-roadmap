@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { MasteryStatus } from "@/lib/quest-data";
+import { roadmap, type MasteryStatus } from "@/lib/quest-data";
 
 export type QuestNote = {
   id: string;
@@ -77,6 +77,30 @@ function isWorkspace(value: unknown): value is QuestWorkspace {
   return Boolean(value && typeof value === "object" && (value as { version?: number }).version === 1);
 }
 
+function normalizeWorkspace(value: unknown): QuestWorkspace {
+  if (!isWorkspace(value)) return emptyWorkspace;
+  const projectStatus = { ...value.projectStatus };
+  const projectUrls = { ...value.projectUrls };
+  for (const week of roadmap.weeks) {
+    const previousKey = String(week.number);
+    const repoKey = week.project.repo;
+    if (!projectStatus[repoKey] && projectStatus[previousKey]) projectStatus[repoKey] = projectStatus[previousKey];
+    if (!projectUrls[repoKey] && projectUrls[previousKey]) projectUrls[repoKey] = projectUrls[previousKey];
+    if (previousKey !== repoKey) {
+      delete projectStatus[previousKey];
+      delete projectUrls[previousKey];
+    }
+  }
+  return {
+    ...emptyWorkspace,
+    ...value,
+    projectStatus,
+    projectUrls,
+    projectChecklist: value.projectChecklist ?? {},
+    settings: { ...emptyWorkspace.settings, ...value.settings },
+  };
+}
+
 export function useQuestWorkspace() {
   const [workspace, setWorkspace] = useState<QuestWorkspace>(emptyWorkspace);
   const [ready, setReady] = useState(false);
@@ -88,7 +112,7 @@ export function useQuestWorkspace() {
     try {
       const serialized = window.localStorage.getItem(LOCAL_WORKSPACE_KEY);
       const stored = serialized ? (JSON.parse(serialized) as unknown) : null;
-      const next = isWorkspace(stored) ? stored : emptyWorkspace;
+      const next = normalizeWorkspace(stored);
       queueMicrotask(() => {
         if (cancelled) return;
         setWorkspace(next);

@@ -9,21 +9,17 @@ import {
   Check,
   CheckCircle2,
   Circle,
-  Clipboard,
   Clock3,
   ExternalLink,
-  FileCode2,
   FolderGit2,
-  GitBranch,
   ListChecks,
   MessageCircleQuestion,
   NotebookPen,
   Play,
-  Rocket,
   Target,
-  Terminal,
   X,
 } from "lucide-react";
+import { ProjectGuidePanel } from "@/components/ProjectGuidePanel";
 import { getProjectGuide } from "@/lib/project-guides";
 import {
   blockPalette,
@@ -67,14 +63,12 @@ function videoData(item: string) {
 export function WeekDrawer({ week, workspace, onClose, onUpdate, onNavigate, onSelectWeek }: WeekDrawerProps) {
   const [tab, setTab] = useState<(typeof tabs)[number]>("Visão geral");
   const [revealed, setRevealed] = useState<number | null>(null);
-  const [copiedStep, setCopiedStep] = useState<string | null>(null);
   const guide = useMemo(() => week ? getProjectGuide(week) : null, [week]);
   const studyDays = useMemo(() => week ? splitIntoStudyDays(week) : [], [week]);
   if (!week || !guide) return null;
 
   const weekKey = String(week.number);
   const status = workspace.weekStatus[weekKey] ?? "nao-iniciado";
-  const projectStatus = workspace.projectStatus[weekKey] ?? "planejado";
   const checkedSteps = workspace.projectChecklist?.[weekKey] ?? [];
   const color = blockPalette[week.block] ?? "#4dd7fa";
   const previousWeek = week.number > 1 ? roadmap.weeks[week.number - 2] : null;
@@ -100,22 +94,6 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onNavigate, onS
         xp: current.xp + (next === "verde" && previous !== "verde" ? 25 : 0),
       };
     });
-  };
-
-  const toggleProjectStep = (stepId: string) => {
-    onUpdate((current) => {
-      const currentSteps = current.projectChecklist?.[weekKey] ?? [];
-      const nextSteps = currentSteps.includes(stepId)
-        ? currentSteps.filter((id) => id !== stepId)
-        : [...currentSteps, stepId];
-      return { ...current, projectChecklist: { ...(current.projectChecklist ?? {}), [weekKey]: nextSteps } };
-    });
-  };
-
-  const copyCommands = async (id: string, commands: string) => {
-    await navigator.clipboard.writeText(commands);
-    setCopiedStep(id);
-    window.setTimeout(() => setCopiedStep(null), 1500);
   };
 
   return (
@@ -225,42 +203,7 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onNavigate, onS
             </div>
           )}
 
-          {tab === "Projeto completo" && (
-            <div className="drawer-section-stack project-detail project-detail-complete">
-              <header className="drawer-project-header">
-                <div><span className="eyebrow"><Rocket size={14} /> PROJETO DA SEMANA</span><h3>{week.project.title}</h3><p>{week.project.objective}</p></div>
-                <div className="drawer-repo-name"><GitBranch size={17} /><span>REPOSITÓRIO</span><strong>{week.project.repo}</strong></div>
-              </header>
-
-              <section className="project-brief-grid drawer-project-brief">
-                <article><span><Target size={18} /></span><small>PERGUNTA DE NEGÓCIO</small><p>{guide.businessQuestion}</p></article>
-                <article><span><FileCode2 size={18} /></span><small>PLANO DE DADOS</small><p>{guide.dataPlan}</p></article>
-                <article><span><Terminal size={18} /></span><small>STACK SUGERIDA</small><div className="project-stack">{guide.stack.map((item) => <b key={item}>{item}</b>)}</div></article>
-              </section>
-
-              <section className="drawer-panel project-first-session">
-                <div className="panel-title"><Clock3 size={17} /><strong>Primeiros 30 minutos</strong></div>
-                <ol>{guide.firstSession.map((item) => <li key={item}>{item}</li>)}</ol>
-              </section>
-
-              <section className="drawer-project-steps">
-                <header><div><span>EXECUÇÃO COMPLETA</span><h4>Passo a passo do início à publicação</h4></div><strong>{Math.round(checkedSteps.length / guide.steps.length * 100)}%</strong></header>
-                <div className="wide-progress"><i style={{ width: `${checkedSteps.length / guide.steps.length * 100}%` }} /></div>
-                {guide.steps.map((step) => {
-                  const checked = checkedSteps.includes(step.id);
-                  return <article key={step.id} className={checked ? "checked" : ""}>
-                    <button className="drawer-step-check" onClick={() => toggleProjectStep(step.id)} aria-label={checked ? `Desmarcar ${step.title}` : `Concluir ${step.title}`}>{checked ? <CheckCircle2 size={22} /> : <Circle size={22} />}</button>
-                    <div className="drawer-step-content"><header><h5>{step.title}</h5><span>{step.outcome}</span></header><ul>{step.actions.map((action) => <li key={action}>{action}</li>)}</ul>{step.commands && <div className="command-block"><div><Terminal size={14} /> comandos sugeridos <button onClick={() => void copyCommands(step.id, step.commands!)}><Clipboard size={13} />{copiedStep === step.id ? "Copiado" : "Copiar"}</button></div><pre><code>{step.commands}</code></pre></div>}<footer><strong>Evidência esperada:</strong> {step.evidence}</footer></div>
-                  </article>;
-                })}
-              </section>
-
-              <div className="drawer-grid project-finish-grid">
-                <section className="drawer-panel"><div className="panel-title"><ListChecks size={17} /><strong>Estrutura do repositório</strong></div><ul className="project-structure-list">{guide.repositoryStructure.map((item) => <li key={item}><FileCode2 size={13} />{item}</li>)}</ul></section>
-                <section className="drawer-panel project-done-panel"><div className="panel-title"><CheckCircle2 size={17} /><strong>Definition of done</strong></div><ul>{guide.definitionOfDone.map((item) => <li key={item}><Check size={13} />{item}</li>)}</ul><label>URL do repositório<input value={workspace.projectUrls[weekKey] ?? ""} onChange={(event) => onUpdate((current) => ({ ...current, projectUrls: { ...current.projectUrls, [weekKey]: event.target.value } }))} placeholder="https://github.com/usuario/repositorio" /></label><select value={projectStatus} onChange={(event) => onUpdate((current) => ({ ...current, projectStatus: { ...current.projectStatus, [weekKey]: event.target.value as typeof projectStatus } }))}><option value="planejado">Planejado</option><option value="em-andamento">Em andamento</option><option value="publicado">Publicado</option></select></section>
-              </div>
-            </div>
-          )}
+          {tab === "Projeto completo" && <ProjectGuidePanel week={week} workspace={workspace} onUpdate={onUpdate} />}
 
           {tab === "Sabatina" && (
             <div className="drawer-section-stack">

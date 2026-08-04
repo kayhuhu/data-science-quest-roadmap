@@ -38,15 +38,22 @@ test("ships an integrated study center and a specific project guide for every we
   const route = await readFile(new URL("app/[...slug]/page.tsx", templateRoot), "utf8");
   const app = await readFile(new URL("components/QuestApp.tsx", templateRoot), "utf8");
   const center = await readFile(new URL("components/WeekDrawer.tsx", templateRoot), "utf8");
+  const projectPanel = await readFile(new URL("components/ProjectGuidePanel.tsx", templateRoot), "utf8");
+  const learningViews = await readFile(new URL("components/LearningViews.tsx", templateRoot), "utf8");
   const syllabus = await readFile(new URL("components/SyllabusView.tsx", templateRoot), "utf8");
   const guides = await readFile(new URL("lib/project-guides.ts", templateRoot), "utf8");
+  const styles = await readFile(new URL("app/globals.css", templateRoot), "utf8");
 
   assert.match(route, /initialWeek/);
   assert.match(app, /setSelectedWeek/);
   assert.doesNotMatch(app, /window\.open/);
   assert.match(center, /Ementa correspondente à Semana/);
-  assert.match(center, /Primeiros 30 minutos/);
-  assert.match(center, /Passo a passo do início à publicação/);
+  assert.match(center, /ProjectGuidePanel/);
+  assert.match(projectPanel, /Primeiros 30 minutos/);
+  assert.match(projectPanel, /Passo a passo do início à publicação/);
+  assert.match(learningViews, /projects-workspace/);
+  assert.match(learningViews, /ProjectGuidePanel/);
+  assert.match(styles, /\.week-drawer-complete \{ width: 100vw/);
   assert.match(syllabus, /onSelectWeek\(roadmap\.weeks\[item\.week - 1\]\)/);
   assert.match(syllabus, /setBlock\(item\.block\)/);
 
