@@ -7,18 +7,23 @@ import {
   BookMarked,
   BookOpenCheck,
   Check,
-  CheckCircle2,
-  Circle,
-  Clock3,
-  ExternalLink,
+  Clipboard,
+  FileText,
   FolderGit2,
-  ListChecks,
+  GraduationCap,
+  Landmark,
+  Lightbulb,
   MessageCircleQuestion,
-  NotebookPen,
   Play,
+  Scale,
+  Sparkles,
   Target,
+  TriangleAlert,
   X,
 } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
 import { ProjectGuidePanel } from "@/components/ProjectGuidePanel";
 import { getProjectGuide } from "@/lib/project-guides";
 import {
@@ -40,31 +45,32 @@ type WeekDrawerProps = {
   onSelectWeek: (week: RoadmapWeek) => void;
 };
 
-const tabs = ["Visão geral", "Plano de 7 dias", "Ementa", "Conteúdo", "Materiais", "Projeto completo", "Sabatina"] as const;
+const tabs = [
+  "Visão Geral",
+  "Teoria e Aplicação Bancária",
+  "Materiais",
+  "Estudar com IA",
+  "Projeto (Estrutura Completa CD)",
+  "Perguntas de Sabatina",
+] as const;
 
-function splitIntoStudyDays(week: RoadmapWeek) {
-  const chunks = [week.content.slice(0, 2), week.content.slice(2, 4), week.content.slice(4, 6), week.content.slice(6)];
-  return [
-    { day: "Dia 1", focus: "Diagnóstico", tasks: [week.objective, ...week.syllabus.map((item) => `Avaliar domínio: ${item}`)] },
-    { day: "Dia 2", focus: "Fundamentos", tasks: chunks[0] },
-    { day: "Dia 3", focus: "Conexões e fórmulas", tasks: chunks[1] },
-    { day: "Dia 4", focus: "Aplicação guiada", tasks: chunks[2] },
-    { day: "Dia 5", focus: "Prática", tasks: chunks[3].length ? chunks[3] : ["Resolver exercícios e explicar os conceitos sem consultar."] },
-    { day: "Dia 6", focus: "Projeto", tasks: [`Executar as etapas iniciais de “${week.project.title}”.`, "Registrar decisões, testes e evidências no repositório."] },
-    { day: "Dia 7", focus: "Defesa e revisão", tasks: ["Responder as dez perguntas da sabatina antes de revelar as respostas.", "Revisar erros, finalizar o README e atualizar o domínio da semana."] },
-  ];
+type Tab = (typeof tabs)[number];
+
+function CopyButton({ text, label = "Copiar prompt" }: { text: string; label?: string }) {
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    await navigator.clipboard.writeText(text);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1600);
+  };
+  return <button className="copy-prompt-button" onClick={() => void copy()}><Clipboard size={15} />{copied ? "Copiado!" : label}</button>;
 }
 
-function videoData(item: string) {
-  const url = item.match(/\((https?:\/\/[^)]+)\)/)?.[1];
-  return { label: item.replace(/\s*\(https?:.*$/, ""), url };
-}
-
-export function WeekDrawer({ week, workspace, onClose, onUpdate, onNavigate, onSelectWeek }: WeekDrawerProps) {
-  const [tab, setTab] = useState<(typeof tabs)[number]>("Visão geral");
+export function WeekDrawer({ week, workspace, onClose, onUpdate, onSelectWeek }: WeekDrawerProps) {
+  const [tab, setTab] = useState<Tab>("Visão Geral");
   const [revealed, setRevealed] = useState<number | null>(null);
   const guide = useMemo(() => week ? getProjectGuide(week) : null, [week]);
-  const studyDays = useMemo(() => week ? splitIntoStudyDays(week) : [], [week]);
+
   if (!week || !guide) return null;
 
   const weekKey = String(week.number);
@@ -109,108 +115,142 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onNavigate, onS
             <p>{week.period}</p>
           </div>
           <div className="drawer-week-navigation" aria-label="Navegar entre semanas">
-            <button disabled={!previousWeek} onClick={() => previousWeek && onSelectWeek(previousWeek)}><ArrowLeft size={15} /><span>Anterior</span></button>
+            <button disabled={!previousWeek} onClick={() => { if (previousWeek) { setTab("Visão Geral"); onSelectWeek(previousWeek); } }}><ArrowLeft size={15} /><span>Anterior</span></button>
             <strong>{week.number} / 22</strong>
-            <button disabled={!nextWeek} onClick={() => nextWeek && onSelectWeek(nextWeek)}><span>Próxima</span><ArrowRight size={15} /></button>
+            <button disabled={!nextWeek} onClick={() => { if (nextWeek) { setTab("Visão Geral"); onSelectWeek(nextWeek); } }}><span>Próxima</span><ArrowRight size={15} /></button>
           </div>
         </header>
 
-        <nav className="drawer-tabs" aria-label="Seções da semana">
-          {tabs.map((item) => <button key={item} className={tab === item ? "active" : ""} onClick={() => setTab(item)}>{item}{item === "Projeto completo" && <small>{checkedSteps.length}/{guide.steps.length}</small>}</button>)}
+        <nav className="drawer-tabs weekly-six-tabs" aria-label="Seções da semana">
+          {tabs.map((item) => (
+            <button key={item} className={tab === item ? "active" : ""} onClick={() => setTab(item)}>
+              {item}
+              {item === "Projeto (Estrutura Completa CD)" && <small>{checkedSteps.length}/{guide.steps.length}</small>}
+            </button>
+          ))}
         </nav>
 
         <div className="drawer-body drawer-body-complete">
-          {tab === "Visão geral" && (
+          {tab === "Visão Geral" && (
             <div className="drawer-section-stack">
-              <section className="drawer-objective" style={{ borderLeftColor: color }}>
-                <span>OBJETIVO DE DOMÍNIO</span>
-                <h3>{week.objective}</h3>
-              </section>
+              <header className="drawer-section-intro">
+                <span>1 · VISÃO GERAL</span>
+                <h3>O que você precisa dominar nesta semana</h3>
+                <p>{week.overview.summary}</p>
+              </header>
 
               <section className="week-summary-grid">
-                <article><BookOpenCheck size={18} /><div><strong>{week.syllabus.length}</strong><span>itens da ementa</span></div></article>
-                <article><ListChecks size={18} /><div><strong>{week.content.length}</strong><span>tópicos de estudo</span></div></article>
-                <article><FolderGit2 size={18} /><div><strong>{checkedSteps.length}/{guide.steps.length}</strong><span>etapas do projeto</span></div></article>
-                <article><MessageCircleQuestion size={18} /><div><strong>10</strong><span>perguntas de defesa</span></div></article>
+                <article><BookOpenCheck size={18} /><div><strong>{week.overview.officialTopics.length}</strong><span>itens oficiais</span></div></article>
+                <article><Target size={18} /><div><strong>{week.content.length}</strong><span>frentes de estudo</span></div></article>
+                <article><FolderGit2 size={18} /><div><strong>{guide.steps.length}</strong><span>etapas do projeto</span></div></article>
+                <article><MessageCircleQuestion size={18} /><div><strong>{week.sabatina.length}</strong><span>perguntas técnicas</span></div></article>
               </section>
 
-              <div className="drawer-grid">
-                <section className="drawer-panel">
-                  <div className="panel-title"><Target size={17} /><strong>O que estudar primeiro</strong></div>
-                  <ol className="overview-priority-list">{week.content.slice(0, 5).map((item, index) => <li key={item}><span>{index + 1}</span>{item}</li>)}</ol>
-                  <button className="text-button" onClick={() => setTab("Plano de 7 dias")}>Abrir plano completo <ArrowRight size={15} /></button>
+              <div className="weekly-overview-grid">
+                <section className="drawer-panel official-week-syllabus">
+                  <div className="panel-title"><Scale size={17} /><strong>Ementa oficial desta semana</strong></div>
+                  <p>Os textos abaixo pertencem somente ao bloco <b>{week.block}</b>. Clique para atualizar seu domínio.</p>
+                  <div className="drawer-syllabus-list">
+                    {week.overview.officialTopics.map((text) => {
+                      const item = roadmap.syllabus.find((candidate) => candidate.week === week.number && candidate.text === text);
+                      const itemStatus = item ? workspace.syllabusStatus[item.id] ?? "nao-iniciado" : "nao-iniciado";
+                      return (
+                        <button key={text} onClick={() => cycleSyllabusStatus(text)}>
+                          <i className={`mastery-dot ${itemStatus}`} />
+                          <span><strong>{text}</strong><small>{item?.id.toUpperCase()}</small></span>
+                          <em>{statusLabel(itemStatus)}</em>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </section>
-                <section className="drawer-panel status-panel">
-                  <div className="panel-title"><Clock3 size={17} /><strong>Status de domínio</strong></div>
-                  <span className={`status-pill ${status}`}>{statusLabel(status)}</span>
-                  <div className="mastery-buttons">{(["vermelho", "amarelo", "verde", "revisao"] as MasteryStatus[]).map((item) => <button key={item} className={status === item ? "selected" : ""} onClick={() => setStatus(item)}>{statusLabel(item)}</button>)}</div>
-                  <small>Marque verde somente quando conseguir explicar, aplicar, interpretar, implementar e responder.</small>
+
+                <section className="drawer-panel">
+                  <div className="panel-title"><GraduationCap size={17} /><strong>Resultados de aprendizagem</strong></div>
+                  <ul className="outcome-checklist">{week.overview.outcomes.map((outcome) => <li key={outcome}><Check size={14} />{outcome}</li>)}</ul>
+                  <div className="week-status-control">
+                    <span>Status geral</span><strong className={`status-pill ${status}`}>{statusLabel(status)}</strong>
+                    <div className="mastery-buttons">{(["vermelho", "amarelo", "verde", "revisao"] as MasteryStatus[]).map((item) => <button key={item} className={status === item ? "selected" : ""} onClick={() => setStatus(item)}>{statusLabel(item)}</button>)}</div>
+                  </div>
                 </section>
               </div>
 
-              <section className="project-banner project-banner-complete">
-                <span className="project-symbol"><FolderGit2 size={23} /></span>
-                <div><small>PROJETO DA SEMANA</small><strong>{week.project.title}</strong><span>{guide.businessQuestion}</span></div>
-                <button className="secondary-button" onClick={() => setTab("Projeto completo")}>Ver passo a passo <ArrowRight size={15} /></button>
+              <section className="drawer-panel">
+                <div className="panel-title"><Lightbulb size={17} /><strong>Sequência recomendada</strong></div>
+                <ol className="overview-priority-list">{week.content.map((item, index) => <li key={item}><span>{index + 1}</span>{item}</li>)}</ol>
               </section>
             </div>
           )}
 
-          {tab === "Plano de 7 dias" && (
-            <div className="drawer-section-stack">
-              <header className="drawer-section-intro"><span>ROTEIRO EXECUTÁVEL</span><h3>Exatamente o que fazer em cada dia</h3><p>Use o plano como orientação. Se tiver menos dias, junte os dias 2–3 e 4–5, mas preserve projeto e sabatina.</p></header>
-              <section className="drawer-day-grid">
-                {studyDays.map((day) => <article key={day.day}><header><span>{day.day}</span><strong>{day.focus}</strong></header><ul>{day.tasks.map((task) => <li key={task}><Circle size={10} />{task}</li>)}</ul></article>)}
-              </section>
-              <section className="drawer-panel expected-output">
-                <div className="panel-title"><CheckCircle2 size={17} /><strong>Entregas para encerrar a semana</strong></div>
-                <ul className="delivery-list">{week.project.deliverables.map((item) => <li key={item}><span><Check size={14} /></span>{item}</li>)}</ul>
-              </section>
-            </div>
-          )}
+          {tab === "Teoria e Aplicação Bancária" && (
+            <div className="drawer-section-stack theory-banking-tab">
+              <header className="drawer-section-intro">
+                <span>2 · TEORIA E APLICAÇÃO BANCÁRIA</span>
+                <h3>Fundamentação, matemática e valor de negócio</h3>
+                <p>Estude o mecanismo antes da biblioteca. Depois, defenda como a técnica altera uma decisão real do banco.</p>
+              </header>
 
-          {tab === "Ementa" && (
-            <div className="drawer-section-stack">
-              <header className="drawer-section-intro"><span>FONTE OFICIAL</span><h3>Ementa correspondente à Semana {week.number}</h3><p>Clique em cada item para atualizar seu nível de domínio. O texto é mantido como aparece no roadmap oficial.</p></header>
-              <section className="drawer-syllabus-list">
-                {week.syllabus.length ? week.syllabus.map((text) => {
-                  const item = roadmap.syllabus.find((candidate) => candidate.week === week.number && candidate.text === text);
-                  const itemStatus = item ? workspace.syllabusStatus[item.id] ?? "nao-iniciado" : "nao-iniciado";
-                  return <button key={text} onClick={() => cycleSyllabusStatus(text)}><i className={`mastery-dot ${itemStatus}`} /><span><strong>{text}</strong><small>{item ? item.id.toUpperCase() : `SEMANA ${week.number}`}</small></span><em>{statusLabel(itemStatus)}</em></button>;
-                }) : <div className="drawer-empty-state"><CheckCircle2 size={24} /><strong>Semana de consolidação</strong><p>Nenhum item novo foi introduzido; revise os domínios anteriores por meio do projeto e da sabatina.</p></div>}
+              <section className="theory-foundation-grid">
+                {week.theoryAndBanking.foundations.map((item, index) => (
+                  <article key={item.title}><span>{String(index + 1).padStart(2, "0")}</span><h4>{item.title}</h4><p>{item.body}</p></article>
+                ))}
               </section>
-              <button className="secondary-button drawer-inline-action" onClick={() => onNavigate("ementa")}><BookOpenCheck size={16} /> Voltar à ementa completa</button>
-            </div>
-          )}
 
-          {tab === "Conteúdo" && (
-            <div className="drawer-section-stack">
-              <header className="drawer-section-intro"><span>CONTEÚDO CANÔNICO</span><h3>O que precisa ser visto e praticado</h3><p>Cada tópico precisa deixar uma evidência: explicação curta, exercício resolvido, implementação ou análise.</p></header>
-              <section className="content-timeline content-timeline-complete">
-                {week.content.map((item, index) => <article key={item}><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{item}</strong><small>Entender → praticar → explicar → registrar evidência</small></div><button aria-label={`Criar anotação sobre ${item}`} onClick={() => onNavigate("estudio")}><NotebookPen size={16} /></button></article>)}
+              <section className="math-foundation-card">
+                <header><Sparkles size={18} /><div><span>FORMALIZAÇÃO ESSENCIAL</span><h4>O que a fórmula realmente diz</h4></div></header>
+                <div className="math-render"><ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{`$$${week.theoryAndBanking.mathematics.latex}$$`}</ReactMarkdown></div>
+                <p>{week.theoryAndBanking.mathematics.explanation}</p>
+              </section>
+
+              <section className="banking-application-section">
+                <header><Landmark size={20} /><div><span>ENFOQUE PRÁTICO · SETOR BANCÁRIO</span><h4>Da teoria para uma decisão de banco</h4><p>{week.theoryAndBanking.banking.explanation}</p></div></header>
+                <div className="bank-case-grid">
+                  {week.theoryAndBanking.banking.cases.map((item) => <article key={item.title}><small>{item.title}</small><strong>{item.scenario}</strong><p><b>Valor de negócio:</b> {item.businessValue}</p></article>)}
+                </div>
               </section>
             </div>
           )}
 
           {tab === "Materiais" && (
             <div className="drawer-section-stack">
-              <header className="drawer-section-intro"><span>BIBLIOTECA DA SEMANA</span><h3>Leitura e aulas para destravar</h3><p>Comece pelos tópicos do plano e consulte estes recursos conforme a necessidade.</p></header>
-              <section className="resource-list">
-                {week.materials.map((item, index) => <article key={item}><span><BookMarked size={18} /></span><div><small>MATERIAL {index + 1}</small><strong>{item}</strong></div></article>)}
-                {week.videos.map((item, index) => { const video = videoData(item); return <article key={item}><span><Play size={18} /></span><div><small>VÍDEO {index + 1}</small><strong>{video.label}</strong></div>{video.url && <a href={video.url} aria-label={`Abrir ${video.label}`}><ExternalLink size={15} /></a>}</article>; })}
-                <div className="copyright-note">Trechos e referências podem ser registrados nas notas. Livros e PDFs protegidos não são republicados.</div>
+              <header className="drawer-section-intro"><span>3 · MATERIAIS</span><h3>Biblioteca orientada, sem virar lista infinita</h3><p>Os livros anteriores foram preservados; vídeos, artigos e documentação complementam pontos específicos.</p></header>
+              <section className="materials-category-grid">
+                <article><header><BookMarked size={18} /><div><span>BASE PRINCIPAL</span><h4>Livros e apostilas já indicados</h4></div></header><ol>{week.resources.books.map((item) => <li key={item}>{item}</li>)}</ol></article>
+                <article><header><Play size={18} /><div><span>AULAS</span><h4>Vídeos e cursos</h4></div></header><ol>{week.resources.videos.map((item) => <li key={item}>{item}</li>)}</ol></article>
+                <article><header><FileText size={18} /><div><span>APROFUNDAMENTO</span><h4>Artigos e documentação</h4></div></header><ol>{week.resources.articles.map((item) => <li key={item}>{item}</li>)}</ol></article>
               </section>
+              <div className="copyright-note"><TriangleAlert size={15} /> Registre referências e seus próprios resumos. Não publique livros, PDFs protegidos nem dados bancários no GitHub.</div>
             </div>
           )}
 
-          {tab === "Projeto completo" && <ProjectGuidePanel week={week} workspace={workspace} onUpdate={onUpdate} />}
-
-          {tab === "Sabatina" && (
+          {tab === "Estudar com IA" && (
             <div className="drawer-section-stack">
-              <header className="drawer-section-intro"><span>DEFESA ORAL</span><h3>Dez perguntas para provar domínio</h3><p>Responda antes de revelar. Se não conseguir explicar com clareza, registre a lacuna e volte ao tópico correspondente.</p></header>
-              <section className="question-list">
-                {week.sabatina.map((item, index) => <article key={item.question} className={revealed === index ? "revealed" : ""}><span className="question-index">{index + 1}</span><div><strong>{item.question}</strong>{revealed === index && <p>{item.answer}</p>}</div><button onClick={() => setRevealed(revealed === index ? null : index)}>{revealed === index ? "Ocultar" : "Ver resposta"}</button></article>)}
-                <button className="primary-button" onClick={() => onNavigate("sabatina")}><MessageCircleQuestion size={17} /> Iniciar treino completo</button>
+              <header className="drawer-section-intro"><span>4 · ESTUDAR COM IA</span><h3>Prompt para gerar seu material completo em PDF</h3><p>Copie o texto inteiro. Ele obriga a IA a ensinar teoria, matemática, código, aplicação bancária e revisar a cobertura oficial.</p></header>
+              <section className="prompt-workbench">
+                <header><div><Sparkles size={18} /><span>PROMPT MESTRE · SEMANA {week.number}</span></div><CopyButton text={week.prompts.study} /></header>
+                <pre>{week.prompts.study}</pre>
+              </section>
+              <section className="prompt-usage-guide"><strong>Como usar bem</strong><ol><li>Cole em um LLM com suporte a arquivos.</li><li>Anexe somente materiais que você tem direito de usar.</li><li>Peça a produção por capítulos se a resposta for cortada.</li><li>Exporte o resultado para PDF apenas depois de conferir fórmulas, fontes e exemplos.</li></ol></section>
+            </div>
+          )}
+
+          {tab === "Projeto (Estrutura Completa CD)" && <ProjectGuidePanel week={week} workspace={workspace} onUpdate={onUpdate} />}
+
+          {tab === "Perguntas de Sabatina" && (
+            <div className="drawer-section-stack">
+              <header className="drawer-section-intro"><span>6 · PERGUNTAS DE SABATINA</span><h3>Teoria pesada aplicada ao cotidiano bancário</h3><p>Responda em voz alta antes de revelar. Estruture: conceito → mecanismo → decisão → risco/limitação.</p></header>
+              <section className="question-list weekly-question-list">
+                {week.sabatina.map((item, index) => (
+                  <article key={item.question} className={revealed === index ? "revealed" : ""}>
+                    <span className="question-index">{index + 1}</span>
+                    <div><strong>{item.question}</strong>{revealed === index && <p>{item.answer}</p>}</div>
+                    <button onClick={() => setRevealed(revealed === index ? null : index)}>{revealed === index ? "Ocultar resposta" : "Ver resposta ideal"}</button>
+                  </article>
+                ))}
+              </section>
+              <section className="prompt-workbench sabatina-prompt">
+                <header><div><MessageCircleQuestion size={18} /><span>PROMPT DE SIMULAÇÃO RIGOROSA</span></div><CopyButton text={week.prompts.sabatina} label="Copiar simulador" /></header>
+                <pre>{week.prompts.sabatina}</pre>
               </section>
             </div>
           )}

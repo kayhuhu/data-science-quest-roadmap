@@ -53,8 +53,8 @@ export function SyllabusView({ workspace, onUpdate, onSelectWeek }: SyllabusView
   return (
     <div className="view-stack syllabus-view">
       <header className="page-intro">
-        <div><span className="eyebrow"><ShieldCheck size={14} /> FONTE OFICIAL · ITAÚ UNIBANCO</span><h1>Ementa auditável</h1><p>72 itens rastreados por semana, bloco e nível de domínio. Verde só conta quando você consegue defender.</p></div>
-        <div className="audit-badge"><Sparkles size={18} /><div><strong>Auditoria íntegra</strong><span>22 semanas · 220 respostas · 22 projetos</span></div></div>
+        <div><span className="eyebrow"><ShieldCheck size={14} /> FONTE OFICIAL · ITAÚ UNIBANCO</span><h1>Ementa auditável</h1><p>{roadmap.metrics.syllabusItems} itens oficiais em 13 blocos rigorosamente separados. Verde só conta quando você consegue defender teoria e aplicação.</p></div>
+        <div className="audit-badge"><Sparkles size={18} /><div><strong>Auditoria íntegra</strong><span>13 blocos · 22 semanas · 220 respostas</span></div></div>
       </header>
 
       <section className="mastery-overview">

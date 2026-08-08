@@ -23,8 +23,8 @@ test("ships the complete audited roadmap", async () => {
   const roadmap = JSON.parse(source);
   assert.deepEqual(roadmap.metrics, {
     weeks: 22,
-    blocks: 12,
-    syllabusItems: 72,
+    blocks: 13,
+    syllabusItems: 61,
     projects: 22,
     questions: 220,
     answers: 220,
@@ -32,6 +32,14 @@ test("ships the complete audited roadmap", async () => {
   assert.equal(roadmap.weeks.length, 22);
   assert.ok(roadmap.weeks.every((week) => week.sabatina.length === 10));
   assert.ok(roadmap.weeks.every((week) => week.project.repo));
+  assert.ok(roadmap.weeks.every((week) => week.overview?.officialTopics?.length));
+  assert.ok(roadmap.weeks.every((week) => week.theoryAndBanking?.banking?.cases?.length === 3));
+  assert.ok(roadmap.weeks.every((week) => week.prompts?.study && week.prompts?.sabatina));
+  assert.deepEqual(roadmap.blocks.map((block) => block.title), [
+    "PROGRAMAÇÃO", "ESTATÍSTICA BÁSICA", "ÁLGEBRA", "AVALIAÇÃO DE MODELOS", "DATA PREP",
+    "BANCO DE DADOS", "CLASSIFICAÇÃO", "REGRESSÃO", "AGRUPAMENTO", "IA GENERATIVA",
+    "PESQUISA OPERACIONAL", "PROGRAMAÇÃO INTEIRA", "MIP (MIXED INTEGER PROGRAM)",
+  ]);
 });
 
 test("ships an integrated study center and a specific project guide for every week", async () => {
@@ -47,20 +55,22 @@ test("ships an integrated study center and a specific project guide for every we
   assert.match(route, /initialWeek/);
   assert.match(app, /setSelectedWeek/);
   assert.doesNotMatch(app, /window\.open/);
-  assert.match(center, /Ementa correspondente à Semana/);
+  assert.match(center, /Teoria e Aplicação Bancária/);
+  assert.match(center, /Projeto \(Estrutura Completa CD\)/);
+  assert.match(center, /Estudar com IA/);
+  assert.equal((center.match(/^  "(?:Visão Geral|Teoria e Aplicação Bancária|Materiais|Estudar com IA|Projeto \(Estrutura Completa CD\)|Perguntas de Sabatina)",?$/gm) ?? []).length, 6);
   assert.match(center, /ProjectGuidePanel/);
   assert.match(projectPanel, /Primeiros 30 minutos/);
   assert.match(projectPanel, /Passo a passo do início à publicação/);
+  assert.match(projectPanel, /PROMPT PARA CODAR, REVISAR E DOCUMENTAR COM IA/);
   assert.match(learningViews, /projects-workspace/);
   assert.match(learningViews, /ProjectGuidePanel/);
   assert.match(styles, /\.week-drawer-complete \{ width: 100vw/);
   assert.match(syllabus, /onSelectWeek\(roadmap\.weeks\[item\.week - 1\]\)/);
   assert.match(syllabus, /setBlock\(item\.block\)/);
 
-  const blueprintWeeks = [...guides.matchAll(/^\s{2}(\d+): \{$/gm)].map((match) => Number(match[1]));
-  assert.deepEqual(blueprintWeeks, Array.from({ length: 22 }, (_, index) => index + 1));
-  assert.ok((guides.match(/businessQuestion:/g) ?? []).length >= 22);
-  assert.ok((guides.match(/implementation:/g) ?? []).length >= 22);
-  assert.ok((guides.match(/validation:/g) ?? []).length >= 22);
-  assert.ok((guides.match(/tests:/g) ?? []).length >= 22);
+  assert.match(guides, /gh repo create kayhuhu/);
+  assert.match(guides, /python -m venv \.venv/);
+  assert.match(guides, /requirements\.txt/);
+  assert.match(guides, /buildProjectAiPrompt/);
 });

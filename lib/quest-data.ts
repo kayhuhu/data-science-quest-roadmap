@@ -10,6 +10,28 @@ export type RoadmapWeek = {
   objective: string;
   syllabus: string[];
   content: string[];
+  overview: {
+    summary: string;
+    officialTopics: string[];
+    outcomes: string[];
+  };
+  theoryAndBanking: {
+    foundations: Array<{ title: string; body: string }>;
+    mathematics: { latex: string; explanation: string };
+    banking: {
+      explanation: string;
+      cases: Array<{ title: string; scenario: string; businessValue: string }>;
+    };
+  };
+  resources: {
+    books: string[];
+    videos: string[];
+    articles: string[];
+  };
+  prompts: {
+    study: string;
+    sabatina: string;
+  };
   materials: string[];
   videos: string[];
   project: {
@@ -17,6 +39,7 @@ export type RoadmapWeek = {
     title: string;
     objective: string;
     deliverables: string[];
+    learningOutcomes: string[];
   };
   sabatina: Array<{ question: string; answer: string }>;
 };
@@ -40,18 +63,19 @@ export type RoadmapData = {
 export const roadmap = roadmapJson as RoadmapData;
 
 export const blockPalette: Record<string, string> = {
+  PROGRAMAÇÃO: "#c084fc",
   "ESTATÍSTICA BÁSICA": "#4dd7fa",
   ÁLGEBRA: "#8b5cf6",
+  "AVALIAÇÃO DE MODELOS": "#fbbf24",
   "DATA PREP": "#34d399",
-  PROGRAMAÇÃO: "#c084fc",
   "BANCO DE DADOS": "#fb923c",
-  "REGRESSÃO + AVALIAÇÃO": "#fbbf24",
-  "CLASSIFICAÇÃO + AVALIAÇÃO": "#fb7185",
-  "AGRUPAMENTO + AVALIAÇÃO": "#a78bfa",
+  CLASSIFICAÇÃO: "#fb7185",
+  REGRESSÃO: "#f59e0b",
+  AGRUPAMENTO: "#a78bfa",
   "IA GENERATIVA": "#60a5fa",
-  "PESQUISA OPERACIONAL, PROGRAMAÇÃO INTEIRA E MIP": "#fdba74",
-  OUTROS: "#a3e635",
-  CONSOLIDAÇÃO: "#94a3b8",
+  "PESQUISA OPERACIONAL": "#fdba74",
+  "PROGRAMAÇÃO INTEIRA": "#f97316",
+  "MIP (MIXED INTEGER PROGRAM)": "#e879f9",
 };
 
 export function currentRoadmapWeek(today = new Date()) {

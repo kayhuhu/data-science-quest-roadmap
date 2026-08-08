@@ -1,176 +1,132 @@
 # Data Science Quest
 
-![Data Science Quest — jornada visual de 22 semanas](public/og.png)
+Planner de estudos em Next.js para preparação da prova e da sabatina de Cientista de Dados do Itaú Unibanco. O roadmap v13 cobre 22 semanas, 13 blocos oficiais rigorosamente separados, 22 projetos completos e 220 perguntas técnicas com respostas.
 
-Hub pessoal de preparação para o processo seletivo de Cientista de Dados do Itaú Unibanco. O produto transforma a ementa oficial e o roadmap v12 em uma jornada prática de **22 semanas**, entre **03/08/2026 e 31/12/2026**, com domínio, prática, revisão e portfólio no mesmo lugar.
+Produção atual: `https://data-science-quest-roadmap.vercel.app`
 
-[![Next.js](https://img.shields.io/badge/Next.js-16.3-000000?logo=nextdotjs)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19.2-149ECA?logo=react&logoColor=white)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?logo=vercel)](https://vercel.com/)
-[![License](https://img.shields.io/badge/licen%C3%A7a-MIT-34D399)](LICENSE)
+## O que mudou na v13
 
-## Funcionalidades
+- a ementa oficial foi recontada como 61 itens, exatamente nos 13 blocos fornecidos;
+- nenhum bloco combinado (“Regressão + Avaliação”, por exemplo) permanece;
+- cada semana abre em tela cheia, dentro do aplicativo, e possui exatamente seis áreas;
+- teoria inclui fundamentação, formalização em LaTeX e aplicação bancária;
+- materiais preservam livros anteriores e acrescentam vídeos, artigos e documentação;
+- cada semana possui prompts copiáveis para resumo/PDF e simulação de sabatina;
+- projetos agora começam no VS Code, passam por venv, dependências, testes e documentação e terminam no GitHub `kayhuhu`;
+- a aba Projetos usa o mesmo guia completo de dez etapas.
 
-- tabuleiro visual com 22 semanas, 12 blocos e estados de domínio;
-- central detalhada de cada semana com ementa, conteúdo, materiais, projeto e sabatina;
-- auditoria automática de 72 itens oficiais, 22 projetos, 220 perguntas e 220 respostas;
-- status vermelho, amarelo, verde e revisão, sem concluir conteúdo automaticamente;
-- Pomodoro integrado ao histórico real de estudo e ao cálculo de XP;
-- editor privado com Markdown, tabelas, código, fórmulas LaTeX, trechos curtos e imagens;
-- imagens guardadas no IndexedDB do dispositivo, sem base64 no JSON das notas;
-- flashcards derivados do dicionário canônico de sabatina;
-- sabatina com resposta oculta, tentativa e autoavaliação;
-- simulador de prova prática de até quatro horas;
-- acompanhamento dos 22 repositórios de portfólio;
-- analytics alimentados apenas pelos registros reais do usuário;
-- caderno de erros, conquistas, busca global e modo claro/escuro;
-- backup JSON dos dados pessoais;
-- layout responsivo com sidebar no desktop e navegação inferior no celular.
+## As seis áreas de cada semana
+
+1. **Visão Geral:** tema, itens oficiais, resultados e status de domínio.
+2. **Teoria e Aplicação Bancária:** fundamento, matemática, hipóteses, casos e valor de negócio.
+3. **Materiais:** livros anteriores, aulas, artigos e documentação.
+4. **Estudar com IA:** prompt completo para material didático exportável em PDF.
+5. **Projeto (Estrutura Completa CD):** problema, dados, stack, VS Code, venv, requirements, código, testes, documentação e GitHub.
+6. **Perguntas de Sabatina:** dez cenários com resposta ideal e prompt para entrevista rigorosa.
+
+## Ementa e distribuição
+
+| Bloco oficial | Semana(s) |
+| --- | --- |
+| Programação | 7 |
+| Estatística Básica | 1–3 |
+| Álgebra | 4 |
+| Avaliação de Modelos | 9 |
+| Data Prep | 5–6 |
+| Banco de Dados | 8 |
+| Classificação | 12–15 |
+| Regressão | 10–11 |
+| Agrupamento | 16–17 |
+| IA Generativa | 18–19 |
+| Pesquisa Operacional | 20 |
+| Programação Inteira | 21 |
+| MIP | 22 |
 
 ## Stack
 
-| Camada | Tecnologia |
-|---|---|
-| Interface | CSS moderno, Tailwind CSS 4, Lucide Icons |
-| Linguagem | JavaScript e TypeScript 5.9 em modo estrito |
-| Aplicação | React 19.2 e Next.js 16.3 com App Router |
-| Conteúdo rico | React Markdown, GFM, KaTeX e LaTeX |
-| Visualização | Recharts |
-| Persistência visitante | localStorage para dados estruturados e IndexedDB para imagens |
-| Qualidade | ESLint, TypeScript, testes nativos do Node e auditoria de conteúdo |
-| Publicação | GitHub Actions e Vercel |
+- Next.js 16.3 (App Router)
+- React 19
+- TypeScript 5.9
+- CSS responsivo próprio
+- KaTeX + React Markdown para fórmulas e notas
+- Recharts para analytics
+- armazenamento local no navegador para progresso e anotações
+- Vercel para publicação
 
-## Arquitetura
+## Executar no seu computador
 
-```text
-app/                    rotas, metadata, manifest, sitemap e robots
-components/             tabuleiro Quest e módulos de estudo
-data/roadmap-v12.md     fonte canônica do roadmap
-data/roadmap.json       conteúdo estruturado e auditado
-lib/quest-data.ts       tipos, estados, datas e paleta dos blocos
-lib/use-quest-workspace.ts
-                        estado privado e persistência local
-lib/local-assets.ts     imagens privadas no IndexedDB
-scripts/                geração e validação do conteúdo
-tests/                  integridade da aplicação e do roadmap
-public/                 assets públicos e Open Graph
-```
+Pré-requisitos: Node.js 22 e npm.
 
-O conteúdo canônico é separado dos dados pessoais. O roadmap pode ser publicado; notas, sessões, respostas, erros e imagens continuam no navegador do usuário. A troca futura do adaptador local por Supabase não exige alterar os componentes de domínio.
-
-## Fontes de verdade e seed
-
-- `data/roadmap-v12.md`: distribuição canônica do conteúdo por semana;
-- `data/roadmap.json`: saída estruturada gerada pelo script de importação;
-- ementa original do processo seletivo: referência de integridade dos 72 itens.
-
-Atualize ou valide o seed com:
-
-```bash
-npm run content:audit
-```
-
-A auditoria falha se não encontrar exatamente 22 semanas, 12 blocos, 72 itens oficiais, 22 projetos, 220 perguntas e 220 respostas.
-
-## Desenvolvimento local
-
-Requisitos: Node.js 22.13 ou superior e npm.
-
-```bash
-git clone https://github.com/anitacr/data-science-quest-roadmap.git
-cd data-science-quest-roadmap
-cp .env.example .env.local
-npm ci
-npm run content:audit
+```powershell
+git clone https://github.com/kayhuhu/data-science-quest-roadmap.git
+Set-Location data-science-quest-roadmap
+npm install
 npm run dev
 ```
 
 Abra `http://localhost:3000`.
 
-No PowerShell, use `Copy-Item .env.example .env.local` no lugar de `cp`.
+Se o repositório novo ainda não tiver sido criado, use esta pasta local e siga o guia de migração antes do `git clone`.
 
-## Variáveis de ambiente
+## Comandos de qualidade
 
-| Variável | Obrigatória | Uso |
-|---|---:|---|
-| `NEXT_PUBLIC_APP_URL` | recomendada | URL canônica, metadata e sitemap |
-| `NEXT_PUBLIC_SUPABASE_URL` | não | reservada para sincronização com Supabase |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | não | chave pública do cliente Supabase |
-| `SUPABASE_SERVICE_ROLE_KEY` | não | somente no servidor; nunca expor no navegador |
-| `AI_PROVIDER` | não | padrão `heuristic`, sem serviço pago |
-| `AI_API_KEY` | não | provedor remoto opcional, apenas no servidor |
-| `AI_MODEL` | não | modelo remoto opcional |
-| `GITHUB_TOKEN` | não | integração GitHub opcional, apenas no servidor |
-
-O site funciona sem qualquer chave no modo visitante local.
-
-## Supabase
-
-O deploy atual usa o modo visitante definido no prompt: dados estruturados ficam no `localStorage` e imagens no IndexedDB, sempre isolados por navegador. As variáveis de Supabase já estão documentadas para a evolução de sincronização entre dispositivos, magic link, Storage privado e Row Level Security.
-
-Enquanto um projeto Supabase não estiver configurado, não informe as chaves e não exponha uma `service role` no cliente. O modo local continua totalmente funcional e pode ser exportado em **Configurações → Backup pessoal**.
-
-## Testes e qualidade
-
-```bash
-npm run lint
+```powershell
+npm run content:audit
 npm run typecheck
-npm test
+npm run lint
+npm run build
+npm run check
 ```
 
-`npm test` executa a auditoria do roadmap, checagem de tipos, build de produção e testes de integridade. O workflow em `.github/workflows/ci.yml` repete essas verificações em pushes e pull requests.
+`content:audit` gera `data/roadmap.json` a partir de `scripts/roadmap-source.mjs` e falha se não houver exatamente 22 semanas, 13 blocos, 61 itens oficiais, 22 projetos, 220 perguntas e 220 respostas.
 
-## Deploy na Vercel
+## Arquitetura relevante
 
-### Integração GitHub — recomendada
-
-1. Importe `anitacr/data-science-quest-roadmap` na Vercel.
-2. Mantenha o preset **Next.js** e os comandos detectados automaticamente.
-3. Configure `NEXT_PUBLIC_APP_URL` com a URL de produção.
-4. Publique a branch `main`.
-
-Cada pull request recebe um preview; a produção acompanha a branch `main`.
-
-### Vercel CLI
-
-```bash
-npx vercel
-npx vercel --prod
+```text
+app/                         rotas, layout e CSS global
+components/WeekDrawer.tsx    central semanal com as seis áreas
+components/ProjectGuidePanel.tsx
+                              guia completo compartilhado por Semana e Projetos
+data/roadmap.json            artefato canônico gerado para a interface
+lib/project-guides.ts        execução iniciante, Engenharia de Software e prompts
+lib/quest-data.ts            tipos, paleta e leitura do roadmap
+scripts/roadmap-source.mjs   ementa oficial e conteúdo profundo das 22 semanas
+scripts/generate-roadmap.mjs geração e auditoria de integridade
+docs/MIGRACAO_GITHUB_KAYHUHU.md
+                              troca de conta, cópia, push e Vercel passo a passo
 ```
 
-O nome desejado do projeto é `data-science-quest-roadmap`, resultando em `https://data-science-quest-roadmap.vercel.app` quando disponível.
+## GitHub: migração para `kayhuhu`
 
-## Segurança e privacidade
+O remoto antigo não deve receber as mudanças da v13. A sessão local detectada para `anitacr` está com token inválido; por isso, a criação e o push para a conta nova dependem de autenticação pelo navegador.
 
-- nenhum token, chave ou PDF protegido é versionado;
-- as funcionalidades principais não dependem de IA paga;
-- dados pessoais não são enviados a um backend no modo visitante;
-- imagens ficam como `Blob` no IndexedDB, com limite de 8 MB e tipos controlados;
-- respostas da sabatina só aparecem depois da tentativa;
-- analytics não usam números fictícios;
-- backups contêm apenas os registros pessoais do navegador;
-- materiais externos mantêm seus próprios direitos autorais.
+Siga o guia completo, sem pular as verificações:
 
-Para usar o site em computador público, exporte o backup se necessário e limpe os dados do navegador ao terminar.
+**[Migração GitHub anitacr → kayhuhu](docs/MIGRACAO_GITHUB_KAYHUHU.md)**
 
-## Rotas
+Resumo dos comandos principais, depois de autenticar `kayhuhu`:
 
-As rotas solicitadas no prompt são atendidas pelo App Router, incluindo `/roadmap`, `/blocos`, `/semanas/[numero]`, `/ementa`, `/pomodoro`, `/anotacoes`, `/flashcards`, `/sabatina`, `/prova-pratica`, `/projetos`, `/analytics`, `/caderno-de-erros`, `/conquistas`, `/configuracoes` e `/portfolio`.
+```powershell
+gh auth logout -h github.com -u anitacr
+gh auth login -h github.com -p https -w --clipboard
+gh api user --jq .login
+git remote rename origin old-origin
+gh repo create kayhuhu/data-science-quest-roadmap --public --source . --remote origin --push
+```
 
-## Roadmap do produto
+## Vercel
 
-- [x] conteúdo integral e auditoria canônica;
-- [x] tabuleiro Quest e centrais de semana;
-- [x] domínio, sessões, Pomodoro, notas, imagens, sabatina e projetos;
-- [x] analytics reais, erros, conquistas, backup e responsividade;
-- [x] build Next.js nativo e preparação para Vercel/GitHub Actions;
-- [ ] sincronização opcional entre dispositivos com Supabase Auth, Storage e RLS;
-- [ ] importação e exportação CSV compatível com Anki;
-- [ ] integração GitHub server-side opcional.
+Depois do push no repositório novo:
 
-## Créditos, direitos autorais e licença
+1. abra o projeto no dashboard da Vercel;
+2. vá a **Settings → Git**;
+3. desconecte o repositório antigo;
+4. conecte `kayhuhu/data-science-quest-roadmap`;
+5. confirme `main` como branch de produção;
+6. faça um novo deployment.
 
-O conteúdo de estudo foi organizado a partir da ementa fornecida pelo candidato e do roadmap v12. Os PDFs e livros protegidos **não são distribuídos neste repositório**. O editor registra somente referências, páginas, capítulos, links, trechos curtos necessários e anotações próprias.
+Também é possível usar `vercel git disconnect`, `vercel git connect` e `vercel --prod` na raiz do projeto.
 
-Código sob a [licença MIT](LICENSE). Materiais externos preservam suas próprias licenças e direitos autorais.
+## Conteúdo, privacidade e direitos autorais
+
+O planner registra referências, anotações próprias, imagens permitidas, fórmulas em LaTeX e trechos curtos necessários. Não publique livros/PDFs protegidos, dados bancários, PII, tokens, `.env` ou bases confidenciais. Projetos de portfólio devem usar dados públicos licenciados ou dados sintéticos explicitamente identificados.

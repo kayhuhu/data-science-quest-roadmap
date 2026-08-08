@@ -65,7 +65,7 @@ const navGroups = [
     label: "JORNADA",
     items: [
       { id: "jornada", label: "Visão geral", icon: LayoutDashboard },
-      { id: "ementa", label: "Ementa oficial", icon: BookOpenCheck, badge: "72" },
+      { id: "ementa", label: "Ementa oficial", icon: BookOpenCheck, badge: String(roadmap.metrics.syllabusItems) },
       { id: "projetos", label: "Projetos", icon: FolderGit2, badge: "22" },
     ],
   },
@@ -202,7 +202,7 @@ export function QuestApp({
         <div className="sidebar-bottom">
           <button className={active === "configuracoes" ? "active" : ""} onClick={() => navigate("configuracoes")}><Settings2 size={18} /><span>Configurações</span></button>
           <button><CircleHelp size={18} /><span>Guia de uso</span></button>
-          {!collapsed && <div className="source-seal"><Sparkles size={16} /><div><strong>roadmap-v12</strong><span>conteúdo auditado</span></div></div>}
+          {!collapsed && <div className="source-seal"><Sparkles size={16} /><div><strong>roadmap-v13</strong><span>13 blocos oficiais</span></div></div>}
         </div>
         <button className="collapse-button" onClick={() => setCollapsed(!collapsed)} aria-label={collapsed ? "Expandir menu" : "Recolher menu"}>{collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}</button>
       </aside>
@@ -232,7 +232,7 @@ export function QuestApp({
       </nav>
       <button className="floating-action" onClick={() => navigate("estudio")} aria-label="Criar anotação"><Plus size={22} /></button>
 
-      <WeekDrawer week={selectedWeek} workspace={workspace} onClose={() => setSelectedWeek(null)} onUpdate={update} onNavigate={(view) => { setSelectedWeek(null); navigate(view); }} onSelectWeek={setSelectedWeek} />
+      <WeekDrawer key={selectedWeek?.number ?? "closed"} week={selectedWeek} workspace={workspace} onClose={() => setSelectedWeek(null)} onUpdate={update} onNavigate={(view) => { setSelectedWeek(null); navigate(view); }} onSelectWeek={setSelectedWeek} />
 
       {commandOpen && (
         <div className="command-backdrop" onMouseDown={(event) => event.target === event.currentTarget && setCommandOpen(false)}>

@@ -82,7 +82,7 @@ export function JourneyView({ workspace, studySeconds, greenItems, onSelectWeek,
       </section>
 
       <section className="mission-strip" aria-label="Resumo da missão">
-        <div className="mission-stat"><span className="stat-icon cyan"><Target size={18} /></span><div><strong>{greenItems}<small>/72</small></strong><span>itens verdes</span></div></div>
+        <div className="mission-stat"><span className="stat-icon cyan"><Target size={18} /></span><div><strong>{greenItems}<small>/{roadmap.metrics.syllabusItems}</small></strong><span>itens verdes</span></div></div>
         <div className="mission-stat"><span className="stat-icon violet"><Clock3 size={18} /></span><div><strong>{hours}h {minutes.toString().padStart(2, "0")}m</strong><span>tempo focado</span></div></div>
         <div className="mission-stat"><span className="stat-icon coral"><Flame size={18} /></span><div><strong>{workspace.sessions.length ? 1 : 0} dia</strong><span>sequência atual</span></div></div>
         <div className="mission-stat"><span className="stat-icon green"><FolderGit2 size={18} /></span><div><strong>{Object.values(workspace.projectStatus).filter((status) => status === "publicado").length}<small>/22</small></strong><span>projetos publicados</span></div></div>

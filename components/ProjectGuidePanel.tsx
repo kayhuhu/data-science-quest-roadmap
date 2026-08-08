@@ -8,9 +8,11 @@ import {
   Clipboard,
   Clock3,
   FileCode2,
+  GraduationCap,
   GitBranch,
   ListChecks,
   Rocket,
+  Sparkles,
   Target,
   Terminal,
 } from "lucide-react";
@@ -60,6 +62,11 @@ export function ProjectGuidePanel({ week, workspace, onUpdate, variant = "dialog
         <div className="drawer-repo-name"><GitBranch size={17} /><span>REPOSITÓRIO</span><strong>{week.project.repo}</strong></div>
       </header>
 
+      <section className="project-learning-outcomes">
+        <header><GraduationCap size={18} /><div><span>5 · PROJETO (ESTRUTURA COMPLETA CD)</span><h4>O que você saberá fazer ao concluir</h4></div></header>
+        <ul>{guide.learningOutcomes.map((item) => <li key={item}><Check size={14} />{item}</li>)}</ul>
+      </section>
+
       <section className="project-brief-grid drawer-project-brief">
         <article><span><Target size={18} /></span><small>PERGUNTA DE NEGÓCIO</small><p>{guide.businessQuestion}</p></article>
         <article><span><FileCode2 size={18} /></span><small>PLANO DE DADOS</small><p>{guide.dataPlan}</p></article>
@@ -101,10 +108,16 @@ export function ProjectGuidePanel({ week, workspace, onUpdate, variant = "dialog
         <section className="drawer-panel project-done-panel">
           <div className="panel-title"><CheckCircle2 size={17} /><strong>Definition of done</strong></div>
           <ul>{guide.definitionOfDone.map((item) => <li key={item}><Check size={13} />{item}</li>)}</ul>
-          <label>URL do repositório<input value={workspace.projectUrls[projectKey] ?? ""} onChange={(event) => onUpdate((current) => ({ ...current, projectUrls: { ...current.projectUrls, [projectKey]: event.target.value } }))} placeholder="https://github.com/usuario/repositorio" /></label>
+          <label>URL do repositório<input value={workspace.projectUrls[projectKey] ?? ""} onChange={(event) => onUpdate((current) => ({ ...current, projectUrls: { ...current.projectUrls, [projectKey]: event.target.value } }))} placeholder={`https://github.com/kayhuhu/${week.project.repo}`} /></label>
           <select value={projectStatus} onChange={(event) => onUpdate((current) => ({ ...current, projectStatus: { ...current.projectStatus, [projectKey]: event.target.value as "planejado" | "em-andamento" | "publicado" } }))}><option value="planejado">Planejado</option><option value="em-andamento">Em andamento</option><option value="publicado">Publicado</option></select>
         </section>
       </div>
+
+      <section className="prompt-workbench project-ai-prompt">
+        <header><div><Sparkles size={18} /><span>PROMPT PARA CODAR, REVISAR E DOCUMENTAR COM IA</span></div><button className="copy-prompt-button" onClick={() => void copyCommands("ai-prompt", guide.aiPrompt)}><Clipboard size={15} />{copiedStep === "ai-prompt" ? "Copiado!" : "Copiar prompt"}</button></header>
+        <p>O prompt trabalha em fases, exige testes e documentação e impede que a IA despeje um projeto inteiro sem validação.</p>
+        <pre>{guide.aiPrompt}</pre>
+      </section>
     </div>
   );
 }
