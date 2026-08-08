@@ -1,0 +1,271 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import {
+  AlertTriangle,
+  ArrowLeft,
+  ArrowRight,
+  BookOpenCheck,
+  Check,
+  CheckCircle2,
+  ChevronRight,
+  Clock3,
+  Download,
+  FileQuestion,
+  Filter,
+  GraduationCap,
+  MessageCircleQuestion,
+  Play,
+  RotateCcw,
+  Sparkles,
+  Target,
+  XCircle,
+} from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
+import {
+  assessmentBank,
+  assessmentQuestionCount,
+  reconstructedDatasets,
+  type Assessment,
+} from "@/lib/assessment-data";
+import {
+  realSabatinaQuestions,
+  sabatinaPriorityLabel,
+  type SabatinaPriority,
+} from "@/lib/real-sabatina";
+import { roadmap } from "@/lib/quest-data";
+
+const priorityOrder: SabatinaPriority[] = ["urgente", "reforcar", "manter"];
+
+export function SabatinaTestView() {
+  const [priority, setPriority] = useState<SabatinaPriority | "todas">("todas");
+  const [topic, setTopic] = useState("todos");
+  const [week, setWeek] = useState<number | "todas">("todas");
+  const [index, setIndex] = useState(0);
+  const [revealed, setRevealed] = useState(false);
+  const [draft, setDraft] = useState("");
+
+  const topics = useMemo(
+    () => [...new Set(realSabatinaQuestions.map((item) => item.topic))],
+    [],
+  );
+  const questions = useMemo(
+    () => realSabatinaQuestions.filter((item) =>
+      (priority === "todas" || item.priority === priority) &&
+      (topic === "todos" || item.topic === topic) &&
+      (week === "todas" || item.week === week)),
+    [priority, topic, week],
+  );
+  const item = questions[index] ?? questions[0];
+
+  const move = (direction: number) => {
+    setIndex((current) => (current + direction + questions.length) % questions.length);
+    setRevealed(false);
+    setDraft("");
+  };
+
+  const chooseQuestion = (nextIndex: number) => {
+    setIndex(nextIndex);
+    setRevealed(false);
+    setDraft("");
+  };
+
+  if (!item) return null;
+
+  return (
+    <div className="sabatina-test-view view-stack">
+      <header className="page-intro sabatina-test-intro">
+        <div>
+          <span className="eyebrow"><MessageCircleQuestion size={15} /> SABATINA REAL · MODO TESTE</span>
+          <h1>Treine a resposta que a banca espera ouvir</h1>
+          <p>{realSabatinaQuestions.length} perguntas de uma entrevista real, com prioridade baseada no resultado original e respostas construídas para falar — não para decorar.</p>
+        </div>
+        <div className="real-interview-score">
+          <span>FOCO IMEDIATO</span>
+          <strong>{realSabatinaQuestions.filter((question) => question.priority === "urgente").length}</strong>
+          <small>lacunas urgentes</small>
+        </div>
+      </header>
+
+      <section className="sabatina-filter-bar">
+        <label><Filter size={16} /> Prioridade<select value={priority} onChange={(event) => { setPriority(event.target.value as SabatinaPriority | "todas"); chooseQuestion(0); }}><option value="todas">Todas</option>{priorityOrder.map((value) => <option value={value} key={value}>{sabatinaPriorityLabel[value]}</option>)}</select></label>
+        <label>Tema<select value={topic} onChange={(event) => { setTopic(event.target.value); chooseQuestion(0); }}><option value="todos">Todos os temas</option>{topics.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>Semana<select value={week} onChange={(event) => { setWeek(event.target.value === "todas" ? "todas" : Number(event.target.value)); chooseQuestion(0); }}><option value="todas">Todas as semanas</option>{[...new Set(realSabatinaQuestions.map((question) => question.week))].sort((a, b) => a - b).map((value) => <option value={value} key={value}>S{String(value).padStart(2, "0")} · {roadmap.weeks[value - 1].title}</option>)}</select></label>
+        <span>{questions.length} perguntas no filtro</span>
+      </section>
+
+      <section className="sabatina-test-workspace">
+        <aside className="sabatina-question-index" aria-label="Índice de perguntas">
+          <header><span>ROTEIRO DA ENTREVISTA</span><strong>{index + 1} de {questions.length}</strong></header>
+          <div>
+            {questions.map((question, questionIndex) => (
+              <button key={question.id} className={`${questionIndex === index ? "active" : ""} ${question.priority}`} onClick={() => chooseQuestion(questionIndex)}>
+                <span>{String(questionIndex + 1).padStart(2, "0")}</span>
+                <div><small>S{String(question.week).padStart(2, "0")} · {question.topic}</small><strong>{question.question}</strong></div>
+              </button>
+            ))}
+          </div>
+        </aside>
+
+        <main className="sabatina-answer-stage">
+          <header className="sabatina-question-header">
+            <div><span className={`real-question-priority ${item.priority}`}>{sabatinaPriorityLabel[item.priority]}</span><small>SEMANA {item.week} · {item.topic}</small></div>
+            <nav><button onClick={() => move(-1)}><ArrowLeft size={16} /> Anterior</button><button onClick={() => move(1)}>Próxima <ArrowRight size={16} /></button></nav>
+          </header>
+
+          <section className="sabatina-question-main">
+            <span>PERGUNTA REAL {item.id.slice(3)}</span>
+            <h2>{item.question}</h2>
+            <label>Construa sua resposta antes de abrir o gabarito
+              <textarea value={draft} onChange={(event) => setDraft(event.target.value)} disabled={revealed} placeholder="Comece com uma frase direta. Depois explique o mecanismo, dê um exemplo bancário e feche com uma limitação." />
+            </label>
+            {!revealed && <button className="primary-button sabatina-reveal" onClick={() => setRevealed(true)}><BookOpenCheck size={17} /> Ver resposta técnica completa</button>}
+          </section>
+
+          {revealed && (
+            <section className="structured-answer">
+              <article className="answer-opening"><span>RESPOSTA DIRETA · ABRA ASSIM</span><p>{item.answer}</p></article>
+              <div>
+                <article><span><GraduationCap size={17} /> COMO SUSTENTAR</span><p>{item.reasoning}</p></article>
+                <article><span><Target size={17} /> APLICAÇÃO NO BANCO</span><p>{item.banking}</p></article>
+              </div>
+              <article className="answer-trap"><span><AlertTriangle size={17} /> ARMADILHA / APROFUNDAMENTO</span><p>{item.watchOut}</p></article>
+              <footer><button onClick={() => move(1)}>Entendi · ir para a próxima <ArrowRight size={16} /></button></footer>
+            </section>
+          )}
+        </main>
+      </section>
+    </div>
+  );
+}
+
+type AssessmentMode = "estudo" | "simulado";
+
+function AssessmentCard({ assessment, onStart }: { assessment: Assessment; onStart: (assessment: Assessment) => void }) {
+  const topics = new Set(assessment.questions.map((question) => question.topic));
+  return (
+    <article className="assessment-card">
+      <span><FileQuestion size={23} /></span>
+      <small>{assessment.sourceFormat.toUpperCase()}</small>
+      <h2>{assessment.title}</h2>
+      <p>{assessment.subtitle}</p>
+      <ul><li><Check size={14} /> {assessment.questions.length} questões clicáveis</li><li><Check size={14} /> {topics.size} áreas de conhecimento</li><li><Check size={14} /> Gabarito comentado item a item</li></ul>
+      <button onClick={() => onStart(assessment)}>Abrir esta prova <ChevronRight size={17} /></button>
+    </article>
+  );
+}
+
+export function AssessmentHubView() {
+  const [selectedId, setSelectedId] = useState<Assessment["id"] | null>(null);
+  const [mode, setMode] = useState<AssessmentMode>("estudo");
+  const [index, setIndex] = useState(0);
+  const [answers, setAnswers] = useState<Record<string, number>>({});
+  const [revealed, setRevealed] = useState(false);
+  const [finished, setFinished] = useState(false);
+  const assessment = assessmentBank.find((item) => item.id === selectedId);
+  const question = assessment?.questions[index];
+
+  const reset = (nextAssessment?: Assessment) => {
+    if (nextAssessment) setSelectedId(nextAssessment.id);
+    setIndex(0);
+    setAnswers({});
+    setRevealed(false);
+    setFinished(false);
+  };
+
+  const selectAnswer = (optionIndex: number) => {
+    if (!question || (mode === "estudo" && revealed)) return;
+    setAnswers((current) => ({ ...current, [question.id]: optionIndex }));
+    if (mode === "estudo") setRevealed(true);
+  };
+
+  const goTo = (nextIndex: number) => {
+    setIndex(nextIndex);
+    setRevealed(mode === "estudo" && answers[assessment!.questions[nextIndex].id] !== undefined);
+  };
+
+  if (!assessment || !question) {
+    return (
+      <div className="assessment-hub view-stack">
+        <header className="page-intro">
+          <div><span className="eyebrow"><FileQuestion size={15} /> PROVAS REAIS · AMBIENTE INTERATIVO</span><h1>Duas provas. {assessmentQuestionCount} decisões.</h1><p>Escolha o modo estudo para receber feedback imediato ou faça o simulado inteiro antes de abrir o gabarito.</p></div>
+          <div className="assessment-mode-toggle" aria-label="Modo da prova"><button className={mode === "estudo" ? "active" : ""} onClick={() => setMode("estudo")}><BookOpenCheck size={16} /> Modo estudo</button><button className={mode === "simulado" ? "active" : ""} onClick={() => setMode("simulado")}><Clock3 size={16} /> Modo simulado</button></div>
+        </header>
+        <section className="assessment-card-grid">{assessmentBank.map((item) => <AssessmentCard assessment={item} key={item.id} onStart={reset} />)}</section>
+        <section className="dataset-library">
+          <header><div><Download size={20} /><span>CSV QUE ESTAVAM AUSENTES</span></div><strong>5 bases didáticas prontas para praticar</strong></header>
+          <p>Os arquivos originais não acompanharam o notebook. Estas bases reproduzíveis mantêm o formato de uso, mas podem gerar números diferentes do gabarito original.</p>
+          <div>{reconstructedDatasets.map((dataset) => <a href={dataset.href} download key={dataset.href}><Download size={15} /><span><strong>{dataset.label}</strong><small>{dataset.use}</small></span></a>)}</div>
+          <a className="dataset-readme" href="/datasets/LEIA-ME.txt" download>Baixar nota de metodologia</a>
+        </section>
+      </div>
+    );
+  }
+
+  const correct = assessment.questions.filter((item) => answers[item.id] === item.correctIndex).length;
+  const answered = Object.keys(answers).length;
+  const selected = answers[question.id];
+  const showAnswer = finished || (mode === "estudo" && revealed);
+  const progress = answered / assessment.questions.length * 100;
+
+  if (finished) {
+    return (
+      <div className="assessment-results view-stack">
+        <button className="assessment-back" onClick={() => setSelectedId(null)}><ArrowLeft size={16} /> Voltar para as provas</button>
+        <section className="assessment-result-hero">
+          <span><CheckCircle2 size={32} /></span><small>RESULTADO · {assessment.title.toUpperCase()}</small>
+          <h1>{correct} de {assessment.questions.length}</h1>
+          <p>{Math.round(correct / assessment.questions.length * 100)}% de acerto · {assessment.questions.length - answered} em branco</p>
+          <div><button className="secondary-button" onClick={() => reset()}><RotateCcw size={16} /> Refazer</button><button className="primary-button" onClick={() => setSelectedId(null)}>Escolher outra prova</button></div>
+        </section>
+        <section className="assessment-review-list">
+          <header><span>REVISÃO COMPLETA</span><strong>Abra cada questão para reler o raciocínio</strong></header>
+          {assessment.questions.map((item, itemIndex) => {
+            const chosen = answers[item.id];
+            const isCorrect = chosen === item.correctIndex;
+            return <details key={item.id} className={isCorrect ? "correct" : "wrong"}><summary><span>{isCorrect ? <CheckCircle2 size={17} /> : <XCircle size={17} />}</span><div><small>QUESTÃO {itemIndex + 1} · S{String(item.week).padStart(2, "0")} · {item.topic}</small><strong>{item.question}</strong></div><em>{isCorrect ? "Correta" : chosen === undefined ? "Em branco" : "Revisar"}</em></summary><div className="assessment-review-body"><p><b>Sua resposta:</b> {chosen === undefined ? "Em branco" : item.options[chosen]}</p><p><b>Resposta correta:</b> {item.options[item.correctIndex]}</p><ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{item.rationale}</ReactMarkdown></div></details>;
+          })}
+        </section>
+      </div>
+    );
+  }
+
+  return (
+    <div className="interactive-assessment view-stack">
+      <header className="assessment-run-header">
+        <button className="assessment-back" onClick={() => setSelectedId(null)}><ArrowLeft size={16} /> Provas</button>
+        <div><small>{mode === "estudo" ? "MODO ESTUDO · FEEDBACK IMEDIATO" : "MODO SIMULADO · GABARITO NO FINAL"}</small><h1>{assessment.title}</h1><p>{assessment.originNote}</p></div>
+        <div className="assessment-run-progress"><span>{answered}/{assessment.questions.length} respondidas</span><div><i style={{ width: `${progress}%` }} /></div></div>
+      </header>
+
+      <section className="assessment-workspace">
+        <aside className="assessment-palette">
+          <header><span>QUESTÕES</span><strong>{index + 1}/{assessment.questions.length}</strong></header>
+          <div>{assessment.questions.map((item, itemIndex) => <button key={item.id} className={`${itemIndex === index ? "active" : ""} ${answers[item.id] !== undefined ? "answered" : ""}`} onClick={() => goTo(itemIndex)}>{itemIndex + 1}</button>)}</div>
+          <footer><span><i className="current" /> Atual</span><span><i className="done" /> Respondida</span></footer>
+        </aside>
+
+        <main className="assessment-question-stage">
+          <header><div><span>QUESTÃO {index + 1}</span><small>S{String(question.week).padStart(2, "0")} · {question.topic}</small></div>{question.dataset && <a href={question.dataset} download><Download size={15} /> Baixar CSV didático</a>}</header>
+          <h2>{question.question}</h2>
+          <div className="assessment-options">
+            {question.options.map((option, optionIndex) => {
+              const chosen = selected === optionIndex;
+              const isCorrect = optionIndex === question.correctIndex;
+              const state = showAnswer ? isCorrect ? "correct" : chosen ? "wrong" : "" : chosen ? "selected" : "";
+              return <button key={`${question.id}-${optionIndex}`} className={state} onClick={() => selectAnswer(optionIndex)}><span>{String.fromCharCode(65 + optionIndex)}</span><strong>{option}</strong>{showAnswer && isCorrect && <CheckCircle2 size={19} />}{showAnswer && chosen && !isCorrect && <XCircle size={19} />}</button>;
+            })}
+          </div>
+
+          {showAnswer && <section className="assessment-rationale"><header><Sparkles size={17} /><span>GABARITO COMENTADO</span></header><strong>Resposta: {String.fromCharCode(65 + question.correctIndex)} · {question.options[question.correctIndex]}</strong><ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{question.rationale}</ReactMarkdown>{question.dataset && <p className="dataset-warning"><AlertTriangle size={16} /> CSV reconstruído para prática: o fluxo é reproduzível, mas o número pode diferir do arquivo original.</p>}</section>}
+
+          <footer className="assessment-navigation"><button disabled={index === 0} onClick={() => goTo(index - 1)}><ArrowLeft size={16} /> Anterior</button>{index < assessment.questions.length - 1 ? <button className="primary-button" onClick={() => goTo(index + 1)}>Próxima <ArrowRight size={16} /></button> : <button className="primary-button" onClick={() => setFinished(true)}><CheckCircle2 size={16} /> Finalizar e corrigir</button>}</footer>
+        </main>
+      </section>
+
+      {mode === "simulado" && <button className="finish-assessment-button" onClick={() => setFinished(true)}><Play size={16} /> Finalizar agora e abrir gabarito</button>}
+    </div>
+  );
+}

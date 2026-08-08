@@ -169,7 +169,7 @@ const weeks = weekSpecs.map((spec) => {
 });
 
 const roadmap = {
-  sourceVersion: "v14 — 24 semanas na ordem do planejamento Luiza",
+  sourceVersion: "v15 — 24 semanas na ordem Luiza + sabatina real e provas",
   syllabusVersion: "Ementa oficial fornecida em 08/08/2026",
   metrics: {
     weeks: weeks.length,
@@ -194,4 +194,4 @@ if (weeks.some((week) => !week.blocks.length || !week.overview.sourceOrder || !w
 if (weeks.some((week) => week.sabatina.length !== 10)) throw new Error("Cada semana deve ter exatamente dez perguntas de sabatina.");
 
 await writeFile(new URL("../data/roadmap.json", import.meta.url), `${JSON.stringify(roadmap, null, 2)}\n`, "utf8");
-console.log("Roadmap v14 íntegro:", roadmap.metrics);
+console.log("Roadmap v15 íntegro:", roadmap.metrics);

@@ -32,6 +32,7 @@ import {
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { ProjectGuidePanel } from "@/components/ProjectGuidePanel";
 import { blockPalette, currentRoadmapWeek, roadmap } from "@/lib/quest-data";
+import { fullSabatinaAnswer, realSabatinaForWeek } from "@/lib/real-sabatina";
 import { questXpBreakdown, type ErrorEntry, type QuestWorkspace } from "@/lib/use-quest-workspace";
 
 type WorkspaceProps = {
@@ -100,7 +101,10 @@ export function PomodoroView({ workspace, onUpdate }: WorkspaceProps) {
 }
 
 export function FlashcardsView({ workspace, onUpdate }: WorkspaceProps) {
-  const cards = useMemo(() => roadmap.weeks.flatMap((week) => week.sabatina.map((item, index) => ({ ...item, week: week.number, block: week.block, id: `${week.number}-${index + 1}` }))), []);
+  const cards = useMemo(() => roadmap.weeks.flatMap((week) => [
+    ...week.sabatina.map((item, index) => ({ ...item, week: week.number, block: week.block, id: `${week.number}-${index + 1}` })),
+    ...realSabatinaForWeek(week.number).map((item) => ({ question: item.question, answer: fullSabatinaAnswer(item), week: week.number, block: week.block, id: item.id })),
+  ]), []);
   const firstPending = Math.max(0, cards.findIndex((card) => !workspace.reviewedFlashcards.includes(card.id)));
   const [index, setIndex] = useState(firstPending);
   const [revealed, setRevealed] = useState(false);
@@ -134,7 +138,11 @@ export function SabatinaView({ workspace, onUpdate }: WorkspaceProps) {
   const [answer, setAnswer] = useState("");
   const [revealed, setRevealed] = useState(false);
   const week = roadmap.weeks[weekNumber - 1];
-  const item = week.sabatina[questionIndex];
+  const questions = [
+    ...week.sabatina,
+    ...realSabatinaForWeek(weekNumber).map((item) => ({ question: item.question, answer: fullSabatinaAnswer(item) })),
+  ];
+  const item = questions[questionIndex % questions.length];
 
   const evaluate = (score: number) => {
     onUpdate((current) => ({
@@ -142,7 +150,7 @@ export function SabatinaView({ workspace, onUpdate }: WorkspaceProps) {
       sabatinaAttempts: [{ id: crypto.randomUUID(), week: weekNumber, score, createdAt: new Date().toISOString() }, ...current.sabatinaAttempts],
       errors: score <= 1 ? [{ id: crypto.randomUUID(), title: item.question, week: weekNumber, cause: answer || "Não soube responder.", correction: item.answer, resolved: false, createdAt: new Date().toISOString() }, ...current.errors] : current.errors,
     }));
-    setQuestionIndex((value) => (value + 1) % 10);
+    setQuestionIndex((value) => (value + 1) % questions.length);
     setAnswer("");
     setRevealed(false);
   };
@@ -151,7 +159,7 @@ export function SabatinaView({ workspace, onUpdate }: WorkspaceProps) {
     <div className="oral-view view-stack">
       <header className="page-intro"><div><span className="eyebrow"><MessageCircleQuestion size={14} /> MODO SABATINA</span><h1>Defenda seu raciocínio</h1><p>Uma pergunta por vez. Sua resposta vem antes do dicionário oficial.</p></div><label className="week-select">Semana<select value={weekNumber} onChange={(event) => { setWeekNumber(Number(event.target.value)); setQuestionIndex(0); setRevealed(false); }} >{roadmap.weeks.map((entry) => <option key={entry.number} value={entry.number}>{entry.number} · {entry.title}</option>)}</select></label></header>
       <section className="oral-stage">
-        <div className="oral-card"><div className="oral-meta"><span>QUESTÃO {questionIndex + 1} DE 10</span><span>{week.block}</span></div><h2>{item.question}</h2><label>Sua resposta<textarea value={answer} disabled={revealed} onChange={(event) => setAnswer(event.target.value)} placeholder="Estruture: conceito → mecanismo → aplicação → limitação..." /></label>{!revealed ? <button className="primary-button" disabled={!answer.trim()} onClick={() => setRevealed(true)}>Confirmar e ver resposta <ArrowRight size={16} /></button> : <><div className="expected-answer"><span>RESPOSTA ESPERADA</span><p>{item.answer}</p></div><div className="self-rating"><span>Como você se saiu?</span><div><button onClick={() => evaluate(0)}><XCircle size={15} /> Não soube</button><button onClick={() => evaluate(1)}>Incompleta</button><button onClick={() => evaluate(2)}>Boa</button><button onClick={() => evaluate(3)}><Sparkles size={15} /> Excelente</button></div></div></>}</div>
+        <div className="oral-card"><div className="oral-meta"><span>QUESTÃO {questionIndex + 1} DE {questions.length}</span><span>{week.block}</span></div><h2>{item.question}</h2><label>Sua resposta<textarea value={answer} disabled={revealed} onChange={(event) => setAnswer(event.target.value)} placeholder="Estruture: conceito → mecanismo → aplicação → limitação..." /></label>{!revealed ? <button className="primary-button" disabled={!answer.trim()} onClick={() => setRevealed(true)}>Confirmar e ver resposta <ArrowRight size={16} /></button> : <><div className="expected-answer"><span>RESPOSTA ESPERADA</span><p>{item.answer}</p></div><div className="self-rating"><span>Como você se saiu?</span><div><button onClick={() => evaluate(0)}><XCircle size={15} /> Não soube</button><button onClick={() => evaluate(1)}>Incompleta</button><button onClick={() => evaluate(2)}>Boa</button><button onClick={() => evaluate(3)}><Sparkles size={15} /> Excelente</button></div></div></>}</div>
         <aside className="oral-guide"><span className="eyebrow muted">ESTRUTURA FORTE</span><ol><li><span>1</span><div><strong>Defina</strong><p>Explique o conceito sem jargão vazio.</p></div></li><li><span>2</span><div><strong>Conecte</strong><p>Mostre custo, métrica ou parâmetro.</p></div></li><li><span>3</span><div><strong>Aplique</strong><p>Leve para um cenário bancário.</p></div></li><li><span>4</span><div><strong>Limite</strong><p>Diga quando a técnica falha.</p></div></li></ol><div className="oral-history"><BarChart3 size={17} /><span>{workspace.sabatinaAttempts.length} respostas registradas</span></div></aside>
       </section>
     </div>

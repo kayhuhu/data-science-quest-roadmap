@@ -28,6 +28,7 @@ import {
   TimerReset,
   X,
 } from "lucide-react";
+import { AssessmentHubView, SabatinaTestView } from "@/components/AssessmentViews";
 import { JourneyView } from "@/components/JourneyView";
 import { WeekDrawer } from "@/components/WeekDrawer";
 import { SyllabusView } from "@/components/SyllabusView";
@@ -38,12 +39,12 @@ import {
   ErrorsView,
   FlashcardsView,
   PomodoroView,
-  PracticalExamView,
   ProjectsView,
   SabatinaView,
   SettingsView,
 } from "@/components/LearningViews";
 import { roadmap, type RoadmapWeek } from "@/lib/quest-data";
+import { realSabatinaQuestions } from "@/lib/real-sabatina";
 import { useQuestWorkspace } from "@/lib/use-quest-workspace";
 
 type ActiveView =
@@ -53,6 +54,7 @@ type ActiveView =
   | "estudio"
   | "flashcards"
   | "sabatina"
+  | "sabatina-teste"
   | "prova"
   | "projetos"
   | "analytics"
@@ -74,9 +76,10 @@ const navGroups = [
     items: [
       { id: "pomodoro", label: "Sala de foco", icon: TimerReset },
       { id: "estudio", label: "Anotações", icon: NotebookPen },
-      { id: "flashcards", label: "Flashcards", icon: BrainCircuit, badge: String(roadmap.metrics.questions) },
-      { id: "sabatina", label: "Sabatina", icon: MessageCircleQuestion },
-      { id: "prova", label: "Prova prática", icon: FlaskConical },
+      { id: "flashcards", label: "Flashcards", icon: BrainCircuit, badge: String(roadmap.metrics.questions + realSabatinaQuestions.length) },
+      { id: "sabatina", label: "Sabatina por semana", icon: MessageCircleQuestion },
+      { id: "sabatina-teste", label: "Sabatina teste", icon: Sparkles, badge: "51" },
+      { id: "prova", label: "Provas reais", icon: FlaskConical, badge: "2" },
     ],
   },
   {
@@ -150,10 +153,13 @@ export function QuestApp({
       .filter((item) => item.text.toLocaleLowerCase("pt-BR").includes(query))
       .slice(0, 5)
       .map((item) => ({ id: item.id, type: "Ementa", title: item.text, action: () => navigate("ementa") }));
-    const questions = roadmap.weeks.flatMap((week) => week.sabatina.map((item, index) => ({ ...item, week: week.number, index })))
+    const questions = [
+      ...roadmap.weeks.flatMap((week) => week.sabatina.map((item, index) => ({ ...item, week: week.number, index, id: `q-${week.number}-${index}` }))),
+      ...realSabatinaQuestions.map((item, index) => ({ ...item, index, id: item.id })),
+    ]
       .filter((item) => item.question.toLocaleLowerCase("pt-BR").includes(query))
       .slice(0, 4)
-      .map((item) => ({ id: `q-${item.week}-${item.index}`, type: "Sabatina", title: item.question, action: () => navigate("sabatina") }));
+      .map((item) => ({ id: item.id, type: "Sabatina", title: item.question, action: () => navigate("sabatina") }));
     return [...weeks, ...syllabus, ...questions];
   }, [commandQuery]);
 
@@ -165,7 +171,8 @@ export function QuestApp({
       case "estudio": return <StudyStudio {...common} saveState={saveState} />;
       case "flashcards": return <FlashcardsView {...common} />;
       case "sabatina": return <SabatinaView {...common} />;
-      case "prova": return <PracticalExamView {...common} />;
+      case "sabatina-teste": return <SabatinaTestView />;
+      case "prova": return <AssessmentHubView />;
       case "projetos": return <ProjectsView {...common} />;
       case "analytics": return <AnalyticsView {...common} />;
       case "erros": return <ErrorsView {...common} />;
@@ -202,7 +209,7 @@ export function QuestApp({
         <div className="sidebar-bottom">
           <button className={active === "configuracoes" ? "active" : ""} onClick={() => navigate("configuracoes")}><Settings2 size={18} /><span>Configurações</span></button>
           <button><CircleHelp size={18} /><span>Guia de uso</span></button>
-          {!collapsed && <div className="source-seal"><Sparkles size={16} /><div><strong>roadmap-v14</strong><span>24 semanas · ordem Luiza</span></div></div>}
+          {!collapsed && <div className="source-seal"><Sparkles size={16} /><div><strong>roadmap-v15</strong><span>24 semanas · sabatina real</span></div></div>}
         </div>
         <button className="collapse-button" onClick={() => setCollapsed(!collapsed)} aria-label={collapsed ? "Expandir menu" : "Recolher menu"}>{collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}</button>
       </aside>
@@ -243,7 +250,7 @@ export function QuestApp({
               {commandQuery && commandResults.length === 0 && <div className="command-empty"><Search size={25} /><strong>Nenhum resultado</strong><p>Tente um termo mais amplo.</p></div>}
               {commandResults.map((result) => <button key={result.id} onClick={() => { result.action(); setCommandOpen(false); setCommandQuery(""); }}><span>{result.type}</span><strong>{result.title}</strong><ChevronRight size={16} /></button>)}
             </div>
-            <footer><span><kbd>↵</kbd> abrir</span><span><kbd>ESC</kbd> fechar</span><span>{roadmap.metrics.weeks} semanas · {roadmap.metrics.questions} perguntas indexadas</span></footer>
+            <footer><span><kbd>↵</kbd> abrir</span><span><kbd>ESC</kbd> fechar</span><span>{roadmap.metrics.weeks} semanas · {roadmap.metrics.questions + realSabatinaQuestions.length} perguntas indexadas</span></footer>
           </section>
         </div>
       )}

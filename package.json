@@ -9,7 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "content:audit": "node scripts/generate-roadmap.mjs",
+    "content:audit": "node scripts/generate-roadmap.mjs && node scripts/generate-assessment-datasets.mjs",
     "typecheck": "tsc --noEmit",
     "test": "npm run content:audit && npm run typecheck && npm run build && node --test tests/rendered-html.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next --ignore-pattern work --ignore-pattern outputs --ignore-pattern .vinext",

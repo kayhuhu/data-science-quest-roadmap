@@ -22,6 +22,7 @@ import {
   Triangle,
 } from "lucide-react";
 import { blockPalette, currentRoadmapWeek, roadmap, type RoadmapWeek } from "@/lib/quest-data";
+import { realSabatinaForWeek, realSabatinaQuestions } from "@/lib/real-sabatina";
 import type { QuestWorkspace } from "@/lib/use-quest-workspace";
 
 type JourneyViewProps = {
@@ -36,7 +37,7 @@ type JourneyViewProps = {
 const quickActions = [
   { id: "pomodoro", label: "Iniciar foco", hint: "25 min", icon: Play, accent: "cyan" },
   { id: "estudio", label: "Nova anotação", hint: "Markdown + LaTeX", icon: NotebookPen, accent: "violet" },
-  { id: "flashcards", label: "Revisar cards", hint: `${roadmap.metrics.questions} disponíveis`, icon: BrainCircuit, accent: "green" },
+  { id: "flashcards", label: "Revisar cards", hint: `${roadmap.metrics.questions + realSabatinaQuestions.length} disponíveis`, icon: BrainCircuit, accent: "green" },
   { id: "sabatina", label: "Treinar sabatina", hint: "Resposta em voz alta", icon: MessageCircleQuestion, accent: "coral" },
 ];
 
@@ -122,7 +123,7 @@ export function JourneyView({ workspace, studySeconds, greenItems, onSelectWeek,
           <div className="mission-color" style={{ background: blockPalette[currentWeek.block] }} />
           <small>{currentWeek.block}</small><h3>{currentWeek.title}</h3><p>{currentWeek.objective}</p>
           <div className="mission-goal"><div><span>Meta semanal</span><strong>{Math.floor(studyMinutes / 60)}h de {workspace.settings.weeklyGoalHours}h</strong></div><div className="wide-progress"><i style={{ width: `${goalPercent}%` }} /></div></div>
-          <div className="mission-checklist"><span><BookOpen size={15} /> {currentWeek.content.length} tópicos</span><span><MessageCircleQuestion size={15} /> 10 perguntas</span><span><FolderGit2 size={15} /> {currentWeek.project.title}</span></div>
+          <div className="mission-checklist"><span><BookOpen size={15} /> {currentWeek.content.length} tópicos</span><span><MessageCircleQuestion size={15} /> {currentWeek.sabatina.length + realSabatinaForWeek(currentWeek.number).length} perguntas</span><span><FolderGit2 size={15} /> {currentWeek.project.title}</span></div>
           <button className="primary-button full" onClick={() => onSelectWeek(currentWeek)}>Abrir central da semana <ArrowRight size={16} /></button>
         </aside>
       </section>

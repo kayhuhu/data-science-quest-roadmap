@@ -140,31 +140,26 @@ function normalizeWorkspace(value: unknown): QuestWorkspace {
 
 export function useQuestWorkspace() {
   const [workspace, setWorkspace] = useState<QuestWorkspace>(emptyWorkspace);
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState(true);
   const [saveState, setSaveState] = useState<"saved" | "saving" | "offline">("saving");
   const lastSaved = useRef("");
 
   useEffect(() => {
-    let cancelled = false;
-    try {
-      const serialized = window.localStorage.getItem(LOCAL_WORKSPACE_KEY);
-      const stored = serialized ? (JSON.parse(serialized) as unknown) : null;
-      const next = normalizeWorkspace(stored);
-      queueMicrotask(() => {
-        if (cancelled) return;
+    const timeout = window.setTimeout(() => {
+      try {
+        const serialized = window.localStorage.getItem(LOCAL_WORKSPACE_KEY);
+        const stored = serialized ? (JSON.parse(serialized) as unknown) : null;
+        const next = normalizeWorkspace(stored);
         setWorkspace(next);
         lastSaved.current = JSON.stringify(next);
         setSaveState("saved");
         setReady(true);
-      });
-    } catch {
-      queueMicrotask(() => {
-        if (cancelled) return;
+      } catch {
         setSaveState("offline");
         setReady(true);
-      });
-    }
-    return () => { cancelled = true; };
+      }
+    }, 0);
+    return () => window.clearTimeout(timeout);
   }, []);
 
   useEffect(() => {

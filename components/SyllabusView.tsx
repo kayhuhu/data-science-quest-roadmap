@@ -37,6 +37,9 @@ export function SyllabusView({ workspace, onUpdate, onSelectWeek }: SyllabusView
       result[status] = roadmap.syllabus.filter((item) => (workspace.syllabusStatus[item.id] ?? "nao-iniciado") === status).length;
       return result;
     }, {});
+  const weeksInOrder = roadmap.weeks
+    .map((week) => ({ week, items: filtered.filter((item) => item.week === week.number) }))
+    .filter((group) => group.items.length > 0);
 
   const cycleStatus = (id: string) => {
     onUpdate((current) => {
@@ -52,7 +55,7 @@ export function SyllabusView({ workspace, onUpdate, onSelectWeek }: SyllabusView
   return (
     <div className="view-stack syllabus-view">
       <header className="page-intro">
-        <div><span className="eyebrow"><ShieldCheck size={14} /> FONTE OFICIAL · ITAÚ UNIBANCO</span><h1>Ementa auditável</h1><p>{roadmap.metrics.syllabusItems} itens oficiais em 13 blocos rigorosamente separados. Verde só conta quando você consegue defender teoria e aplicação.</p></div>
+        <div><span className="eyebrow"><ShieldCheck size={14} /> FONTE OFICIAL · ITAÚ UNIBANCO</span><h1>Ementa semanal em checklist</h1><p>{roadmap.metrics.syllabusItems} itens oficiais, apresentados na mesma ordem das 24 semanas. Marque seu domínio e abra qualquer semana sem sair da tela.</p></div>
         <div className="audit-badge"><Sparkles size={18} /><div><strong>Auditoria íntegra</strong><span>{roadmap.metrics.blocks} blocos · {roadmap.metrics.weeks} semanas · {roadmap.metrics.answers} respostas</span></div></div>
       </header>
 
@@ -70,22 +73,30 @@ export function SyllabusView({ workspace, onUpdate, onSelectWeek }: SyllabusView
         <span className="result-count">{filtered.length} de {roadmap.metrics.syllabusItems} itens</span>
       </section>
 
-      <p className="syllabus-navigation-help">Clique no nome do bloco para filtrar a ementa. Clique em <strong>S01–S{roadmap.metrics.weeks}</strong> para abrir a semana correspondente nesta mesma tela.</p>
+      <p className="syllabus-navigation-help">Clique no círculo para avançar o status. Clique no cabeçalho da semana para abrir sua central completa nesta mesma tela.</p>
 
-      <section className="syllabus-table">
-        <div className="syllabus-head"><span>Domínio</span><span>Item oficial</span><span>Bloco</span><span>Semana</span><span>Evidência</span></div>
-        {filtered.map((item) => {
-          const status = workspace.syllabusStatus[item.id] ?? "nao-iniciado";
-          return (
-            <article className="syllabus-row" key={item.id}>
-              <button className={`mastery-toggle ${status}`} onClick={() => cycleStatus(item.id)} aria-label={`Alterar status: ${statusLabel(status)}`}><i />{statusLabel(status)}</button>
-              <div className="syllabus-copy"><strong>{item.text}</strong><small>{item.id.toUpperCase()}</small></div>
-              <button className="block-chip block-chip-button" style={{ "--chip-color": blockPalette[item.block] ?? "#4dd7fa" } as React.CSSProperties} onClick={() => setBlock(item.block)} title={`Filtrar pelo bloco ${item.block}`}>{item.block}</button>
-              <button className="week-chip" onClick={() => onSelectWeek(roadmap.weeks[item.week - 1])} title={`Abrir a Semana ${item.week}`}>S{item.week.toString().padStart(2, "0")}</button>
-              <button className="evidence-button"><CheckCircle2 size={15} /> Vincular</button>
-            </article>
-          );
+      <section className="weekly-syllabus-checklist">
+        {weeksInOrder.map(({ week, items }) => {
+          const completed = items.filter((item) => (workspace.syllabusStatus[item.id] ?? "nao-iniciado") === "verde").length;
+          return <article className="syllabus-week-group" key={week.number} style={{ "--week-color": blockPalette[week.block] ?? "#4dd7fa" } as React.CSSProperties}>
+            <button className="syllabus-week-header" onClick={() => onSelectWeek(week)}>
+              <span>S{week.number.toString().padStart(2, "0")}</span>
+              <div><small>{week.blocks.join(" + ")}</small><strong>{week.title}</strong><p>{week.overview.summary}</p></div>
+              <em>{completed}/{items.length} verdes</em>
+            </button>
+            <div className="syllabus-week-items">
+              {items.map((item) => {
+                const status = workspace.syllabusStatus[item.id] ?? "nao-iniciado";
+                return <div className={`syllabus-check-item ${status}`} key={item.id}>
+                  <button className="syllabus-check-control" onClick={() => cycleStatus(item.id)} aria-label={`Alterar status de ${item.text}: ${statusLabel(status)}`}><span>{status === "verde" ? <CheckCircle2 size={18} /> : <i />}</span></button>
+                  <div><strong>{item.text}</strong><small>{statusLabel(status)} · {item.id.toUpperCase()}</small></div>
+                  <button className="block-chip block-chip-button" style={{ "--chip-color": blockPalette[item.block] ?? "#4dd7fa" } as React.CSSProperties} onClick={() => setBlock(item.block)}>{item.block}</button>
+                </div>;
+              })}
+            </div>
+          </article>;
         })}
+        {weeksInOrder.length === 0 && <div className="empty-panel"><Search size={30} /><h3>Nenhum item neste filtro</h3><p>Limpe a busca ou selecione todos os blocos e status.</p></div>}
       </section>
     </div>
   );

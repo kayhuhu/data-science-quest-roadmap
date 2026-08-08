@@ -1,0 +1,6 @@
+DATASETS DIDÁTICOS RECONSTRUÍDOS
+
+Os arquivos originais citados em PROVA_ITAU_2.ipynb não acompanharam o material recebido. Estes cinco CSVs foram gerados de forma determinística para permitir que o pipeline, os comandos e as métricas sejam praticados. Eles preservam o tipo de problema e deixam a variável-alvo na última coluna, como o notebook espera, mas não pretendem reproduzir linha a linha os arquivos originais. Portanto, os números podem divergir do gabarito original.
+
+Gerador: scripts/generate-assessment-datasets.mjs
+Seed: 20260808

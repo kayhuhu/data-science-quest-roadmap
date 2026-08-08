@@ -1,0 +1,1369 @@
+{
+  "version": "2026-08-08",
+  "assessments": [
+    {
+      "id": "prova-itau-1",
+      "title": "Prova Itaú 1",
+      "subtitle": "47 questões reconstruídas do PDF visual",
+      "source": "PROVA_ITAU_1.pdf",
+      "sourceFormat": "PDF com capturas de tela",
+      "originNote": "Os conceitos e gabaritos foram preservados; a redação foi normalizada para leitura, acessibilidade e estudo no navegador.",
+      "questions": [
+        {
+          "id": "p1-01",
+          "sourceQuestion": 1,
+          "question": "Sejam A e B duas variáveis de interesse. Sabemos que a variável A é bem comportada e segue uma distribuição normal. No entanto, a variável B possui outliers e uma assimetria positiva. Com essas informações, podemos afirmar que:",
+          "options": [
+            "podemos sumarizar bem ambas as variáveis com a média",
+            "a variável A pode ser bem sumarizada somente a partir da mediana e B somente a partir da média",
+            "podemos sumarizar bem ambas as variáveis com a mediana",
+            "a variável A pode ser bem sumarizada somente a partir da média e B somente a partir da mediana"
+          ],
+          "correctIndex": 2,
+          "topic": "Estatística básica",
+          "week": 1,
+          "rationale": "Leitura orientada do item: O segredo dessa questão está em entender a robustez das medidas de tendência central:\n• Variável B (Assimetria e Outliers): A média é uma métrica extremamente sensível a valores extremos. Em uma distribuição com assimetria positiva (cauda longa à direita), os outliers \"puxam\" a média para cima, distorcendo a visão do comportamento padrão dos dados. A mediana, por ser baseada na posição (o valor do meio), é imune a esses extremos e representa muito melhor a realidade da variável B.\n• Variável A (Distribuição Normal): Uma distribuição normal é perfeitamente simétrica. Como vimos na questão anterior, isso garante que a Média, a Mediana e a Moda sejam exatamente iguais. Logo, a mediana também funciona perfeitamente para sumarizar a variável A.\n\nDica de Sabatina: Se a banca perguntar por que a alternativa \"D\" está errada (já que a média costuma ser o padrão para normais), o ponto principal é a palavra \"somente\". A variável A não é sumarizada *somente* pela média, ela aceita tanto a média quanto a mediana. Assim, a mediana é a única métrica que \"salva\" as duas variáveis ao mesmo tempo.",
+          "dataset": null
+        },
+        {
+          "id": "p1-02",
+          "sourceQuestion": 2,
+          "question": "Para modelos utilizados em um contexto de regressão, escolha a alternativa INCORRETA:",
+          "options": [
+            "no K-NN, o modelo não 'aprende' melhores parâmetros, apenas armazena as instâncias utilizadas durante o treinamento",
+            "na árvore de decisão, o aumento da profundidade pode ser utilizado para a redução da variância entre as previsões do modelo",
+            "nas redes neurais, normalmente o Dropout só é utilizado em tempo de treino, sendo desligado em tempo de inferência",
+            "na regressão linear o aumento da regularização L1 pode ser utilizado como um processo de seleção de variáveis"
+          ],
+          "correctIndex": 1,
+          "topic": "Classificação e avaliação",
+          "week": 14,
+          "rationale": "Leitura orientada do item: O conceito central aqui é a relação entre a complexidade do modelo e a Variância (tendência ao overfitting).\n• Por que a Letra B é a afirmativa falsa (logo, o gabarito)? O aumento da profundidade (como o hiperparâmetro `max_depth`) permite que a árvore cresça, crie mais ramificações e decore detalhes cada vez mais específicos e ruidosos da base de treino. Isso torna o modelo supercomplexo, o que aumenta drasticamente a variância. Para reduzir a variância em árvores simples, a técnica correta é fazer exatamente o oposto: restringir/diminuir a profundidade (processo conhecido como poda ou *pruning*).\n\nPor que as outras afirmativas são fatos verdadeiros?\n• a. (Verdadeira): O K-NN é o exemplo clássico de *lazy learner* (aprendizado preguiçoso). Durante o `.fit()`, ele literalmente não faz nenhum cálculo de otimização de pesos; ele apenas guarda a base de dados na memória. O \"trabalho matemático\" só acontece na hora de prever, calculando distâncias.\n• c. (Verdadeira): O *Dropout* é uma técnica de regularização que \"desliga\" aleatoriamente um percentual de neurônios durante o treino, forçando a rede a não se tornar dependente de um caminho único. Na hora da inferência (teste ou produção), ele é desativado para que a rede use 100% da sua capacidade preditiva aprendida.\n• d. (Verdadeira): Como abordamos anteriormente, a regularização L1 (Lasso) possui a propriedade matemática de encolher os coeficientes das variáveis menos importantes até que eles cheguem exatamente a zero, funcionando perfeitamente como um método automático de seleção de variáveis.",
+          "dataset": null
+        },
+        {
+          "id": "p1-03",
+          "sourceQuestion": 3,
+          "question": "Seja y_pred = [0, 1, 0, 1, 0] o valor predito por um modelo de regressão. Qual valor de erro médio quadrático (MSE) está correto?",
+          "options": [
+            "Para y_true = [1, 1, 0, 1, 1] o valor de MSE é 1",
+            "Para y_true = [2, 1, 0, -1, -2] o valor de MSE é -2.4",
+            "Para y_true = [0, 0, 0, 0, 0] o valor de MSE é 0",
+            "Para y_true = [-2, -1, 0, 1, 2] o valor de MSE é 2.4"
+          ],
+          "correctIndex": 3,
+          "topic": "Regressão",
+          "week": 7,
+          "rationale": "Leitura orientada do item: O Erro Quadrático Médio (MSE - *Mean Squared Error*) é calculado tirando a diferença entre o valor real e o predito, elevando ao quadrado (para penalizar erros maiores e evitar que números negativos anulem os positivos) e, por fim, tirando a média de todos esses valores.\n\nA fórmula é:\n$MSE = \\frac{1}{n} \\sum_{i=1}^{n} (y\\_true_i - y\\_pred_i)^2$\n\nOnde $y\\_pred = [0, 1, 0, 1, 0]$ e $n = 5$.\n\nVamos testar a Letra D, que é a correta:\n• Para $y\\_true = [-2, -1, 0, 1, 2]$\n• Erros (Real - Predito):\n• $(-2 - 0) = -2$\n• $(-1 - 1) = -2$\n• $(0 - 0) = 0$\n• $(1 - 1) = 0$\n• $(2 - 0) = 2$\n• Elevando ao quadrado:\n• $(-2)^2 = 4$\n• $(-2)^2 = 4$\n• $0^2 = 0$\n• $0^2 = 0$\n• $2^2 = 4$\n• Somando tudo: $4 + 4 + 0 + 0 + 4 = 12$\n• Dividindo pelo número de amostras ($n=5$): $12 / 5 = 2.4$\n\nDica Rápida para Prova: Você poderia eliminar a Letra B imediatamente sem fazer nenhuma conta. Como o MSE eleva as diferenças ao quadrado, o resultado nunca pode ser um número negativo.",
+          "dataset": null
+        },
+        {
+          "id": "p1-04",
+          "sourceQuestion": 4,
+          "question": "Qual das seguintes distribuições pode ser utilizada para representar amostras obtidas em um intervalo [0, 100] com probabilidades iguais?",
+          "options": [
+            "Poisson",
+            "Normal",
+            "Binomial",
+            "Uniforme"
+          ],
+          "correctIndex": 3,
+          "topic": "Estatística básica",
+          "week": 2,
+          "rationale": "Leitura orientada do item: A distribuição Uniforme é exatamente definida pela característica de que todos os valores contidos em um determinado intervalo (neste caso, de 0 a 100) possuem a mesma probabilidade de ocorrer.\n• Poisson: Modela a quantidade de vezes que um evento ocorre em um intervalo de tempo ou espaço (dados discretos).\n• Normal: Modela dados contínuos concentrados em torno de uma média (formato de sino), onde os extremos têm menor probabilidade.\n• Binomial: Modela o número de sucessos em uma sequência de $n$ tentativas independentes (dados discretos).",
+          "dataset": null
+        },
+        {
+          "id": "p1-05",
+          "sourceQuestion": 5,
+          "question": "Estimou-se que há 80% de chance de uma pessoa possuir um certo traço no DNA. Em uma sala com 5 pessoas, a chance de exatamente 4 pessoas terem o tal traço é de, aproximadamente:",
+          "options": [
+            "0.41",
+            "0.33",
+            "0.25",
+            "0.80"
+          ],
+          "correctIndex": 0,
+          "topic": "Estatística básica",
+          "week": 2,
+          "rationale": "Leitura orientada do item: Este é um problema clássico de Distribuição Binomial, pois temos um número fixo de tentativas (5 pessoas), duas possibilidades de resultado (tem o traço ou não tem) e a probabilidade é constante (80%).\n\nPodemos resolver usando a fórmula da probabilidade binomial:\n$P(X = k) = \\binom{n}{k} \\cdot p^k \\cdot (1-p)^{n-k}$\n\nOnde:\n• $n$ (número total de tentativas/pessoas) = 5\n• $k$ (número de sucessos desejados) = 4\n• $p$ (probabilidade de sucesso) = 0.80\n• $(1-p)$ (probabilidade de fracasso) = 0.20\n\nCalculando:\n\n1. Combinação de 5 escolhendo 4: $\\binom{5}{4} = 5$\n2. Probabilidade: $P(X = 4) = 5 \\cdot (0.80)^4 \\cdot (0.20)^1$\n3. $P(X = 4) = 5 \\cdot 0.4096 \\cdot 0.20$\n4. $P(X = 4) = 1 \\cdot 0.4096 = 0.4096$\n\nArredondando, temos 0.41 (ou 41%).",
+          "dataset": null
+        },
+        {
+          "id": "p1-06",
+          "sourceQuestion": 6,
+          "question": "Em um teste de hipóteses com nível de significância alpha e cujas estatísticas de teste calculada e tabelada estão representadas por Tc e Tt, respectivamente, pode-se afirmar que:",
+          "options": [
+            "a probabilidade de se rejeitar H0, sendo H0 verdadeira, é igual a alpha/2",
+            "se -Tt <= Tc <= Tt, não se rejeita a hipótese H0 para o caso bicaudal",
+            "ocorre erro tipo I quando se aceita H0 e H0 é falsa",
+            "se Tc <= Tt, rejeita-se a hipótese H0 para o caso unilateral"
+          ],
+          "correctIndex": 1,
+          "topic": "Estatística básica",
+          "week": 2,
+          "rationale": "Leitura orientada do item: Em um teste de hipóteses bicaudal, a região de aceitação (não-rejeição) da hipótese nula ($H_0$) está concentrada no centro da distribuição, delimitada pelos valores críticos (tabelados) negativo ($-T_t$) e positivo ($T_t$). Se a nossa estatística calculada ($T_c$) cai dentro desse intervalo, nós não temos evidências estatísticas suficientes para rejeitar $H_0$.\n\nPor que as outras estão incorretas?\n• a. A probabilidade de rejeitar $H_0$ sendo ela verdadeira é a definição exata do nível de significância ($\\alpha$), e não $\\alpha/2$.\n• c. Aceitar $H_0$ quando ela é falsa é a definição do Erro Tipo II. O Erro Tipo I ocorre quando rejeitamos $H_0$ sendo ela verdadeira.\n• d. A regra de rejeição unilateral depende da direção da cauda (esquerda ou direita). Dizer genericamente que $T_c \\le T_t$ leva à rejeição está incompleto e incorreto para testes de cauda superior (onde rejeitaríamos se $T_c \\ge T_t$).",
+          "dataset": null
+        },
+        {
+          "id": "p1-07",
+          "sourceQuestion": 7,
+          "question": "Em uma determinada cidade do Brasil, as crianças recém-nascidas do sexo masculino nascem com peso segundo uma distribuição normal com média 2.4kg e desvio padrão a 0.040kg. O percentil 50º dessa distribuição é igual a:",
+          "options": [
+            "2.35kg",
+            "2.37kg",
+            "2.40kg",
+            "1.96kg"
+          ],
+          "correctIndex": 2,
+          "topic": "Estatística básica",
+          "week": 2,
+          "rationale": "Leitura orientada do item: Esta é uma questão conceitual que não exige cálculos. A característica fundamental de uma Distribuição Normal (a clássica \"curva do sino\") é a sua simetria perfeita em relação ao centro.\n\nPor causa dessa simetria, as três principais medidas de tendência central são exatamente iguais e ficam no mesmo ponto do eixo:\n\n1. A Média ($\\mu$)\n2. A Mediana, que por definição é o valor que divide os dados exatamente ao meio, ou seja, o 50º percentil.\n3. A Moda\n\nComo o enunciado já informa diretamente que a média é de 2.4kg, automaticamente sabemos que o percentil 50º (a mediana) também é 2.40kg.",
+          "dataset": null
+        },
+        {
+          "id": "p1-08",
+          "sourceQuestion": 8,
+          "question": "Assinale a alternativa INCORRETA:",
+          "options": [
+            "no gráfico boxplot podemos visualizar apenas a mediana e a média de uma variável numérica",
+            "podemos visualizar a tendência do salário médio anual na última década a partir de um gráfico de linhas",
+            "a distribuição normal é geralmente utilizada para modelar dados contínuos",
+            "o gráfico do tipo scatterplot pode ser utilizado para identificar outliers conjuntamente em duas variáveis"
+          ],
+          "correctIndex": 0,
+          "topic": "Estatística básica",
+          "week": 1,
+          "rationale": "Leitura orientada do item: O comando da questão pede a alternativa incorreta, e a afirmação da letra A está errada sobre a composição do Boxplot:\n\n1. O Boxplot clássico foca em medidas de posição e não costuma exibir a média por padrão (apenas a mediana, que é o segundo quartil).\n2. Ele definitivamente não mostra \"apenas\" isso. A grande utilidade do Boxplot é resumir a distribuição mostrando o Primeiro Quartil (Q1), a Mediana (Q2), o Terceiro Quartil (Q3), a amplitude interquartil (IQR), os limites de variação esperada (\"bigodes\" ou *whiskers*) e os outliers daquela variável.\n\nPor que as outras afirmações são verdadeiras?\n• b. Gráficos de linha são a melhor prática para representar evolução ou tendências ao longo do tempo (séries temporais).\n• c. A distribuição normal é, por excelência, o modelo teórico mais comum para variáveis aleatórias contínuas.\n• d. O scatterplot (gráfico de dispersão) cruza duas variáveis (eixos X e Y), sendo a ferramenta ideal para identificar pontos que fogem do padrão bivariado (outliers conjuntos).",
+          "dataset": null
+        },
+        {
+          "id": "p1-09",
+          "sourceQuestion": 9,
+          "question": "Uma cidade com 250 mil habitantes é dividida em 20 bairros distintos. Por meio de um sorteio realizado em cada um dos 20 bairros foram selecionadas amostras e os moradores selecionados foram entrevistados. Esse tipo de delineamento é característico de uma amostragem:",
+          "options": [
+            "por conglomerado",
+            "estratificada",
+            "sistemática",
+            "aleatória simples"
+          ],
+          "correctIndex": 1,
+          "topic": "Estatística básica",
+          "week": 1,
+          "rationale": "Leitura orientada do item: O ponto-chave para matar essa questão é a frase: *\"realizado em cada um dos 20 bairros\"*.\n\nAqui está a diferença prática entre as principais técnicas para você ter na ponta da língua:\n• Estratificada (A correta): A população é dividida em grupos (estratos — neste caso, os bairros). Em seguida, você coleta uma amostra aleatória de todos os grupos. Isso garante que todos os bairros tenham representação na pesquisa final.\n• Por Conglomerado: A população também é dividida em grupos (conglomerados). A diferença é que você sortearia apenas alguns bairros (ex: sorteia 4 de 20 bairros) e entrevistaria as pessoas apenas desses bairros sorteados, ignorando os outros 16.\n• Aleatória Simples: Você colocaria o nome dos 250 mil habitantes em uma base única e faria um sorteio cego, sem separação por bairros.\n• Sistemática: Você organizaria os moradores em uma lista e entrevistaria a cada $k$ pessoas (ex: o 10º, o 20º, o 30º da lista...).",
+          "dataset": null
+        },
+        {
+          "id": "p1-10",
+          "sourceQuestion": 10,
+          "question": "Supondo que tenhamos as seguintes bases e suas respectivas volumetrias em linhas: A = 40, B = 200, C = 160 e D = 15. Qual dos possíveis pseudo-códigos SQL abaixo pode ter gerado a base final X com 13 linhas?",
+          "options": [
+            "(((A RIGHT D) LEFT (B INNER D)) LEFT (D INNER A)) => X",
+            "((((A INNER B) OUTER C) INNER D) INNER A) => X",
+            "((D LEFT C) RIGHT A) => X",
+            "((A LEFT B) INNER D) OUTER C) => X"
+          ],
+          "correctIndex": 1,
+          "topic": "Banco de dados e SQL",
+          "week": 21,
+          "rationale": "Leitura orientada do item: Para matar essa questão de volumetria sem fritar a cabeça, basta focar nas regras de limite mínimo (*lower bound*) que cada tipo de junção impõe à tabela resultante:\n• LEFT JOIN: A tabela resultante terá, no mínimo, o mesmo número de linhas da tabela da esquerda.\n• RIGHT JOIN: A tabela resultante terá, no mínimo, o mesmo número de linhas da tabela da direita.\n• FULL OUTER JOIN: A tabela resultante terá, no mínimo, o tamanho da maior tabela envolvida.\n• INNER JOIN: É o único que atua como um filtro estrito. O resultado pode ser menor do que as tabelas originais, podendo chegar a zero (se não houver correspondência).\n\nComo a base final X tem 13 linhas, precisamos eliminar qualquer alternativa cujo bloco principal ou final obrigue a query a retornar um número maior que 13:\n• Alternativa A: A base motriz é `A RIGHT D` (que garante no mínimo as 15 linhas de D). Os joins seguintes são todos `LEFT`, o que significa que o número de linhas nunca vai cair para menos de 15. *(Incorreta)*\n• Alternativa C: A operação final é um `RIGHT A`. Isso obriga o resultado a ter, no mínimo, o número de linhas de A (40 linhas). *(Incorreta)*\n• Alternativa D: A operação final é um `OUTER C` (Full Outer Join). Isso obriga o resultado a ter, no mínimo, todas as linhas de C (160 linhas). *(Incorreta)*\n• Alternativa B: As operações finais são sucessivos `INNER JOIN` (com D e depois com A). Como o `INNER JOIN` exige a interseção das chaves, ele é capaz de reduzir a volumetria da query para as 13 linhas mencionadas. *(Correta)*",
+          "dataset": null
+        },
+        {
+          "id": "p1-11",
+          "sourceQuestion": 11,
+          "question": "Considere as tabelas (Transações e Cartões) e o código SQL que faz um LEFT JOIN da tabela Cartões com a tabela Transações e agrupa por cliente. Sobre a tabela retornada pela consulta, responda: qual é o valor da coluna SOMA_GASTOS_CARTAO para a segunda linha?",
+          "options": [
+            "17",
+            "NULL",
+            "98",
+            "101"
+          ],
+          "correctIndex": 3,
+          "topic": "Banco de dados e SQL",
+          "week": 21,
+          "rationale": "Leitura orientada do item: Como vimos na Questão 1, assumindo que o agrupamento pretendido seja pela tabela de cartões (`C.IDCLIENTE`), a query faz um `LEFT JOIN` e ordena os IDs de forma crescente.\nA ordem dos IDs será:\n\n1. 2134 (Soma: 17)\n2. 5438 (Soma: 15 + 35 + 51 = 101) -> *Segunda linha*\n3. 8765 (Soma: NULL, pois não há transações para este cartão)\n4. 9987 (Soma: 25)\n\nA segunda linha corresponde ao cliente 5438, cuja soma dos gastos é 101.",
+          "dataset": null
+        },
+        {
+          "id": "p1-12",
+          "sourceQuestion": 12,
+          "question": "Quais desses procedimentos é exemplo do vazamento de dados (data leak)?",
+          "options": [
+            "imputar usando um modelo de árvore de regressão, treinado somente na base de treino",
+            "usar imputação da média dos valores não missing, onde se calculou o valor médio da variável antes da separação em treino e teste",
+            "retirar as observações com valor missing",
+            "imputar com 0 todos os missings"
+          ],
+          "correctIndex": 1,
+          "topic": "Classificação e avaliação",
+          "week": 6,
+          "rationale": "Leitura orientada do item: O vazamento de dados (*Data Leakage*) é um dos erros mais fatais (e comuns) em Ciência de Dados. Ele ocorre quando informações que não deveriam estar disponíveis no momento do treinamento (geralmente informações da base de teste ou dados do futuro) \"vazam\" para dentro do modelo, fazendo com que ele pareça ter uma performance espetacular na validação, mas fracasse miseravelmente em produção.\n• Por que a Letra B é o vazamento clássico? Ao calcular a média de uma coluna usando o dataset inteiro antes de fazer o *train_test_split*, a sua média matemática passa a conter influência direta dos números que estarão na base de teste. Quando você usa essa média global para preencher os buracos (missings) da base de treino, o seu modelo de treino acaba \"espiando\" discretamente os dados de teste. O procedimento correto, para qualquer transformação (imputação, normalização, etc.), é sempre calcular os parâmetros (como a média) apenas na base de treino e aplicar esse mesmo valor na base de teste.\n\nPor que as outras alternativas são procedimentos seguros (sem vazamento)?\n• a. (Correta metodologicamente): Usar um modelo (como árvore) para prever missings é excelente, e o fato de ter sido \"treinado somente na base de treino\" garante que não houve vazamento.\n• c. (Segura, mas destrutiva): Simplesmente apagar linhas (DropNA) não transfere informações do teste para o treino, mas pode destruir a volumetria da sua base.\n• d. (Segura, mas ingênua): Preencher tudo com \"0\" é uma imputação por constante absoluta. O número \"0\" não carrega nenhuma informação estatística da base de teste.\n\n💡 Dica de Ouro para a Sabatina:\nSe o tema de vazamento de dados surgir, mostre domínio de ferramentas práticas. Você pode citar: *\"Para garantir que nunca ocorra Data Leakage nas minhas imputações e normalizações, a melhor prática é embutir todo o pré-processamento dentro de um objeto `Pipeline` do Scikit-Learn. O Pipeline garante matematicamente que o método `fit()` só vai enxergar os dados de treino em cada *fold* de uma validação cruzada, usando apenas o `transform()` nos dados de validação.\"*",
+          "dataset": null
+        },
+        {
+          "id": "p1-13",
+          "sourceQuestion": 13,
+          "question": "Quais das seguintes sentenças sobre pontos atípicos (outliers) em regressão linear são verdadeiras?",
+          "options": [
+            "na presença de muitos outliers, devemos utilizar a métrica de avaliação RMSE",
+            "regressão linear é sensível a outliers",
+            "sempre existe outlier em um problema de regressão linear",
+            "regressão linear não é sensível a outlier"
+          ],
+          "correctIndex": 1,
+          "topic": "Regressão",
+          "week": 4,
+          "rationale": "Leitura orientada do item: O modelo clássico de Regressão Linear utiliza o método dos Mínimos Quadrados Ordinários (OLS - *Ordinary Least Squares*) para encontrar a melhor linha de ajuste. Esse método busca minimizar a soma dos erros (resíduos) elevados ao quadrado.\n\nComo a diferença entre a previsão e o valor real é elevada ao quadrado, um outlier (que tem um erro muito grande) gera uma penalidade gigantesca na função de custo. Para tentar minimizar esse \"erro gigante\", o modelo acaba inclinando a reta de regressão na direção do outlier, distorcendo a previsão para o resto dos dados. Por isso, dizemos que a regressão linear é altamente sensível a outliers.\n\nPor que as outras estão erradas?\n• a. Falsa. O RMSE (*Root Mean Squared Error*) também eleva os erros ao quadrado, o que o torna uma péssima métrica se você tem muitos outliers, pois o valor do erro vai \"explodir\". Nesses casos, prefere-se o MAE (*Mean Absolute Error*), que é mais robusto.\n• c. Falsa. Não existe nenhuma regra matemática ou estatística que obrigue a presença de outliers em um conjunto de dados.\n• d. Falsa. É exatamente o oposto da realidade (e da letra B).",
+          "dataset": null
+        },
+        {
+          "id": "p1-14",
+          "sourceQuestion": 14,
+          "question": "Considerando a Regressão Ridge, quais das sentenças abaixo são verdadeiras? i. quando o erro da base de treino é baixo e o erro da base de teste é alto, devemos aumentar o parâmetro de regularização. ii. quando o valor do parâmetro de regularização é igual a 1, temos uma seleção automática de variáveis explicativas.",
+          "options": [
+            "as duas são verdadeiras",
+            "i é verdadeira e ii é falsa",
+            "i é falsa e ii é verdadeira",
+            "as duas são falsas"
+          ],
+          "correctIndex": 1,
+          "topic": "Regressão",
+          "week": 10,
+          "rationale": "Leitura orientada do item: A Regressão Ridge utiliza a técnica de regularização L2. Vamos quebrar o racional de cada afirmativa para deixar bem documentado:\n• Afirmativa I (Verdadeira): O cenário descrito (erro baixo no treino, mas alto no teste) é a definição clássica de overfitting (sobreajuste). O modelo decorou os dados de treino, mas perdeu o poder de generalização. Aumentar o parâmetro de regularização (geralmente chamado de $\\alpha$ ou $\\lambda$) força o modelo a reduzir a magnitude dos coeficientes, diminuindo sua complexidade (variância) e ajudando a combater esse overfitting.\n• Afirmativa II (Falsa): A regularização L2 (Ridge) encolhe os coeficientes das variáveis em direção a zero, mas nunca os zera de fato. Por causa disso, ela não faz seleção de variáveis. Quem tem o poder de zerar coeficientes e, consequentemente, realizar uma \"seleção automática de variáveis explicativas\", é a Regressão Lasso (que usa regularização L1). O valor \"1\" do parâmetro na afirmativa é apenas uma distração.",
+          "dataset": null
+        },
+        {
+          "id": "p1-15",
+          "sourceQuestion": 15,
+          "question": "Assinale a alternativa CORRETA:",
+          "options": [
+            "overfitting e underfitting são mais prováveis quando você tem uma quantidade enorme de dados para treinar.",
+            "quando os resíduos de um modelo de regressão não têm variância constante, é melhor utilizar a regressão linear para resolver o problema.",
+            "em um modelo de regressão linear podemos identificar superestimação do modelo a partir do modelo RMSE",
+            "quando tanto o erro da base de treino quanto teste estão altos, é melhor usar a regularização L2 ao invés de L1"
+          ],
+          "correctIndex": 3,
+          "topic": "Regressão",
+          "week": 10,
+          "rationale": "Leitura orientada do item: Quando tanto o erro de treino quanto o de teste estão altos, o modelo está sofrendo de underfitting (alto viés). Ele não conseguiu capturar os padrões dos dados, resultando em um modelo simples demais.\n\nA regularização (L1 ou L2) atua penalizando a complexidade do modelo, o que normalmente piora o underfitting. No entanto, assumindo que você seja obrigado a aplicar uma penalidade, a regularização L2 (Ridge) é \"melhor\" (ou menos destrutiva) que a L1 (Lasso) neste cenário específico.\n• A L1 (Lasso) zera coeficientes, removendo variáveis do modelo. Se o modelo já está fraco (underfitting), arrancar variáveis inteiras vai piorar drasticamente a situação.\n• A L2 (Ridge) apenas encolhe os coeficientes em direção a zero, mas mantém todas as variáveis no modelo, preservando os poucos sinais fracos que o modelo conseguiu aprender.\n\n💡 Dica de Ouro para a Sabatina: Se essa questão for abordada oralmente, vale a pena demonstrar sua maturidade técnica. Você pode dizer: *\"Eu assinalei a alternativa D entendendo a lógica de que a L2 é menos agressiva que a L1 por não zerar variáveis. Porém, na prática do dia a dia do banco, se eu me deparar com erros altos no treino e no teste, minha primeira ação não seria aplicar regularização, mas sim buscar um modelo mais complexo, criar novas features (Feature Engineering) ou reduzir o parâmetro de regularização, já que estamos lidando com underfitting.\"*",
+          "dataset": null
+        },
+        {
+          "id": "p1-16",
+          "sourceQuestion": 16,
+          "question": "Qual das afirmativas abaixo está correta sobre KNN para regressão?",
+          "options": [
+            "KNN pode lidar com problemas não lineares",
+            "quanto maior o valor de K, melhor o resultado da métrica MAE",
+            "podemos usar o método KNN para identificar cluster de indivíduos parecidos",
+            "KNN funciona bem e é rápido independentemente do tamanho da amostra de treinamento"
+          ],
+          "correctIndex": 0,
+          "topic": "Regressão",
+          "week": 13,
+          "rationale": "Leitura orientada do item: O KNN é um algoritmo não paramétrico, o que significa que ele não faz nenhuma suposição prévia sobre a distribuição dos dados ou sobre a forma da relação entre as variáveis (diferente da Regressão Linear, que assume uma reta). Por calcular apenas a distância entre os pontos, ele consegue se adaptar perfeitamente a fronteiras de decisão complexas e problemas não lineares.\n\nPor que as outras alternativas são \"pegadinhas\" perigosas?\n• b. Um valor de K muito alto não melhora infinitamente o erro (MAE). Na verdade, se o K for grande demais, o modelo sofre de *underfitting* (fica generalista demais) e o erro aumenta, pois ele começa a incluir vizinhos que não têm relação com o ponto analisado.\n• c. Essa é uma clássica confusão de sopa de letrinhas! KNN é um algoritmo supervisionado (precisa de uma variável alvo) para classificação ou regressão. Quem identifica clusters de indivíduos parecidos (aprendizado não supervisionado) é o algoritmo K-Means.\n• d. O KNN é um *lazy learner* (aprendizado preguiçoso). Ele não constrói um modelo durante o treino; ele apenas memoriza os dados. Por causa disso, na hora de fazer a previsão, ele precisa calcular a distância do novo ponto para todos os pontos da amostra de treinamento. Portanto, se a base for gigantesca, ele será extremamente lento.",
+          "dataset": null
+        },
+        {
+          "id": "p1-17",
+          "sourceQuestion": 17,
+          "question": "Considerando os dados do arquivo regressao_Q1.csv, treine o modelo Elastic Net (fator de regularização igual a 1.0 e parâmetro de mistura igual a 0.01) e utilize como metodologia de reamostragem a técnica validação cruzada sequencial (com 5 folds). Qual é o valor aproximado da média da soma dos quadrados dos erros nas partições de treino e validação, respectivamente?",
+          "options": [
+            "0.2693 e 0.2686",
+            "645 e 162",
+            "162 e 645",
+            "0.2686 e 0.2693"
+          ],
+          "correctIndex": 3,
+          "topic": "Regressão",
+          "week": 10,
+          "rationale": "Leitura orientada do item: Ao utilizar a Validação Cruzada Sequencial (`KFold` com `shuffle=False`), garantimos que a avaliação do modelo respeitou a ordenação original do dataset. Isso é fundamental em dados que possuem dependência de tempo ou sequência.\n• Interpretação do MSE (Mean Squared Error): O modelo obteve um erro médio quadrático de 0.2686 na base de treino e 0.2692 (arredondado para 0.2693) na base de validação.\n• Diagnóstico do Modelo: A diferença entre o erro de treino e o erro de teste é virtualmente inexistente (apenas 0.0007). Isso é o \"Cenário de Ouro\" em Machine Learning. Significa que a configuração do Elastic Net (combinando as regularizações L1 e L2) foi perfeitamente capaz de generalizar o padrão dos dados sem sofrer de *overfitting* (sobreajuste) ou *underfitting* (subajuste). O modelo aprendeu exatamente o que precisava.",
+          "dataset": "/datasets/regressao_Q1.csv"
+        },
+        {
+          "id": "p1-18",
+          "sourceQuestion": 18,
+          "question": "Considerando os dados do arquivo regressao_Q2.csv, treine o modelo SVM (kernel: linear, fator de regularização: 0.01) e utilize como metodologia de reamostragem a técnica validação cruzada sequencial (com 5 folds). Qual é a média da métrica MSE nas partições de treino e validação, respectivamente?",
+          "options": [
+            "16321 e 16385",
+            "16395 e 16422",
+            "16385 e 16321",
+            "16422 e 16395"
+          ],
+          "correctIndex": 1,
+          "topic": "Regressão",
+          "week": 15,
+          "rationale": "Leitura orientada do item: O SVM para regressão (SVR) busca encontrar um \"tubo\" (margem de tolerância) que englobe a maior quantidade de dados possível, penalizando apenas os pontos que caem fora desse tubo.\n• Comportamento do Hiperparâmetro C: O enunciado definiu o fator de regularização `C = 0.01`. Em algoritmos da família SVM, um `C` pequeno significa uma alta regularização. Isso força a margem a ser mais rígida e menos influenciada por pontos fora da curva (ruídos).\n• Diagnóstico de Overfitting: Analisando os resultados, o Erro Quadrático Médio (MSE) de Treino (16.395) e o de Validação (16.422) estão extremamente próximos. Isso prova que a forte regularização exigida pelo parâmetro `C = 0.01` funcionou perfeitamente. O modelo não decorou a base de treino e manteve um comportamento altamente estável e previsível na base de validação, um cenário ideal para garantir a consistência das predições em produção.",
+          "dataset": "/datasets/regressao_Q2.csv"
+        },
+        {
+          "id": "p1-19",
+          "sourceQuestion": 19,
+          "question": "Um time de ciência de dados quer modelar o preço do aluguel de casas usando um conjunto de variáveis explicativas. Ao fazer uma análise descritiva dos dados, eles perceberam que a relação das variáveis explicativas com a variável resposta não era linear. Considerando essa característica, qual algoritmo abaixo seria mais adequado para lidar com esse problema?",
+          "options": [
+            "análise de componentes principais (PCA)",
+            "regressão linear simples",
+            "support vector machines (SVM) para regressão com kernel linear",
+            "support vector machines (SVM) para regressão com kernel RBF"
+          ],
+          "correctIndex": 3,
+          "topic": "Regressão",
+          "week": 15,
+          "rationale": "Leitura orientada do item: O pulo do gato nessa questão está na frase: *\"a relação... não era linear\"*. Sendo assim, precisamos de um algoritmo capaz de capturar complexidade e curvaturas nos dados.\n• Por que o SVM com kernel RBF (Radial Basis Function) é a escolha certa? O SVM clássico desenha retas (ou hiperplanos) para separar ou regredir dados. No entanto, quando aplicamos o \"Kernel Trick\" (Truque do Kernel) usando a função RBF, o algoritmo projeta esses dados originais em um espaço de dimensões muito maiores. Nesse novo espaço complexo, ele consegue traçar um hiperplano linear que, quando traduzido de volta para o espaço original, representa uma curva altamente flexível e não linear.\n• Por que as outras falham na premissa do problema?\n• b. Regressão linear simples: Como o nome grita, só traça retas. Falharia miseravelmente em capturar a relação não linear.\n• c. SVM com kernel linear: É basicamente uma regressão linear com margens de tolerância. Continua preso a desenhar retas.\n• a. PCA (Análise de Componentes Principais): O PCA não é um algoritmo de regressão para prever o preço do aluguel (variável resposta), mas sim uma técnica de aprendizado não supervisionado para redução de dimensionalidade. Além disso, o PCA clássico também assume combinações lineares entre as variáveis.",
+          "dataset": null
+        },
+        {
+          "id": "p1-20",
+          "sourceQuestion": 20,
+          "question": "Acerca de métricas de classificação, é correto afirmar que:",
+          "options": [
+            "é possível calcular a AUC apenas com as informações de uma matriz de confusão",
+            "a acurácia é indicada para problemas de eventos raros",
+            "podemos otimizar a precisão para minimizar os falsos positivos",
+            "a métrica F1 consiste na média harmônica entre a acurácia e a sensibilidade"
+          ],
+          "correctIndex": 2,
+          "topic": "Classificação e avaliação",
+          "week": 7,
+          "rationale": "Leitura orientada do item: A precisão responde à seguinte pergunta: *\"De todos os casos que o meu modelo classificou como positivos, quantos realmente eram?\"* A fórmula matemática da precisão é:\n$Precisão = \\frac{Verdadeiros Positivos}{Verdadeiros Positivos + Falsos Positivos}$\n\nComo os Falsos Positivos (FP) estão no denominador da equação, a única forma matemática de a precisão subir (se aproximar de 100%) é mantendo a taxa de Falsos Positivos a mais próxima possível de zero. Em um cenário real de modelagem de Credit PF, por exemplo, se a classe positiva for \"fraude\", um Falso Positivo significa bloquear indevidamente a transação de um bom cliente. Otimizar a precisão garante que o modelo só dispare o alerta quando tiver muita certeza, minimizando o atrito na jornada do usuário.\n\nPor que as outras alternativas são clássicas \"pegadinhas\" de prova?\n• a. (Falsa): A Matriz de Confusão é um retrato estático do modelo para um único *threshold* (ponto de corte de probabilidade, geralmente 0.5). A métrica AUC-ROC (Área Sob a Curva) exige o cálculo de vários *thresholds* diferentes para desenhar a curva. Logo, uma única matriz não é suficiente.\n• b. (Falsa): Esse é o chamado \"Paradoxo da Acurácia\". Se você tem um evento raro (ex: 1% de inadimplência), um modelo \"burro\" que simplesmente chuta que ninguém vai dar calote terá 99% de acurácia, mas será completamente inútil para o banco. Para eventos raros, usamos métricas como F1-Score, Precision-Recall AUC ou Recall.\n• d. (Falsa): A métrica F1-Score é sim uma média harmônica, mas entre a Precisão e a Sensibilidade (Recall), e não com a Acurácia.",
+          "dataset": null
+        },
+        {
+          "id": "p1-21",
+          "sourceQuestion": 21,
+          "question": "Dada a curva ROC de um modelo de classificação, como escolher o ponto ótimo de corte (threshold)?",
+          "options": [
+            "dividindo o número de amostras da classe minoritária pelo número da classe majoritária",
+            "encontrando o threshold que resulta no ponto de menor distância entre a curva ROC e o ponto (0, 1) (esquerda superior) no gráfico",
+            "dividindo a taxa de Verdadeiros Positivos pela taxa de Verdadeiros Negativos",
+            "o threshold ótimo é sempre em 0.5"
+          ],
+          "correctIndex": 1,
+          "topic": "Classificação e avaliação",
+          "week": 7,
+          "rationale": "Leitura orientada do item: A Curva ROC é desenhada plotando a Taxa de Verdadeiros Positivos (TPR - eixo Y) contra a Taxa de Falsos Positivos (FPR - eixo X).\n\nUm modelo \"perfeito\" seria aquele que acerta 100% dos positivos (TPR = 1) e não comete nenhum alarme falso (FPR = 0). No plano cartesiano, essa perfeição está exatamente na coordenada (0, 1), que é o canto superior esquerdo do gráfico. Como modelos reais desenham uma curva abaixo desse ponto, o limiar (threshold) estatisticamente ótimo é aquele em que a curva chega o mais perto possível desse ponto ideal. Matematicamente, isso geralmente é calculado minimizando a distância geométrica ou maximizando a estatística J de Youden ($TPR - FPR$).\n\nPor que as outras estão erradas?\n• a. (Falsa): Isso é o cálculo de proporção de classes, usado para definir pesos (*class weights*) no treino do modelo, e não ponto de corte.\n• c. (Falsa): Não existe embasamento matemático para essa divisão na escolha do threshold.\n• d. (Falsa): O threshold de 0.5 é apenas o padrão inicial (default) da maioria das bibliotecas (como o Scikit-Learn). Em problemas desbalanceados (como prever óbitos ou fraudes), o threshold ótimo quase nunca é 0.5; ele precisa ser ajustado.\n\n💡 Dica de Ouro para a Sabatina:\nEsta é a oportunidade perfeita para mostrar sua visão de negócios (Economic Engineering) alinhada à ciência de dados. Se tocarem nesse assunto, diga: *\"Matematicamente, a resposta é o ponto mais próximo de (0,1). Porém, na prática do Itaú, o threshold ótimo real é ditado pela Matriz de Custos do Negócio. Se o custo financeiro de um Falso Negativo (deixar passar uma fraude) for 100x maior que o de um Falso Positivo (bloquear um cliente bom preventivamente), nós vamos deslocar intencionalmente esse threshold para priorizar o Recall, mesmo que nos afaste do ponto estatisticamente perfeito da curva ROC.\"*",
+          "dataset": null
+        },
+        {
+          "id": "p1-22",
+          "sourceQuestion": 22,
+          "question": "Sobre métricas de avaliação de modelos, escolha a alternativa correta:",
+          "options": [
+            "acurácia é a melhor métrica para classificação, pois nos fornece o percentual de acertos do modelo",
+            "a área embaixo da curva ROC (AUC) é uma boa métrica para problemas com desbalanceamento de classes",
+            "o MAE (erro médio absoluto) é utilizado em problemas de classificação quando há outliers",
+            "o recall é a métrica indicada quando se tem um grande público, com eventos raros, e a capacidade de ação sobre os indivíduos é reduzida"
+          ],
+          "correctIndex": 1,
+          "topic": "Classificação e avaliação",
+          "week": 7,
+          "rationale": "Leitura orientada do item: Diferente da acurácia, que sofre do chamado \"Paradoxo da Acurácia\" em cenários desbalanceados (explicado na exclusão da letra A), a métrica AUC-ROC mede a capacidade do modelo de separar e ranquear corretamente as classes (positiva vs. negativa), independentemente do ponto de corte (threshold) escolhido ou da proporção das classes originais. Por focar nas taxas de Verdadeiros Positivos (TPR) e Falsos Positivos (FPR), ela se mantém robusta mesmo quando o evento alvo é raro.\n\nPor que as outras falham (com visão de negócios):\n• a. (Falsa): Como vimos na questão 27, se a inadimplência for de apenas 2%, um modelo que prevê que *ninguém* vai ficar inadimplente terá 98% de acurácia, mas será inútil para o banco.\n• c. (Falsa): MAE (Mean Absolute Error) é uma métrica estrita de Regressão (prever valores contínuos) e não de Classificação.\n• d. (Falsa): Esta é uma excelente pegadinha de engenharia econômica/negócios. Se o banco tem uma \"capacidade de ação reduzida\" (exemplo: a central de atendimento só tem orçamento para ligar para 100 clientes por dia para renegociar dívidas), otimizar o Recall seria um desastre. O Recall foca em tentar achar *todos* os possíveis casos, o que fatalmente gera muitos falsos positivos. Se você tem pouca \"bala na agulha\" para agir, você precisa otimizar a Precisão — garantindo que cada uma das 100 ligações que a equipe fizer seja um tiro certeiro.",
+          "dataset": null
+        },
+        {
+          "id": "p1-23",
+          "sourceQuestion": 23,
+          "question": "Assinale a alternativa correta para o algoritmo árvore de decisão simples:",
+          "options": [
+            "são critérios de análise de qualidade da quebra para classificação: Gini e Entropia",
+            "são critérios de análise de qualidade da quebra para classificação: Cross-Entropy e MSE",
+            "é um algoritmo baseado em gradiente descendente",
+            "é um algoritmo com baixa tendência ao overfitting"
+          ],
+          "correctIndex": 0,
+          "topic": "Classificação e avaliação",
+          "week": 14,
+          "rationale": "Leitura orientada do item: Para decidir exatamente onde \"cortar\" (fazer a quebra ou *split*) os dados em cada nó, a Árvore de Decisão para problemas de classificação precisa de uma métrica matemática que avalie a pureza da divisão. O objetivo é que, após o corte, os subgrupos gerados fiquem o mais homogêneos possível em relação às classes.\n• Impureza de Gini: É o critério padrão do algoritmo CART (o motor por trás do Scikit-Learn). Ele mede a probabilidade de um elemento ser classificado incorretamente se for rotulado de forma aleatória de acordo com a distribuição das classes naquele nó. Quanto menor o Gini, mais puro é o nó.\n• Entropia (Ganho de Informação): Mede o nível de desordem ou incerteza nos dados. A árvore busca a quebra que proporciona a maior redução de entropia possível (ou seja, o maior Ganho de Informação).\n\nPor que as outras alternativas são tecnicamente incorretas?\n• b. (Falsa): O MSE (*Mean Squared Error*) é o critério de quebra fundamental para Árvores de Regressão (quando a variável alvo é contínua, como prever renda), e não para Classificação.\n• c. (Falsa): Árvores de decisão simples não otimizam pesos usando Gradiente Descendente. Elas utilizam uma abordagem de particionamento recursivo baseada em algoritmos *Greedy* (Gulosos), que avaliam matematicamente todas as quebras possíveis em cada variável de forma exaustiva para encontrar a melhor divisão local a cada passo. O Gradiente Descendente é o motor de algoritmos como Redes Neurais, Regressão Logística e *Gradient Boosting Machines* (GBM).\n• d. (Falsa): É exatamente o oposto da realidade. Uma árvore de decisão simples, se deixada livre (sem parâmetros de restrição), vai crescer ramificando infinitamente até que cada folha final contenha apenas uma única amostra perfeitamente isolada. Por conta disso, dizemos que a árvore simples tem uma altíssima tendência ao *overfitting* (ela memoriza o treino e perde o poder de generalização no teste).\n\n💡 Dica de Ouro para a Sabatina:\nSe a banca questionar como lidar com a altíssima tendência ao overfitting citada na letra D, você tem dois caminhos de argumentação excelentes:\n\n1. Pré-poda (Hyperparameter Tuning): Citar o uso do Optuna para limitar hiperparâmetros como a profundidade máxima da árvore (`max_depth`) ou exigir um número mínimo de amostras para permitir uma nova quebra (`min_samples_split`).\n2. Evolução do Modelo: Afirmar que raramente usamos uma árvore simples em produção no banco por causa dessa instabilidade estrutural. A solução ideal é evoluir para métodos *Ensemble*, como o Random Forest (que usa o conceito de *Bagging* para treinar dezenas de árvores e tirar a média, reduzindo drasticamente a variância e o overfitting).",
+          "dataset": null
+        },
+        {
+          "id": "p1-24",
+          "sourceQuestion": 24,
+          "question": "Considerando os dados do arquivo classificacao_Q1.csv, treine o modelo Árvore de Classificação (função de custo: entropia, altura da árvore igual a 3) e utilize como metodologia de reamostragem a técnica validação cruzada sequencial (com 7 folds). Qual é a média da métrica Log Loss nas partições de treino e validação (valor arredondado)?",
+          "options": [
+            "0.32 e 0.26",
+            "0.55 e 0.63",
+            "0.26 e 0.32",
+            "0.46 e 0.76"
+          ],
+          "correctIndex": 2,
+          "topic": "Classificação e avaliação",
+          "week": 14,
+          "rationale": "Leitura orientada do item: Diferente da acurácia que olha apenas para o \"sim ou não\" final, a métrica *Log Loss* (Perda Logarítmica) avalia a qualidade das probabilidades entregues pelo modelo. Ela pune o algoritmo severamente se ele tiver \"muita certeza\" de uma previsão que acaba se mostrando errada. Quanto mais próximo de zero, melhor e mais calibrado está o modelo.\n• O impacto do hiperparâmetro `max_depth=3`: Observando os resultados, a diferença entre o treino (0.26) e a validação (0.32) é bem pequena. Isso prova que limitar o crescimento da árvore em apenas 3 níveis foi uma excelente estratégia para evitar o *overfitting*. A árvore generalizou o padrão ao invés de decorar a base.\n• Visão de Negócio: Em esteiras de tomada de decisão (como aprovação de limites em Credit PF), raramente usamos o corte seco de classe 0 ou 1. Precisamos da probabilidade matemática exata de um cliente se tornar inadimplente para calcular o risco esperado da carteira. Portanto, otimizar e acompanhar o Log Loss garante que as faixas de score entregues para a área de negócios sejam estatisticamente confiáveis.\n• Ter esse tipo de racional na ponta da língua — conectando a métrica estatística diretamente ao impacto na operação — demonstra muita maturidade analítica e é o tipo de postura que faz a diferença na hora de defender a efetivação no fim de um ciclo de projetos. O seu material de estudos ficou excelente e muito bem estruturado!",
+          "dataset": "/datasets/classificacao_Q1.csv"
+        },
+        {
+          "id": "p1-25",
+          "sourceQuestion": 25,
+          "question": "Considerando os métodos de combinação de técnicas de aprendizado de máquina bagging e boosting, qual é o principal efeito esperado em relação à ocorrência de erros devido a enviesamento (bias) e variância (variance)?",
+          "options": [
+            "redução do erro por enviesamento em bagging e boosting",
+            "não há impactos em termos de enviesamento e variância",
+            "redução do erro por variância em bagging e redução do erro por enviesamento em boosting",
+            "redução do erro por enviesamento em bagging e redução do erro por variância em boosting"
+          ],
+          "correctIndex": 2,
+          "topic": "Classificação e avaliação",
+          "week": 16,
+          "rationale": "Leitura orientada do item: Esta é uma das questões mais clássicas e importantes da teoria de Machine Learning. Os métodos *Ensemble* (combinação de modelos) nasceram justamente para atacar os dois lados do *Trade-off Viés-Variância*.\n\nVamos quebrar a mecânica de cada um:\n• Bagging (Bootstrap Aggregating): O objetivo principal é reduzir a Variância.\n• *Como faz isso?* Ele treina vários modelos complexos de forma independente e paralela (ex: árvores de decisão super profundas). Modelos complexos têm baixo viés, mas altíssima variância (overfitting). O Bagging tira a média das previsões de todos eles. A média matemática dilui os erros individuais e suaviza a variância.\n• *Exemplo clássico:* Random Forest.\n• Boosting: O objetivo principal é reduzir o Viés (Enviesamento).\n• *Como faz isso?* Ele treina modelos muito simples de forma sequencial (ex: árvores rasas, chamadas de *weak learners*). Modelos simples têm baixa variância, mas altíssimo viés (underfitting). O Boosting faz com que cada nova árvore aprenda exclusivamente com os erros (resíduos) da árvore anterior. Ao somar todas essas correções ao longo do tempo, o viés despenca e o modelo ganha um poder preditivo absurdo.\n• *Exemplos clássicos:* Gradient Boosting, XGBoost, LightGBM.\n\n💡 Dica de Ouro para a Sabatina:\nNa entrevista, se o tema for modelagem de crédito (onde explicabilidade e estabilidade são vitais), você pode adicionar:\n*\"Na prática, embora o Boosting (como o XGBoost ou LightGBM) seja o campeão em performance por reduzir ativamente o viés, ele exige um cuidado muito maior no tuning de hiperparâmetros (como `learning_rate` e regularização). Se deixarmos o algoritmo rodando por muitas iterações sem freios, ele começa a decorar o ruído e a variância dispara, gerando overfitting. Já o Bagging (Random Forest) é muito mais seguro e difícil de dar overfit, não importa quantas árvores você adicione.\"*",
+          "dataset": null
+        },
+        {
+          "id": "p1-26",
+          "sourceQuestion": 26,
+          "question": "Considere as seguintes características de modelos de aprendizado de máquina: i. menor interferência de outliers. ii. invariância à escala dos dados. iii. baixo custo computacional. iv. interpretabilidade da predição. É correto afirmar que:",
+          "options": [
+            "i é característica das Redes Neurais",
+            "i e iv são características da Regressão Logística",
+            "i e ii são características das Florestas Aleatórias",
+            "ii e iii são características das SVM"
+          ],
+          "correctIndex": 2,
+          "topic": "Classificação e avaliação",
+          "week": 16,
+          "rationale": "Leitura orientada do item: Para matar essa questão, precisamos cruzar as características arquiteturais de cada algoritmo:\n• Por que a Letra C é a correta (Florestas Aleatórias / Random Forest)?\n• i. Menor interferência de outliers: Modelos baseados em árvores não calculam distâncias nem tentam ajustar retas médias. Eles apenas fazem perguntas de \"maior ou menor\" (ex: Salário > 5000?). Se um cliente ganha 5.001 ou 5.000.000 (um outlier extremo), ele cai na mesma folha da árvore. O outlier não \"puxa\" o modelo.\n• ii. Invariância à escala: Exatamente pela mesma lógica matemática das quebras. A árvore só se importa com a ordenação dos dados, não com a magnitude absoluta. Portanto, você não precisa aplicar `StandardScaler` ou normalização em dados que vão para uma Random Forest.\n\nPor que as outras alternativas afundam?\n• a. (Falsa): Redes Neurais são sensíveis a outliers (especialmente dependendo da função de perda, como o MSE) e exigem estritamente normalização de escala para que os gradientes convirjam.\n• b. (Falsa): A Regressão Logística brilha muito no item *iv (interpretabilidade)*, mas peca fortemente no item *i*. Como ela ajusta uma curva baseada em probabilidade, um outlier severo pode distorcer a fronteira de decisão.\n• d. (Falsa): O SVM (Máquina de Vetores de Suporte) é o rei de exigir escala. Como ele desenha margens geométricas (hiperplanos) para separar dados maximizando a distância, se uma variável não for normalizada, ela dominará o cálculo de distância. Além disso, o SVM com Kernel RBF tem um custo computacional altíssimo ($O(n^2)$ ou $O(n^3)$), falhando feio no item *iii*.\n\n💡 Dica de Ouro para a Sabatina:\nNa hora de discutir a criação de um modelo *baseline* (modelo inicial de referência) no Itaú, você pode destacar: *\"Quando recebemos uma base nova e precisamos de uma resposta rápida de viabilidade, a Random Forest é o algoritmo 'canivete suíço' ideal. Justamente por ser invariante à escala e ignorar a maioria dos outliers (itens i e ii), podemos pular grande parte do pré-processamento inicial, gerar um baseline forte e depois focar tempo na engenharia de variáveis e em modelos mais complexos.\"*",
+          "dataset": null
+        },
+        {
+          "id": "p1-27",
+          "sourceQuestion": 27,
+          "question": "Considerando os dados do arquivo classificacao_Q2.csv, treine o modelo Regressão Logística (tipo de de regularização: L2, fator de regularização: 1e-5) e utilize a validação holdout 80/20 para divisão dos dados entre amostra de treino e validação. Não embaralhe os dados. Qual é a métrica AUC nas partições de treino e validação (valor aproximado)?",
+          "options": [
+            "0.8421 e 0.0549",
+            "0.7204 e 0.7505",
+            "0.7505 e 0.7204",
+            "0.8549 e 0.8421"
+          ],
+          "correctIndex": 3,
+          "topic": "Regressão",
+          "week": 11,
+          "rationale": "Leitura orientada do item: O código executado sem o embaralhamento dos dados (`shuffle=False`) dividiu a base de forma estritamente sequencial, preservando as características temporais ou estruturais originais do arquivo.\n• AUC de Treino (~0.855): Mostra que o modelo linear conseguiu encontrar uma separação robusta e com bom poder de rankeamento na base de desenvolvimento.\n• AUC de Validação (~0.842): Por estar muito próxima à métrica de treino (uma queda pequena e saudável), indica que o modelo possui excelente poder de generalização. Não há sinais de *overfitting* (sobreajuste), o que valida a escolha do fator de regularização L2 utilizado.\n\n \n\nPerfeito, mais uma questão prática gabaritada com segurança! Vamos seguir o plano? Podemos ir agora para a Questão 16 ou 17, que também dependem de análise ou código. Só mandar o enunciado.",
+          "dataset": "/datasets/classificacao_Q2.csv"
+        },
+        {
+          "id": "p1-28",
+          "sourceQuestion": 28,
+          "question": "Qual alternativa está correta?",
+          "options": [
+            "a métrica Davies-Bouldin mede a distância máxima dos objetos de cada grupo em relação ao centróide do grupo mais próximo",
+            "a métrica Mean Absolute Error é uma métrica utilizada para medir a precisão de um método de agrupamento",
+            "a métrica Mutual Information mede a similaridade entre o grupo obtido pelo método de agrupamento e o grupo real dos dados",
+            "a métrica R-squared é uma métrica de agrupamento utilizada para medir a qualidade do ajuste dos dados"
+          ],
+          "correctIndex": 2,
+          "topic": "Agrupamento",
+          "week": 17,
+          "rationale": "Leitura orientada do item: Esta questão avalia a sua capacidade de não confundir métricas de aprendizado supervisionado (Regressão) com não supervisionado (Clusterização/Agrupamento).\n• Por que a Letra C é a correta? A Informação Mútua (*Mutual Information*) é uma métrica de validação externa para clusters. Quando você tem os rótulos reais dos dados (*ground truth*), você pode usar essa métrica para medir a concordância (similaridade) entre os clusters que o seu modelo criou (ex: K-Means) e as classes reais que já existiam.\n\nPor que as outras alternativas são pegadinhas?\n• b. e d. (Falsas): MAE (*Mean Absolute Error*) e R² (*R-squared*) são métricas exclusivas de modelos de Regressão (prever um número contínuo). Elas não têm absolutamente nada a ver com métodos de agrupamento.\n• a. (Falsa): O Índice Davies-Bouldin é sim uma métrica de agrupamento, mas a sua definição na alternativa está incorreta. Ele não mede apenas a \"distância máxima\", mas calcula a razão entre a dispersão *dentro* do cluster (intra-cluster) e a separação *entre* os clusters (inter-cluster). O objetivo é ter clusters densos e bem separados (valores mais próximos de zero são melhores).",
+          "dataset": null
+        },
+        {
+          "id": "p1-29",
+          "sourceQuestion": 29,
+          "question": "Qual das seguintes assertivas está correta?",
+          "options": [
+            "a métrica de distância não impacta o custo computacional dos algoritmos",
+            "no algoritmo DBscan, a escala dos dados não é um problema",
+            "a complexidade computacional dos métodos k-means e k-medians é igual",
+            "os algoritmos hierárquicos single e complete linkage tem complexidade computacional O(n^2) e, por este motivo, não são aconselhados para grandes quantidades de dados"
+          ],
+          "correctIndex": 3,
+          "topic": "Agrupamento",
+          "week": 19,
+          "rationale": "Leitura orientada do item: O principal gargalo dos algoritmos de clusterização hierárquica (aglomerativa) é que eles exigem o cálculo de uma matriz de distância combinando todos os pontos contra todos os pontos (pairwise). Isso gera uma complexidade de tempo e de espaço (memória) de pelo menos $O(n^2)$. Para bases de dados grandes (ex: milhões de linhas do Itaú), a memória do servidor estoura antes mesmo de o algoritmo terminar de calcular as distâncias. Por isso, métodos baseados em partição (como K-Means) são preferidos para alto volume.\n\nPor que as outras opções representam conceitos errados?\n• a. Falsa: A escolha da métrica impacta fortemente o custo. Calcular uma distância Euclidiana simples é muito mais rápido do que calcular uma distância de Mahalanobis (que exige inversão de matriz de covariância) ou aplicar métricas complexas baseadas em grafos.\n• b. Falsa: O DBSCAN é extremamente sensível à escala dos dados. Ele baseia a formação dos clusters no parâmetro `eps` (raio de vizinhança). Se os dados não estiverem padronizados (mesma escala), variáveis com valores absolutos maiores vão dominar o cálculo de distância, e o `eps` perderá o sentido lógico.\n• c. Falsa: Calcular a média (K-means) é uma operação linear simples (soma e divisão). Calcular a mediana (K-medians) geralmente exige a ordenação dos dados em cada iteração, o que torna o K-medians mais custoso computacionalmente do que o K-means.",
+          "dataset": null
+        },
+        {
+          "id": "p1-30",
+          "sourceQuestion": 30,
+          "question": "Na aplicação de um algoritmo de agrupamento hierárquico sobre um dataset de 500 pontos, qual o número MÍNIMO de operações de cálculo de distância entre pontos deveremos efetuar para a construção da matriz de dissimilaridade?",
+          "options": [
+            "249.500",
+            "250.499",
+            "124.750",
+            "250.000"
+          ],
+          "correctIndex": 2,
+          "topic": "Agrupamento",
+          "week": 19,
+          "rationale": "Leitura orientada do item: Para construir uma matriz de dissimilaridade (ou matriz de distância) para $N$ pontos, teoricamente você precisaria cruzar todos os pontos contra todos os pontos, resultando em uma matriz $N \\times N$. Se $N = 500$, o tamanho total da matriz é de $250.000$ posições (o que nos levaria à letra D).\n\nNo entanto, a questão pede o número mínimo de cálculos. Aqui entram duas propriedades matemáticas fundamentais das métricas de distância:\n\n1. Identidade: A distância de um ponto para ele mesmo é sempre zero. Logo, não precisamos calcular a diagonal principal da matriz (500 cálculos a menos).\n2. Simetria: A distância do ponto A para o ponto B é exatamente a mesma do ponto B para o ponto A ($d(A,B) = d(B,A)$). Isso significa que a matriz é espelhada e só precisamos calcular a metade superior (ou inferior) dela.\n\nPara calcular o número de pares únicos sem repetição, usamos a fórmula de combinação simples (combinação de $N$ elementos tomados 2 a 2):\n\n$$C = \\frac{N(N-1)}{2}$$\n\nSubstituindo $N$ por 500:\n\n1. $500 \\times 499 = 249.500$\n2. $249.500 / 2 = 124.750$\n\n💡 Dica de Ouro para a Sabatina: Se a banca questionar por que aglomerativos não escalam, você pode usar os próprios números dessa prova. Diga algo como: *\"Na questão 21, vimos que para apenas 500 linhas precisamos calcular 124 mil distâncias. Se a nossa base aqui no Itaú tiver 1 milhão de clientes, a fórmula $\\frac{N(N-1)}{2}$ resultaria em quase 500 bilhões de cálculos de distância só para inicializar a matriz. É por isso que o agrupamento hierárquico se torna inviável para Big Data, justificando o uso do K-Means.\"*",
+          "dataset": null
+        },
+        {
+          "id": "p1-31",
+          "sourceQuestion": 31,
+          "question": "Qual das seguintes assertivas está correta?",
+          "options": [
+            "no algoritmo DBSCAN, os outliers são considerados fronteira e agrupados no cluster mais próximo",
+            "há uma correlação entre a dimensão dos dados e o número ótimo de clusters",
+            "a métrica Silhueta avalia a distância entre pontos dentro do mesmo grupo e a distância entre pontos em grupos diferentes, enquanto a métrica Rand Score considera apenas se as classificações dos elementos são corretas",
+            "o método k-medoids visa a uniformidade no tamanho dos clusters"
+          ],
+          "correctIndex": 2,
+          "topic": "Agrupamento",
+          "week": 17,
+          "rationale": "Leitura orientada do item: Esta alternativa define corretamente dois tipos diferentes de validação de clusters:\n• Silhueta (Validação Interna): Mede quão similar um objeto é ao seu próprio cluster (coesão) em comparação com outros clusters (separação). O valor varia de -1 a 1, onde valores altos indicam que o ponto está bem alocado.\n• Rand Score (Validação Externa): Compara o resultado do agrupamento com um rótulo real (*ground truth*). Ele olha para todos os pares de amostras e conta quantos pares foram agrupados da mesma forma (ou de forma diferente) tanto no modelo quanto na realidade.\n\nPor que as outras alternativas estão incorretas?\n• a. (Falsa): No DBSCAN, existe uma distinção clara. Pontos que não atingem a densidade mínima e não estão no raio de um ponto central são classificados como Ruído (Noise/Outliers) e não pertencem a nenhum cluster. Os pontos de \"fronteira\" são aqueles que estão no raio de um ponto central, mas não possuem vizinhos suficientes para serem centros eles mesmos.\n• b. (Falsa): O número ótimo de clusters depende da estrutura intrínseca e da dispersão dos dados (quantos grupos reais existem no fenômeno), e não diretamente do número de colunas (dimensões) que o dataset possui.\n• d. (Falsa): O K-medoids é uma variante do K-means que utiliza pontos reais do dataset (medoides) como centros para ganhar robustez contra outliers, mas ele não possui nenhum mecanismo ou objetivo intrínseco de forçar que os grupos tenham o mesmo tamanho (quantidade de linhas).\n\n💡 Dica para a Sabatina:\nSe falarem sobre o Rand Score, lembre-se do Adjusted Rand Index (ARI). O Rand Score puro pode ser alto apenas por sorte (acaso). O ARI ajusta essa métrica para levar em conta o agrupamento aleatório, sendo uma métrica muito mais rigorosa e profissional para se citar em um projeto no banco.",
+          "dataset": null
+        },
+        {
+          "id": "p1-32",
+          "sourceQuestion": 32,
+          "question": "No método Complete Linkage, a distância inter-cluster é dada pela:",
+          "options": [
+            "distância máxima entre todos os pares de objetos (entre os clusters)",
+            "distância média entre todos os pares de objetos (de um dado cluster)",
+            "distância mínima entre os centroides de cada cluster",
+            "distância máxima entre todos os pares de objetos (de um dado cluster)"
+          ],
+          "correctIndex": 0,
+          "topic": "Agrupamento",
+          "week": 19,
+          "rationale": "Leitura orientada do item: Em algoritmos de agrupamento hierárquico, precisamos definir como a distância entre dois grupos (clusters) inteiros será calculada para decidirmos quem se funde com quem. Isso é o critério de *Linkage*.\n• Complete Linkage (Vizinho mais distante): Calcula a distância entre todos os pares possíveis de pontos (onde o ponto 1 está no Cluster A e o ponto 2 está no Cluster B) e define a distância entre os dois clusters como a distância máxima encontrada. Isso força o algoritmo a criar clusters mais compactos e esféricos.\n• Single Linkage (Vizinho mais próximo): Usa a distância mínima entre os pares. Costuma sofrer do problema de \"encadeamento\" (*chaining*), criando clusters compridos e em formato de tubo.\n• Average Linkage: Usa a média de todas as distâncias entre os pares dos dois clusters.\n• Centroid Linkage: Calcula o centroide (ponto médio) de cada cluster e mede a distância diretamente entre esses dois centroides (o que elimina a opção C, que fala em \"distância mínima entre os centroides\").",
+          "dataset": null
+        },
+        {
+          "id": "p1-33",
+          "sourceQuestion": 33,
+          "question": "Em relação a sensibilidade a outliers:",
+          "options": [
+            "outliers não são problemas para o k-means e k-medoids",
+            "o método k-medoids é menos sensível a outliers do que o método k-means",
+            "os métodos k-means e k-medoids são equivalentes em relação a sensibilidade a outliers",
+            "o método k-means é menos sensível a outliers do que o método k-medoids"
+          ],
+          "correctIndex": 1,
+          "topic": "Agrupamento",
+          "week": 17,
+          "rationale": "Leitura orientada do item: Para matar essa questão com facilidade, basta lembrar da lógica que discutimos lá na Questão 5 sobre média vs. mediana:\n• K-Means (Média): O algoritmo K-Means atualiza o centro do cluster calculando a média espacial de todos os pontos daquele grupo. Como a média é matematicamente \"puxada\" por valores extremos, um único outlier bem distante pode deslocar o centroide inteiro para o meio do nada, arruinando o cluster. Portanto, o K-means é *muito sensível* a outliers.\n• K-Medoids (Mediana/Ponto Real): O algoritmo K-Medoids não calcula uma média virtual. Ele obrigatoriamente escolhe um ponto real do dataset para ser o centro (o medoide), funcionando de forma análoga à mediana. Como ele foca em minimizar as distâncias absolutas e não as distâncias ao quadrado (como faz a média), ele isola o outlier e não deixa que ele distorça o centro do grupo. Logo, é *menos sensível* (mais robusto).\n\n💡 Dica para a Sabatina:\nEssa é uma excelente oportunidade para fazer pontes entre conceitos. Se te perguntarem sobre K-means na entrevista, você pode dizer: *\"O K-means é excelente e muito escalável, mas como usa a média para o centroide, ele sofre muito com outliers. Se eu identificar muitos extremos na análise exploratória, posso testar o K-medoids ou tratar esses outliers antes da modelagem.\"*",
+          "dataset": null
+        },
+        {
+          "id": "p1-34",
+          "sourceQuestion": 34,
+          "question": "Sobre normalização de dados em agrupamento:",
+          "options": [
+            "os algoritmos hierárquicos não necessitam de normalização de dados",
+            "a normalização é fundamental para o algoritmo k-medoids, mas não é necessária para o algoritmo k-means",
+            "é necessário realizar a normalização dos dados para todos os algoritmos de agrupamento",
+            "a maioria dos algoritmos de agrupamento podem tirar proveito da normalização, pois pode influenciar a qualidade dos resultados"
+          ],
+          "correctIndex": 3,
+          "topic": "Agrupamento",
+          "week": 17,
+          "rationale": "Leitura orientada do item: A grande maioria dos algoritmos de clusterização (como K-Means, K-Medoids, Hierárquico e DBSCAN) baseia-se em cálculos de distância geométrica (como a distância Euclidiana) para definir quem é parecido com quem.\n\nSe você tiver um dataset de clientes com a variável \"Idade\" (variando de 18 a 90) e a variável \"Salário\" (variando de 1.000 a 50.000), o algoritmo vai olhar para a distância matemática. O salário vai dominar completamente o cálculo simplesmente porque os números são maiores de forma absoluta. A normalização (como o *StandardScaler* ou *MinMaxScaler*) coloca todas as variáveis na mesma escala, garantindo que o algoritmo dê o mesmo peso matemático para \"Idade\" e \"Salário\". Portanto, influencia diretamente a qualidade do resultado.\n\nPor que as outras alternativas estão erradas?\n• a. (Falsa): Algoritmos hierárquicos dependem inteiramente de matrizes de distância. Se não normalizar, o cluster será enviesado pelas variáveis de maior escala.\n• b. (Falsa): Ambos K-Means e K-Medoids são estritamente baseados em distância e precisam urgentemente de normalização.\n• c. (Falsa / Pegadinha): A palavra \"todos\" é o problema aqui. Em provas de concurso e processos seletivos, generalizações extremas costumam ser armadilhas. Existem abordagens específicas (como *Gaussian Mixture Models* usando matrizes de covariância completas, ou agrupamentos baseados em árvores/regras categóricas) que são invariantes à escala e não exigem normalização estrita. Por isso, a letra D (que usa \"a maioria\") é a resposta tecnicamente perfeita.",
+          "dataset": null
+        },
+        {
+          "id": "p1-35",
+          "sourceQuestion": 35,
+          "question": "Considerando os dados no arquivo agrupamento.csv, execute o algoritmo hierárquico Average Linkage com a métrica de distância Euclidiana. Qual é a quantidade de grupos adequada de acordo com o coeficiente silhueta?",
+          "options": [
+            "5",
+            "4",
+            "2",
+            "3"
+          ],
+          "correctIndex": 1,
+          "topic": "Agrupamento",
+          "week": 19,
+          "rationale": "Leitura orientada do item: O Coeficiente de Silhueta é uma métrica de validação interna que varia de -1 a 1. Ele mede a qualidade de um agrupamento avaliando dois fatores simultaneamente:\n\n1. Coesão: O quão próximo o ponto está dos outros pontos do seu *próprio* grupo.\n2. Separação: O quão distante o ponto está dos pontos do grupo *vizinho mais próximo*.\n\nAnalisando a saída do código, temos:\n• k=2: 0.5199\n• k=3: 0.5664\n• k=4: 0.5894 (Maior valor / Melhor Separação)\n• k=5: 0.5726\n\nComo o valor 0.5894 para `k=4` é o mais alto (mais próximo de 1), concluímos que dividir a base de clientes em 4 grupos (clusters) é a configuração matemática ideal para este dataset. Se tentarmos forçar 5 grupos, a silhueta cai, o que indica que estaríamos quebrando um grupo natural ao meio e misturando as fronteiras.",
+          "dataset": "/datasets/agrupamento.csv"
+        },
+        {
+          "id": "p1-36",
+          "sourceQuestion": 36,
+          "question": "O algoritmo Backpropagation é muito utilizado em redes neurais para aprendizado supervisionado. Sobre esse algoritmo é correto afirmar: i. usa a regra da cadeia para computar o gradiente da função objetivo. ii. é aplicado de forma iterativa, começando com uma passada para a frente (forward pass). iii. requer que a função custo possa ser calculada em cada iteração. iv. garante que o ótimo global da função objetivo será encontrado, dado um número finito suficiente de iterações.",
+          "options": [
+            "ii, iii, iv",
+            "i",
+            "i, ii",
+            "i, ii, iii"
+          ],
+          "correctIndex": 1,
+          "topic": "Classificação e avaliação",
+          "week": 22,
+          "rationale": "Leitura orientada do item: O *Backpropagation* (retropropagação do erro) é o motor de aprendizagem do Deep Learning. Vamos quebrar o porquê de cada afirmação para o seu material de estudo:\n• i. (Verdadeira): Matematicamente, o backpropagation é literalmente a aplicação sistemática da Regra da Cadeia (*Chain Rule*) do cálculo diferencial. Ele calcula como a mudança no peso de um neurônio na primeira camada afeta o erro lá no final da rede, multiplicando as derivadas parciais de cada camada intermediária.\n• ii. (Verdadeira): O processo completo de uma época (*epoch*) de treino tem duas vias. Primeiro, os dados entram e passam por todas as camadas até gerar uma previsão (isso é o *Forward Pass*). Só depois de ter essa previsão é que o erro é calculado e volta atualizando os pesos (*Backward Pass*).\n• iii. (Verdadeira): Sem função de custo (Loss Function, como MSE ou Cross-Entropy), não há como saber o tamanho do erro cometido no *forward pass*. Se você não tem o erro, não tem o que retropropagar. Logo, ela precisa ser calculada a cada iteração.\n• iv. (Falsa - A Pegadinha): O Backpropagation (junto com otimizadores como o Gradiente Descendente) NÃO garante encontrar o ótimo global. A superfície de erro de uma rede neural complexa é altamente \"esburacada\" (não-convexa). O algoritmo pode facilmente ficar preso no fundo de um \"buraco raso\" (um mínimo local) achando que chegou ao fundo verdadeiro (o mínimo global).\n\n💡 Dica de Ouro para a Sabatina:\nSe te perguntarem como mitigar o problema do mínimo local descrito na afirmativa IV, mencione o uso de otimizadores modernos. Diga: *\"Como o gradiente descendente puro pode ficar preso em mínimos locais ou *saddle points* (pontos de sela), na prática nós utilizamos otimizadores com momento, como o Adam ou o RMSprop, que ajudam o algoritmo a ganhar 'embalo' para pular fora desses buracos rasos e continuar buscando o ótimo global.\"*",
+          "dataset": null
+        },
+        {
+          "id": "p1-37",
+          "sourceQuestion": 37,
+          "question": "Uma equipe de ciência de dados que trabalha com investimentos quer utilizar uma rede neural para prever o quanto cada um de seus clientes possui investido na bolsa de valores. Quais desses processamentos eles devem utilizar nas variáveis explicativas categóricas?",
+          "options": [
+            "transformação hexadecimal",
+            "fazer one-hot encoding",
+            "usar valores inteiros",
+            "normalização"
+          ],
+          "correctIndex": 1,
+          "topic": "Classificação e avaliação",
+          "week": 22,
+          "rationale": "Leitura orientada do item: Redes neurais são essencialmente grandes calculadoras de matrizes. Elas realizam cálculos matemáticos contínuos (multiplicação de pesos, somas e funções de ativação) para encontrar padrões. O modo como você entrega os dados para a rede muda completamente a forma como ela \"pensa\".\n• Por que One-Hot Encoding é o padrão? Ele transforma cada categoria em uma nova coluna binária separada (0 ou 1). Isso garante que o modelo trate todas as classes de forma independente, sem assumir falsas hierarquias.\n• O perigo da Letra C (Usar valores inteiros): Conhecido como *Label Encoding*, transformar categorias em números inteiros (ex: Tipo de Investidor: Conservador = 1, Moderado = 2, Arrojado = 3) força a rede neural a interpretar que existe uma relação matemática de magnitude entre eles (ex: Arrojado é 3 vezes maior que Conservador). Para variáveis nominais (sem ordem natural, como \"Estado Civil\" ou \"Profissão\"), isso destrói a lógica do modelo.\n• Por que a Letra D está errada? A normalização (como o *MinMaxScaler* ou *StandardScaler*) é um passo fundamental e obrigatório para treinar redes neurais, mas ela é aplicada nas variáveis numéricas contínuas (como idade, renda, histórico de saldo), e não nas categóricas.\n• Letra A: Transformação hexadecimal não tem utilidade prática no pré-processamento de modelagem preditiva clássica.\n\n💡 Dica de Ouro para a Sabatina:\nEsta é uma oportunidade perfeita para demonstrar maturidade técnica visando a sua efetivação. Se o tema de variáveis categóricas em Deep Learning surgir, você pode expandir a resposta dizendo:\n\n*\"O One-Hot Encoding é a resposta clássica e correta para categorias de baixa cardinalidade. No entanto, se no dia a dia estivermos lidando com variáveis categóricas de altíssima cardinalidade (por exemplo, milhares de CEPs diferentes na base de crédito pessoal, ou milhares de tickers de ações da B3), o One-Hot Encoding vai gerar uma matriz esparsa gigantesca, estourando a memória e lentificando o treino. Nesses cenários, a solução moderna que adotaríamos é o uso de Camadas de Embedding (Embedding Layers), que convertem essas categorias em vetores densos e ainda conseguem capturar a similaridade intrínseca entre os dados.\"*",
+          "dataset": null
+        },
+        {
+          "id": "p1-38",
+          "sourceQuestion": 38,
+          "dataset": null,
+          "question": "Uma variável numérica tem forte assimetria à direita e valores extremos. Qual resumo central é mais robusto?",
+          "options": [
+            "Média",
+            "Mediana",
+            "Variância",
+            "Amplitude"
+          ],
+          "correctIndex": 1,
+          "topic": "Estatística básica",
+          "week": 1,
+          "rationale": "A mediana depende da posição dos dados e sofre muito menos influência de extremos do que a média. No banco, isso é útil para renda, saldo e valor transacionado, que frequentemente têm cauda longa. A escolha não elimina a necessidade de mostrar dispersão e percentis."
+        },
+        {
+          "id": "p1-39",
+          "sourceQuestion": 39,
+          "dataset": null,
+          "question": "Em uma árvore, aumentar muito a profundidade tende a produzir qual efeito?",
+          "options": [
+            "Aumentar viés e reduzir variância",
+            "Reduzir viés e aumentar variância",
+            "Eliminar overfitting",
+            "Não alterar generalização"
+          ],
+          "correctIndex": 1,
+          "topic": "Classificação e avaliação",
+          "week": 14,
+          "rationale": "Uma árvore mais profunda representa padrões complexos e reduz o erro de treino, mas fica mais sensível à amostra. Isso costuma reduzir viés e aumentar variância. Profundidade deve ser escolhida com validação, poda e restrições de folha."
+        },
+        {
+          "id": "p1-40",
+          "sourceQuestion": 40,
+          "dataset": null,
+          "question": "Um classificador acerta quase todos os negativos, mas encontra poucos positivos. Qual métrica evidencia diretamente essa falha?",
+          "options": [
+            "Recall",
+            "Especificidade",
+            "Acurácia",
+            "R²"
+          ],
+          "correctIndex": 0,
+          "topic": "Classificação e avaliação",
+          "week": 7,
+          "rationale": "Recall mede a proporção dos positivos reais capturados. Em fraude ou inadimplência rara, acurácia pode permanecer alta mesmo com recall muito baixo. O ponto de corte deve equilibrar cobertura, precisão, custo e capacidade operacional."
+        },
+        {
+          "id": "p1-41",
+          "sourceQuestion": 41,
+          "dataset": null,
+          "question": "Qual validação melhor representa um modelo que será aplicado em safras futuras?",
+          "options": [
+            "Split aleatório sem data",
+            "Leave-one-out",
+            "Out-of-time",
+            "Treinar e testar na mesma base"
+          ],
+          "correctIndex": 2,
+          "topic": "Classificação e avaliação",
+          "week": 6,
+          "rationale": "Out-of-time treina no passado e avalia no futuro, aproximando a produção e expondo drift. Ainda pode ser combinado com validação interna para hiperparâmetros. A data de corte, maturação do alvo e disponibilidade de atributos devem ser documentadas."
+        },
+        {
+          "id": "p1-42",
+          "sourceQuestion": 42,
+          "dataset": null,
+          "question": "Ao padronizar variáveis para Ridge, em que conjunto o scaler deve ser ajustado?",
+          "options": [
+            "Em toda a base",
+            "Somente no teste",
+            "Somente no treino de cada split/fold",
+            "Depois de medir o teste"
+          ],
+          "correctIndex": 2,
+          "topic": "Regressão",
+          "week": 10,
+          "rationale": "Média e desvio são parâmetros aprendidos. Ajustá-los com teste ou validação deixa informação externa entrar no treino. Pipeline e validação cruzada garantem que o scaler seja recalculado dentro de cada fold."
+        },
+        {
+          "id": "p1-43",
+          "sourceQuestion": 43,
+          "dataset": null,
+          "question": "Por que k-medoids costuma ser mais robusto a outliers do que k-means?",
+          "options": [
+            "Usa a média global",
+            "Usa objetos reais como centros",
+            "Ignora distância",
+            "Sempre remove extremos"
+          ],
+          "correctIndex": 1,
+          "topic": "Agrupamento",
+          "week": 17,
+          "rationale": "O medoid é uma observação representativa e não é puxado livremente por um extremo como a média. Isso melhora robustez, embora tenha custo computacional maior. Outliers ainda devem ser investigados e podem representar um segmento legítimo."
+        },
+        {
+          "id": "p1-44",
+          "sourceQuestion": 44,
+          "dataset": null,
+          "question": "Em um LEFT JOIN de clientes com transações, o que deve ser checado antes de agregar?",
+          "options": [
+            "Somente a ordenação",
+            "A cardinalidade das chaves e possível multiplicação de linhas",
+            "A cor do dashboard",
+            "A normalidade do alvo"
+          ],
+          "correctIndex": 1,
+          "topic": "Banco de dados e SQL",
+          "week": 21,
+          "rationale": "Chaves não únicas podem criar junção N:M e inflar somas silenciosamente. Antes e depois do join, reconcilie linhas, clientes, chaves duplicadas, valores e cobertura. A granularidade esperada precisa estar escrita."
+        },
+        {
+          "id": "p1-45",
+          "sourceQuestion": 45,
+          "dataset": null,
+          "question": "Um Gini de 0,50 equivale aproximadamente a qual AUC?",
+          "options": [
+            "0,50",
+            "0,60",
+            "0,75",
+            "1,00"
+          ],
+          "correctIndex": 2,
+          "topic": "Classificação e avaliação",
+          "week": 7,
+          "rationale": "Na convenção usual, Gini = 2×AUC−1. Portanto AUC=(0,50+1)/2=0,75. Gini 50% não é aleatório; o aleatório tem AUC 50% e Gini 0%."
+        },
+        {
+          "id": "p1-46",
+          "sourceQuestion": 46,
+          "dataset": null,
+          "question": "Qual situação caracteriza data leakage?",
+          "options": [
+            "Imputar dentro do pipeline",
+            "Calcular a média antes de separar treino e teste",
+            "Usar baseline",
+            "Manter teste intocado"
+          ],
+          "correctIndex": 1,
+          "topic": "Classificação e avaliação",
+          "week": 6,
+          "rationale": "A média calculada na base completa carrega informação da validação/teste para o treino. O efeito pode parecer pequeno, mas invalida a independência da avaliação. Imputação, encoding, seleção e reamostragem pertencem ao pipeline de treino."
+        },
+        {
+          "id": "p1-47",
+          "sourceQuestion": 47,
+          "dataset": null,
+          "question": "Depois do deploy, o score mantém AUC, mas as probabilidades previstas ficam sistematicamente baixas. O que degradou?",
+          "options": [
+            "Somente o ranking",
+            "A calibração",
+            "A sintaxe SQL",
+            "O número de clusters"
+          ],
+          "correctIndex": 1,
+          "topic": "Classificação e avaliação",
+          "week": 16,
+          "rationale": "AUC mede ordenação e pode permanecer estável enquanto as probabilidades deixam de representar frequências observadas. Verifique curva de calibração, Brier/log loss e taxa de evento por faixa; recalibração pode ser suficiente se ranking e dados estiverem íntegros."
+        }
+      ]
+    },
+    {
+      "id": "prova-itau-2",
+      "title": "Prova Itaú 2",
+      "subtitle": "37 questões importadas do notebook",
+      "source": "PROVA_ITAU_2.ipynb",
+      "sourceFormat": "Jupyter Notebook",
+      "originNote": "Alternativas, gabaritos e explicações analíticas foram convertidos em um simulado interativo.",
+      "questions": [
+        {
+          "id": "p2-01",
+          "sourceQuestion": 1,
+          "question": "Qual das seguintes distribuições pode ser utilizada para representar amostras obtidas em um intervalo [0, 100] com probabilidades iguais?",
+          "options": [
+            "Poisson",
+            "Normal",
+            "Binomial",
+            "Uniforme"
+          ],
+          "correctIndex": 3,
+          "topic": "Estatística básica",
+          "week": 2,
+          "rationale": "A distribuição Uniforme é exatamente definida pela característica de que todos os valores contidos em um determinado intervalo (neste caso, de 0 a 100) possuem a mesma probabilidade de ocorrer.\n• Poisson: Modela a quantidade de vezes que um evento ocorre em um intervalo de tempo ou espaço (dados discretos).\n• Normal: Modela dados contínuos concentrados em torno de uma média (formato de sino), onde os extremos têm menor probabilidade.\n• Binomial: Modela o número de sucessos em uma sequência de $n$ tentativas independentes (dados discretos).",
+          "dataset": null
+        },
+        {
+          "id": "p2-02",
+          "sourceQuestion": 2,
+          "question": "Estimou-se que há 80% de chance de uma pessoa possuir um certo traço no DNA. Em uma sala com 5 pessoas, a chance de exatamente 4 pessoas terem o tal traço é de, aproximadamente:",
+          "options": [
+            "0.41",
+            "0.33",
+            "0.25",
+            "0.80"
+          ],
+          "correctIndex": 0,
+          "topic": "Estatística básica",
+          "week": 2,
+          "rationale": "Este é um problema clássico de Distribuição Binomial, pois temos um número fixo de tentativas (5 pessoas), duas possibilidades de resultado (tem o traço ou não tem) e a probabilidade é constante (80%).\n\nPodemos resolver usando a fórmula da probabilidade binomial:\n$P(X = k) = \\binom{n}{k} \\cdot p^k \\cdot (1-p)^{n-k}$\n\nOnde:\n• $n$ (número total de tentativas/pessoas) = 5\n• $k$ (número de sucessos desejados) = 4\n• $p$ (probabilidade de sucesso) = 0.80\n• $(1-p)$ (probabilidade de fracasso) = 0.20\n\nCalculando:\n\n1. Combinação de 5 escolhendo 4: $\\binom{5}{4} = 5$\n2. Probabilidade: $P(X = 4) = 5 \\cdot (0.80)^4 \\cdot (0.20)^1$\n3. $P(X = 4) = 5 \\cdot 0.4096 \\cdot 0.20$\n4. $P(X = 4) = 1 \\cdot 0.4096 = 0.4096$\n\nArredondando, temos 0.41 (ou 41%).",
+          "dataset": null
+        },
+        {
+          "id": "p2-03",
+          "sourceQuestion": 3,
+          "question": "Em um teste de hipóteses com nível de significância alpha e cujas estatísticas de teste calculada e tabelada estão representadas por Tc e Tt, respectivamente, pode-se afirmar que:",
+          "options": [
+            "a probabilidade de se rejeitar H0, sendo H0 verdadeira, é igual a alpha/2",
+            "se -Tt <= Tc <= Tt, não se rejeita a hipótese H0 para o caso bicaudal",
+            "ocorre erro tipo I quando se aceita H0 e H0 é falsa",
+            "se Tc <= Tt, rejeita-se a hipótese H0 para o caso unilateral"
+          ],
+          "correctIndex": 1,
+          "topic": "Estatística básica",
+          "week": 2,
+          "rationale": "Em um teste de hipóteses bicaudal, a região de aceitação (não-rejeição) da hipótese nula ($H_0$) está concentrada no centro da distribuição, delimitada pelos valores críticos (tabelados) negativo ($-T_t$) e positivo ($T_t$). Se a nossa estatística calculada ($T_c$) cai dentro desse intervalo, nós não temos evidências estatísticas suficientes para rejeitar $H_0$.\n\nPor que as outras estão incorretas?\n• a. A probabilidade de rejeitar $H_0$ sendo ela verdadeira é a definição exata do nível de significância ($\\alpha$), e não $\\alpha/2$.\n• c. Aceitar $H_0$ quando ela é falsa é a definição do Erro Tipo II. O Erro Tipo I ocorre quando rejeitamos $H_0$ sendo ela verdadeira.\n• d. A regra de rejeição unilateral depende da direção da cauda (esquerda ou direita). Dizer genericamente que $T_c \\le T_t$ leva à rejeição está incompleto e incorreto para testes de cauda superior (onde rejeitaríamos se $T_c \\ge T_t$).",
+          "dataset": null
+        },
+        {
+          "id": "p2-04",
+          "sourceQuestion": 4,
+          "question": "Em uma determinada cidade do Brasil, as crianças recém-nascidas do sexo masculino nascem com peso segundo uma distribuição normal com média 2.4kg e desvio padrão a 0.040kg. O percentil 50º dessa distribuição é igual a:",
+          "options": [
+            "2.35kg",
+            "2.37kg",
+            "2.40kg",
+            "1.96kg"
+          ],
+          "correctIndex": 2,
+          "topic": "Estatística básica",
+          "week": 2,
+          "rationale": "Esta é uma questão conceitual que não exige cálculos. A característica fundamental de uma Distribuição Normal (a clássica \"curva do sino\") é a sua simetria perfeita em relação ao centro.\n\nPor causa dessa simetria, as três principais medidas de tendência central são exatamente iguais e ficam no mesmo ponto do eixo:\n\n1. A Média ($\\mu$)\n2. A Mediana, que por definição é o valor que divide os dados exatamente ao meio, ou seja, o 50º percentil.\n3. A Moda\n\nComo o enunciado já informa diretamente que a média é de 2.4kg, automaticamente sabemos que o percentil 50º (a mediana) também é 2.40kg.",
+          "dataset": null
+        },
+        {
+          "id": "p2-05",
+          "sourceQuestion": 5,
+          "question": "Sejam A e B duas variáveis de interesse. Sabemos que a variável A é bem comportada e segue uma distribuição normal. No entanto, a variável B possui outliers e uma assimetria positiva. Com essas informações, podemos afirmar que:",
+          "options": [
+            "podemos sumarizar bem ambas as variáveis com a média",
+            "a variável A pode ser bem sumarizada somente a partir da mediana e B somente a partir da média",
+            "podemos sumarizar bem ambas as variáveis com a mediana",
+            "a variável A pode ser bem sumarizada somente a partir da média e B somente a partir da mediana"
+          ],
+          "correctIndex": 2,
+          "topic": "Estatística básica",
+          "week": 1,
+          "rationale": "O segredo dessa questão está em entender a robustez das medidas de tendência central:\n• Variável B (Assimetria e Outliers): A média é uma métrica extremamente sensível a valores extremos. Em uma distribuição com assimetria positiva (cauda longa à direita), os outliers \"puxam\" a média para cima, distorcendo a visão do comportamento padrão dos dados. A mediana, por ser baseada na posição (o valor do meio), é imune a esses extremos e representa muito melhor a realidade da variável B.\n• Variável A (Distribuição Normal): Uma distribuição normal é perfeitamente simétrica. Como vimos na questão anterior, isso garante que a Média, a Mediana e a Moda sejam exatamente iguais. Logo, a mediana também funciona perfeitamente para sumarizar a variável A.\n\nDica de Sabatina: Se a banca perguntar por que a alternativa \"D\" está errada (já que a média costuma ser o padrão para normais), o ponto principal é a palavra \"somente\". A variável A não é sumarizada *somente* pela média, ela aceita tanto a média quanto a mediana. Assim, a mediana é a única métrica que \"salva\" as duas variáveis ao mesmo tempo.",
+          "dataset": null
+        },
+        {
+          "id": "p2-06",
+          "sourceQuestion": 6,
+          "question": "Assinale a alternativa INCORRETA:",
+          "options": [
+            "no gráfico boxplot podemos visualizar apenas a mediana e a média de uma variável numérica",
+            "podemos visualizar a tendência do salário médio anual na última década a partir de um gráfico de linhas",
+            "a distribuição normal é geralmente utilizada para modelar dados contínuos",
+            "o gráfico do tipo scatterplot pode ser utilizado para identificar outliers conjuntamente em duas variáveis"
+          ],
+          "correctIndex": 0,
+          "topic": "Estatística básica",
+          "week": 1,
+          "rationale": "O comando da questão pede a alternativa incorreta, e a afirmação da letra A está errada sobre a composição do Boxplot:\n\n1. O Boxplot clássico foca em medidas de posição e não costuma exibir a média por padrão (apenas a mediana, que é o segundo quartil).\n2. Ele definitivamente não mostra \"apenas\" isso. A grande utilidade do Boxplot é resumir a distribuição mostrando o Primeiro Quartil (Q1), a Mediana (Q2), o Terceiro Quartil (Q3), a amplitude interquartil (IQR), os limites de variação esperada (\"bigodes\" ou *whiskers*) e os outliers daquela variável.\n\nPor que as outras afirmações são verdadeiras?\n• b. Gráficos de linha são a melhor prática para representar evolução ou tendências ao longo do tempo (séries temporais).\n• c. A distribuição normal é, por excelência, o modelo teórico mais comum para variáveis aleatórias contínuas.\n• d. O scatterplot (gráfico de dispersão) cruza duas variáveis (eixos X e Y), sendo a ferramenta ideal para identificar pontos que fogem do padrão bivariado (outliers conjuntos).",
+          "dataset": null
+        },
+        {
+          "id": "p2-07",
+          "sourceQuestion": 7,
+          "question": "Uma cidade com 250 mil habitantes é dividida em 20 bairros distintos. Por meio de um sorteio realizado em cada um dos 20 bairros foram selecionadas amostras e os moradores selecionados foram entrevistados. Esse tipo de delineamento é característico de uma amostragem:",
+          "options": [
+            "por conglomerado",
+            "estratificada",
+            "sistemática",
+            "aleatória simples"
+          ],
+          "correctIndex": 1,
+          "topic": "Estatística básica",
+          "week": 1,
+          "rationale": "O ponto-chave para matar essa questão é a frase: *\"realizado em cada um dos 20 bairros\"*.\n\nAqui está a diferença prática entre as principais técnicas para você ter na ponta da língua:\n• Estratificada (A correta): A população é dividida em grupos (estratos — neste caso, os bairros). Em seguida, você coleta uma amostra aleatória de todos os grupos. Isso garante que todos os bairros tenham representação na pesquisa final.\n• Por Conglomerado: A população também é dividida em grupos (conglomerados). A diferença é que você sortearia apenas alguns bairros (ex: sorteia 4 de 20 bairros) e entrevistaria as pessoas apenas desses bairros sorteados, ignorando os outros 16.\n• Aleatória Simples: Você colocaria o nome dos 250 mil habitantes em uma base única e faria um sorteio cego, sem separação por bairros.\n• Sistemática: Você organizaria os moradores em uma lista e entrevistaria a cada $k$ pessoas (ex: o 10º, o 20º, o 30º da lista...).",
+          "dataset": null
+        },
+        {
+          "id": "p2-08",
+          "sourceQuestion": 8,
+          "question": "Supondo que tenhamos as seguintes bases e suas respectivas volumetrias em linhas: A = 40, B = 200, C = 160 e D = 15. Qual dos possíveis pseudo-códigos SQL abaixo pode ter gerado a base final X com 13 linhas?",
+          "options": [
+            "(((A RIGHT D) LEFT (B INNER D)) LEFT (D INNER A)) => X",
+            "((((A INNER B) OUTER C) INNER D) INNER A) => X",
+            "((D LEFT C) RIGHT A) => X",
+            "((A LEFT B) INNER D) OUTER C) => X"
+          ],
+          "correctIndex": 1,
+          "topic": "Banco de dados e SQL",
+          "week": 21,
+          "rationale": "Para matar essa questão de volumetria sem fritar a cabeça, basta focar nas regras de limite mínimo (*lower bound*) que cada tipo de junção impõe à tabela resultante:\n• LEFT JOIN: A tabela resultante terá, no mínimo, o mesmo número de linhas da tabela da esquerda.\n• RIGHT JOIN: A tabela resultante terá, no mínimo, o mesmo número de linhas da tabela da direita.\n• FULL OUTER JOIN: A tabela resultante terá, no mínimo, o tamanho da maior tabela envolvida.\n• INNER JOIN: É o único que atua como um filtro estrito. O resultado pode ser menor do que as tabelas originais, podendo chegar a zero (se não houver correspondência).\n\nComo a base final X tem 13 linhas, precisamos eliminar qualquer alternativa cujo bloco principal ou final obrigue a query a retornar um número maior que 13:\n• Alternativa A: A base motriz é `A RIGHT D` (que garante no mínimo as 15 linhas de D). Os joins seguintes são todos `LEFT`, o que significa que o número de linhas nunca vai cair para menos de 15. *(Incorreta)*\n• Alternativa C: A operação final é um `RIGHT A`. Isso obriga o resultado a ter, no mínimo, o número de linhas de A (40 linhas). *(Incorreta)*\n• Alternativa D: A operação final é um `OUTER C` (Full Outer Join). Isso obriga o resultado a ter, no mínimo, todas as linhas de C (160 linhas). *(Incorreta)*\n• Alternativa B: As operações finais são sucessivos `INNER JOIN` (com D e depois com A). Como o `INNER JOIN` exige a interseção das chaves, ele é capaz de reduzir a volumetria da query para as 13 linhas mencionadas. *(Correta)*",
+          "dataset": null
+        },
+        {
+          "id": "p2-09",
+          "sourceQuestion": 9,
+          "question": "Considere as tabelas (Transações e Cartões) e o código SQL que faz um LEFT JOIN da tabela Cartões com a tabela Transações e agrupa por cliente. Sobre a tabela retornada pela consulta, responda: qual é o valor da coluna SOMA_GASTOS_CARTAO para a segunda linha?",
+          "options": [
+            "17",
+            "NULL",
+            "98",
+            "101"
+          ],
+          "correctIndex": 3,
+          "topic": "Banco de dados e SQL",
+          "week": 21,
+          "rationale": "Como vimos na Questão 1, assumindo que o agrupamento pretendido seja pela tabela de cartões (`C.IDCLIENTE`), a query faz um `LEFT JOIN` e ordena os IDs de forma crescente.\nA ordem dos IDs será:\n\n1. 2134 (Soma: 17)\n2. 5438 (Soma: 15 + 35 + 51 = 101) -> *Segunda linha*\n3. 8765 (Soma: NULL, pois não há transações para este cartão)\n4. 9987 (Soma: 25)\n\nA segunda linha corresponde ao cliente 5438, cuja soma dos gastos é 101.",
+          "dataset": null
+        },
+        {
+          "id": "p2-10",
+          "sourceQuestion": 10,
+          "question": "Seja y_pred = [0, 1, 0, 1, 0] o valor predito por um modelo de regressão. Qual valor de erro médio quadrático (MSE) está correto?",
+          "options": [
+            "Para y_true = [1, 1, 0, 1, 1] o valor de MSE é 1",
+            "Para y_true = [2, 1, 0, -1, -2] o valor de MSE é -2.4",
+            "Para y_true = [0, 0, 0, 0, 0] o valor de MSE é 0",
+            "Para y_true = [-2, -1, 0, 1, 2] o valor de MSE é 2.4"
+          ],
+          "correctIndex": 3,
+          "topic": "Regressão",
+          "week": 7,
+          "rationale": "O Erro Quadrático Médio (MSE - *Mean Squared Error*) é calculado tirando a diferença entre o valor real e o predito, elevando ao quadrado (para penalizar erros maiores e evitar que números negativos anulem os positivos) e, por fim, tirando a média de todos esses valores.\n\nA fórmula é:\n$MSE = \\frac{1}{n} \\sum_{i=1}^{n} (y\\_true_i - y\\_pred_i)^2$\n\nOnde $y\\_pred = [0, 1, 0, 1, 0]$ e $n = 5$.\n\nVamos testar a Letra D, que é a correta:\n• Para $y\\_true = [-2, -1, 0, 1, 2]$\n• Erros (Real - Predito):\n• $(-2 - 0) = -2$\n• $(-1 - 1) = -2$\n• $(0 - 0) = 0$\n• $(1 - 1) = 0$\n• $(2 - 0) = 2$\n• Elevando ao quadrado:\n• $(-2)^2 = 4$\n• $(-2)^2 = 4$\n• $0^2 = 0$\n• $0^2 = 0$\n• $2^2 = 4$\n• Somando tudo: $4 + 4 + 0 + 0 + 4 = 12$\n• Dividindo pelo número de amostras ($n=5$): $12 / 5 = 2.4$\n\nDica Rápida para Prova: Você poderia eliminar a Letra B imediatamente sem fazer nenhuma conta. Como o MSE eleva as diferenças ao quadrado, o resultado nunca pode ser um número negativo.",
+          "dataset": null
+        },
+        {
+          "id": "p2-11",
+          "sourceQuestion": 11,
+          "question": "Quais das seguintes sentenças sobre pontos atípicos (outliers) em regressão linear são verdadeiras?",
+          "options": [
+            "na presença de muitos outliers, devemos utilizar a métrica de avaliação RMSE",
+            "regressão linear é sensível a outliers",
+            "sempre existe outlier em um problema de regressão linear",
+            "regressão linear não é sensível a outlier"
+          ],
+          "correctIndex": 1,
+          "topic": "Regressão",
+          "week": 4,
+          "rationale": "O modelo clássico de Regressão Linear utiliza o método dos Mínimos Quadrados Ordinários (OLS - *Ordinary Least Squares*) para encontrar a melhor linha de ajuste. Esse método busca minimizar a soma dos erros (resíduos) elevados ao quadrado.\n\nComo a diferença entre a previsão e o valor real é elevada ao quadrado, um outlier (que tem um erro muito grande) gera uma penalidade gigantesca na função de custo. Para tentar minimizar esse \"erro gigante\", o modelo acaba inclinando a reta de regressão na direção do outlier, distorcendo a previsão para o resto dos dados. Por isso, dizemos que a regressão linear é altamente sensível a outliers.\n\nPor que as outras estão erradas?\n• a. Falsa. O RMSE (*Root Mean Squared Error*) também eleva os erros ao quadrado, o que o torna uma péssima métrica se você tem muitos outliers, pois o valor do erro vai \"explodir\". Nesses casos, prefere-se o MAE (*Mean Absolute Error*), que é mais robusto.\n• c. Falsa. Não existe nenhuma regra matemática ou estatística que obrigue a presença de outliers em um conjunto de dados.\n• d. Falsa. É exatamente o oposto da realidade (e da letra B).",
+          "dataset": null
+        },
+        {
+          "id": "p2-12",
+          "sourceQuestion": 12,
+          "question": "Considerando os dados do arquivo classificacao_Q2.csv, treine o modelo Regressão Logística (tipo de de regularização: L2, fator de regularização: 1e-5) e utilize a validação holdout 80/20 para divisão dos dados entre amostra de treino e validação. Não embaralhe os dados. Qual é a métrica AUC nas partições de treino e validação (valor aproximado)?",
+          "options": [
+            "0.8421 e 0.0549",
+            "0.7204 e 0.7505",
+            "0.7505 e 0.7204",
+            "0.8549 e 0.8421"
+          ],
+          "correctIndex": 3,
+          "topic": "Regressão",
+          "week": 11,
+          "rationale": "O código executado sem o embaralhamento dos dados (`shuffle=False`) dividiu a base de forma estritamente sequencial, preservando as características temporais ou estruturais originais do arquivo.\n• AUC de Treino (~0.855): Mostra que o modelo linear conseguiu encontrar uma separação robusta e com bom poder de rankeamento na base de desenvolvimento.\n• AUC de Validação (~0.842): Por estar muito próxima à métrica de treino (uma queda pequena e saudável), indica que o modelo possui excelente poder de generalização. Não há sinais de *overfitting* (sobreajuste), o que valida a escolha do fator de regularização L2 utilizado.\n\n \n\nPerfeito, mais uma questão prática gabaritada com segurança! Vamos seguir o plano? Podemos ir agora para a Questão 16 ou 17, que também dependem de análise ou código. Só mandar o enunciado.",
+          "dataset": "/datasets/classificacao_Q2.csv"
+        },
+        {
+          "id": "p2-13",
+          "sourceQuestion": 13,
+          "question": "Qual das afirmativas abaixo está correta sobre KNN para regressão?",
+          "options": [
+            "KNN pode lidar com problemas não lineares",
+            "quanto maior o valor de K, melhor o resultado da métrica MAE",
+            "podemos usar o método KNN para identificar cluster de indivíduos parecidos",
+            "KNN funciona bem e é rápido independentemente do tamanho da amostra de treinamento"
+          ],
+          "correctIndex": 0,
+          "topic": "Regressão",
+          "week": 13,
+          "rationale": "O KNN é um algoritmo não paramétrico, o que significa que ele não faz nenhuma suposição prévia sobre a distribuição dos dados ou sobre a forma da relação entre as variáveis (diferente da Regressão Linear, que assume uma reta). Por calcular apenas a distância entre os pontos, ele consegue se adaptar perfeitamente a fronteiras de decisão complexas e problemas não lineares.\n\nPor que as outras alternativas são \"pegadinhas\" perigosas?\n• b. Um valor de K muito alto não melhora infinitamente o erro (MAE). Na verdade, se o K for grande demais, o modelo sofre de *underfitting* (fica generalista demais) e o erro aumenta, pois ele começa a incluir vizinhos que não têm relação com o ponto analisado.\n• c. Essa é uma clássica confusão de sopa de letrinhas! KNN é um algoritmo supervisionado (precisa de uma variável alvo) para classificação ou regressão. Quem identifica clusters de indivíduos parecidos (aprendizado não supervisionado) é o algoritmo K-Means.\n• d. O KNN é um *lazy learner* (aprendizado preguiçoso). Ele não constrói um modelo durante o treino; ele apenas memoriza os dados. Por causa disso, na hora de fazer a previsão, ele precisa calcular a distância do novo ponto para todos os pontos da amostra de treinamento. Portanto, se a base for gigantesca, ele será extremamente lento.",
+          "dataset": null
+        },
+        {
+          "id": "p2-14",
+          "sourceQuestion": 14,
+          "question": "Considerando a Regressão Ridge, quais das sentenças abaixo são verdadeiras? i. quando o erro da base de treino é baixo e o erro da base de teste é alto, devemos aumentar o parâmetro de regularização. ii. quando o valor do parâmetro de regularização é igual a 1, temos uma seleção automática de variáveis explicativas.",
+          "options": [
+            "as duas são verdadeiras",
+            "i é verdadeira e ii é falsa",
+            "i é falsa e ii é verdadeira",
+            "as duas são falsas"
+          ],
+          "correctIndex": 1,
+          "topic": "Regressão",
+          "week": 10,
+          "rationale": "A Regressão Ridge utiliza a técnica de regularização L2. Vamos quebrar o racional de cada afirmativa para deixar bem documentado:\n• Afirmativa I (Verdadeira): O cenário descrito (erro baixo no treino, mas alto no teste) é a definição clássica de overfitting (sobreajuste). O modelo decorou os dados de treino, mas perdeu o poder de generalização. Aumentar o parâmetro de regularização (geralmente chamado de $\\alpha$ ou $\\lambda$) força o modelo a reduzir a magnitude dos coeficientes, diminuindo sua complexidade (variância) e ajudando a combater esse overfitting.\n• Afirmativa II (Falsa): A regularização L2 (Ridge) encolhe os coeficientes das variáveis em direção a zero, mas nunca os zera de fato. Por causa disso, ela não faz seleção de variáveis. Quem tem o poder de zerar coeficientes e, consequentemente, realizar uma \"seleção automática de variáveis explicativas\", é a Regressão Lasso (que usa regularização L1). O valor \"1\" do parâmetro na afirmativa é apenas uma distração.",
+          "dataset": null
+        },
+        {
+          "id": "p2-15",
+          "sourceQuestion": 15,
+          "question": "Assinale a alternativa CORRETA:",
+          "options": [
+            "overfitting e underfitting são mais prováveis quando você tem uma quantidade enorme de dados para treinar.",
+            "quando os resíduos de um modelo de regressão não têm variância constante, é melhor utilizar a regressão linear para resolver o problema.",
+            "em um modelo de regressão linear podemos identificar superestimação do modelo a partir do modelo RMSE",
+            "quando tanto o erro da base de treino quanto teste estão altos, é melhor usar a regularização L2 ao invés de L1"
+          ],
+          "correctIndex": 3,
+          "topic": "Regressão",
+          "week": 10,
+          "rationale": "Quando tanto o erro de treino quanto o de teste estão altos, o modelo está sofrendo de underfitting (alto viés). Ele não conseguiu capturar os padrões dos dados, resultando em um modelo simples demais.\n\nA regularização (L1 ou L2) atua penalizando a complexidade do modelo, o que normalmente piora o underfitting. No entanto, assumindo que você seja obrigado a aplicar uma penalidade, a regularização L2 (Ridge) é \"melhor\" (ou menos destrutiva) que a L1 (Lasso) neste cenário específico.\n• A L1 (Lasso) zera coeficientes, removendo variáveis do modelo. Se o modelo já está fraco (underfitting), arrancar variáveis inteiras vai piorar drasticamente a situação.\n• A L2 (Ridge) apenas encolhe os coeficientes em direção a zero, mas mantém todas as variáveis no modelo, preservando os poucos sinais fracos que o modelo conseguiu aprender.\n\n💡 Dica de Ouro para a Sabatina: Se essa questão for abordada oralmente, vale a pena demonstrar sua maturidade técnica. Você pode dizer: *\"Eu assinalei a alternativa D entendendo a lógica de que a L2 é menos agressiva que a L1 por não zerar variáveis. Porém, na prática do dia a dia do banco, se eu me deparar com erros altos no treino e no teste, minha primeira ação não seria aplicar regularização, mas sim buscar um modelo mais complexo, criar novas features (Feature Engineering) ou reduzir o parâmetro de regularização, já que estamos lidando com underfitting.\"*",
+          "dataset": null
+        },
+        {
+          "id": "p2-16",
+          "sourceQuestion": 16,
+          "question": "Considerando os dados do arquivo regressao_Q1.csv, treine o modelo Elastic Net (fator de regularização igual a 1.0 e parâmetro de mistura igual a 0.01) e utilize como metodologia de reamostragem a técnica validação cruzada sequencial (com 5 folds). Qual é o valor aproximado da média da soma dos quadrados dos erros nas partições de treino e validação, respectivamente?",
+          "options": [
+            "0.2693 e 0.2686",
+            "645 e 162",
+            "162 e 645",
+            "0.2686 e 0.2693"
+          ],
+          "correctIndex": 3,
+          "topic": "Regressão",
+          "week": 10,
+          "rationale": "Ao utilizar a Validação Cruzada Sequencial (`KFold` com `shuffle=False`), garantimos que a avaliação do modelo respeitou a ordenação original do dataset. Isso é fundamental em dados que possuem dependência de tempo ou sequência.\n• Interpretação do MSE (Mean Squared Error): O modelo obteve um erro médio quadrático de 0.2686 na base de treino e 0.2692 (arredondado para 0.2693) na base de validação.\n• Diagnóstico do Modelo: A diferença entre o erro de treino e o erro de teste é virtualmente inexistente (apenas 0.0007). Isso é o \"Cenário de Ouro\" em Machine Learning. Significa que a configuração do Elastic Net (combinando as regularizações L1 e L2) foi perfeitamente capaz de generalizar o padrão dos dados sem sofrer de *overfitting* (sobreajuste) ou *underfitting* (subajuste). O modelo aprendeu exatamente o que precisava.",
+          "dataset": "/datasets/regressao_Q1.csv"
+        },
+        {
+          "id": "p2-17",
+          "sourceQuestion": 17,
+          "question": "Considerando os dados do arquivo regressao_Q2.csv, treine o modelo SVM (kernel: linear, fator de regularização: 0.01) e utilize como metodologia de reamostragem a técnica validação cruzada sequencial (com 5 folds). Qual é a média da métrica MSE nas partições de treino e validação, respectivamente?",
+          "options": [
+            "16321 e 16385",
+            "16395 e 16422",
+            "16385 e 16321",
+            "16422 e 16395"
+          ],
+          "correctIndex": 1,
+          "topic": "Regressão",
+          "week": 15,
+          "rationale": "O SVM para regressão (SVR) busca encontrar um \"tubo\" (margem de tolerância) que englobe a maior quantidade de dados possível, penalizando apenas os pontos que caem fora desse tubo.\n• Comportamento do Hiperparâmetro C: O enunciado definiu o fator de regularização `C = 0.01`. Em algoritmos da família SVM, um `C` pequeno significa uma alta regularização. Isso força a margem a ser mais rígida e menos influenciada por pontos fora da curva (ruídos).\n• Diagnóstico de Overfitting: Analisando os resultados, o Erro Quadrático Médio (MSE) de Treino (16.395) e o de Validação (16.422) estão extremamente próximos. Isso prova que a forte regularização exigida pelo parâmetro `C = 0.01` funcionou perfeitamente. O modelo não decorou a base de treino e manteve um comportamento altamente estável e previsível na base de validação, um cenário ideal para garantir a consistência das predições em produção.",
+          "dataset": "/datasets/regressao_Q2.csv"
+        },
+        {
+          "id": "p2-18",
+          "sourceQuestion": 18,
+          "question": "Um time de ciência de dados quer modelar o preço do aluguel de casas usando um conjunto de variáveis explicativas. Ao fazer uma análise descritiva dos dados, eles perceberam que a relação das variáveis explicativas com a variável resposta não era linear. Considerando essa característica, qual algoritmo abaixo seria mais adequado para lidar com esse problema?",
+          "options": [
+            "análise de componentes principais (PCA)",
+            "regressão linear simples",
+            "support vector machines (SVM) para regressão com kernel linear",
+            "support vector machines (SVM) para regressão com kernel RBF"
+          ],
+          "correctIndex": 3,
+          "topic": "Regressão",
+          "week": 15,
+          "rationale": "O pulo do gato nessa questão está na frase: *\"a relação... não era linear\"*. Sendo assim, precisamos de um algoritmo capaz de capturar complexidade e curvaturas nos dados.\n• Por que o SVM com kernel RBF (Radial Basis Function) é a escolha certa? O SVM clássico desenha retas (ou hiperplanos) para separar ou regredir dados. No entanto, quando aplicamos o \"Kernel Trick\" (Truque do Kernel) usando a função RBF, o algoritmo projeta esses dados originais em um espaço de dimensões muito maiores. Nesse novo espaço complexo, ele consegue traçar um hiperplano linear que, quando traduzido de volta para o espaço original, representa uma curva altamente flexível e não linear.\n• Por que as outras falham na premissa do problema?\n• b. Regressão linear simples: Como o nome grita, só traça retas. Falharia miseravelmente em capturar a relação não linear.\n• c. SVM com kernel linear: É basicamente uma regressão linear com margens de tolerância. Continua preso a desenhar retas.\n• a. PCA (Análise de Componentes Principais): O PCA não é um algoritmo de regressão para prever o preço do aluguel (variável resposta), mas sim uma técnica de aprendizado não supervisionado para redução de dimensionalidade. Além disso, o PCA clássico também assume combinações lineares entre as variáveis.",
+          "dataset": null
+        },
+        {
+          "id": "p2-19",
+          "sourceQuestion": 19,
+          "question": "Qual alternativa está correta?",
+          "options": [
+            "a métrica Davies-Bouldin mede a distância máxima dos objetos de cada grupo em relação ao centróide do grupo mais próximo",
+            "a métrica Mean Absolute Error é uma métrica utilizada para medir a precisão de um método de agrupamento",
+            "a métrica Mutual Information mede a similaridade entre o grupo obtido pelo método de agrupamento e o grupo real dos dados",
+            "a métrica R-squared é uma métrica de agrupamento utilizada para medir a qualidade do ajuste dos dados"
+          ],
+          "correctIndex": 2,
+          "topic": "Agrupamento",
+          "week": 17,
+          "rationale": "Esta questão avalia a sua capacidade de não confundir métricas de aprendizado supervisionado (Regressão) com não supervisionado (Clusterização/Agrupamento).\n• Por que a Letra C é a correta? A Informação Mútua (*Mutual Information*) é uma métrica de validação externa para clusters. Quando você tem os rótulos reais dos dados (*ground truth*), você pode usar essa métrica para medir a concordância (similaridade) entre os clusters que o seu modelo criou (ex: K-Means) e as classes reais que já existiam.\n\nPor que as outras alternativas são pegadinhas?\n• b. e d. (Falsas): MAE (*Mean Absolute Error*) e R² (*R-squared*) são métricas exclusivas de modelos de Regressão (prever um número contínuo). Elas não têm absolutamente nada a ver com métodos de agrupamento.\n• a. (Falsa): O Índice Davies-Bouldin é sim uma métrica de agrupamento, mas a sua definição na alternativa está incorreta. Ele não mede apenas a \"distância máxima\", mas calcula a razão entre a dispersão *dentro* do cluster (intra-cluster) e a separação *entre* os clusters (inter-cluster). O objetivo é ter clusters densos e bem separados (valores mais próximos de zero são melhores).",
+          "dataset": null
+        },
+        {
+          "id": "p2-20",
+          "sourceQuestion": 20,
+          "question": "Qual das seguintes assertivas está correta?",
+          "options": [
+            "a métrica de distância não impacta o custo computacional dos algoritmos",
+            "no algoritmo DBscan, a escala dos dados não é um problema",
+            "a complexidade computacional dos métodos k-means e k-medians é igual",
+            "os algoritmos hierárquicos single e complete linkage tem complexidade computacional O(n^2) e, por este motivo, não são aconselhados para grandes quantidades de dados"
+          ],
+          "correctIndex": 3,
+          "topic": "Agrupamento",
+          "week": 19,
+          "rationale": "O principal gargalo dos algoritmos de clusterização hierárquica (aglomerativa) é que eles exigem o cálculo de uma matriz de distância combinando todos os pontos contra todos os pontos (pairwise). Isso gera uma complexidade de tempo e de espaço (memória) de pelo menos $O(n^2)$. Para bases de dados grandes (ex: milhões de linhas do Itaú), a memória do servidor estoura antes mesmo de o algoritmo terminar de calcular as distâncias. Por isso, métodos baseados em partição (como K-Means) são preferidos para alto volume.\n\nPor que as outras opções representam conceitos errados?\n• a. Falsa: A escolha da métrica impacta fortemente o custo. Calcular uma distância Euclidiana simples é muito mais rápido do que calcular uma distância de Mahalanobis (que exige inversão de matriz de covariância) ou aplicar métricas complexas baseadas em grafos.\n• b. Falsa: O DBSCAN é extremamente sensível à escala dos dados. Ele baseia a formação dos clusters no parâmetro `eps` (raio de vizinhança). Se os dados não estiverem padronizados (mesma escala), variáveis com valores absolutos maiores vão dominar o cálculo de distância, e o `eps` perderá o sentido lógico.\n• c. Falsa: Calcular a média (K-means) é uma operação linear simples (soma e divisão). Calcular a mediana (K-medians) geralmente exige a ordenação dos dados em cada iteração, o que torna o K-medians mais custoso computacionalmente do que o K-means.",
+          "dataset": null
+        },
+        {
+          "id": "p2-21",
+          "sourceQuestion": 21,
+          "question": "Na aplicação de um algoritmo de agrupamento hierárquico sobre um dataset de 500 pontos, qual o número MÍNIMO de operações de cálculo de distância entre pontos deveremos efetuar para a construção da matriz de dissimilaridade?",
+          "options": [
+            "249.500",
+            "250.499",
+            "124.750",
+            "250.000"
+          ],
+          "correctIndex": 2,
+          "topic": "Agrupamento",
+          "week": 19,
+          "rationale": "Para construir uma matriz de dissimilaridade (ou matriz de distância) para $N$ pontos, teoricamente você precisaria cruzar todos os pontos contra todos os pontos, resultando em uma matriz $N \\times N$. Se $N = 500$, o tamanho total da matriz é de $250.000$ posições (o que nos levaria à letra D).\n\nNo entanto, a questão pede o número mínimo de cálculos. Aqui entram duas propriedades matemáticas fundamentais das métricas de distância:\n\n1. Identidade: A distância de um ponto para ele mesmo é sempre zero. Logo, não precisamos calcular a diagonal principal da matriz (500 cálculos a menos).\n2. Simetria: A distância do ponto A para o ponto B é exatamente a mesma do ponto B para o ponto A ($d(A,B) = d(B,A)$). Isso significa que a matriz é espelhada e só precisamos calcular a metade superior (ou inferior) dela.\n\nPara calcular o número de pares únicos sem repetição, usamos a fórmula de combinação simples (combinação de $N$ elementos tomados 2 a 2):\n\n$$C = \\frac{N(N-1)}{2}$$\n\nSubstituindo $N$ por 500:\n\n1. $500 \\times 499 = 249.500$\n2. $249.500 / 2 = 124.750$\n\n💡 Dica de Ouro para a Sabatina: Se a banca questionar por que aglomerativos não escalam, você pode usar os próprios números dessa prova. Diga algo como: *\"Na questão 21, vimos que para apenas 500 linhas precisamos calcular 124 mil distâncias. Se a nossa base aqui no Itaú tiver 1 milhão de clientes, a fórmula $\\frac{N(N-1)}{2}$ resultaria em quase 500 bilhões de cálculos de distância só para inicializar a matriz. É por isso que o agrupamento hierárquico se torna inviável para Big Data, justificando o uso do K-Means.\"*",
+          "dataset": null
+        },
+        {
+          "id": "p2-22",
+          "sourceQuestion": 22,
+          "question": "Qual das seguintes assertivas está correta?",
+          "options": [
+            "no algoritmo DBSCAN, os outliers são considerados fronteira e agrupados no cluster mais próximo",
+            "há uma correlação entre a dimensão dos dados e o número ótimo de clusters",
+            "a métrica Silhueta avalia a distância entre pontos dentro do mesmo grupo e a distância entre pontos em grupos diferentes, enquanto a métrica Rand Score considera apenas se as classificações dos elementos são corretas",
+            "o método k-medoids visa a uniformidade no tamanho dos clusters"
+          ],
+          "correctIndex": 2,
+          "topic": "Agrupamento",
+          "week": 17,
+          "rationale": "Esta alternativa define corretamente dois tipos diferentes de validação de clusters:\n• Silhueta (Validação Interna): Mede quão similar um objeto é ao seu próprio cluster (coesão) em comparação com outros clusters (separação). O valor varia de -1 a 1, onde valores altos indicam que o ponto está bem alocado.\n• Rand Score (Validação Externa): Compara o resultado do agrupamento com um rótulo real (*ground truth*). Ele olha para todos os pares de amostras e conta quantos pares foram agrupados da mesma forma (ou de forma diferente) tanto no modelo quanto na realidade.\n\nPor que as outras alternativas estão incorretas?\n• a. (Falsa): No DBSCAN, existe uma distinção clara. Pontos que não atingem a densidade mínima e não estão no raio de um ponto central são classificados como Ruído (Noise/Outliers) e não pertencem a nenhum cluster. Os pontos de \"fronteira\" são aqueles que estão no raio de um ponto central, mas não possuem vizinhos suficientes para serem centros eles mesmos.\n• b. (Falsa): O número ótimo de clusters depende da estrutura intrínseca e da dispersão dos dados (quantos grupos reais existem no fenômeno), e não diretamente do número de colunas (dimensões) que o dataset possui.\n• d. (Falsa): O K-medoids é uma variante do K-means que utiliza pontos reais do dataset (medoides) como centros para ganhar robustez contra outliers, mas ele não possui nenhum mecanismo ou objetivo intrínseco de forçar que os grupos tenham o mesmo tamanho (quantidade de linhas).\n\n💡 Dica para a Sabatina:\nSe falarem sobre o Rand Score, lembre-se do Adjusted Rand Index (ARI). O Rand Score puro pode ser alto apenas por sorte (acaso). O ARI ajusta essa métrica para levar em conta o agrupamento aleatório, sendo uma métrica muito mais rigorosa e profissional para se citar em um projeto no banco.",
+          "dataset": null
+        },
+        {
+          "id": "p2-23",
+          "sourceQuestion": 23,
+          "question": "No método Complete Linkage, a distância inter-cluster é dada pela:",
+          "options": [
+            "distância máxima entre todos os pares de objetos (entre os clusters)",
+            "distância média entre todos os pares de objetos (de um dado cluster)",
+            "distância mínima entre os centroides de cada cluster",
+            "distância máxima entre todos os pares de objetos (de um dado cluster)"
+          ],
+          "correctIndex": 0,
+          "topic": "Agrupamento",
+          "week": 19,
+          "rationale": "Em algoritmos de agrupamento hierárquico, precisamos definir como a distância entre dois grupos (clusters) inteiros será calculada para decidirmos quem se funde com quem. Isso é o critério de *Linkage*.\n• Complete Linkage (Vizinho mais distante): Calcula a distância entre todos os pares possíveis de pontos (onde o ponto 1 está no Cluster A e o ponto 2 está no Cluster B) e define a distância entre os dois clusters como a distância máxima encontrada. Isso força o algoritmo a criar clusters mais compactos e esféricos.\n• Single Linkage (Vizinho mais próximo): Usa a distância mínima entre os pares. Costuma sofrer do problema de \"encadeamento\" (*chaining*), criando clusters compridos e em formato de tubo.\n• Average Linkage: Usa a média de todas as distâncias entre os pares dos dois clusters.\n• Centroid Linkage: Calcula o centroide (ponto médio) de cada cluster e mede a distância diretamente entre esses dois centroides (o que elimina a opção C, que fala em \"distância mínima entre os centroides\").",
+          "dataset": null
+        },
+        {
+          "id": "p2-24",
+          "sourceQuestion": 24,
+          "question": "Em relação a sensibilidade a outliers:",
+          "options": [
+            "outliers não são problemas para o k-means e k-medoids",
+            "o método k-medoids é menos sensível a outliers do que o método k-means",
+            "os métodos k-means e k-medoids são equivalentes em relação a sensibilidade a outliers",
+            "o método k-means é menos sensível a outliers do que o método k-medoids"
+          ],
+          "correctIndex": 1,
+          "topic": "Agrupamento",
+          "week": 17,
+          "rationale": "Para matar essa questão com facilidade, basta lembrar da lógica que discutimos lá na Questão 5 sobre média vs. mediana:\n• K-Means (Média): O algoritmo K-Means atualiza o centro do cluster calculando a média espacial de todos os pontos daquele grupo. Como a média é matematicamente \"puxada\" por valores extremos, um único outlier bem distante pode deslocar o centroide inteiro para o meio do nada, arruinando o cluster. Portanto, o K-means é *muito sensível* a outliers.\n• K-Medoids (Mediana/Ponto Real): O algoritmo K-Medoids não calcula uma média virtual. Ele obrigatoriamente escolhe um ponto real do dataset para ser o centro (o medoide), funcionando de forma análoga à mediana. Como ele foca em minimizar as distâncias absolutas e não as distâncias ao quadrado (como faz a média), ele isola o outlier e não deixa que ele distorça o centro do grupo. Logo, é *menos sensível* (mais robusto).\n\n💡 Dica para a Sabatina:\nEssa é uma excelente oportunidade para fazer pontes entre conceitos. Se te perguntarem sobre K-means na entrevista, você pode dizer: *\"O K-means é excelente e muito escalável, mas como usa a média para o centroide, ele sofre muito com outliers. Se eu identificar muitos extremos na análise exploratória, posso testar o K-medoids ou tratar esses outliers antes da modelagem.\"*",
+          "dataset": null
+        },
+        {
+          "id": "p2-25",
+          "sourceQuestion": 25,
+          "question": "Sobre normalização de dados em agrupamento:",
+          "options": [
+            "os algoritmos hierárquicos não necessitam de normalização de dados",
+            "a normalização é fundamental para o algoritmo k-medoids, mas não é necessária para o algoritmo k-means",
+            "é necessário realizar a normalização dos dados para todos os algoritmos de agrupamento",
+            "a maioria dos algoritmos de agrupamento podem tirar proveito da normalização, pois pode influenciar a qualidade dos resultados"
+          ],
+          "correctIndex": 3,
+          "topic": "Agrupamento",
+          "week": 17,
+          "rationale": "A grande maioria dos algoritmos de clusterização (como K-Means, K-Medoids, Hierárquico e DBSCAN) baseia-se em cálculos de distância geométrica (como a distância Euclidiana) para definir quem é parecido com quem.\n\nSe você tiver um dataset de clientes com a variável \"Idade\" (variando de 18 a 90) e a variável \"Salário\" (variando de 1.000 a 50.000), o algoritmo vai olhar para a distância matemática. O salário vai dominar completamente o cálculo simplesmente porque os números são maiores de forma absoluta. A normalização (como o *StandardScaler* ou *MinMaxScaler*) coloca todas as variáveis na mesma escala, garantindo que o algoritmo dê o mesmo peso matemático para \"Idade\" e \"Salário\". Portanto, influencia diretamente a qualidade do resultado.\n\nPor que as outras alternativas estão erradas?\n• a. (Falsa): Algoritmos hierárquicos dependem inteiramente de matrizes de distância. Se não normalizar, o cluster será enviesado pelas variáveis de maior escala.\n• b. (Falsa): Ambos K-Means e K-Medoids são estritamente baseados em distância e precisam urgentemente de normalização.\n• c. (Falsa / Pegadinha): A palavra \"todos\" é o problema aqui. Em provas de concurso e processos seletivos, generalizações extremas costumam ser armadilhas. Existem abordagens específicas (como *Gaussian Mixture Models* usando matrizes de covariância completas, ou agrupamentos baseados em árvores/regras categóricas) que são invariantes à escala e não exigem normalização estrita. Por isso, a letra D (que usa \"a maioria\") é a resposta tecnicamente perfeita.",
+          "dataset": null
+        },
+        {
+          "id": "p2-26",
+          "sourceQuestion": 26,
+          "question": "Considerando os dados no arquivo agrupamento.csv, execute o algoritmo hierárquico Average Linkage com a métrica de distância Euclidiana. Qual é a quantidade de grupos adequada de acordo com o coeficiente silhueta?",
+          "options": [
+            "5",
+            "4",
+            "2",
+            "3"
+          ],
+          "correctIndex": 1,
+          "topic": "Agrupamento",
+          "week": 19,
+          "rationale": "O Coeficiente de Silhueta é uma métrica de validação interna que varia de -1 a 1. Ele mede a qualidade de um agrupamento avaliando dois fatores simultaneamente:\n\n1. Coesão: O quão próximo o ponto está dos outros pontos do seu *próprio* grupo.\n2. Separação: O quão distante o ponto está dos pontos do grupo *vizinho mais próximo*.\n\nAnalisando a saída do código, temos:\n• k=2: 0.5199\n• k=3: 0.5664\n• k=4: 0.5894 (Maior valor / Melhor Separação)\n• k=5: 0.5726\n\nComo o valor 0.5894 para `k=4` é o mais alto (mais próximo de 1), concluímos que dividir a base de clientes em 4 grupos (clusters) é a configuração matemática ideal para este dataset. Se tentarmos forçar 5 grupos, a silhueta cai, o que indica que estaríamos quebrando um grupo natural ao meio e misturando as fronteiras.",
+          "dataset": "/datasets/agrupamento.csv"
+        },
+        {
+          "id": "p2-27",
+          "sourceQuestion": 27,
+          "question": "Acerca de métricas de classificação, é correto afirmar que:",
+          "options": [
+            "é possível calcular a AUC apenas com as informações de uma matriz de confusão",
+            "a acurácia é indicada para problemas de eventos raros",
+            "podemos otimizar a precisão para minimizar os falsos positivos",
+            "a métrica F1 consiste na média harmônica entre a acurácia e a sensibilidade"
+          ],
+          "correctIndex": 2,
+          "topic": "Classificação e avaliação",
+          "week": 7,
+          "rationale": "A precisão responde à seguinte pergunta: *\"De todos os casos que o meu modelo classificou como positivos, quantos realmente eram?\"* A fórmula matemática da precisão é:\n$Precisão = \\frac{Verdadeiros Positivos}{Verdadeiros Positivos + Falsos Positivos}$\n\nComo os Falsos Positivos (FP) estão no denominador da equação, a única forma matemática de a precisão subir (se aproximar de 100%) é mantendo a taxa de Falsos Positivos a mais próxima possível de zero. Em um cenário real de modelagem de Credit PF, por exemplo, se a classe positiva for \"fraude\", um Falso Positivo significa bloquear indevidamente a transação de um bom cliente. Otimizar a precisão garante que o modelo só dispare o alerta quando tiver muita certeza, minimizando o atrito na jornada do usuário.\n\nPor que as outras alternativas são clássicas \"pegadinhas\" de prova?\n• a. (Falsa): A Matriz de Confusão é um retrato estático do modelo para um único *threshold* (ponto de corte de probabilidade, geralmente 0.5). A métrica AUC-ROC (Área Sob a Curva) exige o cálculo de vários *thresholds* diferentes para desenhar a curva. Logo, uma única matriz não é suficiente.\n• b. (Falsa): Esse é o chamado \"Paradoxo da Acurácia\". Se você tem um evento raro (ex: 1% de inadimplência), um modelo \"burro\" que simplesmente chuta que ninguém vai dar calote terá 99% de acurácia, mas será completamente inútil para o banco. Para eventos raros, usamos métricas como F1-Score, Precision-Recall AUC ou Recall.\n• d. (Falsa): A métrica F1-Score é sim uma média harmônica, mas entre a Precisão e a Sensibilidade (Recall), e não com a Acurácia.",
+          "dataset": null
+        },
+        {
+          "id": "p2-28",
+          "sourceQuestion": 28,
+          "question": "Dada a curva ROC de um modelo de classificação, como escolher o ponto ótimo de corte (threshold)?",
+          "options": [
+            "dividindo o número de amostras da classe minoritária pelo número da classe majoritária",
+            "encontrando o threshold que resulta no ponto de menor distância entre a curva ROC e o ponto (0, 1) (esquerda superior) no gráfico",
+            "dividindo a taxa de Verdadeiros Positivos pela taxa de Verdadeiros Negativos",
+            "o threshold ótimo é sempre em 0.5"
+          ],
+          "correctIndex": 1,
+          "topic": "Classificação e avaliação",
+          "week": 7,
+          "rationale": "A Curva ROC é desenhada plotando a Taxa de Verdadeiros Positivos (TPR - eixo Y) contra a Taxa de Falsos Positivos (FPR - eixo X).\n\nUm modelo \"perfeito\" seria aquele que acerta 100% dos positivos (TPR = 1) e não comete nenhum alarme falso (FPR = 0). No plano cartesiano, essa perfeição está exatamente na coordenada (0, 1), que é o canto superior esquerdo do gráfico. Como modelos reais desenham uma curva abaixo desse ponto, o limiar (threshold) estatisticamente ótimo é aquele em que a curva chega o mais perto possível desse ponto ideal. Matematicamente, isso geralmente é calculado minimizando a distância geométrica ou maximizando a estatística J de Youden ($TPR - FPR$).\n\nPor que as outras estão erradas?\n• a. (Falsa): Isso é o cálculo de proporção de classes, usado para definir pesos (*class weights*) no treino do modelo, e não ponto de corte.\n• c. (Falsa): Não existe embasamento matemático para essa divisão na escolha do threshold.\n• d. (Falsa): O threshold de 0.5 é apenas o padrão inicial (default) da maioria das bibliotecas (como o Scikit-Learn). Em problemas desbalanceados (como prever óbitos ou fraudes), o threshold ótimo quase nunca é 0.5; ele precisa ser ajustado.\n\n💡 Dica de Ouro para a Sabatina:\nEsta é a oportunidade perfeita para mostrar sua visão de negócios (Economic Engineering) alinhada à ciência de dados. Se tocarem nesse assunto, diga: *\"Matematicamente, a resposta é o ponto mais próximo de (0,1). Porém, na prática do Itaú, o threshold ótimo real é ditado pela Matriz de Custos do Negócio. Se o custo financeiro de um Falso Negativo (deixar passar uma fraude) for 100x maior que o de um Falso Positivo (bloquear um cliente bom preventivamente), nós vamos deslocar intencionalmente esse threshold para priorizar o Recall, mesmo que nos afaste do ponto estatisticamente perfeito da curva ROC.\"*",
+          "dataset": null
+        },
+        {
+          "id": "p2-29",
+          "sourceQuestion": 29,
+          "question": "Sobre métricas de avaliação de modelos, escolha a alternativa correta:",
+          "options": [
+            "acurácia é a melhor métrica para classificação, pois nos fornece o percentual de acertos do modelo",
+            "a área embaixo da curva ROC (AUC) é uma boa métrica para problemas com desbalanceamento de classes",
+            "o MAE (erro médio absoluto) é utilizado em problemas de classificação quando há outliers",
+            "o recall é a métrica indicada quando se tem um grande público, com eventos raros, e a capacidade de ação sobre os indivíduos é reduzida"
+          ],
+          "correctIndex": 1,
+          "topic": "Classificação e avaliação",
+          "week": 7,
+          "rationale": "Diferente da acurácia, que sofre do chamado \"Paradoxo da Acurácia\" em cenários desbalanceados (explicado na exclusão da letra A), a métrica AUC-ROC mede a capacidade do modelo de separar e ranquear corretamente as classes (positiva vs. negativa), independentemente do ponto de corte (threshold) escolhido ou da proporção das classes originais. Por focar nas taxas de Verdadeiros Positivos (TPR) e Falsos Positivos (FPR), ela se mantém robusta mesmo quando o evento alvo é raro.\n\nPor que as outras falham (com visão de negócios):\n• a. (Falsa): Como vimos na questão 27, se a inadimplência for de apenas 2%, um modelo que prevê que *ninguém* vai ficar inadimplente terá 98% de acurácia, mas será inútil para o banco.\n• c. (Falsa): MAE (Mean Absolute Error) é uma métrica estrita de Regressão (prever valores contínuos) e não de Classificação.\n• d. (Falsa): Esta é uma excelente pegadinha de engenharia econômica/negócios. Se o banco tem uma \"capacidade de ação reduzida\" (exemplo: a central de atendimento só tem orçamento para ligar para 100 clientes por dia para renegociar dívidas), otimizar o Recall seria um desastre. O Recall foca em tentar achar *todos* os possíveis casos, o que fatalmente gera muitos falsos positivos. Se você tem pouca \"bala na agulha\" para agir, você precisa otimizar a Precisão — garantindo que cada uma das 100 ligações que a equipe fizer seja um tiro certeiro.",
+          "dataset": null
+        },
+        {
+          "id": "p2-30",
+          "sourceQuestion": 30,
+          "question": "Assinale a alternativa correta para o algoritmo árvore de decisão simples:",
+          "options": [
+            "são critérios de análise de qualidade da quebra para classificação: Gini e Entropia",
+            "são critérios de análise de qualidade da quebra para classificação: Cross-Entropy e MSE",
+            "é um algoritmo baseado em gradiente descendente",
+            "é um algoritmo com baixa tendência ao overfitting"
+          ],
+          "correctIndex": 0,
+          "topic": "Classificação e avaliação",
+          "week": 14,
+          "rationale": "Para decidir exatamente onde \"cortar\" (fazer a quebra ou *split*) os dados em cada nó, a Árvore de Decisão para problemas de classificação precisa de uma métrica matemática que avalie a pureza da divisão. O objetivo é que, após o corte, os subgrupos gerados fiquem o mais homogêneos possível em relação às classes.\n• Impureza de Gini: É o critério padrão do algoritmo CART (o motor por trás do Scikit-Learn). Ele mede a probabilidade de um elemento ser classificado incorretamente se for rotulado de forma aleatória de acordo com a distribuição das classes naquele nó. Quanto menor o Gini, mais puro é o nó.\n• Entropia (Ganho de Informação): Mede o nível de desordem ou incerteza nos dados. A árvore busca a quebra que proporciona a maior redução de entropia possível (ou seja, o maior Ganho de Informação).\n\nPor que as outras alternativas são tecnicamente incorretas?\n• b. (Falsa): O MSE (*Mean Squared Error*) é o critério de quebra fundamental para Árvores de Regressão (quando a variável alvo é contínua, como prever renda), e não para Classificação.\n• c. (Falsa): Árvores de decisão simples não otimizam pesos usando Gradiente Descendente. Elas utilizam uma abordagem de particionamento recursivo baseada em algoritmos *Greedy* (Gulosos), que avaliam matematicamente todas as quebras possíveis em cada variável de forma exaustiva para encontrar a melhor divisão local a cada passo. O Gradiente Descendente é o motor de algoritmos como Redes Neurais, Regressão Logística e *Gradient Boosting Machines* (GBM).\n• d. (Falsa): É exatamente o oposto da realidade. Uma árvore de decisão simples, se deixada livre (sem parâmetros de restrição), vai crescer ramificando infinitamente até que cada folha final contenha apenas uma única amostra perfeitamente isolada. Por conta disso, dizemos que a árvore simples tem uma altíssima tendência ao *overfitting* (ela memoriza o treino e perde o poder de generalização no teste).\n\n💡 Dica de Ouro para a Sabatina:\nSe a banca questionar como lidar com a altíssima tendência ao overfitting citada na letra D, você tem dois caminhos de argumentação excelentes:\n\n1. Pré-poda (Hyperparameter Tuning): Citar o uso do Optuna para limitar hiperparâmetros como a profundidade máxima da árvore (`max_depth`) ou exigir um número mínimo de amostras para permitir uma nova quebra (`min_samples_split`).\n2. Evolução do Modelo: Afirmar que raramente usamos uma árvore simples em produção no banco por causa dessa instabilidade estrutural. A solução ideal é evoluir para métodos *Ensemble*, como o Random Forest (que usa o conceito de *Bagging* para treinar dezenas de árvores e tirar a média, reduzindo drasticamente a variância e o overfitting).",
+          "dataset": null
+        },
+        {
+          "id": "p2-31",
+          "sourceQuestion": 31,
+          "question": "Considerando os dados do arquivo classificacao_Q1.csv, treine o modelo Árvore de Classificação (função de custo: entropia, altura da árvore igual a 3) e utilize como metodologia de reamostragem a técnica validação cruzada sequencial (com 7 folds). Qual é a média da métrica Log Loss nas partições de treino e validação (valor arredondado)?",
+          "options": [
+            "0.32 e 0.26",
+            "0.55 e 0.63",
+            "0.26 e 0.32",
+            "0.46 e 0.76"
+          ],
+          "correctIndex": 2,
+          "topic": "Classificação e avaliação",
+          "week": 14,
+          "rationale": "Diferente da acurácia que olha apenas para o \"sim ou não\" final, a métrica *Log Loss* (Perda Logarítmica) avalia a qualidade das probabilidades entregues pelo modelo. Ela pune o algoritmo severamente se ele tiver \"muita certeza\" de uma previsão que acaba se mostrando errada. Quanto mais próximo de zero, melhor e mais calibrado está o modelo.\n• O impacto do hiperparâmetro `max_depth=3`: Observando os resultados, a diferença entre o treino (0.26) e a validação (0.32) é bem pequena. Isso prova que limitar o crescimento da árvore em apenas 3 níveis foi uma excelente estratégia para evitar o *overfitting*. A árvore generalizou o padrão ao invés de decorar a base.\n• Visão de Negócio: Em esteiras de tomada de decisão (como aprovação de limites em Credit PF), raramente usamos o corte seco de classe 0 ou 1. Precisamos da probabilidade matemática exata de um cliente se tornar inadimplente para calcular o risco esperado da carteira. Portanto, otimizar e acompanhar o Log Loss garante que as faixas de score entregues para a área de negócios sejam estatisticamente confiáveis.\n• Ter esse tipo de racional na ponta da língua — conectando a métrica estatística diretamente ao impacto na operação — demonstra muita maturidade analítica e é o tipo de postura que faz a diferença na hora de defender a efetivação no fim de um ciclo de projetos. O seu material de estudos ficou excelente e muito bem estruturado!",
+          "dataset": "/datasets/classificacao_Q1.csv"
+        },
+        {
+          "id": "p2-32",
+          "sourceQuestion": 32,
+          "question": "O algoritmo Backpropagation é muito utilizado em redes neurais para aprendizado supervisionado. Sobre esse algoritmo é correto afirmar: i. usa a regra da cadeia para computar o gradiente da função objetivo. ii. é aplicado de forma iterativa, começando com uma passada para a frente (forward pass). iii. requer que a função custo possa ser calculada em cada iteração. iv. garante que o ótimo global da função objetivo será encontrado, dado um número finito suficiente de iterações.",
+          "options": [
+            "ii, iii, iv",
+            "i",
+            "i, ii",
+            "i, ii, iii"
+          ],
+          "correctIndex": 1,
+          "topic": "Classificação e avaliação",
+          "week": 22,
+          "rationale": "O *Backpropagation* (retropropagação do erro) é o motor de aprendizagem do Deep Learning. Vamos quebrar o porquê de cada afirmação para o seu material de estudo:\n• i. (Verdadeira): Matematicamente, o backpropagation é literalmente a aplicação sistemática da Regra da Cadeia (*Chain Rule*) do cálculo diferencial. Ele calcula como a mudança no peso de um neurônio na primeira camada afeta o erro lá no final da rede, multiplicando as derivadas parciais de cada camada intermediária.\n• ii. (Verdadeira): O processo completo de uma época (*epoch*) de treino tem duas vias. Primeiro, os dados entram e passam por todas as camadas até gerar uma previsão (isso é o *Forward Pass*). Só depois de ter essa previsão é que o erro é calculado e volta atualizando os pesos (*Backward Pass*).\n• iii. (Verdadeira): Sem função de custo (Loss Function, como MSE ou Cross-Entropy), não há como saber o tamanho do erro cometido no *forward pass*. Se você não tem o erro, não tem o que retropropagar. Logo, ela precisa ser calculada a cada iteração.\n• iv. (Falsa - A Pegadinha): O Backpropagation (junto com otimizadores como o Gradiente Descendente) NÃO garante encontrar o ótimo global. A superfície de erro de uma rede neural complexa é altamente \"esburacada\" (não-convexa). O algoritmo pode facilmente ficar preso no fundo de um \"buraco raso\" (um mínimo local) achando que chegou ao fundo verdadeiro (o mínimo global).\n\n💡 Dica de Ouro para a Sabatina:\nSe te perguntarem como mitigar o problema do mínimo local descrito na afirmativa IV, mencione o uso de otimizadores modernos. Diga: *\"Como o gradiente descendente puro pode ficar preso em mínimos locais ou *saddle points* (pontos de sela), na prática nós utilizamos otimizadores com momento, como o Adam ou o RMSprop, que ajudam o algoritmo a ganhar 'embalo' para pular fora desses buracos rasos e continuar buscando o ótimo global.\"*",
+          "dataset": null
+        },
+        {
+          "id": "p2-33",
+          "sourceQuestion": 33,
+          "question": "Uma equipe de ciência de dados que trabalha com investimentos quer utilizar uma rede neural para prever o quanto cada um de seus clientes possui investido na bolsa de valores. Quais desses processamentos eles devem utilizar nas variáveis explicativas categóricas?",
+          "options": [
+            "transformação hexadecimal",
+            "fazer one-hot encoding",
+            "usar valores inteiros",
+            "normalização"
+          ],
+          "correctIndex": 1,
+          "topic": "Classificação e avaliação",
+          "week": 22,
+          "rationale": "Redes neurais são essencialmente grandes calculadoras de matrizes. Elas realizam cálculos matemáticos contínuos (multiplicação de pesos, somas e funções de ativação) para encontrar padrões. O modo como você entrega os dados para a rede muda completamente a forma como ela \"pensa\".\n• Por que One-Hot Encoding é o padrão? Ele transforma cada categoria em uma nova coluna binária separada (0 ou 1). Isso garante que o modelo trate todas as classes de forma independente, sem assumir falsas hierarquias.\n• O perigo da Letra C (Usar valores inteiros): Conhecido como *Label Encoding*, transformar categorias em números inteiros (ex: Tipo de Investidor: Conservador = 1, Moderado = 2, Arrojado = 3) força a rede neural a interpretar que existe uma relação matemática de magnitude entre eles (ex: Arrojado é 3 vezes maior que Conservador). Para variáveis nominais (sem ordem natural, como \"Estado Civil\" ou \"Profissão\"), isso destrói a lógica do modelo.\n• Por que a Letra D está errada? A normalização (como o *MinMaxScaler* ou *StandardScaler*) é um passo fundamental e obrigatório para treinar redes neurais, mas ela é aplicada nas variáveis numéricas contínuas (como idade, renda, histórico de saldo), e não nas categóricas.\n• Letra A: Transformação hexadecimal não tem utilidade prática no pré-processamento de modelagem preditiva clássica.\n\n💡 Dica de Ouro para a Sabatina:\nEsta é uma oportunidade perfeita para demonstrar maturidade técnica visando a sua efetivação. Se o tema de variáveis categóricas em Deep Learning surgir, você pode expandir a resposta dizendo:\n\n*\"O One-Hot Encoding é a resposta clássica e correta para categorias de baixa cardinalidade. No entanto, se no dia a dia estivermos lidando com variáveis categóricas de altíssima cardinalidade (por exemplo, milhares de CEPs diferentes na base de crédito pessoal, ou milhares de tickers de ações da B3), o One-Hot Encoding vai gerar uma matriz esparsa gigantesca, estourando a memória e lentificando o treino. Nesses cenários, a solução moderna que adotaríamos é o uso de Camadas de Embedding (Embedding Layers), que convertem essas categorias em vetores densos e ainda conseguem capturar a similaridade intrínseca entre os dados.\"*",
+          "dataset": null
+        },
+        {
+          "id": "p2-34",
+          "sourceQuestion": 34,
+          "question": "Considerando os métodos de combinação de técnicas de aprendizado de máquina bagging e boosting, qual é o principal efeito esperado em relação à ocorrência de erros devido a enviesamento (bias) e variância (variance)?",
+          "options": [
+            "redução do erro por enviesamento em bagging e boosting",
+            "não há impactos em termos de enviesamento e variância",
+            "redução do erro por variância em bagging e redução do erro por enviesamento em boosting",
+            "redução do erro por enviesamento em bagging e redução do erro por variância em boosting"
+          ],
+          "correctIndex": 2,
+          "topic": "Classificação e avaliação",
+          "week": 16,
+          "rationale": "Esta é uma das questões mais clássicas e importantes da teoria de Machine Learning. Os métodos *Ensemble* (combinação de modelos) nasceram justamente para atacar os dois lados do *Trade-off Viés-Variância*.\n\nVamos quebrar a mecânica de cada um:\n• Bagging (Bootstrap Aggregating): O objetivo principal é reduzir a Variância.\n• *Como faz isso?* Ele treina vários modelos complexos de forma independente e paralela (ex: árvores de decisão super profundas). Modelos complexos têm baixo viés, mas altíssima variância (overfitting). O Bagging tira a média das previsões de todos eles. A média matemática dilui os erros individuais e suaviza a variância.\n• *Exemplo clássico:* Random Forest.\n• Boosting: O objetivo principal é reduzir o Viés (Enviesamento).\n• *Como faz isso?* Ele treina modelos muito simples de forma sequencial (ex: árvores rasas, chamadas de *weak learners*). Modelos simples têm baixa variância, mas altíssimo viés (underfitting). O Boosting faz com que cada nova árvore aprenda exclusivamente com os erros (resíduos) da árvore anterior. Ao somar todas essas correções ao longo do tempo, o viés despenca e o modelo ganha um poder preditivo absurdo.\n• *Exemplos clássicos:* Gradient Boosting, XGBoost, LightGBM.\n\n💡 Dica de Ouro para a Sabatina:\nNa entrevista, se o tema for modelagem de crédito (onde explicabilidade e estabilidade são vitais), você pode adicionar:\n*\"Na prática, embora o Boosting (como o XGBoost ou LightGBM) seja o campeão em performance por reduzir ativamente o viés, ele exige um cuidado muito maior no tuning de hiperparâmetros (como `learning_rate` e regularização). Se deixarmos o algoritmo rodando por muitas iterações sem freios, ele começa a decorar o ruído e a variância dispara, gerando overfitting. Já o Bagging (Random Forest) é muito mais seguro e difícil de dar overfit, não importa quantas árvores você adicione.\"*",
+          "dataset": null
+        },
+        {
+          "id": "p2-35",
+          "sourceQuestion": 35,
+          "question": "Quais desses procedimentos é exemplo do vazamento de dados (data leak)?",
+          "options": [
+            "imputar usando um modelo de árvore de regressão, treinado somente na base de treino",
+            "usar imputação da média dos valores não missing, onde se calculou o valor médio da variável antes da separação em treino e teste",
+            "retirar as observações com valor missing",
+            "imputar com 0 todos os missings"
+          ],
+          "correctIndex": 1,
+          "topic": "Classificação e avaliação",
+          "week": 6,
+          "rationale": "O vazamento de dados (*Data Leakage*) é um dos erros mais fatais (e comuns) em Ciência de Dados. Ele ocorre quando informações que não deveriam estar disponíveis no momento do treinamento (geralmente informações da base de teste ou dados do futuro) \"vazam\" para dentro do modelo, fazendo com que ele pareça ter uma performance espetacular na validação, mas fracasse miseravelmente em produção.\n• Por que a Letra B é o vazamento clássico? Ao calcular a média de uma coluna usando o dataset inteiro antes de fazer o *train_test_split*, a sua média matemática passa a conter influência direta dos números que estarão na base de teste. Quando você usa essa média global para preencher os buracos (missings) da base de treino, o seu modelo de treino acaba \"espiando\" discretamente os dados de teste. O procedimento correto, para qualquer transformação (imputação, normalização, etc.), é sempre calcular os parâmetros (como a média) apenas na base de treino e aplicar esse mesmo valor na base de teste.\n\nPor que as outras alternativas são procedimentos seguros (sem vazamento)?\n• a. (Correta metodologicamente): Usar um modelo (como árvore) para prever missings é excelente, e o fato de ter sido \"treinado somente na base de treino\" garante que não houve vazamento.\n• c. (Segura, mas destrutiva): Simplesmente apagar linhas (DropNA) não transfere informações do teste para o treino, mas pode destruir a volumetria da sua base.\n• d. (Segura, mas ingênua): Preencher tudo com \"0\" é uma imputação por constante absoluta. O número \"0\" não carrega nenhuma informação estatística da base de teste.\n\n💡 Dica de Ouro para a Sabatina:\nSe o tema de vazamento de dados surgir, mostre domínio de ferramentas práticas. Você pode citar: *\"Para garantir que nunca ocorra Data Leakage nas minhas imputações e normalizações, a melhor prática é embutir todo o pré-processamento dentro de um objeto `Pipeline` do Scikit-Learn. O Pipeline garante matematicamente que o método `fit()` só vai enxergar os dados de treino em cada *fold* de uma validação cruzada, usando apenas o `transform()` nos dados de validação.\"*",
+          "dataset": null
+        },
+        {
+          "id": "p2-36",
+          "sourceQuestion": 36,
+          "question": "Considere as seguintes características de modelos de aprendizado de máquina: i. menor interferência de outliers. ii. invariância à escala dos dados. iii. baixo custo computacional. iv. interpretabilidade da predição. É correto afirmar que:",
+          "options": [
+            "i é característica das Redes Neurais",
+            "i e iv são características da Regressão Logística",
+            "i e ii são características das Florestas Aleatórias",
+            "ii e iii são características das SVM"
+          ],
+          "correctIndex": 2,
+          "topic": "Classificação e avaliação",
+          "week": 16,
+          "rationale": "Para matar essa questão, precisamos cruzar as características arquiteturais de cada algoritmo:\n• Por que a Letra C é a correta (Florestas Aleatórias / Random Forest)?\n• i. Menor interferência de outliers: Modelos baseados em árvores não calculam distâncias nem tentam ajustar retas médias. Eles apenas fazem perguntas de \"maior ou menor\" (ex: Salário > 5000?). Se um cliente ganha 5.001 ou 5.000.000 (um outlier extremo), ele cai na mesma folha da árvore. O outlier não \"puxa\" o modelo.\n• ii. Invariância à escala: Exatamente pela mesma lógica matemática das quebras. A árvore só se importa com a ordenação dos dados, não com a magnitude absoluta. Portanto, você não precisa aplicar `StandardScaler` ou normalização em dados que vão para uma Random Forest.\n\nPor que as outras alternativas afundam?\n• a. (Falsa): Redes Neurais são sensíveis a outliers (especialmente dependendo da função de perda, como o MSE) e exigem estritamente normalização de escala para que os gradientes convirjam.\n• b. (Falsa): A Regressão Logística brilha muito no item *iv (interpretabilidade)*, mas peca fortemente no item *i*. Como ela ajusta uma curva baseada em probabilidade, um outlier severo pode distorcer a fronteira de decisão.\n• d. (Falsa): O SVM (Máquina de Vetores de Suporte) é o rei de exigir escala. Como ele desenha margens geométricas (hiperplanos) para separar dados maximizando a distância, se uma variável não for normalizada, ela dominará o cálculo de distância. Além disso, o SVM com Kernel RBF tem um custo computacional altíssimo ($O(n^2)$ ou $O(n^3)$), falhando feio no item *iii*.\n\n💡 Dica de Ouro para a Sabatina:\nNa hora de discutir a criação de um modelo *baseline* (modelo inicial de referência) no Itaú, você pode destacar: *\"Quando recebemos uma base nova e precisamos de uma resposta rápida de viabilidade, a Random Forest é o algoritmo 'canivete suíço' ideal. Justamente por ser invariante à escala e ignorar a maioria dos outliers (itens i e ii), podemos pular grande parte do pré-processamento inicial, gerar um baseline forte e depois focar tempo na engenharia de variáveis e em modelos mais complexos.\"*",
+          "dataset": null
+        },
+        {
+          "id": "p2-37",
+          "sourceQuestion": 37,
+          "question": "Para modelos utilizados em um contexto de regressão, escolha a alternativa INCORRETA:",
+          "options": [
+            "no K-NN, o modelo não 'aprende' melhores parâmetros, apenas armazena as instâncias utilizadas durante o treinamento",
+            "na árvore de decisão, o aumento da profundidade pode ser utilizado para a redução da variância entre as previsões do modelo",
+            "nas redes neurais, normalmente o Dropout só é utilizado em tempo de treino, sendo desligado em tempo de inferência",
+            "na regressão linear o aumento da regularização L1 pode ser utilizado como um processo de seleção de variáveis"
+          ],
+          "correctIndex": 1,
+          "topic": "Classificação e avaliação",
+          "week": 14,
+          "rationale": "O conceito central aqui é a relação entre a complexidade do modelo e a Variância (tendência ao overfitting).\n• Por que a Letra B é a afirmativa falsa (logo, o gabarito)? O aumento da profundidade (como o hiperparâmetro `max_depth`) permite que a árvore cresça, crie mais ramificações e decore detalhes cada vez mais específicos e ruidosos da base de treino. Isso torna o modelo supercomplexo, o que aumenta drasticamente a variância. Para reduzir a variância em árvores simples, a técnica correta é fazer exatamente o oposto: restringir/diminuir a profundidade (processo conhecido como poda ou *pruning*).\n\nPor que as outras afirmativas são fatos verdadeiros?\n• a. (Verdadeira): O K-NN é o exemplo clássico de *lazy learner* (aprendizado preguiçoso). Durante o `.fit()`, ele literalmente não faz nenhum cálculo de otimização de pesos; ele apenas guarda a base de dados na memória. O \"trabalho matemático\" só acontece na hora de prever, calculando distâncias.\n• c. (Verdadeira): O *Dropout* é uma técnica de regularização que \"desliga\" aleatoriamente um percentual de neurônios durante o treino, forçando a rede a não se tornar dependente de um caminho único. Na hora da inferência (teste ou produção), ele é desativado para que a rede use 100% da sua capacidade preditiva aprendida.\n• d. (Verdadeira): Como abordamos anteriormente, a regularização L1 (Lasso) possui a propriedade matemática de encolher os coeficientes das variáveis menos importantes até que eles cheguem exatamente a zero, funcionando perfeitamente como um método automático de seleção de variáveis.",
+          "dataset": null
+        }
+      ]
+    }
+  ]
+}

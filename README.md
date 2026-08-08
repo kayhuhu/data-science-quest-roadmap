@@ -1,10 +1,21 @@
 # Data Science Quest
 
-Planner de estudos em Next.js para preparação da prova e da sabatina de Cientista de Dados do Itaú Unibanco. O roadmap v14 segue as 24 semanas do planejamento-base, cobre os 13 blocos oficiais, inclui 24 projetos completos e 240 perguntas técnicas com respostas.
+Planner de estudos em Next.js para preparação da prova e da sabatina de Cientista de Dados do Itaú Unibanco. O roadmap v15 segue as 24 semanas do planejamento-base, cobre os 13 blocos oficiais, inclui 24 projetos completos, 240 perguntas autorais, 51 perguntas de uma sabatina real e 84 questões de duas provas recebidas.
 
 Produção: `https://kayhuhu-roadmap.vercel.app`
 
-## O que mudou na v14
+## O que mudou na v15
+
+- uma nova página **Sabatina teste** reúne 51 perguntas reais, respostas em quatro camadas e prioridade baseada no desempenho original;
+- as mesmas 51 perguntas foram distribuídas nas semanas específicas e também alimentam a sabatina semanal e os flashcards;
+- **Prova Itaú 1** virou um teste de 47 questões e **Prova Itaú 2** um teste de 37 questões, com modos estudo/simulado e gabarito comentado;
+- cinco CSVs didáticos foram reconstruídos para as questões práticas porque os arquivos originais não vieram com o notebook;
+- a ementa oficial passou a aparecer na ordem das semanas e como checklist de domínio;
+- cada semana explicita “o que é”, “para que serve”, “como funciona” e “como usar no banco”, sem retirar a teoria profunda;
+- a tipografia foi ampliada em todo o planner;
+- a inicialização funciona mesmo quando o navegador bloqueia armazenamento local;
+
+### Base preservada da v14
 
 - as semanas voltaram à ordem exata do PDF `planejamento_v10_3_ordem_luiza_ementa_fluxo_continuo.pdf`;
 - as semanas 1–20 seguem Luiza p. 1–96; as semanas 21–24 complementam a ementa;
@@ -26,7 +37,7 @@ Produção: `https://kayhuhu-roadmap.vercel.app`
 3. **Materiais:** livros anteriores, aulas, artigos e documentação.
 4. **Estudar com IA:** prompt completo para material didático exportável em PDF.
 5. **Projeto (Estrutura Completa CD):** problema, dados, stack, VS Code, venv, requirements, código, testes, documentação e GitHub.
-6. **Perguntas de Sabatina:** dez cenários com resposta ideal e prompt para entrevista rigorosa.
+6. **Perguntas de Sabatina:** dez cenários autorais, perguntas reais associadas à semana, respostas ideais e prompt para entrevista rigorosa.
 
 ## Ementa e distribuição
 
@@ -82,7 +93,7 @@ npm run build
 npm run check
 ```
 
-`content:audit` gera `data/roadmap.json` a partir de `scripts/roadmap-source.mjs` e falha se não houver exatamente 24 semanas, 13 blocos, 61 itens oficiais, 24 projetos, 240 perguntas e 240 respostas.
+`content:audit` gera `data/roadmap.json`, reconstrói os cinco datasets didáticos e falha se o roadmap-base não tiver exatamente 24 semanas, 13 blocos, 61 itens oficiais, 24 projetos, 240 perguntas e 240 respostas. O teste adicional audita separadamente as 51 perguntas reais e as 84 questões importadas.
 
 ## Arquitetura relevante
 
@@ -91,11 +102,18 @@ app/                         rotas, layout e CSS global
 components/WeekDrawer.tsx    central semanal com as seis áreas
 components/ProjectGuidePanel.tsx
                               guia completo compartilhado por Semana e Projetos
+components/AssessmentViews.tsx sabatina real e duas provas interativas
 data/roadmap.json            artefato canônico gerado para a interface
+data/assessments.json        47 + 37 questões, alternativas e gabaritos
 lib/project-guides.ts        execução iniciante, Engenharia de Software e prompts
+lib/real-sabatina.ts         51 perguntas reais, prioridade e respostas estruturadas
 lib/quest-data.ts            tipos, paleta e leitura do roadmap
+public/datasets/             cinco CSVs didáticos reconstruídos
 scripts/roadmap-source.mjs   ementa oficial e conteúdo profundo das 24 semanas
 scripts/generate-roadmap.mjs geração e auditoria de integridade
+scripts/import-assessments.py importação auditável do notebook recebido
+scripts/generate-assessment-datasets.mjs
+                              geração determinística dos CSVs de prática
 docs/MIGRACAO_GITHUB_KAYHUHU.md
                               troca de conta, cópia, push e Vercel passo a passo
 ```

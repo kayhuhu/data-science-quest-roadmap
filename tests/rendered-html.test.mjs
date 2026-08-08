@@ -97,13 +97,42 @@ test("ships an integrated study center and a specific project guide for every we
   assert.match(learningViews, /projects-workspace/);
   assert.match(learningViews, /ProjectGuidePanel/);
   assert.match(styles, /\.week-drawer-complete \{ width: 100vw/);
-  assert.match(syllabus, /onSelectWeek\(roadmap\.weeks\[item\.week - 1\]\)/);
+  assert.match(syllabus, /onSelectWeek\(week\)/);
   assert.match(syllabus, /setBlock\(item\.block\)/);
+  assert.match(syllabus, /weekly-syllabus-checklist/);
 
   assert.match(guides, /gh repo create kayhuhu/);
   assert.match(guides, /python -m venv \.venv/);
   assert.match(guides, /requirements\.txt/);
   assert.match(guides, /buildProjectAiPrompt/);
+});
+
+test("ships the real interview bank, two interactive tests and reconstructed datasets", async () => {
+  const realSabatina = await readFile(new URL("lib/real-sabatina.ts", templateRoot), "utf8");
+  const assessments = JSON.parse(await readFile(new URL("data/assessments.json", templateRoot), "utf8"));
+  const views = await readFile(new URL("components/AssessmentViews.tsx", templateRoot), "utf8");
+  const drawer = await readFile(new URL("components/WeekDrawer.tsx", templateRoot), "utf8");
+  const app = await readFile(new URL("components/QuestApp.tsx", templateRoot), "utf8");
+  const styles = await readFile(new URL("app/globals.css", templateRoot), "utf8");
+
+  assert.equal((realSabatina.match(/q\("sr-\d+"/g) ?? []).length, 51);
+  assert.match(realSabatina, /Gini de 50%/);
+  assert.match(realSabatina, /OVERSAMPLING|oversampling/i);
+  assert.match(realSabatina, /coeficiente de silhueta/i);
+  assert.match(drawer, /realSabatinaForWeek\(week\.number\)/);
+  assert.match(drawer, /SABATINA REAL/);
+  assert.match(app, /Sabatina teste/);
+  assert.match(app, /Provas reais/);
+  assert.match(views, /MODO ESTUDO/);
+  assert.match(views, /MODO SIMULADO/);
+  assert.deepEqual(assessments.assessments.map((item) => item.questions.length), [47, 37]);
+  assert.ok(assessments.assessments.every((item) => item.questions.every((question) => question.options.length >= 4 && question.rationale)));
+
+  for (const dataset of ["classificacao_Q1.csv", "classificacao_Q2.csv", "regressao_Q1.csv", "regressao_Q2.csv", "agrupamento.csv"]) {
+    const source = await readFile(new URL(`public/datasets/${dataset}`, templateRoot), "utf8");
+    assert.ok(source.split("\n").length > 100, `${dataset} deve conter dados suficientes para prática`);
+  }
+  assert.match(styles, /body \{ font-size: 16px; \}/);
 });
 
 test("XP is derived from saved evidence and cannot be farmed by toggling status", async () => {
