@@ -1,4 +1,5 @@
 import { QuestApp } from "@/components/QuestApp";
+import { roadmap } from "@/lib/quest-data";
 
 const viewByRoute = {
   app: "jornada",
@@ -34,7 +35,7 @@ export default async function RoutedQuestPage({
   return (
     <QuestApp
       initialView={initialView}
-      initialWeek={Number.isInteger(initialWeek) && initialWeek! >= 1 && initialWeek! <= 22 ? initialWeek : undefined}
+      initialWeek={Number.isInteger(initialWeek) && initialWeek! >= 1 && initialWeek! <= roadmap.metrics.weeks ? initialWeek : undefined}
     />
   );
 }

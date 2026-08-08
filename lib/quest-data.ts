@@ -7,17 +7,20 @@ export type RoadmapWeek = {
   title: string;
   period: string;
   block: string;
+  blocks: string[];
   objective: string;
   syllabus: string[];
   content: string[];
   overview: {
     summary: string;
+    sourceOrder: string;
     officialTopics: string[];
     outcomes: string[];
   };
   theoryAndBanking: {
     foundations: Array<{ title: string; body: string }>;
     mathematics: { latex: string; explanation: string };
+    validation: string[];
     banking: {
       explanation: string;
       cases: Array<{ title: string; scenario: string; businessValue: string }>;
@@ -87,11 +90,11 @@ export function currentRoadmapWeek(today = new Date()) {
   }).format(today);
   const date = new Date(`${isoDate}T12:00:00-03:00`);
   const start = new Date("2026-08-03T00:00:00-03:00");
-  const end = new Date("2026-12-31T23:59:59-03:00");
+  const end = new Date("2027-01-17T23:59:59-03:00");
   if (date < start) return 1;
-  if (date > end) return 22;
+  if (date > end) return roadmap.weeks.length;
   const day = Math.floor((date.getTime() - start.getTime()) / 86_400_000);
-  return Math.min(22, Math.floor(day / 7) + 1);
+  return Math.min(roadmap.weeks.length, Math.floor(day / 7) + 1);
 }
 
 export function statusLabel(status: MasteryStatus) {

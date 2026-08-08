@@ -81,7 +81,7 @@ export function StudyStudio({ workspace, onUpdate, saveState }: StudyStudioProps
       tags: ["em-estudo"],
       updatedAt: new Date().toISOString(),
     };
-    onUpdate((current) => ({ ...current, notes: [note, ...current.notes], xp: current.xp + 5 }));
+    onUpdate((current) => ({ ...current, notes: [note, ...current.notes] }));
     setSelectedId(note.id);
     setMode("write");
   };

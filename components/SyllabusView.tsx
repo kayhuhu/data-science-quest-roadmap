@@ -45,7 +45,6 @@ export function SyllabusView({ workspace, onUpdate, onSelectWeek }: SyllabusView
       return {
         ...current,
         syllabusStatus: { ...current.syllabusStatus, [id]: next },
-        xp: current.xp + (next === "verde" && previous !== "verde" ? 25 : 0),
       };
     });
   };
@@ -54,7 +53,7 @@ export function SyllabusView({ workspace, onUpdate, onSelectWeek }: SyllabusView
     <div className="view-stack syllabus-view">
       <header className="page-intro">
         <div><span className="eyebrow"><ShieldCheck size={14} /> FONTE OFICIAL · ITAÚ UNIBANCO</span><h1>Ementa auditável</h1><p>{roadmap.metrics.syllabusItems} itens oficiais em 13 blocos rigorosamente separados. Verde só conta quando você consegue defender teoria e aplicação.</p></div>
-        <div className="audit-badge"><Sparkles size={18} /><div><strong>Auditoria íntegra</strong><span>13 blocos · 22 semanas · 220 respostas</span></div></div>
+        <div className="audit-badge"><Sparkles size={18} /><div><strong>Auditoria íntegra</strong><span>{roadmap.metrics.blocks} blocos · {roadmap.metrics.weeks} semanas · {roadmap.metrics.answers} respostas</span></div></div>
       </header>
 
       <section className="mastery-overview">
@@ -71,7 +70,7 @@ export function SyllabusView({ workspace, onUpdate, onSelectWeek }: SyllabusView
         <span className="result-count">{filtered.length} de {roadmap.metrics.syllabusItems} itens</span>
       </section>
 
-      <p className="syllabus-navigation-help">Clique no nome do bloco para filtrar a ementa. Clique em <strong>S01–S22</strong> para abrir a semana correspondente nesta mesma tela.</p>
+      <p className="syllabus-navigation-help">Clique no nome do bloco para filtrar a ementa. Clique em <strong>S01–S{roadmap.metrics.weeks}</strong> para abrir a semana correspondente nesta mesma tela.</p>
 
       <section className="syllabus-table">
         <div className="syllabus-head"><span>Domínio</span><span>Item oficial</span><span>Bloco</span><span>Semana</span><span>Evidência</span></div>

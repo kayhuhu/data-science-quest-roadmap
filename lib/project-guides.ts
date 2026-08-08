@@ -109,9 +109,13 @@ ${week.project.objective}
 Pergunta de negócio: ${guide.businessQuestion}
 Dados: ${guide.dataPlan}
 Stack: ${guide.stack.join(", ")}.
+Ordem no planejamento: ${week.overview.sourceOrder}.
 
 EMENTA QUE O PROJETO DEVE PROVAR
 ${week.overview.officialTopics.map((topic, index) => `${index + 1}. ${topic}`).join("\n")}
+
+PROTOCOLO DE AVALIAÇÃO QUE O PROJETO DEVE DEMONSTRAR
+${week.theoryAndBanking.validation.map((item) => `- ${item}`).join("\n")}
 
 TRABALHE EM FASES E PARE AO FINAL DE CADA FASE PARA EU EXECUTAR E COLAR O RESULTADO:
 1. confirme decisão, população, unidade, janela, target/saída, baseline, métrica e custo bancário;
@@ -216,7 +220,7 @@ export function getProjectGuide(week: RoadmapWeek): ProjectGuide {
         id: "validation",
         title: "8. Valide, teste e procure falhas",
         outcome: "A recomendação tem baseline, incerteza, análise de erros e testes automatizados.",
-        actions: ["Compare alternativas no mesmo split e com o mesmo orçamento de tuning.", "Analise resultado global, out-of-time e por segmento; mostre onde a solução falha.", "Escreva testes para schema, cálculo conhecido, edge case, reprodutibilidade e leakage.", "Execute lint, testes e compilação; corrija a causa, não esconda warnings."],
+        actions: [...week.theoryAndBanking.validation, "Compare alternativas no mesmo split e com o mesmo orçamento de tuning.", "Analise resultado global, out-of-time e por segmento; mostre onde a solução falha.", "Escreva testes para schema, cálculo conhecido, edge case, reprodutibilidade e leakage.", "Execute lint, testes e compilação; corrija a causa, não esconda warnings."],
         evidence: "Tabela comparativa, análise de erros e suite pytest verde.",
         commands: "python -m ruff check .\npython -m pytest -q\npython -m compileall src",
       },

@@ -51,6 +51,42 @@ export type QuestWorkspace = {
   };
 };
 
+export type QuestXpBreakdown = {
+  syllabus: number;
+  weeks: number;
+  projectSteps: number;
+  publishedProjects: number;
+  focus: number;
+  flashcards: number;
+  notes: number;
+  errors: number;
+  sabatina: number;
+  total: number;
+};
+
+export function questXpBreakdown(workspace: QuestWorkspace): QuestXpBreakdown {
+  const bestSabatinaByWeek = new Map<number, number>();
+  for (const attempt of workspace.sabatinaAttempts) {
+    bestSabatinaByWeek.set(attempt.week, Math.max(bestSabatinaByWeek.get(attempt.week) ?? 0, attempt.score));
+  }
+  const breakdown = {
+    syllabus: Object.values(workspace.syllabusStatus).filter((status) => status === "verde").length * 25,
+    weeks: Object.values(workspace.weekStatus).filter((status) => status === "verde").length * 250,
+    projectSteps: Object.values(workspace.projectChecklist ?? {}).reduce((sum, steps) => sum + new Set(steps).size * 10, 0),
+    publishedProjects: Object.values(workspace.projectStatus).filter((status) => status === "publicado").length * 200,
+    focus: workspace.sessions.reduce((sum, session) => sum + Math.max(5, Math.floor(session.seconds / 150)), 0),
+    flashcards: new Set(workspace.reviewedFlashcards).size * 5,
+    notes: workspace.notes.length * 5,
+    errors: workspace.errors.reduce((sum, error) => sum + 5 + (error.resolved ? 15 : 0), 0),
+    sabatina: [...bestSabatinaByWeek.values()].reduce((sum, score) => sum + score * 5, 0),
+  };
+  return { ...breakdown, total: Object.values(breakdown).reduce((sum, value) => sum + value, 0) };
+}
+
+export function calculateQuestXp(workspace: QuestWorkspace) {
+  return questXpBreakdown(workspace).total;
+}
+
 export const emptyWorkspace: QuestWorkspace = {
   version: 1,
   syllabusStatus: {},
@@ -91,7 +127,7 @@ function normalizeWorkspace(value: unknown): QuestWorkspace {
       delete projectUrls[previousKey];
     }
   }
-  return {
+  const normalized: QuestWorkspace = {
     ...emptyWorkspace,
     ...value,
     projectStatus,
@@ -99,6 +135,7 @@ function normalizeWorkspace(value: unknown): QuestWorkspace {
     projectChecklist: value.projectChecklist ?? {},
     settings: { ...emptyWorkspace.settings, ...value.settings },
   };
+  return { ...normalized, xp: calculateQuestXp(normalized) };
 }
 
 export function useQuestWorkspace() {
@@ -148,7 +185,10 @@ export function useQuestWorkspace() {
   }, [ready, workspace]);
 
   const update = useCallback((recipe: (current: QuestWorkspace) => QuestWorkspace) => {
-    setWorkspace((current) => recipe(current));
+    setWorkspace((current) => {
+      const next = recipe(current);
+      return { ...next, xp: calculateQuestXp(next) };
+    });
   }, []);
 
   const totals = useMemo(() => {

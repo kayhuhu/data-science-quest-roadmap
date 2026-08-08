@@ -27,7 +27,9 @@ const syllabus = officialBlocks.flatMap((block) => block.items.map(([text, week]
 function buildStudyPrompt(spec, officialTopics) {
   return `Atue como professor universitário de Ciência de Dados, especialista quantitativo do setor bancário e examinador técnico rigoroso. Crie um MATERIAL DIDÁTICO COMPLETO, pronto para ser exportado em PDF, sobre a Semana ${spec.number}: “${spec.title}”.
 
-EMENTA OFICIAL DESTA SEMANA (não misture com outros blocos):
+ORDEM DO PLANEJAMENTO-FONTE: ${spec.sourceOrder}
+
+EMENTA OFICIAL ASSOCIADA À SEMANA (preserve a ordem e diferencie os blocos):
 ${officialTopics.map((topic, index) => `${index + 1}. ${topic}`).join("\n")}
 
 OBJETIVO: ${spec.summary}
@@ -47,12 +49,15 @@ O material deve ensinar do zero até o nível de prova e sabatina. Organize-o ob
 Use estes pontos como núcleo: ${spec.content.join("; ")}.
 Formalização indispensável: ${spec.formula}.
 Contexto bancário indispensável: ${spec.bankApplication}
+PROTOCOLO DE AVALIAÇÃO DESTA SEMANA: ${spec.evaluationFocus.join("; ")}
 
 Não seja superficial, não invente referências, não trate correlação como causalidade e não entregue apenas listas. Explique o raciocínio entre etapas. Quando uma hipótese não for satisfeita, mostre diagnóstico e alternativa. Ao final, faça uma auditoria dizendo explicitamente se cada item da ementa oficial foi coberto e em qual seção.`;
 }
 
 function buildSabatinaPrompt(spec, officialTopics) {
-  return `Atue como entrevistador sênior de Ciência de Dados de um grande banco. Simule uma sabatina rigorosa sobre a Semana ${spec.number} — ${spec.title}, limitada a estes itens oficiais: ${officialTopics.join("; ")}.
+  return `Atue como entrevistador sênior de Ciência de Dados de um grande banco. Simule uma sabatina rigorosa sobre a Semana ${spec.number} — ${spec.title}, seguindo ${spec.sourceOrder} e estes itens oficiais: ${officialTopics.join("; ")}.
+
+AVALIAÇÃO TRANSVERSAL OBRIGATÓRIA: ${spec.evaluationFocus.join("; ")}.
 
 REGRAS DA SIMULAÇÃO:
 - faça somente UMA pergunta por vez e espere minha resposta;
@@ -124,11 +129,13 @@ const weeks = weekSpecs.map((spec) => {
     title: spec.title,
     period: spec.period,
     block: spec.block,
+    blocks: spec.blocks,
     objective: spec.summary,
     syllabus: officialTopics,
     content: spec.content,
     overview: {
       summary: spec.summary,
+      sourceOrder: spec.sourceOrder,
       officialTopics,
       outcomes: spec.outcomes,
     },
@@ -139,6 +146,7 @@ const weeks = weekSpecs.map((spec) => {
         { title: "Hipóteses, limites e senso crítico", body: `A técnica só é defensável quando suas hipóteses são verificadas. Nesta semana, investigue especialmente: ${spec.pitfalls.join("; ")}. Registre a limitação e uma alternativa antes de recomendar uso.` },
       ],
       mathematics: { latex: spec.formula, explanation: spec.mathExplanation },
+      validation: spec.evaluationFocus,
       banking: {
         explanation: spec.bankApplication,
         cases: spec.cases.map((useCase, index) => ({
@@ -161,7 +169,7 @@ const weeks = weekSpecs.map((spec) => {
 });
 
 const roadmap = {
-  sourceVersion: "v13 — estrutura oficial em seis seções",
+  sourceVersion: "v14 — 24 semanas na ordem do planejamento Luiza",
   syllabusVersion: "Ementa oficial fornecida em 08/08/2026",
   metrics: {
     weeks: weeks.length,
@@ -176,13 +184,14 @@ const roadmap = {
   weeks,
 };
 
-const expected = { weeks: 22, blocks: 13, syllabusItems: 61, projects: 22, questions: 220, answers: 220 };
+const expected = { weeks: 24, blocks: 13, syllabusItems: 61, projects: 24, questions: 240, answers: 240 };
 for (const [key, value] of Object.entries(expected)) {
   if (roadmap.metrics[key] !== value) throw new Error(`Auditoria falhou em ${key}: esperado ${value}, recebido ${roadmap.metrics[key]}`);
 }
-if (new Set(weeks.map((week) => week.number)).size !== 22) throw new Error("Semanas duplicadas ou ausentes.");
+if (new Set(weeks.map((week) => week.number)).size !== 24) throw new Error("Semanas duplicadas ou ausentes.");
 if (weeks.some((week) => !officialBlocks.some((block) => block.title === week.block))) throw new Error("Semana vinculada a bloco não oficial.");
+if (weeks.some((week) => !week.blocks.length || !week.overview.sourceOrder || !week.theoryAndBanking.validation.length)) throw new Error("Toda semana deve registrar blocos, ordem da fonte e protocolo de avaliação.");
 if (weeks.some((week) => week.sabatina.length !== 10)) throw new Error("Cada semana deve ter exatamente dez perguntas de sabatina.");
 
 await writeFile(new URL("../data/roadmap.json", import.meta.url), `${JSON.stringify(roadmap, null, 2)}\n`, "utf8");
-console.log("Roadmap v13 íntegro:", roadmap.metrics);
+console.log("Roadmap v14 íntegro:", roadmap.metrics);

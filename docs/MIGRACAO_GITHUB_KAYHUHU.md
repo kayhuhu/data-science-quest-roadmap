@@ -187,7 +187,7 @@ O caminho visual recomendado mantém o projeto e o domínio atuais:
 7. Confirme `main` como **Production Branch**.
 8. Em **Settings → Environment Variables**, confira `NEXT_PUBLIC_APP_URL` se estiver configurada.
 9. Faça um pequeno push ou use **Deployments → Redeploy**.
-10. Abra `https://data-science-quest-roadmap.vercel.app` e confirme a versão.
+10. Abra `https://kayhuhu-roadmap.vercel.app` e confirme a versão.
 
 Alternativa pela CLI, executada na raiz do projeto:
 

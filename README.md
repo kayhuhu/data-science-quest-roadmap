@@ -1,19 +1,23 @@
 # Data Science Quest
 
-Planner de estudos em Next.js para preparação da prova e da sabatina de Cientista de Dados do Itaú Unibanco. O roadmap v13 cobre 22 semanas, 13 blocos oficiais rigorosamente separados, 22 projetos completos e 220 perguntas técnicas com respostas.
+Planner de estudos em Next.js para preparação da prova e da sabatina de Cientista de Dados do Itaú Unibanco. O roadmap v14 segue as 24 semanas do planejamento-base, cobre os 13 blocos oficiais, inclui 24 projetos completos e 240 perguntas técnicas com respostas.
 
-Produção atual: `https://data-science-quest-roadmap.vercel.app`
+Produção: `https://kayhuhu-roadmap.vercel.app`
 
-## O que mudou na v13
+## O que mudou na v14
 
-- a ementa oficial foi recontada como 61 itens, exatamente nos 13 blocos fornecidos;
-- nenhum bloco combinado (“Regressão + Avaliação”, por exemplo) permanece;
+- as semanas voltaram à ordem exata do PDF `planejamento_v10_3_ordem_luiza_ementa_fluxo_continuo.pdf`;
+- as semanas 1–20 seguem Luiza p. 1–96; as semanas 21–24 complementam a ementa;
+- Avaliação de Modelos mantém suas bases nas semanas 6–8 e reaparece transversalmente nas semanas de regressão, classificação, agrupamento e redes neurais;
+- a ementa continua auditável como 61 itens nos 13 blocos oficiais, mesmo quando uma semana conecta mais de um bloco;
 - cada semana abre em tela cheia, dentro do aplicativo, e possui exatamente seis áreas;
 - teoria inclui fundamentação, formalização em LaTeX e aplicação bancária;
+- cada semana mostra sua posição no planejamento-fonte e um protocolo explícito de validação;
 - materiais preservam livros anteriores e acrescentam vídeos, artigos e documentação;
 - cada semana possui prompts copiáveis para resumo/PDF e simulação de sabatina;
 - projetos agora começam no VS Code, passam por venv, dependências, testes e documentação e terminam no GitHub `kayhuhu`;
 - a aba Projetos usa o mesmo guia completo de dez etapas.
+- o XP é recalculado por evidências salvas; alternar estados ou rever o mesmo cartão não duplica pontos.
 
 ## As seis áreas de cada semana
 
@@ -28,19 +32,19 @@ Produção atual: `https://data-science-quest-roadmap.vercel.app`
 
 | Bloco oficial | Semana(s) |
 | --- | --- |
-| Programação | 7 |
-| Estatística Básica | 1–3 |
-| Álgebra | 4 |
-| Avaliação de Modelos | 9 |
-| Data Prep | 5–6 |
-| Banco de Dados | 8 |
-| Classificação | 12–15 |
-| Regressão | 10–11 |
-| Agrupamento | 16–17 |
-| IA Generativa | 18–19 |
-| Pesquisa Operacional | 20 |
-| Programação Inteira | 21 |
-| MIP | 22 |
+| Programação | 4 e 8 |
+| Estatística Básica | 1–2 |
+| Álgebra | 3 |
+| Avaliação de Modelos | 6–20 e 22 (transversal) |
+| Data Prep | 3–5 |
+| Banco de Dados | 21 |
+| Classificação | 11–16 e 22 |
+| Regressão | 9–10 e 14 |
+| Agrupamento | 17–20 |
+| IA Generativa | 23 |
+| Pesquisa Operacional | 24 |
+| Programação Inteira | 24 |
+| MIP | 24 |
 
 ## Stack
 
@@ -78,7 +82,7 @@ npm run build
 npm run check
 ```
 
-`content:audit` gera `data/roadmap.json` a partir de `scripts/roadmap-source.mjs` e falha se não houver exatamente 22 semanas, 13 blocos, 61 itens oficiais, 22 projetos, 220 perguntas e 220 respostas.
+`content:audit` gera `data/roadmap.json` a partir de `scripts/roadmap-source.mjs` e falha se não houver exatamente 24 semanas, 13 blocos, 61 itens oficiais, 24 projetos, 240 perguntas e 240 respostas.
 
 ## Arquitetura relevante
 
@@ -90,7 +94,7 @@ components/ProjectGuidePanel.tsx
 data/roadmap.json            artefato canônico gerado para a interface
 lib/project-guides.ts        execução iniciante, Engenharia de Software e prompts
 lib/quest-data.ts            tipos, paleta e leitura do roadmap
-scripts/roadmap-source.mjs   ementa oficial e conteúdo profundo das 22 semanas
+scripts/roadmap-source.mjs   ementa oficial e conteúdo profundo das 24 semanas
 scripts/generate-roadmap.mjs geração e auditoria de integridade
 docs/MIGRACAO_GITHUB_KAYHUHU.md
                               troca de conta, cópia, push e Vercel passo a passo
@@ -98,7 +102,7 @@ docs/MIGRACAO_GITHUB_KAYHUHU.md
 
 ## GitHub: migração para `kayhuhu`
 
-O remoto antigo não deve receber as mudanças da v13. A sessão local detectada para `anitacr` está com token inválido; por isso, a criação e o push para a conta nova dependem de autenticação pelo navegador.
+O projeto foi copiado para a conta `kayhuhu`, e `origin` aponta para o novo repositório. O remoto antigo permanece apenas como `old-origin` para referência.
 
 Siga o guia completo, sem pular as verificações:
 

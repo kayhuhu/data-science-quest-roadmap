@@ -66,7 +66,7 @@ const navGroups = [
     items: [
       { id: "jornada", label: "Visão geral", icon: LayoutDashboard },
       { id: "ementa", label: "Ementa oficial", icon: BookOpenCheck, badge: String(roadmap.metrics.syllabusItems) },
-      { id: "projetos", label: "Projetos", icon: FolderGit2, badge: "22" },
+      { id: "projetos", label: "Projetos", icon: FolderGit2, badge: String(roadmap.metrics.projects) },
     ],
   },
   {
@@ -74,7 +74,7 @@ const navGroups = [
     items: [
       { id: "pomodoro", label: "Sala de foco", icon: TimerReset },
       { id: "estudio", label: "Anotações", icon: NotebookPen },
-      { id: "flashcards", label: "Flashcards", icon: BrainCircuit, badge: "220" },
+      { id: "flashcards", label: "Flashcards", icon: BrainCircuit, badge: String(roadmap.metrics.questions) },
       { id: "sabatina", label: "Sabatina", icon: MessageCircleQuestion },
       { id: "prova", label: "Prova prática", icon: FlaskConical },
     ],
@@ -202,7 +202,7 @@ export function QuestApp({
         <div className="sidebar-bottom">
           <button className={active === "configuracoes" ? "active" : ""} onClick={() => navigate("configuracoes")}><Settings2 size={18} /><span>Configurações</span></button>
           <button><CircleHelp size={18} /><span>Guia de uso</span></button>
-          {!collapsed && <div className="source-seal"><Sparkles size={16} /><div><strong>roadmap-v13</strong><span>13 blocos oficiais</span></div></div>}
+          {!collapsed && <div className="source-seal"><Sparkles size={16} /><div><strong>roadmap-v14</strong><span>24 semanas · ordem Luiza</span></div></div>}
         </div>
         <button className="collapse-button" onClick={() => setCollapsed(!collapsed)} aria-label={collapsed ? "Expandir menu" : "Recolher menu"}>{collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}</button>
       </aside>

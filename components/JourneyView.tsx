@@ -36,7 +36,7 @@ type JourneyViewProps = {
 const quickActions = [
   { id: "pomodoro", label: "Iniciar foco", hint: "25 min", icon: Play, accent: "cyan" },
   { id: "estudio", label: "Nova anotação", hint: "Markdown + LaTeX", icon: NotebookPen, accent: "violet" },
-  { id: "flashcards", label: "Revisar cards", hint: "220 disponíveis", icon: BrainCircuit, accent: "green" },
+  { id: "flashcards", label: "Revisar cards", hint: `${roadmap.metrics.questions} disponíveis`, icon: BrainCircuit, accent: "green" },
   { id: "sabatina", label: "Treinar sabatina", hint: "Resposta em voz alta", icon: MessageCircleQuestion, accent: "coral" },
 ];
 
@@ -67,15 +67,15 @@ export function JourneyView({ workspace, studySeconds, greenItems, onSelectWeek,
         <div className="hero-copy">
           <span className="eyebrow"><Sparkles size={14} /> EXPEDIÇÃO 2026 · SEMANA {currentWeekNumber}</span>
           <h1>Sua jornada para<br /><em>defender decisões.</em></h1>
-          <p>22 semanas para transformar a ementa do Itaú em domínio prático, portfólio público e segurança na sabatina.</p>
+          <p>{roadmap.metrics.weeks} semanas na ordem do planejamento para transformar a ementa do Itaú em domínio prático, portfólio público e segurança na sabatina.</p>
           <div className="hero-actions">
             <button className="primary-button" onClick={() => onSelectWeek(currentWeek)}>Continuar missão <ArrowRight size={17} /></button>
             <button className="secondary-button" onClick={onStartFocus}><TimerReset size={17} /> Foco de 25 min</button>
           </div>
         </div>
-        <div className="hero-orbit" aria-label={`${completedWeeks} de 22 semanas concluídas`}>
-          <div className="orbit-ring" style={{ "--orbit-progress": `${(completedWeeks / 22) * 360}deg` } as React.CSSProperties}>
-            <div className="orbit-core"><span>{completedWeeks}</span><small>de 22</small></div>
+        <div className="hero-orbit" aria-label={`${completedWeeks} de ${roadmap.metrics.weeks} semanas concluídas`}>
+          <div className="orbit-ring" style={{ "--orbit-progress": `${(completedWeeks / roadmap.metrics.weeks) * 360}deg` } as React.CSSProperties}>
+            <div className="orbit-core"><span>{completedWeeks}</span><small>de {roadmap.metrics.weeks}</small></div>
           </div>
           <div className="orbit-label"><Target size={15} /> progresso por domínio</div>
         </div>
@@ -85,17 +85,17 @@ export function JourneyView({ workspace, studySeconds, greenItems, onSelectWeek,
         <div className="mission-stat"><span className="stat-icon cyan"><Target size={18} /></span><div><strong>{greenItems}<small>/{roadmap.metrics.syllabusItems}</small></strong><span>itens verdes</span></div></div>
         <div className="mission-stat"><span className="stat-icon violet"><Clock3 size={18} /></span><div><strong>{hours}h {minutes.toString().padStart(2, "0")}m</strong><span>tempo focado</span></div></div>
         <div className="mission-stat"><span className="stat-icon coral"><Flame size={18} /></span><div><strong>{workspace.sessions.length ? 1 : 0} dia</strong><span>sequência atual</span></div></div>
-        <div className="mission-stat"><span className="stat-icon green"><FolderGit2 size={18} /></span><div><strong>{Object.values(workspace.projectStatus).filter((status) => status === "publicado").length}<small>/22</small></strong><span>projetos publicados</span></div></div>
-        <div className="xp-stat"><span>NÍVEL {Math.floor(workspace.xp / 500) + 1}</span><strong>{workspace.xp} XP</strong><div className="mini-progress"><i style={{ width: `${workspace.xp % 500 / 5}%` }} /></div></div>
+        <div className="mission-stat"><span className="stat-icon green"><FolderGit2 size={18} /></span><div><strong>{Object.values(workspace.projectStatus).filter((status) => status === "publicado").length}<small>/{roadmap.metrics.projects}</small></strong><span>projetos publicados</span></div></div>
+        <div className="xp-stat" title="XP recalculado a partir das evidências salvas; ações repetidas não duplicam pontos."><span>NÍVEL {Math.floor(workspace.xp / 500) + 1}</span><strong>{workspace.xp} XP</strong><div className="mini-progress"><i style={{ width: `${workspace.xp % 500 / 5}%` }} /></div></div>
       </section>
 
       <section className="section-heading">
-        <div><span className="eyebrow muted">MAPA DA EXPEDIÇÃO</span><h2>22 missões. Uma evolução contínua.</h2></div>
+        <div><span className="eyebrow muted">MAPA DA EXPEDIÇÃO</span><h2>{roadmap.metrics.weeks} missões. Uma evolução contínua.</h2></div>
         <button className="text-button" onClick={() => onNavigate("ementa")}>Ver ementa completa <ArrowRight size={15} /></button>
       </section>
 
       <section className="roadmap-layout">
-        <div className="quest-board" aria-label="Roadmap de 22 semanas">
+        <div className="quest-board" aria-label={`Roadmap de ${roadmap.metrics.weeks} semanas`}>
           <div className="board-skyline" aria-hidden="true"><span>Fundamentos</span><span>Modelagem</span><span>Inteligência</span><span>Consolidação</span></div>
           <div className="road-rows">
             {rows.map((row, rowIndex) => (

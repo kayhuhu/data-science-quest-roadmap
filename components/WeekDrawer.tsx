@@ -84,7 +84,6 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onSelectWeek }:
     onUpdate((current) => ({
       ...current,
       weekStatus: { ...current.weekStatus, [weekKey]: next },
-      xp: current.xp + (next === "verde" && status !== "verde" ? 250 : 0),
     }));
   };
 
@@ -97,7 +96,6 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onSelectWeek }:
       return {
         ...current,
         syllabusStatus: { ...current.syllabusStatus, [item.id]: next },
-        xp: current.xp + (next === "verde" && previous !== "verde" ? 25 : 0),
       };
     });
   };
@@ -110,13 +108,13 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onSelectWeek }:
         <header className="drawer-header drawer-header-complete" style={{ "--week-color": color } as React.CSSProperties}>
           <div className="drawer-week-number"><span>SEMANA</span><strong>{week.number.toString().padStart(2, "0")}</strong></div>
           <div className="drawer-week-copy">
-            <span className="eyebrow" style={{ color }}>{week.block}</span>
+            <span className="eyebrow" style={{ color }}>{week.blocks.join(" + ")}</span>
             <h2>{week.title}</h2>
             <p>{week.period}</p>
           </div>
           <div className="drawer-week-navigation" aria-label="Navegar entre semanas">
             <button disabled={!previousWeek} onClick={() => { if (previousWeek) { setTab("Visão Geral"); onSelectWeek(previousWeek); } }}><ArrowLeft size={15} /><span>Anterior</span></button>
-            <strong>{week.number} / 22</strong>
+            <strong>{week.number} / {roadmap.metrics.weeks}</strong>
             <button disabled={!nextWeek} onClick={() => { if (nextWeek) { setTab("Visão Geral"); onSelectWeek(nextWeek); } }}><span>Próxima</span><ArrowRight size={15} /></button>
           </div>
         </header>
@@ -146,10 +144,16 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onSelectWeek }:
                 <article><MessageCircleQuestion size={18} /><div><strong>{week.sabatina.length}</strong><span>perguntas técnicas</span></div></article>
               </section>
 
+              <section className="source-order-card">
+                <span>ORDEM OFICIAL DO PLANEJAMENTO</span>
+                <strong>{week.overview.sourceOrder}</strong>
+                <p>Esta semana mantém a sequência do PDF-base; os blocos relacionados aparecem separados dentro do conteúdo.</p>
+              </section>
+
               <div className="weekly-overview-grid">
                 <section className="drawer-panel official-week-syllabus">
                   <div className="panel-title"><Scale size={17} /><strong>Ementa oficial desta semana</strong></div>
-                  <p>Os textos abaixo pertencem somente ao bloco <b>{week.block}</b>. Clique para atualizar seu domínio.</p>
+                  <p>Blocos vinculados: <b>{week.blocks.join(" + ")}</b>. Clique em um item para atualizar seu domínio.</p>
                   <div className="drawer-syllabus-list">
                     {week.overview.officialTopics.map((text) => {
                       const item = roadmap.syllabus.find((candidate) => candidate.week === week.number && candidate.text === text);
@@ -200,6 +204,12 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onSelectWeek }:
                 <header><Sparkles size={18} /><div><span>FORMALIZAÇÃO ESSENCIAL</span><h4>O que a fórmula realmente diz</h4></div></header>
                 <div className="math-render"><ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{`$$${week.theoryAndBanking.mathematics.latex}$$`}</ReactMarkdown></div>
                 <p>{week.theoryAndBanking.mathematics.explanation}</p>
+              </section>
+
+              <section className="validation-protocol-card">
+                <header><Target size={18} /><div><span>AVALIAÇÃO TRANSVERSAL</span><h4>Como validar esta técnica nesta semana</h4></div></header>
+                <ul>{week.theoryAndBanking.validation.map((item) => <li key={item}><Check size={14} />{item}</li>)}</ul>
+                <p>O protocolo-base nasce nas semanas 6–8 e é reaplicado conforme o tipo de modelo: regressão, classificação ou agrupamento.</p>
               </section>
 
               <section className="banking-application-section">
