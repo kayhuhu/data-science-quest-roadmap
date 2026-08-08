@@ -6,8 +6,7 @@ Produção: `https://kayhuhu-roadmap.vercel.app`
 
 ## O que mudou na v15
 
-- uma nova página **Sabatina teste** reúne 51 perguntas reais, respostas em quatro camadas e prioridade baseada no desempenho original;
-- as mesmas 51 perguntas foram distribuídas nas semanas específicas e também alimentam a sabatina semanal e os flashcards;
+- uma nova página **Sabatina teste** reúne 51 perguntas reais como avaliação final geral, sem vínculo com semanas, com respostas em quatro camadas e prioridade baseada no desempenho original;
 - **Prova Itaú 1** virou um teste de 47 questões e **Prova Itaú 2** um teste de 37 questões, com modos estudo/simulado e gabarito comentado;
 - cinco CSVs didáticos foram reconstruídos para as questões práticas porque os arquivos originais não vieram com o notebook;
 - a ementa oficial passou a aparecer na ordem das semanas e como checklist de domínio;
@@ -37,7 +36,7 @@ Produção: `https://kayhuhu-roadmap.vercel.app`
 3. **Materiais:** livros anteriores, aulas, artigos e documentação.
 4. **Estudar com IA:** prompt completo para material didático exportável em PDF.
 5. **Projeto (Estrutura Completa CD):** problema, dados, stack, VS Code, venv, requirements, código, testes, documentação e GitHub.
-6. **Perguntas de Sabatina:** dez cenários autorais, perguntas reais associadas à semana, respostas ideais e prompt para entrevista rigorosa.
+6. **Perguntas de Sabatina:** dez cenários autorais da semana, respostas ideais e prompt para entrevista rigorosa. A sabatina real permanece separada como avaliação final geral.
 
 ## Ementa e distribuição
 

@@ -26,7 +26,6 @@ import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import { ProjectGuidePanel } from "@/components/ProjectGuidePanel";
 import { getProjectGuide } from "@/lib/project-guides";
-import { fullSabatinaAnswer, realSabatinaForWeek } from "@/lib/real-sabatina";
 import {
   blockPalette,
   nextMasteryStatus,
@@ -71,11 +70,6 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onSelectWeek }:
   const [tab, setTab] = useState<Tab>("Visão Geral");
   const [revealed, setRevealed] = useState<number | null>(null);
   const guide = useMemo(() => week ? getProjectGuide(week) : null, [week]);
-  const realQuestions = useMemo(() => week ? realSabatinaForWeek(week.number) : [], [week]);
-  const weeklyQuestions = useMemo(() => week ? [
-    ...week.sabatina.map((item) => ({ ...item, source: "roadmap" as const, real: null })),
-    ...realQuestions.map((item) => ({ question: item.question, answer: fullSabatinaAnswer(item), source: "real" as const, real: item })),
-  ] : [], [realQuestions, week]);
 
   if (!week || !guide) return null;
 
@@ -147,7 +141,7 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onSelectWeek }:
                 <article><BookOpenCheck size={18} /><div><strong>{week.overview.officialTopics.length}</strong><span>itens oficiais</span></div></article>
                 <article><Target size={18} /><div><strong>{week.content.length}</strong><span>frentes de estudo</span></div></article>
                 <article><FolderGit2 size={18} /><div><strong>{guide.steps.length}</strong><span>etapas do projeto</span></div></article>
-                <article><MessageCircleQuestion size={18} /><div><strong>{weeklyQuestions.length}</strong><span>perguntas técnicas</span></div></article>
+                <article><MessageCircleQuestion size={18} /><div><strong>{week.sabatina.length}</strong><span>perguntas técnicas</span></div></article>
               </section>
 
               <section className="source-order-card">
@@ -266,14 +260,10 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onSelectWeek }:
             <div className="drawer-section-stack">
               <header className="drawer-section-intro"><span>6 · PERGUNTAS DE SABATINA</span><h3>Teoria pesada aplicada ao cotidiano bancário</h3><p>Responda em voz alta antes de revelar. Estruture: conceito → mecanismo → decisão → risco/limitação.</p></header>
               <section className="question-list weekly-question-list">
-                {weeklyQuestions.map((item, index) => (
-                  <article key={`${item.source}-${item.question}`} className={`${revealed === index ? "revealed" : ""} ${item.source === "real" ? "real-sabatina-weekly" : ""}`}>
+                {week.sabatina.map((item, index) => (
+                  <article key={item.question} className={revealed === index ? "revealed" : ""}>
                     <span className="question-index">{index + 1}</span>
-                    <div>
-                      <span className="weekly-question-source">{item.source === "real" ? `SABATINA REAL · ${item.real!.priority === "urgente" ? "REVISÃO URGENTE" : item.real!.priority === "reforcar" ? "REFORÇAR" : "MANTER"}` : "ROTEIRO DA SEMANA"}</span>
-                      <strong>{item.question}</strong>
-                      {revealed === index && (item.real ? <div className="weekly-real-answer"><p><b>Resposta direta:</b> {item.real.answer}</p><p><b>Por quê:</b> {item.real.reasoning}</p><p><b>No banco:</b> {item.real.banking}</p><p><b>Atenção:</b> {item.real.watchOut}</p></div> : <p>{item.answer}</p>)}
-                    </div>
+                    <div><strong>{item.question}</strong>{revealed === index && <p>{item.answer}</p>}</div>
                     <button onClick={() => setRevealed(revealed === index ? null : index)}>{revealed === index ? "Ocultar resposta" : "Ver resposta ideal"}</button>
                   </article>
                 ))}

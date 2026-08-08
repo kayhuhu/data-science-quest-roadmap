@@ -35,14 +35,12 @@ import {
   sabatinaPriorityLabel,
   type SabatinaPriority,
 } from "@/lib/real-sabatina";
-import { roadmap } from "@/lib/quest-data";
 
 const priorityOrder: SabatinaPriority[] = ["urgente", "reforcar", "manter"];
 
 export function SabatinaTestView() {
   const [priority, setPriority] = useState<SabatinaPriority | "todas">("todas");
   const [topic, setTopic] = useState("todos");
-  const [week, setWeek] = useState<number | "todas">("todas");
   const [index, setIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const [draft, setDraft] = useState("");
@@ -54,9 +52,8 @@ export function SabatinaTestView() {
   const questions = useMemo(
     () => realSabatinaQuestions.filter((item) =>
       (priority === "todas" || item.priority === priority) &&
-      (topic === "todos" || item.topic === topic) &&
-      (week === "todas" || item.week === week)),
-    [priority, topic, week],
+      (topic === "todos" || item.topic === topic)),
+    [priority, topic],
   );
   const item = questions[index] ?? questions[0];
 
@@ -78,32 +75,31 @@ export function SabatinaTestView() {
     <div className="sabatina-test-view view-stack">
       <header className="page-intro sabatina-test-intro">
         <div>
-          <span className="eyebrow"><MessageCircleQuestion size={15} /> SABATINA REAL · MODO TESTE</span>
-          <h1>Treine a resposta que a banca espera ouvir</h1>
-          <p>{realSabatinaQuestions.length} perguntas de uma entrevista real, com prioridade baseada no resultado original e respostas construídas para falar — não para decorar.</p>
+          <span className="eyebrow"><MessageCircleQuestion size={15} /> SABATINA REAL · AVALIAÇÃO FINAL</span>
+          <h1>Uma sabatina geral, depois da jornada</h1>
+          <p>{realSabatinaQuestions.length} perguntas da entrevista real em uma avaliação única e independente das semanas. Use após concluir os estudos para testar domínio, aplicação bancária e comunicação.</p>
         </div>
         <div className="real-interview-score">
-          <span>FOCO IMEDIATO</span>
-          <strong>{realSabatinaQuestions.filter((question) => question.priority === "urgente").length}</strong>
-          <small>lacunas urgentes</small>
+          <span>AVALIAÇÃO FINAL</span>
+          <strong>{realSabatinaQuestions.length}</strong>
+          <small>perguntas gerais</small>
         </div>
       </header>
 
       <section className="sabatina-filter-bar">
         <label><Filter size={16} /> Prioridade<select value={priority} onChange={(event) => { setPriority(event.target.value as SabatinaPriority | "todas"); chooseQuestion(0); }}><option value="todas">Todas</option>{priorityOrder.map((value) => <option value={value} key={value}>{sabatinaPriorityLabel[value]}</option>)}</select></label>
         <label>Tema<select value={topic} onChange={(event) => { setTopic(event.target.value); chooseQuestion(0); }}><option value="todos">Todos os temas</option>{topics.map((value) => <option key={value}>{value}</option>)}</select></label>
-        <label>Semana<select value={week} onChange={(event) => { setWeek(event.target.value === "todas" ? "todas" : Number(event.target.value)); chooseQuestion(0); }}><option value="todas">Todas as semanas</option>{[...new Set(realSabatinaQuestions.map((question) => question.week))].sort((a, b) => a - b).map((value) => <option value={value} key={value}>S{String(value).padStart(2, "0")} · {roadmap.weeks[value - 1].title}</option>)}</select></label>
         <span>{questions.length} perguntas no filtro</span>
       </section>
 
       <section className="sabatina-test-workspace">
         <aside className="sabatina-question-index" aria-label="Índice de perguntas">
-          <header><span>ROTEIRO DA ENTREVISTA</span><strong>{index + 1} de {questions.length}</strong></header>
+          <header><span>AVALIAÇÃO GERAL</span><strong>{index + 1} de {questions.length}</strong></header>
           <div>
             {questions.map((question, questionIndex) => (
               <button key={question.id} className={`${questionIndex === index ? "active" : ""} ${question.priority}`} onClick={() => chooseQuestion(questionIndex)}>
                 <span>{String(questionIndex + 1).padStart(2, "0")}</span>
-                <div><small>S{String(question.week).padStart(2, "0")} · {question.topic}</small><strong>{question.question}</strong></div>
+                <div><small>{question.topic}</small><strong>{question.question}</strong></div>
               </button>
             ))}
           </div>
@@ -111,7 +107,7 @@ export function SabatinaTestView() {
 
         <main className="sabatina-answer-stage">
           <header className="sabatina-question-header">
-            <div><span className={`real-question-priority ${item.priority}`}>{sabatinaPriorityLabel[item.priority]}</span><small>SEMANA {item.week} · {item.topic}</small></div>
+            <div><span className={`real-question-priority ${item.priority}`}>{sabatinaPriorityLabel[item.priority]}</span><small>{item.topic}</small></div>
             <nav><button onClick={() => move(-1)}><ArrowLeft size={16} /> Anterior</button><button onClick={() => move(1)}>Próxima <ArrowRight size={16} /></button></nav>
           </header>
 
@@ -190,7 +186,7 @@ export function AssessmentHubView() {
     return (
       <div className="assessment-hub view-stack">
         <header className="page-intro">
-          <div><span className="eyebrow"><FileQuestion size={15} /> PROVAS REAIS · AMBIENTE INTERATIVO</span><h1>Duas provas. {assessmentQuestionCount} decisões.</h1><p>Escolha o modo estudo para receber feedback imediato ou faça o simulado inteiro antes de abrir o gabarito.</p></div>
+          <div><span className="eyebrow"><FileQuestion size={15} /> PROVAS REAIS · AVALIAÇÃO FINAL</span><h1>Duas provas gerais. {assessmentQuestionCount} questões.</h1><p>Esta área não pertence a nenhuma semana. Use no encerramento da jornada: modo estudo para correção imediata ou simulado para abrir o gabarito apenas no final.</p></div>
           <div className="assessment-mode-toggle" aria-label="Modo da prova"><button className={mode === "estudo" ? "active" : ""} onClick={() => setMode("estudo")}><BookOpenCheck size={16} /> Modo estudo</button><button className={mode === "simulado" ? "active" : ""} onClick={() => setMode("simulado")}><Clock3 size={16} /> Modo simulado</button></div>
         </header>
         <section className="assessment-card-grid">{assessmentBank.map((item) => <AssessmentCard assessment={item} key={item.id} onStart={reset} />)}</section>
@@ -225,7 +221,7 @@ export function AssessmentHubView() {
           {assessment.questions.map((item, itemIndex) => {
             const chosen = answers[item.id];
             const isCorrect = chosen === item.correctIndex;
-            return <details key={item.id} className={isCorrect ? "correct" : "wrong"}><summary><span>{isCorrect ? <CheckCircle2 size={17} /> : <XCircle size={17} />}</span><div><small>QUESTÃO {itemIndex + 1} · S{String(item.week).padStart(2, "0")} · {item.topic}</small><strong>{item.question}</strong></div><em>{isCorrect ? "Correta" : chosen === undefined ? "Em branco" : "Revisar"}</em></summary><div className="assessment-review-body"><p><b>Sua resposta:</b> {chosen === undefined ? "Em branco" : item.options[chosen]}</p><p><b>Resposta correta:</b> {item.options[item.correctIndex]}</p><ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{item.rationale}</ReactMarkdown></div></details>;
+            return <details key={item.id} className={isCorrect ? "correct" : "wrong"}><summary><span>{isCorrect ? <CheckCircle2 size={17} /> : <XCircle size={17} />}</span><div><small>QUESTÃO {itemIndex + 1} · {item.topic}</small><strong>{item.question}</strong></div><em>{isCorrect ? "Correta" : chosen === undefined ? "Em branco" : "Revisar"}</em></summary><div className="assessment-review-body"><p><b>Sua resposta:</b> {chosen === undefined ? "Em branco" : item.options[chosen]}</p><p><b>Resposta correta:</b> {item.options[item.correctIndex]}</p><ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{item.rationale}</ReactMarkdown></div></details>;
           })}
         </section>
       </div>
@@ -248,7 +244,7 @@ export function AssessmentHubView() {
         </aside>
 
         <main className="assessment-question-stage">
-          <header><div><span>QUESTÃO {index + 1}</span><small>S{String(question.week).padStart(2, "0")} · {question.topic}</small></div>{question.dataset && <a href={question.dataset} download><Download size={15} /> Baixar CSV didático</a>}</header>
+          <header><div><span>QUESTÃO {index + 1}</span><small>{question.topic}</small></div>{question.dataset && <a href={question.dataset} download><Download size={15} /> Baixar CSV didático</a>}</header>
           <h2>{question.question}</h2>
           <div className="assessment-options">
             {question.options.map((option, optionIndex) => {

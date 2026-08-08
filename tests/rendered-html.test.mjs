@@ -119,10 +119,11 @@ test("ships the real interview bank, two interactive tests and reconstructed dat
   assert.match(realSabatina, /Gini de 50%/);
   assert.match(realSabatina, /OVERSAMPLING|oversampling/i);
   assert.match(realSabatina, /coeficiente de silhueta/i);
-  assert.match(drawer, /realSabatinaForWeek\(week\.number\)/);
-  assert.match(drawer, /SABATINA REAL/);
+  assert.doesNotMatch(drawer, /realSabatinaForWeek|SABATINA REAL/);
   assert.match(app, /Sabatina teste/);
   assert.match(app, /Provas reais/);
+  assert.match(views, /AVALIAÇÃO FINAL/);
+  assert.doesNotMatch(views, /String\((?:question|item)\.week\)|Todas as semanas/);
   assert.match(views, /MODO ESTUDO/);
   assert.match(views, /MODO SIMULADO/);
   assert.deepEqual(assessments.assessments.map((item) => item.questions.length), [47, 37]);
@@ -132,7 +133,7 @@ test("ships the real interview bank, two interactive tests and reconstructed dat
     const source = await readFile(new URL(`public/datasets/${dataset}`, templateRoot), "utf8");
     assert.ok(source.split("\n").length > 100, `${dataset} deve conter dados suficientes para prática`);
   }
-  assert.match(styles, /body \{ font-size: 16px; \}/);
+  assert.doesNotMatch(styles, /\.quest-app :where\(p, li\)|\.quest-app :where\(button/);
 });
 
 test("XP is derived from saved evidence and cannot be farmed by toggling status", async () => {

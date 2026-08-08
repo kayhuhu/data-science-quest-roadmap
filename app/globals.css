@@ -575,28 +575,6 @@ kbd { font: 600 10px var(--font-geist-mono); background: var(--surface-2); borde
   .command-palette footer span:last-child { display: none; }
 }
 
-/* Atualização v15: leitura confortável e foco nos fundamentos de CD I. */
-body { font-size: 16px; }
-.quest-app :where(p, li) { font-size: 13px; line-height: 1.62; }
-.quest-app :where(button, input, select, textarea, label) { font-size: 12px; }
-.quest-app small { font-size: 11px; line-height: 1.45; }
-.quest-app .eyebrow, .quest-app .nav-group-label { font-size: 10px; }
-.quest-app .page-intro > div > p { max-width: 780px; font-size: 14px; line-height: 1.65; }
-.quest-app .sidebar-nav button { font-size: 12px; }
-.quest-app .sidebar-nav button b { font-size: 10px; }
-.quest-app .project-index-copy small,
-.quest-app .project-index-copy em,
-.quest-app .project-page-toolbar > div span,
-.quest-app .project-index > header span { font-size: 10px; }
-.quest-app .project-index-copy strong,
-.quest-app .project-page-toolbar > div strong,
-.quest-app .project-index > header strong { font-size: 13px; }
-.quest-app .drawer-step-content li,
-.quest-app .drawer-step-content footer,
-.quest-app .drawer-step-content header > span,
-.quest-app .project-structure-list li,
-.quest-app .project-done-panel li { font-size: 12px; }
-
 .foundation-first-grid { border: 1px solid color-mix(in srgb, var(--week-color) 28%, var(--border)); border-radius: 16px; background: linear-gradient(140deg, color-mix(in srgb, var(--week-color) 8%, var(--surface)), var(--surface)); overflow: hidden; }
 .foundation-first-grid > header { padding: 20px 22px; border-bottom: 1px solid var(--border-soft); }
 .foundation-first-grid > header span { color: var(--week-color); font-size: 10px; font-weight: 850; letter-spacing: .12em; }
@@ -607,14 +585,7 @@ body { font-size: 16px; }
 .foundation-first-grid article:nth-child(odd) { border-right: 1px solid var(--border-soft); }
 .foundation-first-grid article:nth-last-child(-n + 2) { border-bottom: 0; }
 .foundation-first-grid article small { color: var(--week-color); font-weight: 850; letter-spacing: .08em; }
-.foundation-first-grid article p { margin: 10px 0 0; color: var(--muted); }
-
-.weekly-question-source { display: inline-flex; margin-bottom: 7px; color: var(--subtle); font-size: 10px; font-weight: 850; letter-spacing: .08em; }
-.real-sabatina-weekly { border-color: rgba(251,191,36,.28) !important; background: linear-gradient(120deg, rgba(251,191,36,.045), var(--surface)) !important; }
-.real-sabatina-weekly .weekly-question-source { color: var(--yellow); }
-.weekly-real-answer { margin-top: 13px; padding: 16px; border: 1px solid var(--border-soft); border-radius: 11px; background: var(--surface-2); display: grid; gap: 10px; }
-.weekly-real-answer p { margin: 0 !important; color: var(--muted); }
-.weekly-real-answer b { color: var(--text); }
+.foundation-first-grid article p { margin: 10px 0 0; color: var(--muted); font-size: 10px; line-height: 1.62; }
 
 /* Ementa agrupada na ordem das semanas. */
 .weekly-syllabus-checklist { display: grid; gap: 14px; }
@@ -645,11 +616,11 @@ body { font-size: 16px; }
 
 /* Sabatina real: índice compacto e resposta em quatro camadas. */
 .sabatina-test-intro { align-items: stretch; }
-.real-interview-score { min-width: 170px; padding: 15px 19px; border: 1px solid rgba(248,113,113,.25); border-radius: 14px; background: rgba(248,113,113,.055); display: flex; flex-direction: column; justify-content: center; }
-.real-interview-score span { color: var(--red); font-size: 10px; font-weight: 850; letter-spacing: .1em; }
+.real-interview-score { min-width: 170px; padding: 15px 19px; border: 1px solid rgba(77,215,250,.25); border-radius: 14px; background: rgba(77,215,250,.05); display: flex; flex-direction: column; justify-content: center; }
+.real-interview-score span { color: var(--cyan); font-size: 10px; font-weight: 850; letter-spacing: .1em; }
 .real-interview-score strong { margin-top: 3px; font: 800 31px var(--font-geist-mono); }
 .real-interview-score small { color: var(--muted); }
-.sabatina-filter-bar { padding: 12px; border: 1px solid var(--border); border-radius: 13px; background: var(--surface); display: grid; grid-template-columns: 1fr 1fr 1.35fr auto; gap: 9px; align-items: end; }
+.sabatina-filter-bar { padding: 12px; border: 1px solid var(--border); border-radius: 13px; background: var(--surface); display: grid; grid-template-columns: 1fr 1.2fr auto; gap: 9px; align-items: end; }
 .sabatina-filter-bar label { color: var(--muted); display: flex; flex-direction: column; gap: 6px; }
 .sabatina-filter-bar label:first-child { position: relative; }
 .sabatina-filter-bar label:first-child svg { position: absolute; right: 10px; bottom: 10px; color: var(--subtle); pointer-events: none; }
@@ -810,7 +781,6 @@ body { font-size: 16px; }
 }
 
 @media (max-width: 650px) {
-  .quest-app :where(p, li) { font-size: 12.5px; }
   .sabatina-filter-bar { grid-template-columns: 1fr; }
   .sabatina-filter-bar > span { justify-content: center; }
   .sabatina-answer-stage, .assessment-question-stage { padding: 17px; }
@@ -1160,25 +1130,3 @@ body { font-size: 16px; }
   .project-page-toolbar nav { width: 100%; }
   .project-page-toolbar button { flex: 1; justify-content: center; }
 }
-
-/* Escala tipográfica final: mantém textos operacionais legíveis em todo o planner. */
-body { font-size: 16px; }
-.quest-app :where(p, li) { font-size: 13px; line-height: 1.62; }
-.quest-app :where(button, input, select, textarea, label) { font-size: 12px; }
-.quest-app small { font-size: 11px; line-height: 1.45; }
-.quest-app .eyebrow, .quest-app .nav-group-label { font-size: 10px; }
-.quest-app .page-intro > div > p { font-size: 14px; line-height: 1.65; }
-.quest-app .sidebar-nav button { font-size: 12px; }
-.quest-app .sidebar-nav button b { font-size: 10px; }
-.quest-app .project-index-copy small,
-.quest-app .project-index-copy em,
-.quest-app .project-page-toolbar > div span,
-.quest-app .project-index > header span { font-size: 10px; }
-.quest-app .project-index-copy strong,
-.quest-app .project-page-toolbar > div strong,
-.quest-app .project-index > header strong { font-size: 13px; }
-.quest-app .drawer-step-content li,
-.quest-app .drawer-step-content footer,
-.quest-app .drawer-step-content header > span,
-.quest-app .project-structure-list li,
-.quest-app .project-done-panel li { font-size: 12px; }

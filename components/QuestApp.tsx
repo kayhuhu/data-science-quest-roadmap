@@ -44,7 +44,6 @@ import {
   SettingsView,
 } from "@/components/LearningViews";
 import { roadmap, type RoadmapWeek } from "@/lib/quest-data";
-import { realSabatinaQuestions } from "@/lib/real-sabatina";
 import { useQuestWorkspace } from "@/lib/use-quest-workspace";
 
 type ActiveView =
@@ -76,7 +75,7 @@ const navGroups = [
     items: [
       { id: "pomodoro", label: "Sala de foco", icon: TimerReset },
       { id: "estudio", label: "Anotações", icon: NotebookPen },
-      { id: "flashcards", label: "Flashcards", icon: BrainCircuit, badge: String(roadmap.metrics.questions + realSabatinaQuestions.length) },
+      { id: "flashcards", label: "Flashcards", icon: BrainCircuit, badge: String(roadmap.metrics.questions) },
       { id: "sabatina", label: "Sabatina por semana", icon: MessageCircleQuestion },
       { id: "sabatina-teste", label: "Sabatina teste", icon: Sparkles, badge: "51" },
       { id: "prova", label: "Provas reais", icon: FlaskConical, badge: "2" },
@@ -153,10 +152,7 @@ export function QuestApp({
       .filter((item) => item.text.toLocaleLowerCase("pt-BR").includes(query))
       .slice(0, 5)
       .map((item) => ({ id: item.id, type: "Ementa", title: item.text, action: () => navigate("ementa") }));
-    const questions = [
-      ...roadmap.weeks.flatMap((week) => week.sabatina.map((item, index) => ({ ...item, week: week.number, index, id: `q-${week.number}-${index}` }))),
-      ...realSabatinaQuestions.map((item, index) => ({ ...item, index, id: item.id })),
-    ]
+    const questions = roadmap.weeks.flatMap((week) => week.sabatina.map((item, index) => ({ ...item, week: week.number, index, id: `q-${week.number}-${index}` })))
       .filter((item) => item.question.toLocaleLowerCase("pt-BR").includes(query))
       .slice(0, 4)
       .map((item) => ({ id: item.id, type: "Sabatina", title: item.question, action: () => navigate("sabatina") }));
@@ -250,7 +246,7 @@ export function QuestApp({
               {commandQuery && commandResults.length === 0 && <div className="command-empty"><Search size={25} /><strong>Nenhum resultado</strong><p>Tente um termo mais amplo.</p></div>}
               {commandResults.map((result) => <button key={result.id} onClick={() => { result.action(); setCommandOpen(false); setCommandQuery(""); }}><span>{result.type}</span><strong>{result.title}</strong><ChevronRight size={16} /></button>)}
             </div>
-            <footer><span><kbd>↵</kbd> abrir</span><span><kbd>ESC</kbd> fechar</span><span>{roadmap.metrics.weeks} semanas · {roadmap.metrics.questions + realSabatinaQuestions.length} perguntas indexadas</span></footer>
+            <footer><span><kbd>↵</kbd> abrir</span><span><kbd>ESC</kbd> fechar</span><span>{roadmap.metrics.weeks} semanas · {roadmap.metrics.questions} perguntas indexadas</span></footer>
           </section>
         </div>
       )}
