@@ -47,7 +47,7 @@ type WeekDrawerProps = {
   onSelectWeek: (week: RoadmapWeek) => void;
 };
 
-const tabs = ["ESTUDAR", "PRATICAR", "SABATINA", "REVISAR"] as const;
+const tabs = ["ESTUDAR", "PRATICAR", "SABATINA", "REVISAR", "MATERIAIS"] as const;
 type Tab = (typeof tabs)[number];
 
 const emptyEvidence: WeekEvidence = {
@@ -69,12 +69,12 @@ function CopyButton({ text, label = "Copiar" }: { text: string; label?: string }
   return <button className="week-action-button" onClick={() => void copy()}><Clipboard size={17} />{copied ? "Copiado!" : label}</button>;
 }
 
-function downloadPrompt(week: number, prompt: string) {
+function downloadPrompt(week: number, prompt: string, kind: "estudo" | "pratica" = "estudo") {
   const blob = new Blob([prompt], { type: "text/markdown;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
   anchor.href = url;
-  anchor.download = `semana-${String(week).padStart(2, "0")}-prompt-estudo.md`;
+  anchor.download = `semana-${String(week).padStart(2, "0")}-prompt-${kind}.md`;
   anchor.click();
   URL.revokeObjectURL(url);
 }
@@ -170,7 +170,7 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onNavigate, onS
 
   return (
     <div className="drawer-backdrop" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-      <aside className="week-drawer week-drawer-complete weekly-study-page weekly-four-tab-page" role="dialog" aria-modal="true" aria-label={`Semana ${week.number}: ${week.title}`} style={{ "--week-color": color } as React.CSSProperties}>
+      <aside className="week-drawer week-drawer-complete weekly-study-page weekly-five-tab-page" role="dialog" aria-modal="true" aria-label={`Semana ${week.number}: ${week.title}`} style={{ "--week-color": color } as React.CSSProperties}>
         <button className="icon-button drawer-close" onClick={onClose} aria-label="Fechar semana"><X size={22} /></button>
 
         <header className="weekly-study-header weekly-compact-header">
@@ -200,7 +200,7 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onNavigate, onS
           </details>
         </header>
 
-        <nav className="drawer-tabs weekly-four-tabs" aria-label="Seções da semana">
+        <nav className="drawer-tabs weekly-five-tabs" aria-label="Seções da semana">
           {tabs.map((item) => <button key={item} className={tab === item ? "active" : ""} onClick={() => setTab(item)}>{item}</button>)}
         </nav>
 
@@ -222,6 +222,17 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onNavigate, onS
                   return <button key={item.id} onClick={() => cycleSyllabus(item.id)}><i className={`mastery-dot ${itemStatus}`} /><span><b>{item.text}</b><small>{item.block} · {statusLabel(itemStatus)}</small></span></button>;
                 })}</div> : <p>Nenhum tópico novo: audite, recupere lacunas e conecte os itens oficiais já estudados.</p>}
                 {week.studyScope.appliedEvaluation.length > 0 && <div className="applicable-evaluation"><span>AVALIAÇÃO APLICÁVEL</span>{week.studyScope.appliedEvaluation.map((item) => <b key={item}>{item}</b>)}</div>}
+              </section>
+
+              <section className="study-relevance-card">
+                <header><Sparkles size={21} /><div><span>POR QUE ISSO IMPORTA EM CIÊNCIA DE DADOS?</span><h4>Da ementa para uma decisão real</h4></div></header>
+                <p>{week.whyThisMatters}</p>
+                <div className="banking-context"><b>NO BANCO</b><p>{week.bankingContext}</p></div>
+              </section>
+
+              <section className="data-science-use-card">
+                <header><span>ONDE ISSO APARECE NA PRÁTICA?</span><h4>Aplicações que você precisa reconhecer</h4></header>
+                <div>{week.dataScienceUse.map((use, index) => <article key={use}><i>{String(index + 1).padStart(2, "0")}</i><span>{use}</span></article>)}</div>
               </section>
 
               <section className="compact-study-map">
@@ -249,15 +260,6 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onNavigate, onS
                 <details className="prompt-preview"><summary>Ver prompt</summary><pre>{week.prompts.study}</pre></details>
               </section>
 
-              <section className="weekly-materials curated-materials">
-                <header><BookMarked size={20} /><div><span>MATERIAIS</span><h4>Uma rota principal, sem excesso de links</h4></div></header>
-                <div className="material-shortlist">
-                  <article><BookMarked size={18} /><span>Material principal</span><b>{week.resources.books[0]}</b></article>
-                  <article><FileText size={18} /><span>Material complementar</span><b>{week.resources.articles[0]}</b></article>
-                  <article><Play size={18} /><span>Vídeo principal</span><b>{week.resources.videos[0]}</b></article>
-                </div>
-                <details><summary>Ver todos os materiais</summary><div className="all-materials"><section><b>Livros</b><ul>{week.resources.books.map((item) => <li key={item}>{item}</li>)}</ul></section><section><b>Vídeos</b><ul>{week.resources.videos.map((item) => <li key={item}>{item}</li>)}</ul></section><section><b>Artigos</b><ul>{week.resources.articles.map((item) => <li key={item}>{item}</li>)}</ul></section></div></details>
-              </section>
             </div>
           )}
 
@@ -266,12 +268,14 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onNavigate, onS
               <header className="drawer-section-intro"><span>2 · PRATICAR</span><h3>Como provar que realmente entendeu?</h3><p>Faça uma entrega pequena e interpretável em {week.miniLab.duration}. O objetivo é praticar os itens da semana, não montar uma aplicação de produção.</p></header>
               <section className="mini-lab-card">
                 <header><Code2 size={23} /><div><span>MINI LAB DA SEMANA · {week.miniLab.duration}</span><h4>{week.miniLab.title}</h4><p>{week.miniLab.objective}</p></div></header>
+                <section className="starter-assets"><header><Download size={19} /><div><span>ARQUIVOS PARA COMEÇAR</span><h5>Baixe e comece sem montar uma base do zero</h5></div></header><div>{week.miniLab.starterAssets.map((asset) => <article key={asset.url}><div><b>{asset.label}</b><p>{asset.description}</p><small>{asset.type.toUpperCase()}</small></div><a href={asset.url} download><Download size={17} />Baixar {asset.type.toUpperCase()}</a></article>)}</div></section>
                 <ol className="mini-lab-steps">{week.miniLab.steps.map((step, index) => <li key={step} className={completedLabSteps.includes(String(index)) ? "done" : ""}><button onClick={() => toggleLabStep(index)}><i>{completedLabSteps.includes(String(index)) ? <Check size={16} /> : index + 1}</i><span>{step}</span></button></li>)}</ol>
                 <div className="lab-delivery"><FolderTree size={20} /><div><span>ENTREGA TÍPICA</span><pre>{week.miniLab.files.join("\n")}</pre></div></div>
                 <button className={`primary-week-button ${evidence.practiceComplete ? "done" : ""}`} onClick={() => updateEvidence("practiceComplete", !evidence.practiceComplete)}>{evidence.practiceComplete ? <><Check size={18} />Mini Lab concluído</> : "Marcar Mini Lab como concluído"}</button>
               </section>
-              <details className="practice-details" open><summary><FileText size={19} />O que escrever no README</summary><ol>{week.miniLab.readmeQuestions.map((question) => <li key={question}>{question}</li>)}</ol></details>
+              <section className="ai-material-card practice-ai-card"><header><Sparkles size={22} /><div><span>FAZER COM AJUDA DA IA</span><h4>Um tutor para avançar etapa por etapa</h4><p>A IA explica, espera sua execução e corrige sua interpretação — sem entregar o Mini Lab pronto.</p></div></header><div className="week-action-row"><CopyButton text={week.prompts.practice} label="Copiar prompt" /><button className="week-action-button" onClick={() => downloadPrompt(week.number, week.prompts.practice, "pratica")}><Download size={17} />Baixar prompt .md</button></div><details className="prompt-preview"><summary>Ver prompt de prática</summary><pre>{week.prompts.practice}</pre></details></section>
               <details className="practice-details"><summary><Code2 size={19} />Exemplo mínimo de código</summary>{week.practice.codeExamples.map((example) => <section className="practice-code" key={example.title}><header><span>{example.language}</span><h4>{example.title}</h4></header><pre><code>{example.code}</code></pre></section>)}</details>
+              <details className="practice-details"><summary><FileText size={19} />O que escrever no README</summary><ol>{week.miniLab.readmeQuestions.map((question) => <li key={question}>{question}</li>)}</ol></details>
               <details className="practice-details"><summary><FolderTree size={19} />Versionar no GitHub, passo a passo</summary><ol>{week.miniLab.gitFlow.map((command) => <li key={command}>{command.startsWith("git ") ? <code>{command}</code> : command}</li>)}</ol></details>
               {week.project.portfolioMilestone && <section className="portfolio-milestone"><Sparkles size={21} /><div><span>MARCO DE PORTFÓLIO OPCIONAL</span><h4>{week.project.title}</h4><p>{week.project.objective}</p><button onClick={() => onNavigate("projetos")}>Abrir projeto maior<ArrowRight size={16} /></button></div></section>}
             </div>
@@ -308,6 +312,22 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onNavigate, onS
               </details>
               <section className="review-links"><button onClick={() => onNavigate("flashcards")}><MessageCircleQuestion size={19} /><span><b>Abrir central de flashcards</b><small>{savedQuestions.length} perguntas salvas nesta semana</small></span><ArrowRight size={17} /></button><button onClick={() => onNavigate("erros")}><TriangleAlert size={19} /><span><b>Abrir caderno de erros</b><small>Corrija a causa do erro</small></span><ArrowRight size={17} /></button><button onClick={() => onNavigate("estudio")}><FileText size={19} /><span><b>Abrir estúdio</b><small>Notas, fórmulas e imagens</small></span><ArrowRight size={17} /></button></section>
               <section className="manual-statuses review-statuses"><button onClick={() => setStatus("vermelho")}>Preciso reaprender</button><button onClick={() => setStatus("amarelo")}>Ainda insegura</button><button onClick={() => setStatus("revisao")}>Agendar revisão</button></section>
+            </div>
+          )}
+
+          {tab === "MATERIAIS" && (
+            <div className="drawer-section-stack weekly-one-column materials-tab">
+              <header className="drawer-section-intro"><span>5 · MATERIAIS</span><h3>Outras explicações, quando você precisar</h3><p>Esta é uma biblioteca de consulta humana. Use um recurso principal e abra os demais somente para revisar ou aprofundar; nenhum deles é necessário para concluir a semana.</p></header>
+
+              <section className="material-primary-card"><BookMarked size={24} /><div><span>MATERIAL PRINCIPAL</span><h4>{week.materialsGuide.primary.name}</h4><p>{week.materialsGuide.primary.reason}</p><small>{week.materialsGuide.primary.kind}</small></div></section>
+
+              <section className="materials-category"><header><BookMarked size={21} /><div><span>LIVROS E PDFs</span><h4>Teoria, revisão e referência</h4></div></header><div className="materials-resource-grid">{week.materialsGuide.books.map((material) => <article key={material.name}><small>{material.kind}</small><h5>{material.name}</h5><p>{material.reason}</p></article>)}</div></section>
+
+              <section className="materials-category"><header><Play size={21} /><div><span>VÍDEOS E CURSOS</span><h4>Explicações visuais já mapeadas</h4></div></header><div className="materials-resource-grid">{week.materialsGuide.videos.map((material) => <article key={material.name}><small>{material.level}</small><h5>{material.name}</h5><p>{material.reason}</p></article>)}</div></section>
+
+              <section className="materials-category"><header><FileText size={21} /><div><span>DOCUMENTAÇÃO / COMPLEMENTARES</span><h4>Para conferir detalhes e aplicação</h4></div></header><div className="materials-resource-grid">{week.materialsGuide.complementary.map((material) => <article key={material.name}><small>{material.kind}</small><h5>{material.name}</h5><p>{material.reason}</p></article>)}</div></section>
+
+              <aside className="materials-separation-note"><Sparkles size={20} /><p><b>Separação intencional:</b> estes recursos não são incluídos no prompt “Estudar com IA”. O prompt é autossuficiente e funciona mesmo quando a IA não tem acesso aos seus materiais.</p></aside>
             </div>
           )}
         </div>

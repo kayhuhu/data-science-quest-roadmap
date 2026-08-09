@@ -9,6 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "labs:generate": "python scripts/generate-lab-assets.py",
     "content:audit": "node scripts/generate-roadmap.mjs && node scripts/generate-assessment-datasets.mjs",
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",

@@ -1,6 +1,9 @@
-import { writeFile } from "node:fs/promises";
+import { access, writeFile } from "node:fs/promises";
 import { officialBlocks, weekSpecs } from "./roadmap-source.mjs";
 import { coveragePillars, scopeByWeek } from "./canonical-study-scope.mjs";
+import { buildCanonicalWeekEditorial } from "./canonical-week-editorial.mjs";
+
+const editorialByWeek = new Map(buildCanonicalWeekEditorial(scopeByWeek).map((week) => [week.number, week]));
 
 const idPrefix = {
   "PROGRAMAÇÃO": "prog",
@@ -156,49 +159,6 @@ const evaluationFor = (spec) => spec.evaluationFocus.length ? spec.evaluationFoc
   "Verificar qualidade dos dados, interpretar a saída, comparar um baseline e explicar limitações no contexto bancário.",
 ];
 
-function buildStudyPrompt(spec, officialTopics, scope) {
-  const topics = officialTopics.length ? officialTopics : scope.concepts;
-  return `Atue como professor e mentor de Ciência de Dados para uma pessoa que parte de conhecimento zero e está se preparando para uma prova e uma sabatina de Cientista de Dados Júnior.
-
-Crie uma apostila completa da SEMANA ${spec.number} — ${scope.title}. O material deve cobrir 100% da ementa desta semana no nível Júnior: completo para compreender, aplicar, interpretar e defender, sem aprofundamento acadêmico que não ajude nessas decisões.
-
-EMENTA LITERAL DA SEMANA:
-${topics.map((topic) => `- ${topic}`).join("\n")}
-
-MAPA DE CONCEITOS NECESSÁRIOS:
-${scope.concepts.map((concept) => `- ${concept}`).join("\n")}
-
-Para cada item da ementa, ensine em progressão: intuição → significado → aplicação → interpretação → matemática necessária → prática mínima. Garanta explicitamente:
-- o que é e para que serve;
-- como funciona, sem pular termos básicos;
-- quando usar e quando não usar;
-- como aparece em Ciência de Dados;
-- ao menos um caso bancário concreto (crédito, fraude, risco, cobrança, propensão ou operações);
-- como interpretar a saída e transformar o resultado em decisão;
-- a matemática estritamente necessária, explicando símbolos e leitura da fórmula;
-- uma aplicação mínima em Python ou SQL quando fizer sentido;
-- premissas, limitações, erros comuns e alternativas;
-- perguntas de sabatina aplicada com respostas técnicas ideais.
-
-Quando houver modelo de Machine Learning, inclua somente o que for pertinente ao modelo: tipo de problema, dados de entrada, preprocessing, pipeline sem leakage, parâmetros e hiperparâmetros, função de custo em intuição, métricas aplicáveis, validação adequada, overfitting/underfitting, vantagens, limites e monitoramento. Não force esses tópicos onde não se aplicam.
-
-AVALIAÇÃO APLICÁVEL NESTA SEMANA:
-${scope.appliedEvaluation.length ? scope.appliedEvaluation.map((item) => `- ${item}`).join("\n") : "- interpretação correta, aplicação mínima e limites"}
-
-CONTEXTO PERMITIDO (apenas para conectar ideias):
-${scope.context.map((item) => `- ${item}`).join("\n")}
-
-NÃO TRANSFORME EM CONTEÚDO OFICIAL DESTA SEMANA:
-${scope.exclusions.map((item) => `- ${item}`).join("\n")}
-
-Inclua exemplos resolvidos, pequenos exercícios com gabarito, um resumo final, um mapa de decisão “quando usar / quando não usar”, checklist de domínio e sabatina. Não imponha quantidade de páginas ou capítulos, não despeje fórmulas e não antecipe conteúdo de semanas futuras.
-
-MATERIAIS DE APOIO:
-${[...spec.resources.books, ...spec.resources.videos, ...spec.resources.articles].map((item) => `- ${item}`).join("\n")}
-
-Use os materiais como referência, não invente fontes e finalize com uma auditoria que indique onde cada item literal da ementa foi ensinado.`;
-}
-
 function buildPedagogy(spec, officialItems) {
   const essential = officialItems.length ? officialItems.map((item) => item.text) : spec.content.slice(0, 3);
   return {
@@ -242,13 +202,15 @@ function buildPractice(spec) {
   };
 }
 
-function buildMiniLab(spec, scope) {
+function buildMiniLab(spec, scope, editorial) {
   const weekFolder = `week-${String(spec.number).padStart(2, "0")}`;
   const files = scope.miniLab.kind === "sql"
     ? [`${weekFolder}/queries.sql`, `${weekFolder}/README.md`]
     : [`${weekFolder}/notebook.ipynb`, `${weekFolder}/README.md`];
   return {
     ...scope.miniLab,
+    starterAssets: editorial.starterAssets,
+    practicePrompt: editorial.practicePrompt,
     files,
     readmeQuestions: [
       "Qual pergunta foi respondida?",
@@ -266,33 +228,29 @@ function buildMiniLab(spec, scope) {
   };
 }
 
-function buildFlashcards(spec, scope, officialItems) {
-  return scope.map.flatMap((concept, index) => [
-    {
-      id: `week-${spec.number}-seed-${index + 1}-definition`,
-      front: `O que é ${concept.name}?`,
-      back: concept.what,
-      block: spec.block,
-      week: spec.number,
-      syllabusItem: officialItems[index % Math.max(officialItems.length, 1)]?.id ?? null,
-      concept: concept.name,
-      model: null,
-      type: "conceito",
-      source: "seed",
-    },
-    {
-      id: `week-${spec.number}-seed-${index + 1}-interpretation`,
-      front: `Por que ${concept.name} importa e como aparece no banco?`,
-      back: `${concept.why} ${concept.banking}`,
-      block: spec.block,
-      week: spec.number,
-      syllabusItem: officialItems[index % Math.max(officialItems.length, 1)]?.id ?? null,
-      concept: concept.name,
-      model: null,
-      type: "interpretação",
-      source: "seed",
-    },
-  ]);
+function buildFlashcards(spec, editorial, officialItems) {
+  return editorial.flashcards.map((card, index) => ({
+    id: `week-${spec.number}-${card.idSuffix}`,
+    front: card.front,
+    back: card.back,
+    block: spec.block,
+    week: spec.number,
+    syllabusItem: officialItems[index % Math.max(officialItems.length, 1)]?.id ?? null,
+    concept: card.concept,
+    model: null,
+    type: card.type,
+    source: "seed",
+  }));
+}
+
+function buildMaterialsGuide(spec, editorial) {
+  const reason = `Apoio selecionado para ${editorial.title}, alinhado ao escopo desta semana.`;
+  return {
+    primary: { name: spec.resources.books[0], reason: `Rota principal para consolidar ${editorial.title} sem competir com todos os recursos.`, kind: "teoria" },
+    books: spec.resources.books.map((name, index) => ({ name, reason, kind: index === 0 ? "teoria" : index === 1 ? "revisão" : "referência" })),
+    videos: spec.resources.videos.map((name, index) => ({ name, reason: `Explicação ${index === 0 ? "principal" : "complementar"} para visualizar e revisar os conceitos da semana.`, level: index === 0 ? "introdutório" : "revisão" })),
+    complementary: spec.resources.articles.map((name) => ({ name, reason: "Consulta técnica ou leitura complementar para conferir aplicação e API.", kind: "documentação" })),
+  };
 }
 
 function buildSabatinaPrompt(spec, officialTopics) {
@@ -318,62 +276,17 @@ REGRAS DA SIMULAÇÃO:
 Comece diretamente com uma pergunta fundamental, espere minha resposta e não antecipe as próximas.`;
 }
 
-function buildSabatina(spec) {
-  const [first, second, third, fourth, fifth] = spec.content;
-  const [caseOne, caseTwo, caseThree] = spec.cases;
-  const officialText = syllabus.filter((item) => item.week === spec.number).map((item) => item.text).join("; ") || spec.content.join("; ");
-  const evaluationFocus = evaluationFor(spec);
-  const questionTypes = ["conceito", "mecanismo", "escolha", "aplicação bancária", "pipeline", "comparação", "métrica e validação", "limitações", "monitoramento", "comunicação executiva"];
-  return [
-    {
-      question: `O que é “${spec.title}”, para que serve e quais itens oficiais ele cobre?`,
-      answer: `${spec.foundation} Na prática, é necessário conectar a definição a um problema que a abordagem resolve. Nesta semana, os itens são: ${officialText}.`,
-    },
-    {
-      question: `Como ${first.toLocaleLowerCase("pt-BR")} funciona na prática e qual resultado entrega?`,
-      answer: `${spec.mechanism} Uma boa resposta deixa claras a unidade de análise, as entradas, a transformação feita e como a saída será interpretada.`,
-    },
-    {
-      question: `Quando ${second.toLocaleLowerCase("pt-BR")} é uma boa escolha e quando você evitaria essa abordagem?`,
-      answer: `A escolha deve partir do tipo de problema, dos dados disponíveis, das hipóteses e do custo de errar. ${spec.mechanism} Eu evitaria a abordagem quando suas hipóteses ou limitações fossem incompatíveis com o caso e compararia uma alternativa com validação adequada.`,
-    },
-    {
-      question: `Dê um exemplo de aplicação de ${second.toLocaleLowerCase("pt-BR")} no banco e explique qual decisão melhoraria.`,
-      answer: `${spec.bankApplication} A resposta deve nomear população, dado de entrada, saída, ação tomada, custo do erro e valor de negócio — não apenas citar “crédito” ou “fraude”.`,
-    },
-    {
-      question: `Cenário: ${caseOne} Qual seria a ordem correta do seu pipeline, da definição do problema até a avaliação?`,
-      answer: `Eu definiria decisão, população, unidade de análise, janelas e custo do erro; separaria treino e avaliação antes de aprender transformações; aplicaria ${third}; compararia um baseline; validaria a métrica e os segmentos; e só então recomendaria uma ação. ${spec.bankApplication}`,
-    },
-    {
-      question: `Compare ${third.toLocaleLowerCase("pt-BR")} com ${fourth.toLocaleLowerCase("pt-BR")}. Quando escolheria cada abordagem?`,
-      answer: `Eu compararia objetivo, hipótese, escala, robustez, interpretabilidade, volume de dados e custo operacional. ${spec.mechanism} A escolha final precisa ser sustentada pela validação no cenário real, não por preferência pessoal.`,
-    },
-    {
-      question: `Cenário: ${caseTwo} Qual métrica ou validação você escolheria e por que ela representa o objetivo real?`,
-      answer: `A métrica deve refletir o tipo de saída e o custo do erro. Eu compararia baseline, treino, validação e, quando houver tempo, out-of-time; também verificaria estabilidade por segmento. Critérios desta semana: ${evaluationFocus.join("; ")}.`,
-    },
-    {
-      question: `Quais sinais mostram que uma solução desta semana não deve ser usada ou está enganando você?`,
-      answer: `Os principais alertas são: ${spec.pitfalls.map((pitfall, index) => `${index + 1}) ${pitfall}`).join("; ")}. Eu os procuraria na análise dos dados, na separação temporal, na comparação treino-validação, nos segmentos e na revisão do pipeline.`,
-    },
-    {
-      question: `Cenário: ${caseThree} O resultado piorou depois da implantação. O que você verificaria antes de retreinar?`,
-      answer: `Eu verificaria definição e qualidade da métrica, atraso do rótulo, disponibilidade e qualidade das entradas, mudança de população, segmentos, diferença entre pipeline de treino e produção e mudança na política do banco. Retreino só entra depois do diagnóstico.`,
-    },
-    {
-      question: `Explique em dois minutos como você usaria ${fifth.toLocaleLowerCase("pt-BR")} para um gestor do banco, incluindo benefício, limite e monitoramento.`,
-      answer: `Estrutura ideal: problema e decisão; por que o método serve; população e dados; evidência e baseline; benefício; principal limitação; e como monitorar ou recuar. ${spec.bankApplication}`,
-    },
-  ].map((item, index) => ({
-    ...item,
+function buildSabatina(spec, editorial) {
+  return editorial.flashcards.map((card, index) => ({
+    question: card.front,
+    answer: card.back,
     id: `week-${spec.number}-question-${index + 1}`,
     block: spec.block,
     week: spec.number,
     syllabusItem: syllabus.find((syllabusItem) => syllabusItem.week === spec.number)?.id ?? null,
-    topic: spec.content[index % spec.content.length],
+    topic: card.concept,
     model: spec.blocks.some((block) => ["CLASSIFICAÇÃO", "REGRESSÃO", "AGRUPAMENTO"].includes(block)) ? spec.title : null,
-    questionType: questionTypes[index],
+    questionType: card.type,
     source: "questao-adicional",
     sourceLabel: "Questão adicional",
     difficulty: index < 3 ? "fundamental" : index < 8 ? "aplicada" : "avançada-júnior",
@@ -383,6 +296,8 @@ function buildSabatina(spec) {
 const weeks = weekSpecs.map((spec) => {
   const scope = scopeByWeek.get(spec.number);
   if (!scope) throw new Error(`Escopo canônico ausente para a semana ${spec.number}.`);
+  const editorial = editorialByWeek.get(spec.number);
+  if (!editorial) throw new Error(`Conteúdo editorial canônico ausente para a semana ${spec.number}.`);
   const officialItems = syllabus.filter((item) => item.week === spec.number);
   const officialTopics = officialItems.map((item) => item.text);
   const [repo, title, objective, deliverables] = spec.project;
@@ -395,6 +310,9 @@ const weeks = weekSpecs.map((spec) => {
     block: spec.block,
     blocks: spec.blocks,
     objective: spec.summary,
+    whyThisMatters: editorial.whyThisMatters,
+    dataScienceUse: editorial.dataScienceUse,
+    bankingContext: editorial.bankingContext,
     syllabus: officialTopics,
     content: scope.concepts,
     studyScope: {
@@ -412,7 +330,7 @@ const weeks = weekSpecs.map((spec) => {
     },
     pedagogy,
     practice: buildPractice(spec),
-    miniLab: buildMiniLab(spec, scope),
+    miniLab: buildMiniLab(spec, scope, editorial),
     theoryAndBanking: {
       foundations: [
         { title: "O que é e por que existe", body: spec.foundation },
@@ -431,20 +349,22 @@ const weeks = weekSpecs.map((spec) => {
       },
     },
     resources: spec.resources,
+    materialsGuide: buildMaterialsGuide(spec, editorial),
     materials: spec.resources.books,
     videos: spec.resources.videos,
     prompts: {
-      study: buildStudyPrompt(spec, officialTopics, scope),
+      study: editorial.studyPrompt,
+      practice: editorial.practicePrompt,
       sabatina: buildSabatinaPrompt(spec, officialTopics),
     },
     project: { repo, title, objective, deliverables, learningOutcomes: spec.outcomes, portfolioMilestone: scope.portfolioMilestone },
-    sabatina: buildSabatina(spec),
-    flashcards: buildFlashcards(spec, scope, officialItems),
+    sabatina: buildSabatina(spec, editorial),
+    flashcards: buildFlashcards(spec, editorial, officialItems),
   };
 });
 
 const roadmap = {
-  sourceVersion: "v18 — 100% da ementa Júnior + quatro abas semanais",
+  sourceVersion: "v19 — 22 semanas editoriais + cinco abas + Mini Labs autossuficientes",
   syllabusVersion: "Ementa oficial integral auditada em 09/08/2026",
   metrics: {
     weeks: weeks.length,
@@ -460,7 +380,7 @@ const roadmap = {
   weeks,
 };
 
-const expected = { weeks: 22, blocks: 14, syllabusItems: 72, projects: 6, questions: 220, answers: 220, flashcards: 176 };
+const expected = { weeks: 22, blocks: 14, syllabusItems: 72, projects: 6, questions: 220, answers: 220, flashcards: 220 };
 for (const [key, value] of Object.entries(expected)) {
   if (roadmap.metrics[key] !== value) throw new Error(`Auditoria falhou em ${key}: esperado ${value}, recebido ${roadmap.metrics[key]}`);
 }
@@ -476,5 +396,50 @@ if (!weeks.find((week) => week.number === 16)?.studyScope.exclusions.some((item)
 if (!weeks.find((week) => week.number === 17)?.studyScope.exclusions.some((item) => item.includes("text mining"))) throw new Error("Text mining deve ser apenas contexto na Semana 17.");
 if (!syllabus.find((item) => item.id === "other-06")?.coverageWeeks.includes(13)) throw new Error("Ensemble modelling deve apontar para a Semana 13.");
 
+if (weeks.some((week) => !week.whyThisMatters || week.dataScienceUse.length < 2 || !week.bankingContext)) {
+  throw new Error("Toda semana deve explicar relevância, usos em Ciência de Dados e contexto bancário.");
+}
+if (weeks.some((week) => !week.prompts.study || !week.prompts.practice || !week.prompts.sabatina)) {
+  throw new Error("Toda semana deve possuir prompts de estudo, prática e sabatina.");
+}
+if (new Set(weeks.map((week) => week.prompts.study.trim().toLocaleLowerCase("pt-BR"))).size !== 22) {
+  throw new Error("Os 22 prompts de estudo precisam ser textualmente únicos.");
+}
+if (new Set(weeks.map((week) => week.prompts.practice.trim().toLocaleLowerCase("pt-BR"))).size !== 22) {
+  throw new Error("Os 22 prompts de prática precisam ser textualmente únicos.");
+}
+const forbiddenStudySources = /https?:\/\/|\blivros?\b|\bpdfs?\b|\bvídeos?\b|\bplaylists?\b|\bcapítulos?\b|\bpáginas?\b/i;
+if (weeks.some((week) => forbiddenStudySources.test(week.prompts.study))) {
+  throw new Error("Prompts de estudo não podem depender de materiais externos.");
+}
+if (weeks.some((week) => !week.materialsGuide?.primary || !week.materialsGuide.books.length || !week.materialsGuide.videos.length || !week.materialsGuide.complementary.length)) {
+  throw new Error("Todas as semanas precisam ter materiais organizados nas quatro categorias.");
+}
+if (weeks.some((week) => week.miniLab.starterAssets.length === 0 || !week.miniLab.practicePrompt)) {
+  throw new Error("Todo Mini Lab precisa de arquivo inicial real e prompt de prática.");
+}
+for (const week of weeks) {
+  const editorial = editorialByWeek.get(week.number);
+  if (!editorial.study.sequence.slice(0, 3).every((anchor) => week.prompts.study.includes(anchor))) {
+    throw new Error(`Prompt de estudo da semana ${week.number} perdeu seus conceitos específicos.`);
+  }
+  if (!editorial.practice.sequence.slice(0, 3).every((anchor) => week.prompts.practice.includes(anchor))) {
+    throw new Error(`Prompt de prática da semana ${week.number} perdeu suas etapas específicas.`);
+  }
+  for (const asset of week.miniLab.starterAssets) {
+    if (!asset.url.startsWith(`/labs/week-${String(week.number).padStart(2, "0")}/`)) throw new Error(`Asset fora da pasta da Semana ${week.number}: ${asset.url}`);
+    await access(new URL(`../public${asset.url}`, import.meta.url));
+  }
+}
+
+const week01 = weeks.find((week) => week.number === 1);
+if (!week01.miniLab.starterAssets.some((asset) => asset.type === "csv") || week01.studyScope.concepts.includes("variável aleatória")) {
+  throw new Error("A Semana 1 deve usar CSV e permanecer restrita às propriedades de distribuições.");
+}
+
 await writeFile(new URL("../data/roadmap.json", import.meta.url), `${JSON.stringify(roadmap, null, 2)}\n`, "utf8");
-console.log("Roadmap v18 íntegro:", roadmap.metrics);
+for (const week of weeks) {
+  const assets = week.miniLab.starterAssets.map((asset) => asset.type.toUpperCase()).join("+");
+  console.log(`S${String(week.number).padStart(2, "0")} — revisada — prompt específico — prompt prática — ${assets} — ${week.flashcards.length} cards — OK`);
+}
+console.log("Roadmap v19 íntegro:", { ...roadmap.metrics, starterAssets: weeks.reduce((sum, week) => sum + week.miniLab.starterAssets.length, 0) });

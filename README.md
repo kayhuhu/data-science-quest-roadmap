@@ -1,30 +1,31 @@
 # Data Science Quest
 
-Planner de estudos em Next.js para a prova e a sabatina de Cientista de Dados do Itaú Unibanco. O roadmap v18 preserva a ordem pedagógica de 22 semanas, cobre os 72 itens literais da ementa em nível Júnior e prioriza compreensão, escolha, interpretação e aplicação bancária.
+Planner de estudos em Next.js para a prova e a sabatina de Cientista de Dados do Itaú Unibanco. O roadmap v19 preserva a ordem pedagógica de 22 semanas, cobre os 72 itens literais da ementa em nível Júnior e prioriza compreensão, escolha, interpretação e aplicação bancária.
 
 Produção: `https://kayhuhu-roadmap.vercel.app`
 
-## Escopo da v18
+## Escopo da v19
 
 - 22 semanas na ordem canônica do planejamento;
 - 72 itens literais em 14 blocos, com semana principal, cobertura transversal e referências cruzadas;
-- quatro abas semanais, exatamente: **Estudar, Praticar, Sabatina e Revisar**;
+- cinco abas semanais, exatamente: **Estudar, Praticar, Sabatina, Revisar e Materiais**;
 - progresso, status e horas sempre disponíveis no cabeçalho, sem uma aba própria;
 - checkpoint permanente em `/fundamentos-machine-learning` entre as Semanas 8 e 9;
-- 176 flashcards-semente atômicos, separados das 220 perguntas semanais;
+- 220 flashcards-semente curados, dez para cada semana, separados das 220 perguntas semanais;
 - 51 perguntas preservadas de uma sabatina real e 84 questões de duas provas recebidas;
-- Mini Labs de 1–3 horas em todas as semanas e seis projetos maiores nos marcos de portfólio;
+- Mini Labs de 1–3 horas em todas as semanas, com 30 starter assets reais e prompts de tutoria específicos, além de seis projetos maiores nos marcos de portfólio;
 - cinco CSVs didáticos reconstruídos para as questões práticas cujos dados não acompanharam o notebook;
 - progresso, notas, PDFs anexados, flashcards, erros, provas e tentativas salvos no navegador.
 
 “100% da ementa” significa que cada item é coberto no nível necessário para uma vaga Júnior: o que é, para que serve, como funciona, quando usar, quando evitar, como aparece em Ciência de Dados, aplicação bancária, interpretação, matemática necessária, prática mínima, limitações e sabatina. Isso não significa aprofundamento acadêmico indiscriminado.
 
-## As quatro abas de cada semana
+## As cinco abas de cada semana
 
-1. **Estudar:** começa pela ementa literal; depois mostra mapa compacto de conceitos, prompt para gerar a apostila, PDF anexado e três materiais prioritários.
-2. **Praticar:** Mini Lab de 1–3 horas, checklist, estrutura mínima de arquivos, README, exemplo de código e fluxo Git/GitHub.
+1. **Estudar:** começa pela ementa literal; explica por que o tema importa, onde aparece na prática, mostra o mapa compacto e oferece um prompt específico e autossuficiente para gerar a apostila.
+2. **Praticar:** Mini Lab de 1–3 horas, arquivos reais para baixar, prompt de IA que atua como tutor, checklist, README, código mínimo e fluxo Git/GitHub.
 3. **Sabatina:** dez perguntas aplicadas, resposta ideal, metadados, confiança, criação de flashcard e registro no caderno de erros.
 4. **Revisar:** flashcards atômicos, itens pendentes, erros e critério compacto de domínio.
+5. **Materiais:** material principal, livros/PDFs, vídeos/cursos e documentação complementar, separados do prompt de IA.
 
 O status verde exige ementa oficial estudada, Mini Lab, entrega mínima, desempenho satisfatório na sabatina, flashcards essenciais revisados e capacidade declarada de explicar, aplicar e interpretar. Livros extras, vídeos opcionais e projetos grandes não bloqueiam a conclusão.
 
@@ -96,12 +97,12 @@ npm run build
 npm run check
 ```
 
-`content:audit` reconstrói o roadmap e os datasets e falha se não encontrar exatamente 22 semanas, 14 blocos, 72 itens, 6 marcos de portfólio, 220 perguntas, 220 respostas e 176 flashcards-semente. Os testes também auditam as 51 perguntas reais, as 84 questões importadas e os casos especiais de cobertura.
+`content:audit` reconstrói o roadmap e os datasets e falha se não encontrar exatamente 22 semanas, 14 blocos, 72 itens, 6 marcos de portfólio, 220 perguntas, 220 respostas e 220 flashcards-semente. Também valida unicidade e especificidade dos prompts, separação dos materiais e existência dos 30 starter assets. Os testes auditam ainda as 51 perguntas reais, as 84 questões importadas e os casos especiais de cobertura.
 
 ## Arquitetura
 
 ```text
-app/weekly-study.css             layout responsivo das quatro abas
+app/weekly-study.css             layout responsivo das cinco abas
 components/WeekDrawer.tsx       central semanal
 components/MlFundamentalsView.tsx
                                  checkpoint entre as Semanas 8 e 9
@@ -112,8 +113,12 @@ lib/real-sabatina.ts            51 perguntas reais e metadados
 lib/use-quest-workspace.ts      persistência e regras de evidência
 scripts/canonical-study-scope.mjs
                                  escopo pedagógico das 22 semanas
+scripts/canonical-week-editorial.mjs
+                                 prompts, relevância, prática e flashcards específicos
 scripts/roadmap-source.mjs      ementa literal e ordem do roadmap
 scripts/generate-roadmap.mjs    geração e auditoria automática
+scripts/generate-lab-assets.py  geração determinística dos 30 starter assets
+public/labs/                    arquivos reais dos Mini Labs, por semana
 public/datasets/                cinco CSVs didáticos reconstruídos
 ```
 

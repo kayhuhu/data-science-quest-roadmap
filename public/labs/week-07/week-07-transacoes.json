@@ -1,0 +1,1082 @@
+[
+  {
+    "transacao_id": "T0001",
+    "cliente_id": "CLI-0075",
+    "valor": 291.18,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0002",
+    "cliente_id": "CLI-0057",
+    "valor": 105.57,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0003",
+    "cliente_id": "CLI-0069",
+    "valor": 91.12,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0004",
+    "cliente_id": "CLI-0075",
+    "valor": 173.21,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0005",
+    "cliente_id": "CLI-0009",
+    "valor": 255.19,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0006",
+    "cliente_id": "CLI-0060",
+    "valor": 152.33,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0007",
+    "cliente_id": "CLI-0014",
+    "valor": 146.42,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0008",
+    "cliente_id": "CLI-0042",
+    "valor": 188.89,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0009",
+    "cliente_id": "CLI-0035",
+    "valor": 328.53,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0010",
+    "cliente_id": "CLI-0027",
+    "valor": 138.74,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0011",
+    "cliente_id": "CLI-0052",
+    "valor": 156.23,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0012",
+    "cliente_id": "CLI-0006",
+    "valor": 147.41,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0013",
+    "cliente_id": "CLI-0019",
+    "valor": 480.88,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0014",
+    "cliente_id": "CLI-0020",
+    "valor": 191.77,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0015",
+    "cliente_id": "CLI-0066",
+    "valor": 224.26,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0016",
+    "cliente_id": "CLI-0053",
+    "valor": 110.18,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0017",
+    "cliente_id": "CLI-0029",
+    "valor": 12.71,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0018",
+    "cliente_id": "CLI-0051",
+    "valor": 126.52,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0019",
+    "cliente_id": "CLI-0058",
+    "valor": 62.15,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0020",
+    "cliente_id": "CLI-0067",
+    "valor": 158.42,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0021",
+    "cliente_id": "CLI-0041",
+    "valor": 62.48,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0022",
+    "cliente_id": "CLI-0051",
+    "valor": 91.05,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0023",
+    "cliente_id": "CLI-0003",
+    "valor": 139.64,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0024",
+    "cliente_id": "CLI-0064",
+    "valor": 126.13,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0025",
+    "cliente_id": "CLI-0009",
+    "valor": 75.88,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0026",
+    "cliente_id": "CLI-0047",
+    "valor": 74.49,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0027",
+    "cliente_id": "CLI-0053",
+    "valor": 184.91,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0028",
+    "cliente_id": "CLI-0039",
+    "valor": 191.88,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0029",
+    "cliente_id": "CLI-0077",
+    "valor": 258.03,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0030",
+    "cliente_id": "CLI-0004",
+    "valor": 260.01,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0031",
+    "cliente_id": "CLI-0027",
+    "valor": 83.66,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0032",
+    "cliente_id": "CLI-0070",
+    "valor": 155.23,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0033",
+    "cliente_id": "CLI-0012",
+    "valor": 92.5,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0034",
+    "cliente_id": "CLI-0048",
+    "valor": 40.15,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0035",
+    "cliente_id": "CLI-0077",
+    "valor": 512.46,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0036",
+    "cliente_id": "CLI-0077",
+    "valor": 113.46,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0037",
+    "cliente_id": "CLI-0011",
+    "valor": 480.32,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0038",
+    "cliente_id": "CLI-0060",
+    "valor": 224.16,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0039",
+    "cliente_id": "CLI-0015",
+    "valor": 118.41,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0040",
+    "cliente_id": "CLI-0039",
+    "valor": 91.05,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0041",
+    "cliente_id": "CLI-0071",
+    "valor": 335.67,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0042",
+    "cliente_id": "CLI-0017",
+    "valor": 334.93,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0043",
+    "cliente_id": "CLI-0080",
+    "valor": 130.47,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0044",
+    "cliente_id": "CLI-0075",
+    "valor": 596.31,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0045",
+    "cliente_id": "CLI-0029",
+    "valor": 546.48,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0046",
+    "cliente_id": "CLI-0029",
+    "valor": 163.37,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0047",
+    "cliente_id": "CLI-0014",
+    "valor": 260.81,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0048",
+    "cliente_id": "CLI-0024",
+    "valor": 119.38,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0049",
+    "cliente_id": "CLI-0047",
+    "valor": 263.64,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0050",
+    "cliente_id": "CLI-0038",
+    "valor": 195.49,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0051",
+    "cliente_id": "CLI-0015",
+    "valor": 112.74,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0052",
+    "cliente_id": "CLI-0018",
+    "valor": 399.64,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0053",
+    "cliente_id": "CLI-0033",
+    "valor": 114.3,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0054",
+    "cliente_id": "CLI-0050",
+    "valor": 107.49,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0055",
+    "cliente_id": "CLI-0038",
+    "valor": 65.05,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0056",
+    "cliente_id": "CLI-0028",
+    "valor": 127.55,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0057",
+    "cliente_id": "CLI-0021",
+    "valor": 47.13,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0058",
+    "cliente_id": "CLI-0053",
+    "valor": 154.46,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0059",
+    "cliente_id": "CLI-0044",
+    "valor": 148.44,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0060",
+    "cliente_id": "CLI-0047",
+    "valor": 171.86,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0061",
+    "cliente_id": "CLI-0051",
+    "valor": 46.45,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0062",
+    "cliente_id": "CLI-0063",
+    "valor": 47.26,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0063",
+    "cliente_id": "CLI-0063",
+    "valor": 249.76,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0064",
+    "cliente_id": "CLI-0069",
+    "valor": 24.65,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0065",
+    "cliente_id": "CLI-0002",
+    "valor": 207.25,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0066",
+    "cliente_id": "CLI-0043",
+    "valor": 84.53,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0067",
+    "cliente_id": "CLI-0032",
+    "valor": 92.46,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0068",
+    "cliente_id": "CLI-0013",
+    "valor": 124.46,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0069",
+    "cliente_id": "CLI-0051",
+    "valor": 289.7,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0070",
+    "cliente_id": "CLI-0029",
+    "valor": 141.91,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0071",
+    "cliente_id": "CLI-0020",
+    "valor": 106.18,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0072",
+    "cliente_id": "CLI-0062",
+    "valor": 76.11,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0073",
+    "cliente_id": "CLI-0030",
+    "valor": 112.99,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0074",
+    "cliente_id": "CLI-0065",
+    "valor": 209.33,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0075",
+    "cliente_id": "CLI-0061",
+    "valor": 139.05,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0076",
+    "cliente_id": "CLI-0055",
+    "valor": 298.08,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0077",
+    "cliente_id": "CLI-0042",
+    "valor": 672.99,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0078",
+    "cliente_id": "CLI-0043",
+    "valor": 120.75,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0079",
+    "cliente_id": "CLI-0063",
+    "valor": 567.39,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0080",
+    "cliente_id": "CLI-0038",
+    "valor": 176.56,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0081",
+    "cliente_id": "CLI-0046",
+    "valor": 90.15,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0082",
+    "cliente_id": "CLI-0005",
+    "valor": 134.31,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0083",
+    "cliente_id": "CLI-0049",
+    "valor": 487.33,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0084",
+    "cliente_id": "CLI-0072",
+    "valor": 299.34,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0085",
+    "cliente_id": "CLI-0020",
+    "valor": 713.38,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0086",
+    "cliente_id": "CLI-0060",
+    "valor": 282.73,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0087",
+    "cliente_id": "CLI-0002",
+    "valor": 45.46,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0088",
+    "cliente_id": "CLI-0041",
+    "valor": 198.55,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0089",
+    "cliente_id": "CLI-0042",
+    "valor": 291.74,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0090",
+    "cliente_id": "CLI-0003",
+    "valor": 122.57,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0091",
+    "cliente_id": "CLI-0014",
+    "valor": 130.16,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0092",
+    "cliente_id": "CLI-0034",
+    "valor": 58.62,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0093",
+    "cliente_id": "CLI-0012",
+    "valor": 96.48,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0094",
+    "cliente_id": "CLI-0015",
+    "valor": 83.71,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0095",
+    "cliente_id": "CLI-0035",
+    "valor": 205.13,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0096",
+    "cliente_id": "CLI-0064",
+    "valor": 119.18,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0097",
+    "cliente_id": "CLI-0048",
+    "valor": 139.09,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0098",
+    "cliente_id": "CLI-0077",
+    "valor": 103.05,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0099",
+    "cliente_id": "CLI-0009",
+    "valor": 251.89,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0100",
+    "cliente_id": "CLI-0080",
+    "valor": 259.27,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0101",
+    "cliente_id": "CLI-0040",
+    "valor": 155.32,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0102",
+    "cliente_id": "CLI-0044",
+    "valor": 396.54,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0103",
+    "cliente_id": "CLI-0037",
+    "valor": 44.13,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0104",
+    "cliente_id": "CLI-0060",
+    "valor": 297.73,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0105",
+    "cliente_id": "CLI-0039",
+    "valor": 658.1,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0106",
+    "cliente_id": "CLI-0009",
+    "valor": 115.68,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0107",
+    "cliente_id": "CLI-0063",
+    "valor": 235.0,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0108",
+    "cliente_id": "CLI-0024",
+    "valor": 73.56,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0109",
+    "cliente_id": "CLI-0062",
+    "valor": 175.58,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0110",
+    "cliente_id": "CLI-0049",
+    "valor": 108.24,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0111",
+    "cliente_id": "CLI-0012",
+    "valor": 83.12,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0112",
+    "cliente_id": "CLI-0006",
+    "valor": 133.71,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0113",
+    "cliente_id": "CLI-0033",
+    "valor": 238.03,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0114",
+    "cliente_id": "CLI-0054",
+    "valor": 42.99,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0115",
+    "cliente_id": "CLI-0071",
+    "valor": 40.96,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0116",
+    "cliente_id": "CLI-0057",
+    "valor": 171.9,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0117",
+    "cliente_id": "CLI-0064",
+    "valor": 321.82,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0118",
+    "cliente_id": "CLI-0051",
+    "valor": 141.26,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0119",
+    "cliente_id": "CLI-0025",
+    "valor": 191.8,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0120",
+    "cliente_id": "CLI-0047",
+    "valor": 454.51,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0121",
+    "cliente_id": "CLI-0064",
+    "valor": 182.32,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0122",
+    "cliente_id": "CLI-0033",
+    "valor": 130.63,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0123",
+    "cliente_id": "CLI-0062",
+    "valor": 116.49,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0124",
+    "cliente_id": "CLI-0056",
+    "valor": 80.68,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0125",
+    "cliente_id": "CLI-0064",
+    "valor": 103.32,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0126",
+    "cliente_id": "CLI-0066",
+    "valor": 157.61,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0127",
+    "cliente_id": "CLI-0074",
+    "valor": 447.42,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0128",
+    "cliente_id": "CLI-0063",
+    "valor": 83.76,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0129",
+    "cliente_id": "CLI-0065",
+    "valor": 324.38,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0130",
+    "cliente_id": "CLI-0028",
+    "valor": 143.56,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0131",
+    "cliente_id": "CLI-0024",
+    "valor": 577.91,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0132",
+    "cliente_id": "CLI-0061",
+    "valor": 153.46,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0133",
+    "cliente_id": "CLI-0079",
+    "valor": 153.4,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0134",
+    "cliente_id": "CLI-0034",
+    "valor": 132.71,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0135",
+    "cliente_id": "CLI-0078",
+    "valor": 57.06,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0136",
+    "cliente_id": "CLI-0066",
+    "valor": 150.02,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0137",
+    "cliente_id": "CLI-0051",
+    "valor": 266.89,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0138",
+    "cliente_id": "CLI-0056",
+    "valor": 81.11,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0139",
+    "cliente_id": "CLI-0002",
+    "valor": 548.91,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0140",
+    "cliente_id": "CLI-0003",
+    "valor": 179.31,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0141",
+    "cliente_id": "CLI-0065",
+    "valor": 399.92,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0142",
+    "cliente_id": "CLI-0037",
+    "valor": 174.5,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0143",
+    "cliente_id": "CLI-0022",
+    "valor": 149.56,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0144",
+    "cliente_id": "CLI-0062",
+    "valor": 117.51,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0145",
+    "cliente_id": "CLI-0077",
+    "valor": 276.79,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0146",
+    "cliente_id": "CLI-0013",
+    "valor": 62.1,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0147",
+    "cliente_id": "CLI-0022",
+    "valor": 95.54,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0148",
+    "cliente_id": "CLI-0054",
+    "valor": 118.67,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0149",
+    "cliente_id": "CLI-0024",
+    "valor": 70.86,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0150",
+    "cliente_id": "CLI-0013",
+    "valor": 247.95,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0151",
+    "cliente_id": "CLI-0011",
+    "valor": 117.27,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0152",
+    "cliente_id": "CLI-0075",
+    "valor": 234.19,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0153",
+    "cliente_id": "CLI-0004",
+    "valor": 157.17,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0154",
+    "cliente_id": "CLI-0060",
+    "valor": 132.3,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0155",
+    "cliente_id": "CLI-0073",
+    "valor": 133.59,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0156",
+    "cliente_id": "CLI-0079",
+    "valor": 217.78,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0157",
+    "cliente_id": "CLI-0016",
+    "valor": 63.86,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0158",
+    "cliente_id": "CLI-0020",
+    "valor": 170.5,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0159",
+    "cliente_id": "CLI-0015",
+    "valor": 48.18,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0160",
+    "cliente_id": "CLI-0050",
+    "valor": 147.21,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0161",
+    "cliente_id": "CLI-0051",
+    "valor": 65.47,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0162",
+    "cliente_id": "CLI-0058",
+    "valor": 91.01,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0163",
+    "cliente_id": "CLI-0075",
+    "valor": 233.69,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0164",
+    "cliente_id": "CLI-0006",
+    "valor": 214.32,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0165",
+    "cliente_id": "CLI-0030",
+    "valor": 267.79,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0166",
+    "cliente_id": "CLI-0039",
+    "valor": 289.24,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0167",
+    "cliente_id": "CLI-0066",
+    "valor": 65.4,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0168",
+    "cliente_id": "CLI-0067",
+    "valor": 73.81,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0169",
+    "cliente_id": "CLI-0080",
+    "valor": 130.59,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0170",
+    "cliente_id": "CLI-0048",
+    "valor": 98.04,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0171",
+    "cliente_id": "CLI-0032",
+    "valor": 105.22,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0172",
+    "cliente_id": "CLI-0014",
+    "valor": 230.12,
+    "canal": "pix"
+  },
+  {
+    "transacao_id": "T0173",
+    "cliente_id": "CLI-0026",
+    "valor": 46.17,
+    "canal": "cartao"
+  },
+  {
+    "transacao_id": "T0174",
+    "cliente_id": "CLI-0058",
+    "valor": 261.39,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0175",
+    "cliente_id": "CLI-0030",
+    "valor": 208.02,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0176",
+    "cliente_id": "CLI-0064",
+    "valor": 156.6,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0177",
+    "cliente_id": "CLI-0022",
+    "valor": 154.9,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0178",
+    "cliente_id": "CLI-0035",
+    "valor": 113.69,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0179",
+    "cliente_id": "CLI-0031",
+    "valor": 76.59,
+    "canal": "ted"
+  },
+  {
+    "transacao_id": "T0180",
+    "cliente_id": "CLI-0057",
+    "valor": 146.0,
+    "canal": "pix"
+  }
+]
