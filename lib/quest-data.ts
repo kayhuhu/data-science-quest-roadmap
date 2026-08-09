@@ -13,7 +13,6 @@ export type RoadmapWeek = {
   content: string[];
   overview: {
     summary: string;
-    sourceOrder: string;
     officialTopics: string[];
     outcomes: string[];
   };

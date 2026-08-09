@@ -34,6 +34,7 @@ import {
   type MasteryStatus,
   type RoadmapWeek,
 } from "@/lib/quest-data";
+import { syllabusStudyGuides } from "@/lib/syllabus-study-guides";
 import type { QuestWorkspace } from "@/lib/use-quest-workspace";
 
 type WeekDrawerProps = {
@@ -77,6 +78,7 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onSelectWeek }:
   const status = workspace.weekStatus[weekKey] ?? "nao-iniciado";
   const checkedSteps = workspace.projectChecklist?.[weekKey] ?? [];
   const color = blockPalette[week.block] ?? "#4dd7fa";
+  const officialItems = roadmap.syllabus.filter((item) => item.week === week.number);
   const previousWeek = week.number > 1 ? roadmap.weeks[week.number - 2] : null;
   const nextWeek = week.number < roadmap.weeks.length ? roadmap.weeks[week.number] : null;
 
@@ -133,8 +135,8 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onSelectWeek }:
             <div className="drawer-section-stack">
               <header className="drawer-section-intro">
                 <span>1 · VISÃO GERAL</span>
-                <h3>O que você precisa dominar nesta semana</h3>
-                <p>{week.overview.summary}</p>
+                <h3>O que você precisa saber explicar e aplicar</h3>
+                <p>{week.overview.summary} O objetivo não é decorar fórmulas: é reconhecer o problema, escolher uma abordagem defensável e traduzir o resultado em decisão.</p>
               </header>
 
               <section className="week-summary-grid">
@@ -142,12 +144,6 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onSelectWeek }:
                 <article><Target size={18} /><div><strong>{week.content.length}</strong><span>frentes de estudo</span></div></article>
                 <article><FolderGit2 size={18} /><div><strong>{guide.steps.length}</strong><span>etapas do projeto</span></div></article>
                 <article><MessageCircleQuestion size={18} /><div><strong>{week.sabatina.length}</strong><span>perguntas técnicas</span></div></article>
-              </section>
-
-              <section className="source-order-card">
-                <span>ORDEM OFICIAL DO PLANEJAMENTO</span>
-                <strong>{week.overview.sourceOrder}</strong>
-                <p>Esta semana mantém a sequência do PDF-base; os blocos relacionados aparecem separados dentro do conteúdo.</p>
               </section>
 
               <div className="weekly-overview-grid">
@@ -190,31 +186,45 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onSelectWeek }:
             <div className="drawer-section-stack theory-banking-tab">
               <header className="drawer-section-intro">
                 <span>2 · TEORIA E APLICAÇÃO BANCÁRIA</span>
-                <h3>Fundamentação, matemática e valor de negócio</h3>
-                <p>Estude o mecanismo antes da biblioteca. Depois, defenda como a técnica altera uma decisão real do banco.</p>
+                <h3>Teoria essencial, escolha e aplicação</h3>
+                <p>A meta é explicar o conceito com clareza, reconhecer quando usar e quando recusar e conectá-lo a uma decisão bancária real.</p>
               </header>
 
-              <section className="foundation-first-grid">
-                <header><span>BASE DE CIENTISTA DE DADOS I</span><h4>Quatro respostas que precisam sair sem esforço</h4><p>Profundidade continua disponível abaixo; comece dominando significado, utilidade, funcionamento e aplicação.</p></header>
-                <div>
-                  <article><small>01 · O QUE É?</small><p>{week.theoryAndBanking.foundations[0]?.body}</p></article>
-                  <article><small>02 · PARA QUE SERVE?</small><p>{week.overview.summary}</p></article>
-                  <article><small>03 · COMO FUNCIONA?</small><p>{week.theoryAndBanking.foundations[1]?.body}</p></article>
-                  <article><small>04 · COMO EU USARIA NO BANCO?</small><p>{week.theoryAndBanking.banking.explanation}</p></article>
+              <section className="syllabus-learning-map">
+                <header>
+                  <div><span>MAPA APLICADO DA EMENTA</span><h4>{officialItems.length} {officialItems.length === 1 ? "item oficial" : "itens oficiais"} para dominar</h4></div>
+                  <p>Abra cada item e estude no fluxo: conceito → utilidade → escolha → limite → banco → prova.</p>
+                </header>
+                <div className="syllabus-learning-list">
+                  {officialItems.map((item, index) => {
+                    const applied = syllabusStudyGuides[item.id];
+                    if (!applied) return null;
+                    return (
+                      <details className="syllabus-learning-item" key={item.id} open={officialItems.length === 1}>
+                        <summary>
+                          <span>{String(index + 1).padStart(2, "0")}</span>
+                          <div><small>{item.block}</small><strong>{item.text}</strong></div>
+                          <em>Abrir guia</em>
+                        </summary>
+                        <div className="syllabus-learning-content">
+                          <article className="concept"><small>O QUE É</small><p>{applied.what}</p></article>
+                          <article><small>POR QUE IMPORTA</small><p>{applied.why}</p></article>
+                          <article className="use"><small>QUANDO USAR</small><p>{applied.useWhen}</p></article>
+                          <article className="avoid"><small>QUANDO NÃO USAR</small><p>{applied.avoidWhen}</p></article>
+                          <article className="bank"><small>COMO APLICAR NO BANCO</small><p>{applied.bankExample}</p></article>
+                          <article className="exam"><small>FOCO DE PROVA E SABATINA</small><p>{applied.examFocus}</p></article>
+                        </div>
+                      </details>
+                    );
+                  })}
                 </div>
               </section>
 
-              <section className="theory-foundation-grid">
-                {week.theoryAndBanking.foundations.map((item, index) => (
-                  <article key={item.title}><span>{String(index + 1).padStart(2, "0")}</span><h4>{item.title}</h4><p>{item.body}</p></article>
-                ))}
-              </section>
-
-              <section className="math-foundation-card">
-                <header><Sparkles size={18} /><div><span>FORMALIZAÇÃO ESSENCIAL</span><h4>O que a fórmula realmente diz</h4></div></header>
+              <details className="math-foundation-card compact-math">
+                <summary><Sparkles size={18} /><div><span>APOIO OPCIONAL</span><h4>Intuição técnica e fórmula que ajuda a entender</h4></div><em>Abrir</em></summary>
                 <div className="math-render"><ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{`$$${week.theoryAndBanking.mathematics.latex}$$`}</ReactMarkdown></div>
                 <p>{week.theoryAndBanking.mathematics.explanation}</p>
-              </section>
+              </details>
 
               <section className="validation-protocol-card">
                 <header><Target size={18} /><div><span>AVALIAÇÃO TRANSVERSAL</span><h4>Como validar esta técnica nesta semana</h4></div></header>
@@ -245,7 +255,13 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onSelectWeek }:
 
           {tab === "Estudar com IA" && (
             <div className="drawer-section-stack">
-              <header className="drawer-section-intro"><span>4 · ESTUDAR COM IA</span><h3>Prompt para gerar seu material completo em PDF</h3><p>Copie o texto inteiro. Ele obriga a IA a ensinar teoria, matemática, código, aplicação bancária e revisar a cobertura oficial.</p></header>
+              <header className="drawer-section-intro"><span>4 · ESTUDAR COM IA</span><h3>Aprenda o tema por inteiro, com enfoque aplicado</h3><p>O prompt cobre a teoria necessária, como o tema entra no trabalho de Ciência de Dados, prática em código e decisões bancárias — sem transformar a preparação em matemática acadêmica.</p></header>
+              <section className="ai-study-blueprint">
+                <article><span>01</span><div><strong>Teoria necessária</strong><p>Definição, intuição, mecanismo, hipóteses e limitações.</p></div></article>
+                <article><span>02</span><div><strong>Aplicação em CD</strong><p>Dados, preparação, pipeline, escolha, métrica e validação.</p></div></article>
+                <article><span>03</span><div><strong>Prática bancária</strong><p>Crédito, fraude, risco, cobrança, propensão e valor de negócio.</p></div></article>
+                <article><span>04</span><div><strong>Prova e sabatina</strong><p>Comparações, cenários, armadilhas e respostas técnicas objetivas.</p></div></article>
+              </section>
               <section className="prompt-workbench">
                 <header><div><Sparkles size={18} /><span>PROMPT MESTRE · SEMANA {week.number}</span></div><CopyButton text={week.prompts.study} /></header>
                 <pre>{week.prompts.study}</pre>
@@ -258,7 +274,7 @@ export function WeekDrawer({ week, workspace, onClose, onUpdate, onSelectWeek }:
 
           {tab === "Perguntas de Sabatina" && (
             <div className="drawer-section-stack">
-              <header className="drawer-section-intro"><span>6 · PERGUNTAS DE SABATINA</span><h3>Teoria pesada aplicada ao cotidiano bancário</h3><p>Responda em voz alta antes de revelar. Estruture: conceito → mecanismo → decisão → risco/limitação.</p></header>
+              <header className="drawer-section-intro"><span>6 · PERGUNTAS DE SABATINA</span><h3>Entendimento prático no formato da prova</h3><p>Responda em voz alta antes de revelar. Estruture: o que é → para que serve → quando usar → quando evitar → exemplo no banco.</p></header>
               <section className="question-list weekly-question-list">
                 {week.sabatina.map((item, index) => (
                   <article key={item.question} className={revealed === index ? "revealed" : ""}>

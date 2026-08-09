@@ -549,7 +549,7 @@ function modelWeek({ number, baseNumbers, title, blocks, sourceOrder, content, f
   const primary = blocks[0].toLocaleLowerCase("pt-BR");
   return buildWeek(number, baseNumbers, {
     title, blocks, sourceOrder, content, resources,
-    summary: `${focus} A semana segue exatamente ${sourceOrder} e conecta implementação, avaliação e decisão bancária.`,
+    summary: `${focus} Conecte conceito, implementação, avaliação e decisão bancária sem perder de vista quando o método é ou não é adequado.`,
     foundation: `${focus} O domínio exige explicar representação, função objetivo ou hipótese, parâmetros aprendidos e comportamento fora da amostra. O algoritmo não deve ser avaliado isoladamente da população, janela temporal e custo da decisão.`,
     mechanism: `Comece por um baseline, prepare os dados sem leakage, ajuste somente no treino e compare alternativas no mesmo protocolo. Depois examine erros, estabilidade temporal, segmentos, calibração quando houver probabilidade e custo operacional antes de escolher o modelo.`,
     formula,
@@ -573,7 +573,7 @@ export const weekSpecs = [
   buildWeek(2, [2, 3], {
     blocks: ["ESTATÍSTICA BÁSICA"], sourceOrder: "Luiza p. 5–11 + Livro 2",
     title: "Probabilidade, distribuições e testes de hipótese",
-    summary: "Una probabilidade, FDP/FDA, distribuições e inferência na sequência original da Luiza para raciocinar sob incerteza e justificar decisões.",
+    summary: "Una probabilidade, FDP/FDA, distribuições e inferência para raciocinar sob incerteza e justificar decisões.",
     content: ["Variáveis aleatórias discretas e contínuas", "Função de massa/densidade e distribuição acumulada", "Normal, Bernoulli, Binomial, Uniforme, Poisson e Geométrica", "Testes de hipótese, p-valor e erros tipo I/II", "Intervalos de confiança, TCL, Lei dos Grandes Números e simulação"],
     foundation: `${base(2).foundation} ${base(3).foundation}`,
     mechanism: `${base(2).mechanism} Para inferência, ${base(3).mechanism.toLocaleLowerCase("pt-BR")}`,
@@ -589,7 +589,7 @@ export const weekSpecs = [
   buildWeek(3, [4, 6], {
     blocks: ["ÁLGEBRA", "DATA PREP"], sourceOrder: "Luiza p. 12–16 + associação entre variáveis discretas",
     title: "Correlação, associação e fundamentos de álgebra",
-    summary: "Siga a Luiza da associação entre variáveis para vetores, matrizes, produto interno e distâncias, criando a base geométrica dos modelos.",
+    summary: "Conecte associação entre variáveis a vetores, matrizes, produto interno e distâncias, criando a base geométrica dos modelos.",
     content: ["Correlação de Pearson e Spearman e seus limites", "Qui-quadrado e V de Cramér para variáveis discretas", "Matrizes, vetores e álgebra matricial", "Produto interno, norma, projeção e interpretação geométrica", "Distâncias Euclidiana, Manhattan, Minkowski e Mahalanobis"],
     foundation: `${base(4).foundation} Correlação e associação medem padrões entre variáveis, mas não causalidade; a medida deve respeitar o tipo, a forma da relação e a presença de outliers.`,
     mechanism: "Classifique as variáveis, escolha a medida de associação, verifique forma e escala e represente cada observação como vetor. Valide operações manualmente antes de usar NumPy e compare como cada distância altera vizinhos e modelos.",
@@ -605,7 +605,7 @@ export const weekSpecs = [
   buildWeek(4, [7, 5], {
     blocks: ["PROGRAMAÇÃO", "DATA PREP"], sourceOrder: "Luiza p. 17–20",
     title: "Python, pandas e limpeza inicial",
-    summary: "Aprenda Python e pandas diretamente sobre leitura, missings, outliers e qualidade, na ordem prática estabelecida no PDF.",
+    summary: "Aprenda Python e pandas diretamente sobre leitura, missings, outliers e qualidade em um fluxo prático e reproduzível.",
     content: ["Sintaxe, tipos, coleções, controle de fluxo e funções", "pandas: Series, DataFrame, seleção e transformação", "Leitura e escrita de CSV, JSON, Parquet e SQL", "Diagnóstico e tratamento de missings", "Diagnóstico contextual e tratamento de outliers"],
     foundation: `${base(7).foundation} ${base(5).foundation}`,
     mechanism: "Leia dados com schema explícito, valide granularidade e tipos, investigue a causa de ausências e extremos e encapsule regras em funções testáveis. Registre o que foi alterado e não ajuste estatísticas no conjunto futuro.",
@@ -689,7 +689,7 @@ export const weekSpecs = [
   buildWeek(21, [8], {
     blocks: ["BANCO DE DADOS"], sourceOrder: "Complemento da ementa após Luiza p. 97–109",
     title: "Banco de dados, SQL e processamento distribuído",
-    summary: "Cubra modelo relacional, SQL e chaves antes de avançar para Hadoop, Hive, Spark e PySpark, conforme o complemento do PDF.",
+    summary: "Cubra modelo relacional, SQL e chaves antes de avançar para Hadoop, Hive, Spark e PySpark, conectando consulta e escala ao problema.",
     content: ["Modelo relacional, entidades, granularidade e normalização", "Chaves primárias, candidatas/secundárias e estrangeiras", "SQL: joins, group by, order by, CTEs e janelas", "Hadoop, HDFS e Hive", "Spark/PySpark, particionamento, joins, shuffle e pipeline"],
     foundation: `${base(8).foundation} Processamento distribuído reparte dados e computação; seu valor depende de volume, custo de shuffle e desenho das partições, não de moda tecnológica.`,
     mechanism: "Modele e reconcilie o SQL local primeiro; depois distribua transformações necessárias, inspecione plano, partições, skew e shuffle e valide contagens entre cada etapa.",
@@ -724,7 +724,7 @@ export const weekSpecs = [
   buildWeek(24, [20, 21, 22], {
     blocks: ["PESQUISA OPERACIONAL", "PROGRAMAÇÃO INTEIRA", "MIP (MIXED INTEGER PROGRAM)"], sourceOrder: "Complemento final da ementa",
     title: "Pesquisa Operacional, Programação Inteira, MIP e grafos",
-    summary: "Feche o planejamento na ordem do PDF: LP e Simplex → decisões inteiras → Branch-and-Bound → MIP/GAP/solvers → grafos.",
+    summary: "Conecte LP e Simplex → decisões inteiras → Branch-and-Bound → MIP/GAP/solvers → grafos em problemas de decisão e otimização.",
     content: ["Programação linear, modelos, região viável e Simplex", "Variáveis inteiras/binárias, relaxação e arredondamento", "Branch-and-Bound, incumbente e limites", "MIP, GAP, Best Bound, presolve, cuts e solvers", "Grafos, redes, centralidade, caminhos e aplicações bancárias"],
     foundation: `${base(20).foundation} ${base(21).foundation} ${base(22).foundation} Grafos representam entidades e relações por nós e arestas, permitindo raciocinar sobre conexão e fluxo.`,
     mechanism: "Formule decisão, unidades, objetivo e restrições; resolva relaxação; acompanhe árvore, incumbente, bound e gap; valide solução. Quando relações forem centrais, modele o grafo e escolha métrica/algoritmo pela pergunta.",

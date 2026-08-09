@@ -109,7 +109,6 @@ ${week.project.objective}
 Pergunta de negócio: ${guide.businessQuestion}
 Dados: ${guide.dataPlan}
 Stack: ${guide.stack.join(", ")}.
-Ordem no planejamento: ${week.overview.sourceOrder}.
 
 EMENTA QUE O PROJETO DEVE PROVAR
 ${week.overview.officialTopics.map((topic, index) => `${index + 1}. ${topic}`).join("\n")}

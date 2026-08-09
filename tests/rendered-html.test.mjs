@@ -33,7 +33,7 @@ test("ships the complete audited roadmap", async () => {
   assert.ok(roadmap.weeks.every((week) => week.sabatina.length === 10));
   assert.ok(roadmap.weeks.every((week) => week.project.repo));
   assert.ok(roadmap.weeks.every((week) => week.overview?.officialTopics?.length));
-  assert.ok(roadmap.weeks.every((week) => week.overview?.sourceOrder));
+  assert.ok(roadmap.weeks.every((week) => !("sourceOrder" in week.overview)));
   assert.ok(roadmap.weeks.every((week) => week.blocks?.length));
   assert.ok(roadmap.weeks.every((week) => week.theoryAndBanking?.validation?.length));
   assert.ok(roadmap.weeks.every((week) => week.theoryAndBanking?.banking?.cases?.length === 3));
@@ -79,14 +79,21 @@ test("ships an integrated study center and a specific project guide for every we
   const learningViews = await readFile(new URL("components/LearningViews.tsx", templateRoot), "utf8");
   const syllabus = await readFile(new URL("components/SyllabusView.tsx", templateRoot), "utf8");
   const guides = await readFile(new URL("lib/project-guides.ts", templateRoot), "utf8");
+  const studyGuides = await readFile(new URL("lib/syllabus-study-guides.ts", templateRoot), "utf8");
   const styles = await readFile(new URL("app/globals.css", templateRoot), "utf8");
+  const roadmap = JSON.parse(await readFile(new URL("data/roadmap.json", templateRoot), "utf8"));
 
   assert.match(route, /initialWeek/);
   assert.match(app, /setSelectedWeek/);
   assert.doesNotMatch(app, /window\.open/);
   assert.match(center, /Teoria e Aplicação Bancária/);
   assert.match(center, /Como validar esta técnica nesta semana/);
-  assert.match(center, /ORDEM OFICIAL DO PLANEJAMENTO/);
+  assert.match(center, /MAPA APLICADO DA EMENTA/);
+  assert.match(center, /O QUE É/);
+  assert.match(center, /QUANDO NÃO USAR/);
+  assert.match(center, /FOCO DE PROVA E SABATINA/);
+  assert.doesNotMatch(center, /ORDEM OFICIAL DO PLANEJAMENTO|PDF-base|week\.overview\.sourceOrder/);
+  assert.doesNotMatch(projectPanel, /overview\.sourceOrder|Ordem no planejamento/);
   assert.match(center, /Projeto \(Estrutura Completa CD\)/);
   assert.match(center, /Estudar com IA/);
   assert.equal((center.match(/^  "(?:Visão Geral|Teoria e Aplicação Bancária|Materiais|Estudar com IA|Projeto \(Estrutura Completa CD\)|Perguntas de Sabatina)",?$/gm) ?? []).length, 6);
@@ -97,6 +104,8 @@ test("ships an integrated study center and a specific project guide for every we
   assert.match(learningViews, /projects-workspace/);
   assert.match(learningViews, /ProjectGuidePanel/);
   assert.match(styles, /\.week-drawer-complete \{ width: 100vw/);
+  assert.match(styles, /\.week-drawer-complete \.drawer-section-intro p \{ max-width: 900px; font-size: 15px/);
+  assert.match(styles, /\.week-drawer-complete \.syllabus-learning-content p \{ font-size: 15px/);
   assert.match(syllabus, /onSelectWeek\(week\)/);
   assert.match(syllabus, /setBlock\(item\.block\)/);
   assert.match(syllabus, /weekly-syllabus-checklist/);
@@ -105,6 +114,23 @@ test("ships an integrated study center and a specific project guide for every we
   assert.match(guides, /python -m venv \.venv/);
   assert.match(guides, /requirements\.txt/);
   assert.match(guides, /buildProjectAiPrompt/);
+  assert.match(center, /syllabusStudyGuides/);
+  assert.equal(roadmap.syllabus.length, 61);
+  for (const item of roadmap.syllabus) {
+    assert.match(studyGuides, new RegExp(`"${item.id}"\\s*:`), `guia aplicado ausente para ${item.id}`);
+  }
+});
+
+test("weekly AI study and interview prompts prioritize applied understanding", async () => {
+  const generator = await readFile(new URL("scripts/generate-roadmap.mjs", templateRoot), "utf8");
+  const roadmap = JSON.parse(await readFile(new URL("data/roadmap.json", templateRoot), "utf8"));
+  assert.doesNotMatch(generator, /professor universitário|Formalização indispensável|ORDEM DO PLANEJAMENTO-FONTE/);
+  assert.match(generator, /quando não usar/);
+  assert.match(generator, /pipeline real de Ciência de Dados/);
+  assert.match(generator, /não cobre demonstrações matemáticas longas/);
+  assert.ok(roadmap.weeks.every((week) => /Cientista de Dados I/.test(week.prompts.study)));
+  assert.ok(roadmap.weeks.every((week) => /quando não usar/.test(week.prompts.study)));
+  assert.ok(roadmap.weeks.every((week) => /estilo de uma prova real/.test(week.prompts.sabatina)));
 });
 
 test("ships the real interview bank, two interactive tests and reconstructed datasets", async () => {

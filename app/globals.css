@@ -968,8 +968,6 @@ kbd { font: 600 10px var(--font-geist-mono); background: var(--surface-2); borde
 .week-summary-grid article div { display: flex; flex-direction: column; }
 .week-summary-grid strong { font: 750 15px var(--font-geist-mono); }
 .week-summary-grid span { color: var(--subtle); font-size: 8px; }
-.source-order-card { padding: 14px 16px; border: 1px solid color-mix(in srgb, var(--week-color) 35%, var(--border)); border-radius: 11px; background: color-mix(in srgb, var(--week-color) 5%, var(--surface)); display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 4px 14px; }
-.source-order-card > span { color: var(--week-color); font-size: 7px; font-weight: 800; letter-spacing: .12em; }.source-order-card > strong { font: 700 11px var(--font-geist-mono); }.source-order-card > p { grid-column: 1 / -1; margin: 3px 0 0; color: var(--muted); font-size: 9px; line-height: 1.5; }
 .overview-priority-list { list-style: none; margin: 15px 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
 .overview-priority-list li { color: var(--muted); font-size: 10px; line-height: 1.45; display: grid; grid-template-columns: 22px 1fr; gap: 8px; }
 .overview-priority-list li span { width: 21px; height: 21px; border-radius: 6px; background: var(--surface-2); color: var(--week-color); display: grid; place-items: center; font: 700 8px var(--font-geist-mono); }
@@ -992,6 +990,99 @@ kbd { font: 600 10px var(--font-geist-mono); background: var(--surface-2); borde
 .drawer-syllabus-list strong { font-size: 11px; line-height: 1.45; }
 .drawer-syllabus-list small { color: var(--subtle); font-size: 7px; }
 .drawer-syllabus-list em { color: var(--muted); font-size: 8px; font-style: normal; }
+.syllabus-learning-map { border: 1px solid color-mix(in srgb, var(--week-color) 34%, var(--border)); border-radius: 18px; background: linear-gradient(140deg, color-mix(in srgb, var(--week-color) 6%, var(--surface)), var(--surface)); overflow: hidden; }
+.syllabus-learning-map > header { padding: 22px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: end; justify-content: space-between; gap: 28px; }
+.syllabus-learning-map > header span { color: var(--week-color); font-size: 10px; font-weight: 850; letter-spacing: .12em; }
+.syllabus-learning-map > header h4 { margin: 5px 0 0; font-size: 22px; letter-spacing: -.025em; }
+.syllabus-learning-map > header p { max-width: 510px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+.syllabus-learning-list { padding: 12px; display: flex; flex-direction: column; gap: 9px; }
+.syllabus-learning-item { border: 1px solid var(--border); border-radius: 13px; background: var(--surface); overflow: hidden; }
+.syllabus-learning-item[open] { border-color: color-mix(in srgb, var(--week-color) 42%, var(--border)); box-shadow: 0 12px 35px rgba(0, 0, 0, .08); }
+.syllabus-learning-item > summary { min-height: 82px; padding: 15px 18px; display: grid; grid-template-columns: 42px minmax(0, 1fr) auto; align-items: center; gap: 14px; cursor: pointer; list-style: none; }
+.syllabus-learning-item > summary::-webkit-details-marker { display: none; }
+.syllabus-learning-item > summary > span { width: 42px; height: 42px; border-radius: 11px; background: color-mix(in srgb, var(--week-color) 12%, var(--surface-2)); color: var(--week-color); display: grid; place-items: center; font: 800 12px var(--font-geist-mono); }
+.syllabus-learning-item > summary > div { min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.syllabus-learning-item > summary small { color: var(--week-color); font-size: 9px; font-weight: 800; letter-spacing: .09em; }
+.syllabus-learning-item > summary strong { font-size: 15px; line-height: 1.4; }
+.syllabus-learning-item > summary em { color: var(--muted); font-size: 10px; font-style: normal; }
+.syllabus-learning-item[open] > summary em { color: var(--week-color); }
+.syllabus-learning-content { padding: 0 14px 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.syllabus-learning-content article { min-height: 138px; padding: 17px 18px; border: 1px solid var(--border-soft); border-radius: 11px; background: var(--surface-2); }
+.syllabus-learning-content article.concept { border-color: rgba(77, 215, 250, .24); background: rgba(77, 215, 250, .035); }
+.syllabus-learning-content article.use { border-color: rgba(52, 211, 153, .22); background: rgba(52, 211, 153, .035); }
+.syllabus-learning-content article.avoid { border-color: rgba(251, 113, 133, .22); background: rgba(251, 113, 133, .035); }
+.syllabus-learning-content article.bank { border-color: rgba(52, 211, 153, .28); background: rgba(52, 211, 153, .05); }
+.syllabus-learning-content article.exam { border-color: rgba(251, 191, 36, .25); background: rgba(251, 191, 36, .04); }
+.syllabus-learning-content small { color: var(--week-color); font-size: 10px; font-weight: 850; letter-spacing: .1em; }
+.syllabus-learning-content article.avoid small { color: #fb7185; }
+.syllabus-learning-content article.bank small { color: var(--green); }
+.syllabus-learning-content article.exam small { color: var(--yellow); }
+.syllabus-learning-content p { margin: 9px 0 0; color: var(--muted); font-size: 13px; line-height: 1.68; }
+.compact-math { padding: 0; }
+.compact-math > summary { padding: 19px 22px; display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; align-items: center; gap: 10px; cursor: pointer; list-style: none; }
+.compact-math > summary::-webkit-details-marker { display: none; }
+.compact-math > summary svg { color: var(--week-color); }
+.compact-math > summary span { color: var(--week-color); font-size: 9px; font-weight: 850; letter-spacing: .12em; }
+.compact-math > summary h4 { margin: 3px 0 0; font-size: 17px; }
+.compact-math > summary em { color: var(--muted); font-size: 10px; font-style: normal; }
+.compact-math > .math-render, .compact-math > p { margin-inline: 22px; }
+.compact-math > p { margin-bottom: 22px; }
+.ai-study-blueprint { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; }
+.ai-study-blueprint article { min-height: 132px; padding: 17px; border: 1px solid var(--border); border-radius: 13px; background: var(--surface); display: flex; align-items: flex-start; gap: 12px; }
+.ai-study-blueprint article > span { width: 32px; height: 32px; flex: 0 0 auto; border-radius: 9px; background: color-mix(in srgb, var(--week-color) 10%, var(--surface-2)); color: var(--week-color); display: grid; place-items: center; font: 800 9px var(--font-geist-mono); }
+.ai-study-blueprint strong { font-size: 14px; }
+.ai-study-blueprint p { margin: 7px 0 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+
+/* Tipografia ampliada apenas na central semanal em tela cheia. */
+.week-drawer-complete .drawer-header-complete h2 { max-width: 650px; font-size: 34px; line-height: 1.08; }
+.week-drawer-complete .drawer-header-complete p { font-size: 13px; }
+.week-drawer-complete .drawer-tabs button { font-size: 12px; }
+.week-drawer-complete .drawer-tabs button small { font-size: 9px; }
+.week-drawer-complete .drawer-section-intro > span,
+.week-drawer-complete .drawer-project-steps > header span { font-size: 10px; }
+.week-drawer-complete .drawer-section-intro h3 { font-size: 31px; }
+.week-drawer-complete .drawer-section-intro p { max-width: 900px; font-size: 15px; line-height: 1.7; }
+.week-drawer-complete .drawer-section-stack :where(p, li) { font-size: 14px; line-height: 1.7; }
+.week-drawer-complete .panel-title strong { font-size: 15px; }
+.week-drawer-complete .week-summary-grid strong { font-size: 18px; }
+.week-drawer-complete .week-summary-grid span { font-size: 10px; }
+.week-drawer-complete .drawer-syllabus-list strong { font-size: 15px; }
+.week-drawer-complete .drawer-syllabus-list small { font-size: 9px; }
+.week-drawer-complete .drawer-syllabus-list em { font-size: 10px; }
+.week-drawer-complete .overview-priority-list li { font-size: 14px; }
+.week-drawer-complete .bank-case-grid strong { font-size: 15px; }
+.week-drawer-complete .materials-category-grid h4 { font-size: 16px; }
+.week-drawer-complete .question-list strong { font-size: 15px; line-height: 1.55; }
+.week-drawer-complete .question-list p { font-size: 14px; }
+.week-drawer-complete .question-list article button { font-size: 11px; }
+.week-drawer-complete .prompt-workbench > header span { font-size: 10px; }
+.week-drawer-complete .prompt-workbench > pre { font-size: 13px; line-height: 1.75; }
+.week-drawer-complete .prompt-usage-guide > strong { font-size: 14px; }
+.week-drawer-complete .copy-prompt-button { font-size: 10px; }
+.week-drawer-complete .math-foundation-card > summary span,
+.week-drawer-complete .banking-application-section > header span,
+.week-drawer-complete .materials-category-grid header span,
+.week-drawer-complete .project-learning-outcomes span,
+.week-drawer-complete .validation-protocol-card > header span { font-size: 10px; }
+.week-drawer-complete .bank-case-grid small { font-size: 10px; }
+.week-drawer-complete .week-status-control > span { font-size: 10px; }
+.week-drawer-complete .mastery-buttons button { font-size: 10px; }
+.week-drawer-complete .drawer-project-header p,
+.week-drawer-complete .drawer-step-content li,
+.week-drawer-complete .drawer-step-content footer,
+.week-drawer-complete .project-first-session li,
+.week-drawer-complete .project-structure-list li,
+.week-drawer-complete .project-done-panel li { font-size: 14px; }
+.week-drawer-complete .drawer-repo-name span { font-size: 10px; }
+.week-drawer-complete .drawer-repo-name strong { font-size: 12px; }
+.week-drawer-complete .drawer-step-content h5 { font-size: 16px; }
+.week-drawer-complete .drawer-step-content header > span { font-size: 12px; }
+.week-drawer-complete .project-done-panel label { font-size: 11px; }
+.week-drawer-complete .syllabus-learning-map > header p { font-size: 14px; }
+.week-drawer-complete .syllabus-learning-item > summary strong { font-size: 17px; }
+.week-drawer-complete .syllabus-learning-content p { font-size: 15px; line-height: 1.72; }
+.week-drawer-complete .syllabus-learning-content small { font-size: 11px; }
+.week-drawer-complete .ai-study-blueprint p { font-size: 13px; }
 .drawer-empty-state { min-height: 170px; padding: 25px; border: 1px dashed var(--border); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
 .drawer-empty-state svg { color: var(--green); }
 .drawer-empty-state strong { margin-top: 10px; }
@@ -1129,4 +1220,26 @@ kbd { font: 600 10px var(--font-geist-mono); background: var(--surface-2); borde
   .project-page-toolbar { align-items: flex-start; flex-direction: column; }
   .project-page-toolbar nav { width: 100%; }
   .project-page-toolbar button { flex: 1; justify-content: center; }
+}
+
+@media (max-width: 980px) {
+  .ai-study-blueprint { grid-template-columns: 1fr 1fr; }
+  .syllabus-learning-map > header { align-items: flex-start; flex-direction: column; gap: 8px; }
+}
+
+@media (max-width: 650px) {
+  .week-drawer-complete .drawer-header-complete h2 { font-size: 25px; }
+  .week-drawer-complete .drawer-section-intro h3 { font-size: 26px; }
+  .week-drawer-complete .drawer-section-intro p { font-size: 14px; }
+  .syllabus-learning-map > header { padding: 18px; }
+  .syllabus-learning-map > header h4 { font-size: 19px; }
+  .syllabus-learning-item > summary { grid-template-columns: 38px minmax(0, 1fr); padding: 13px; }
+  .syllabus-learning-item > summary > span { width: 38px; height: 38px; }
+  .syllabus-learning-item > summary em { grid-column: 2; }
+  .syllabus-learning-content, .ai-study-blueprint { grid-template-columns: 1fr; }
+  .syllabus-learning-content article { min-height: 0; }
+  .compact-math > summary { padding: 17px; }
+  .compact-math > summary em { display: none; }
+  .compact-math > .math-render, .compact-math > p { margin-inline: 17px; }
+  .week-drawer-complete .prompt-workbench > pre { font-size: 12px; }
 }

@@ -1,17 +1,24 @@
 # Data Science Quest
 
-Planner de estudos em Next.js para preparação da prova e da sabatina de Cientista de Dados do Itaú Unibanco. O roadmap v15 segue as 24 semanas do planejamento-base, cobre os 13 blocos oficiais, inclui 24 projetos completos, 240 perguntas autorais, 51 perguntas de uma sabatina real e 84 questões de duas provas recebidas.
+Planner de estudos em Next.js para preparação da prova e da sabatina de Cientista de Dados do Itaú Unibanco. O roadmap v16 segue as 24 semanas do planejamento-base, cobre os 61 itens dos 13 blocos oficiais, inclui 24 projetos completos, 240 perguntas semanais, 51 perguntas de uma sabatina real e 84 questões de duas provas recebidas.
 
 Produção: `https://kayhuhu-roadmap.vercel.app`
 
-## O que mudou na v15
+## O que mudou na v16
+
+- os 61 itens oficiais agora possuem guias aplicados individuais: **o que é**, **por que importa**, **quando usar**, **quando não usar**, **como aplicar no banco** e **foco de prova/sabatina**;
+- a central semanal recebeu tipografia maior e mais confortável, sem alterar a escala das demais páginas do planner;
+- a identificação de páginas do PDF-base foi retirada da interface semanal; a ordem das semanas continua preservada internamente;
+- o bloco **Estudar com IA** passou a pedir teoria necessária, aplicação em Ciência de Dados, prática em Python/pandas/SQL e casos bancários, sem exigir matemática acadêmica desnecessária;
+- as perguntas semanais foram reescritas no estilo observado nas provas e na sabatina: finalidade, escolha, comparação, pipeline, métrica, limitação, produção e aplicação bancária.
+
+### Avaliações finais preservadas da v15
 
 - uma nova página **Sabatina teste** reúne 51 perguntas reais como avaliação final geral, sem vínculo com semanas, com respostas em quatro camadas e prioridade baseada no desempenho original;
 - **Prova Itaú 1** virou um teste de 47 questões e **Prova Itaú 2** um teste de 37 questões, com modos estudo/simulado e gabarito comentado;
 - cinco CSVs didáticos foram reconstruídos para as questões práticas porque os arquivos originais não vieram com o notebook;
 - a ementa oficial passou a aparecer na ordem das semanas e como checklist de domínio;
-- cada semana explicita “o que é”, “para que serve”, “como funciona” e “como usar no banco”, sem retirar a teoria profunda;
-- a tipografia foi ampliada em todo o planner;
+- cada semana explicita “o que é”, “para que serve”, “como funciona” e “como usar no banco”;
 - a inicialização funciona mesmo quando o navegador bloqueia armazenamento local;
 
 ### Base preservada da v14
@@ -21,8 +28,8 @@ Produção: `https://kayhuhu-roadmap.vercel.app`
 - Avaliação de Modelos mantém suas bases nas semanas 6–8 e reaparece transversalmente nas semanas de regressão, classificação, agrupamento e redes neurais;
 - a ementa continua auditável como 61 itens nos 13 blocos oficiais, mesmo quando uma semana conecta mais de um bloco;
 - cada semana abre em tela cheia, dentro do aplicativo, e possui exatamente seis áreas;
-- teoria inclui fundamentação, formalização em LaTeX e aplicação bancária;
-- cada semana mostra sua posição no planejamento-fonte e um protocolo explícito de validação;
+- teoria inclui fundamentação aplicada, limites, apoio opcional em LaTeX e aplicação bancária;
+- cada semana mostra os itens oficiais relacionados e um protocolo explícito de validação;
 - materiais preservam livros anteriores e acrescentam vídeos, artigos e documentação;
 - cada semana possui prompts copiáveis para resumo/PDF e simulação de sabatina;
 - projetos agora começam no VS Code, passam por venv, dependências, testes e documentação e terminam no GitHub `kayhuhu`;
@@ -32,7 +39,7 @@ Produção: `https://kayhuhu-roadmap.vercel.app`
 ## As seis áreas de cada semana
 
 1. **Visão Geral:** tema, itens oficiais, resultados e status de domínio.
-2. **Teoria e Aplicação Bancária:** fundamento, matemática, hipóteses, casos e valor de negócio.
+2. **Teoria e Aplicação Bancária:** guia individual de cada item oficial, critérios de uso, limites, apoio matemático opcional, casos e valor de negócio.
 3. **Materiais:** livros anteriores, aulas, artigos e documentação.
 4. **Estudar com IA:** prompt completo para material didático exportável em PDF.
 5. **Projeto (Estrutura Completa CD):** problema, dados, stack, VS Code, venv, requirements, código, testes, documentação e GitHub.
@@ -105,6 +112,7 @@ components/AssessmentViews.tsx sabatina real e duas provas interativas
 data/roadmap.json            artefato canônico gerado para a interface
 data/assessments.json        47 + 37 questões, alternativas e gabaritos
 lib/project-guides.ts        execução iniciante, Engenharia de Software e prompts
+lib/syllabus-study-guides.ts guias aplicados dos 61 itens oficiais
 lib/real-sabatina.ts         51 perguntas reais, prioridade e respostas estruturadas
 lib/quest-data.ts            tipos, paleta e leitura do roadmap
 public/datasets/             cinco CSVs didáticos reconstruídos
