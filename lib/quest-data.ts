@@ -23,6 +23,9 @@ export type RoadmapWeek = {
   block: string;
   blocks: string[];
   objective: string;
+  whyThisMatters: string;
+  dataScienceUse: string[];
+  bankingContext: string;
   syllabus: string[];
   content: string[];
   studyScope: {
@@ -61,6 +64,13 @@ export type RoadmapWeek = {
     duration: string;
     kind: string;
     steps: string[];
+    starterAssets: Array<{
+      label: string;
+      type: "csv" | "json" | "sql" | "sqlite" | "txt" | "md" | "ipynb" | "parquet";
+      url: string;
+      description: string;
+    }>;
+    practicePrompt: string;
     files: string[];
     readmeQuestions: string[];
     gitFlow: string[];
@@ -79,8 +89,15 @@ export type RoadmapWeek = {
     videos: string[];
     articles: string[];
   };
+  materialsGuide: {
+    primary: { name: string; reason: string; kind: string };
+    books: Array<{ name: string; reason: string; kind: string }>;
+    videos: Array<{ name: string; reason: string; level: string }>;
+    complementary: Array<{ name: string; reason: string; kind: string }>;
+  };
   prompts: {
     study: string;
+    practice: string;
     sabatina: string;
   };
   materials: string[];

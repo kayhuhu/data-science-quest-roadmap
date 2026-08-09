@@ -209,7 +209,7 @@ export function QuestApp({
         <div className="sidebar-bottom">
           <button className={active === "configuracoes" ? "active" : ""} onClick={() => navigate("configuracoes")}><Settings2 size={18} /><span>Configurações</span></button>
           <button><CircleHelp size={18} /><span>Guia de uso</span></button>
-          {!collapsed && <div className="source-seal"><Sparkles size={16} /><div><strong>roadmap-v18</strong><span>22 semanas · 72 itens</span></div></div>}
+          {!collapsed && <div className="source-seal"><Sparkles size={16} /><div><strong>roadmap-v19</strong><span>22 semanas · 72 itens</span></div></div>}
         </div>
         <button className="collapse-button" onClick={() => setCollapsed(!collapsed)} aria-label={collapsed ? "Expandir menu" : "Recolher menu"}>{collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}</button>
       </aside>

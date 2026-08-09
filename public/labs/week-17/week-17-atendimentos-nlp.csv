@@ -1,0 +1,151 @@
+atendimento_id,texto,tema
+A0000,pix não chegou,pix
+A0001,taxa do crédito,credito
+A0002,renegociar dívida,credito
+A0003,limite do cartão,cartao
+A0004,pix não chegou,pix
+A0005,limite do cartão,cartao
+A0006,compra não reconhecida,cartao
+A0007,parcela do empréstimo,credito
+A0008,taxa do crédito,credito
+A0009,cartão bloqueado,cartao
+A0010,cartão bloqueado,cartao
+A0011,limite do cartão,cartao
+A0012,cartão bloqueado,cartao
+A0013,pix não chegou,pix
+A0014,taxa do crédito,credito
+A0015,pix em análise,pix
+A0016,parcela do empréstimo,credito
+A0017,pix em análise,pix
+A0018,compra não reconhecida,cartao
+A0019,chave pix inválida,pix
+A0020,pix não chegou,pix
+A0021,taxa do crédito,credito
+A0022,cartão bloqueado,cartao
+A0023,cartão bloqueado,cartao
+A0024,limite do cartão,cartao
+A0025,taxa do crédito,credito
+A0026,renegociar dívida,credito
+A0027,taxa do crédito,credito
+A0028,chave pix inválida,pix
+A0029,parcela do empréstimo,credito
+A0030,taxa do crédito,credito
+A0031,renegociar dívida,credito
+A0032,chave pix inválida,pix
+A0033,cartão bloqueado,cartao
+A0034,limite do cartão,cartao
+A0035,pix não chegou,pix
+A0036,cartão bloqueado,cartao
+A0037,taxa do crédito,credito
+A0038,limite do cartão,cartao
+A0039,chave pix inválida,pix
+A0040,pix não chegou,pix
+A0041,compra não reconhecida,cartao
+A0042,cartão bloqueado,cartao
+A0043,parcela do empréstimo,credito
+A0044,compra não reconhecida,cartao
+A0045,taxa do crédito,credito
+A0046,cartão bloqueado,cartao
+A0047,cartão bloqueado,cartao
+A0048,compra não reconhecida,cartao
+A0049,chave pix inválida,pix
+A0050,compra não reconhecida,cartao
+A0051,pix em análise,pix
+A0052,renegociar dívida,credito
+A0053,limite do cartão,cartao
+A0054,cartão bloqueado,cartao
+A0055,limite do cartão,cartao
+A0056,renegociar dívida,credito
+A0057,chave pix inválida,pix
+A0058,compra não reconhecida,cartao
+A0059,pix em análise,pix
+A0060,compra não reconhecida,cartao
+A0061,pix em análise,pix
+A0062,taxa do crédito,credito
+A0063,limite do cartão,cartao
+A0064,taxa do crédito,credito
+A0065,cartão bloqueado,cartao
+A0066,taxa do crédito,credito
+A0067,cartão bloqueado,cartao
+A0068,parcela do empréstimo,credito
+A0069,cartão bloqueado,cartao
+A0070,compra não reconhecida,cartao
+A0071,limite do cartão,cartao
+A0072,cartão bloqueado,cartao
+A0073,compra não reconhecida,cartao
+A0074,parcela do empréstimo,credito
+A0075,renegociar dívida,credito
+A0076,chave pix inválida,pix
+A0077,pix não chegou,pix
+A0078,taxa do crédito,credito
+A0079,limite do cartão,cartao
+A0080,limite do cartão,cartao
+A0081,taxa do crédito,credito
+A0082,pix não chegou,pix
+A0083,parcela do empréstimo,credito
+A0084,limite do cartão,cartao
+A0085,compra não reconhecida,cartao
+A0086,pix em análise,pix
+A0087,pix em análise,pix
+A0088,parcela do empréstimo,credito
+A0089,parcela do empréstimo,credito
+A0090,chave pix inválida,pix
+A0091,taxa do crédito,credito
+A0092,cartão bloqueado,cartao
+A0093,chave pix inválida,pix
+A0094,compra não reconhecida,cartao
+A0095,limite do cartão,cartao
+A0096,cartão bloqueado,cartao
+A0097,chave pix inválida,pix
+A0098,taxa do crédito,credito
+A0099,compra não reconhecida,cartao
+A0100,pix em análise,pix
+A0101,compra não reconhecida,cartao
+A0102,pix em análise,pix
+A0103,taxa do crédito,credito
+A0104,chave pix inválida,pix
+A0105,compra não reconhecida,cartao
+A0106,pix não chegou,pix
+A0107,parcela do empréstimo,credito
+A0108,renegociar dívida,credito
+A0109,cartão bloqueado,cartao
+A0110,renegociar dívida,credito
+A0111,taxa do crédito,credito
+A0112,cartão bloqueado,cartao
+A0113,chave pix inválida,pix
+A0114,chave pix inválida,pix
+A0115,limite do cartão,cartao
+A0116,pix em análise,pix
+A0117,taxa do crédito,credito
+A0118,limite do cartão,cartao
+A0119,compra não reconhecida,cartao
+A0120,limite do cartão,cartao
+A0121,cartão bloqueado,cartao
+A0122,compra não reconhecida,cartao
+A0123,taxa do crédito,credito
+A0124,chave pix inválida,pix
+A0125,taxa do crédito,credito
+A0126,renegociar dívida,credito
+A0127,chave pix inválida,pix
+A0128,parcela do empréstimo,credito
+A0129,pix em análise,pix
+A0130,limite do cartão,cartao
+A0131,compra não reconhecida,cartao
+A0132,parcela do empréstimo,credito
+A0133,cartão bloqueado,cartao
+A0134,chave pix inválida,pix
+A0135,cartão bloqueado,cartao
+A0136,limite do cartão,cartao
+A0137,parcela do empréstimo,credito
+A0138,compra não reconhecida,cartao
+A0139,renegociar dívida,credito
+A0140,pix não chegou,pix
+A0141,chave pix inválida,pix
+A0142,cartão bloqueado,cartao
+A0143,renegociar dívida,credito
+A0144,taxa do crédito,credito
+A0145,cartão bloqueado,cartao
+A0146,chave pix inválida,pix
+A0147,parcela do empréstimo,credito
+A0148,chave pix inválida,pix
+A0149,pix em análise,pix

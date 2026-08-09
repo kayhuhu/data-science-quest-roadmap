@@ -6,4 +6,4 @@ for (const [key, value] of Object.entries(expected)) {
     throw new Error(`Auditoria falhou em ${key}: esperado ${value}, recebido ${roadmap.metrics[key]}`);
   }
 }
-console.log("Roadmap v18 íntegro:", roadmap.metrics);
+console.log("Roadmap v19 íntegro:", roadmap.metrics);

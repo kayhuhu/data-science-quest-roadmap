@@ -16,15 +16,17 @@ test("ships Data Science Quest metadata and the requested visual stack", async (
 
 test("ships the canonical 22-week roadmap with all 72 literal syllabus items", async () => {
   const roadmap = JSON.parse(await read("data/roadmap.json"));
-  assert.deepEqual(roadmap.metrics, { weeks: 22, blocks: 14, syllabusItems: 72, projects: 6, questions: 220, answers: 220, flashcards: 176 });
-  assert.match(roadmap.sourceVersion, /v18/);
+  assert.deepEqual(roadmap.metrics, { weeks: 22, blocks: 14, syllabusItems: 72, projects: 6, questions: 220, answers: 220, flashcards: 220 });
+  assert.match(roadmap.sourceVersion, /v19/);
   assert.equal(roadmap.weeks.length, 22);
   assert.equal(new Set(roadmap.weeks.map((week) => week.project.repo)).size, 22);
   assert.ok(roadmap.weeks.every((week) => week.sabatina.length === 10));
   assert.ok(roadmap.weeks.every((week) => week.pedagogy?.levels?.length === 4));
   assert.ok(roadmap.weeks.every((week) => week.practice?.exercises?.length >= 5 && week.practice.codeExamples.length));
   assert.ok(roadmap.weeks.every((week) => week.theoryAndBanking?.validation?.length));
-  assert.ok(roadmap.weeks.every((week) => week.prompts?.study && week.prompts?.sabatina));
+  assert.ok(roadmap.weeks.every((week) => week.prompts?.study && week.prompts?.practice && week.prompts?.sabatina));
+  assert.ok(roadmap.weeks.every((week) => week.whyThisMatters && week.dataScienceUse.length >= 2 && week.bankingContext));
+  assert.ok(roadmap.weeks.every((week) => week.materialsGuide?.primary && week.miniLab.starterAssets.length));
   assert.ok(roadmap.syllabus.every((item) => item.contentLevel === "essential"));
   assert.ok(roadmap.syllabus.every((item) => item.coveragePillars.length === 12 && item.coverageWeeks.length));
   assert.ok(roadmap.weeks.every((week) => week.flashcards.length >= 8 && week.flashcards.length <= 12));
@@ -65,7 +67,7 @@ test("ships the canonical 22-week roadmap with all 72 literal syllabus items", a
   ]);
 });
 
-test("weekly study page has exactly four pedagogical tabs and full study controls", async () => {
+test("weekly study page has exactly five pedagogical tabs and full study controls", async () => {
   const [route, app, center, project, styles] = await Promise.all([
     read("app/[...slug]/page.tsx"), read("components/QuestApp.tsx"), read("components/WeekDrawer.tsx"),
     read("components/ProjectGuidePanel.tsx"), read("app/weekly-study.css"),
@@ -73,9 +75,9 @@ test("weekly study page has exactly four pedagogical tabs and full study control
   assert.match(route, /initialWeek/);
   assert.match(app, /setSelectedWeek/);
   assert.doesNotMatch(app, /window\.open/);
-  assert.match(center, /const tabs = \["ESTUDAR", "PRATICAR", "SABATINA", "REVISAR"\]/);
-  assert.equal((center.match(/tab === "(?:ESTUDAR|PRATICAR|SABATINA|REVISAR)"/g) ?? []).length, 4);
-  for (const phrase of ["EMENTA DA SEMANA", "O QUE ESTUDAR", "Exemplo bancário", "Gerar apostila completa", "Anexar PDF", "Mini Lab", "Criar flashcard", "Critério de domínio"]) assert.match(center, new RegExp(phrase, "i"));
+  assert.match(center, /const tabs = \["ESTUDAR", "PRATICAR", "SABATINA", "REVISAR", "MATERIAIS"\]/);
+  assert.equal((center.match(/tab === "(?:ESTUDAR|PRATICAR|SABATINA|REVISAR|MATERIAIS)"/g) ?? []).length, 5);
+  for (const phrase of ["EMENTA DA SEMANA", "POR QUE ISSO IMPORTA", "ONDE ISSO APARECE", "O QUE ESTUDAR", "Gerar apostila completa", "Anexar PDF", "Mini Lab", "ARQUIVOS PARA COMEÇAR", "FAZER COM AJUDA DA IA", "Criar flashcard", "Critério de domínio", "LIVROS E PDFs"]) assert.match(center, new RegExp(phrase, "i"));
   assert.match(center, /saveWeekPdf/);
   assert.match(center, /weekCompletionEvidence/);
   assert.match(project, /Primeiros 30 minutos/);
@@ -90,15 +92,35 @@ test("weekly study page has exactly four pedagogical tabs and full study control
 
 test("AI prompts teach complete junior-level understanding with optional academic depth", async () => {
   const roadmap = JSON.parse(await read("data/roadmap.json"));
+  const studies = new Set();
+  const practices = new Set();
   for (const week of roadmap.weeks) {
     assert.match(week.prompts.study, /Cientista de Dados Júnior/);
     assert.match(week.prompts.study, /o que é e para que serve/i);
     assert.match(week.prompts.study, /quando usar e quando não usar/i);
-    assert.match(week.prompts.study, /caso bancário concreto/i);
+    assert.match(week.prompts.study, /CASO BANCÁRIO CONDUTOR/i);
     assert.match(week.prompts.study, /aplicação mínima em Python ou SQL/i);
-    assert.match(week.prompts.study, /matemática estritamente necessária/i);
+    assert.doesNotMatch(week.prompts.study, /https?:\/\/|\blivros?\b|\bpdfs?\b|\bvídeos?\b|\bplaylists?\b|\bcapítulos?\b|\bpáginas?\b/i);
+    assert.match(week.prompts.practice, /NÃO entregue o Mini Lab inteiro pronto/i);
     assert.match(week.prompts.sabatina, /somente UMA pergunta por vez/);
+    studies.add(week.prompts.study);
+    practices.add(week.prompts.practice);
   }
+  assert.equal(studies.size, 22);
+  assert.equal(practices.size, 22);
+});
+
+test("all weekly starter assets are real files", async () => {
+  const roadmap = JSON.parse(await read("data/roadmap.json"));
+  let count = 0;
+  for (const week of roadmap.weeks) {
+    for (const asset of week.miniLab.starterAssets) {
+      const data = await read(`public${asset.url}`);
+      assert.ok(data.length > 0, asset.url);
+      count += 1;
+    }
+  }
+  assert.equal(count, 30);
 });
 
 test("keeps final sabatina and both test exams general and independent of weeks", async () => {

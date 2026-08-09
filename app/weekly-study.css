@@ -1,4 +1,4 @@
-/* Roadmap v18 · página semanal organizada em quatro abas. */
+/* Roadmap v19 · página semanal organizada em cinco abas. */
 .weekly-study-page {
   --weekly-text: 17px;
   overflow-x: hidden;
@@ -39,9 +39,9 @@
 .header-progress-content li { padding: 5px 8px; display: flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--surface); color: var(--subtle); font-size: 11px; }
 .header-progress-content li.done { color: var(--green); }
 
-.weekly-study-page .weekly-four-tabs { position: sticky; top: 0; z-index: 15; min-height: 64px; padding-inline: max(24px, calc((100vw - 1180px) / 2)); display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; align-items: stretch; background: color-mix(in srgb, var(--bg) 93%, transparent); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
-.weekly-study-page .weekly-four-tabs button { min-width: 0; min-height: 63px; justify-content: center; color: var(--muted); font-size: 14px; font-weight: 850; letter-spacing: .05em; }
-.weekly-study-page .weekly-four-tabs button.active { color: var(--week-color); border-bottom-color: var(--week-color); }
+.weekly-study-page .weekly-five-tabs { position: sticky; top: 0; z-index: 15; min-height: 64px; padding-inline: max(24px, calc((100vw - 1180px) / 2)); display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; align-items: stretch; background: color-mix(in srgb, var(--bg) 93%, transparent); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+.weekly-study-page .weekly-five-tabs button { min-width: 0; min-height: 63px; justify-content: center; color: var(--muted); font-size: 14px; font-weight: 850; letter-spacing: .05em; }
+.weekly-study-page .weekly-five-tabs button.active { color: var(--week-color); border-bottom-color: var(--week-color); }
 .week-navigation-strip { min-height: 46px; padding-inline: max(24px, calc((100vw - 1180px) / 2)); display: flex; align-items: center; justify-content: space-between; gap: 18px; border-bottom: 1px solid var(--border); background: var(--surface); }
 .week-navigation-strip button { min-height: 32px; display: inline-flex; align-items: center; gap: 7px; border: 0; background: transparent; color: var(--muted); font-size: 13px; cursor: pointer; }
 .week-navigation-strip button:hover:not(:disabled) { color: var(--week-color); }
@@ -58,6 +58,8 @@
 .weekly-study-page .drawer-section-stack :where(p, li) { font-size: var(--weekly-text); line-height: 1.68; }
 
 .weekly-syllabus-focus,
+.study-relevance-card,
+.data-science-use-card,
 .compact-study-map,
 .ai-material-card,
 .curated-materials,
@@ -66,6 +68,19 @@
 .portfolio-milestone,
 .weekly-flashcards,
 .completion-criteria { padding: 26px 28px; border: 1px solid color-mix(in srgb, var(--week-color) 24%, var(--border)); border-radius: 18px; background: linear-gradient(145deg, color-mix(in srgb, var(--week-color) 4%, var(--surface)), var(--surface)); }
+
+.study-relevance-card > header { display: flex; align-items: flex-start; gap: 13px; }
+.study-relevance-card > header svg { flex: 0 0 auto; margin-top: 3px; color: var(--week-color); }
+.study-relevance-card h4, .data-science-use-card h4 { margin: 5px 0 0; font-size: 23px; }
+.study-relevance-card > p { margin: 18px 0 0; color: var(--muted); font-size: 18px !important; }
+.banking-context { margin-top: 18px; padding: 16px 18px; border: 1px solid #34d39935; border-radius: 12px; background: #34d3990a; }
+.banking-context b { color: var(--green); font-size: 11px; letter-spacing: .1em; }
+.banking-context p { margin: 7px 0 0; color: var(--muted); }
+.data-science-use-card > header { display: grid; gap: 2px; }
+.data-science-use-card > div { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.data-science-use-card article { min-height: 64px; padding: 12px 14px; display: grid; grid-template-columns: 32px 1fr; align-items: center; gap: 11px; border: 1px solid var(--border); border-radius: 11px; background: var(--surface-2); }
+.data-science-use-card article i { width: 31px; height: 31px; display: grid; place-items: center; border-radius: 9px; background: color-mix(in srgb, var(--week-color) 13%, var(--surface)); color: var(--week-color); font: 800 11px var(--font-geist-mono); font-style: normal; }
+.data-science-use-card article span { font-size: 15px; line-height: 1.45; }
 
 .weekly-syllabus-focus > header,
 .curated-materials > header,
@@ -126,6 +141,18 @@
 .all-materials li { font-size: 14px !important; }
 
 .mini-lab-card > header p { margin: 7px 0 0; color: var(--muted); }
+.starter-assets { margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--border); }
+.starter-assets > header { display: flex; align-items: flex-start; gap: 11px; }
+.starter-assets > header svg { color: var(--week-color); }
+.starter-assets h5 { margin: 4px 0 0; font-size: 17px; }
+.starter-assets > div { margin-top: 14px; display: grid; gap: 9px; }
+.starter-assets article { padding: 15px; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-2); }
+.starter-assets article > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 5px 10px; }
+.starter-assets article b { overflow-wrap: anywhere; font: 750 14px/1.45 var(--font-geist-mono); }
+.starter-assets article p { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: 14px !important; }
+.starter-assets article small { padding: 3px 6px; border-radius: 999px; background: color-mix(in srgb, var(--week-color) 12%, var(--surface)); color: var(--week-color); font-size: 10px; }
+.starter-assets article a { min-height: 42px; padding: 0 13px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; border: 1px solid var(--week-color); border-radius: 9px; color: var(--week-color); font-size: 13px; font-weight: 800; text-decoration: none; }
+.practice-ai-card { border-style: dashed; }
 .mini-lab-steps { margin: 22px 0; padding: 0; display: grid; gap: 8px; list-style: none; }
 .mini-lab-steps li button { width: 100%; min-height: 60px; padding: 10px 13px; display: grid; grid-template-columns: 34px 1fr; align-items: center; gap: 11px; border: 1px solid var(--border); border-radius: 11px; background: var(--surface-2); color: var(--text); text-align: left; cursor: pointer; }
 .mini-lab-steps li button i { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 99px; background: color-mix(in srgb, var(--week-color) 14%, var(--surface)); color: var(--week-color); font-style: normal; font-size: 12px; font-weight: 850; }
@@ -204,6 +231,26 @@
 .manual-statuses { display: flex; flex-wrap: wrap; gap: 8px; }
 .manual-statuses button { min-height: 39px; padding: 0 12px; border: 1px solid var(--border); border-radius: 9px; background: var(--surface-2); color: var(--muted); cursor: pointer; }
 
+.material-primary-card { padding: 28px; display: grid; grid-template-columns: auto 1fr; gap: 16px; border: 1px solid color-mix(in srgb, var(--week-color) 45%, var(--border)); border-radius: 18px; background: linear-gradient(135deg, color-mix(in srgb, var(--week-color) 12%, var(--surface)), var(--surface)); }
+.material-primary-card > svg { color: var(--week-color); }
+.material-primary-card span, .materials-category > header span { color: var(--week-color); font-size: 11px; font-weight: 850; letter-spacing: .1em; }
+.material-primary-card h4 { margin: 6px 0 8px; font-size: 24px; line-height: 1.35; }
+.material-primary-card p { margin: 0; color: var(--muted); }
+.material-primary-card small { margin-top: 13px; padding: 4px 8px; display: inline-flex; border-radius: 999px; background: var(--surface-2); color: var(--week-color); font-size: 11px; text-transform: uppercase; }
+.materials-category { padding: 26px 28px; border: 1px solid var(--border); border-radius: 18px; background: var(--surface); }
+.materials-category > header { display: flex; align-items: flex-start; gap: 12px; }
+.materials-category > header svg { color: var(--week-color); }
+.materials-category h4 { margin: 5px 0 0; font-size: 22px; }
+.materials-resource-grid { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.materials-resource-grid article { min-height: 145px; padding: 17px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-2); }
+.materials-resource-grid small { color: var(--week-color); font-size: 10px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
+.materials-resource-grid h5 { margin: 8px 0; font-size: 16px; line-height: 1.45; }
+.materials-resource-grid p { margin: 0; color: var(--muted); font-size: 14px !important; }
+.materials-separation-note { padding: 18px 20px; display: flex; align-items: flex-start; gap: 12px; border: 1px dashed var(--border); border-radius: 13px; background: var(--surface-2); }
+.materials-separation-note svg { flex: 0 0 auto; color: var(--week-color); }
+.materials-separation-note p { margin: 0; color: var(--muted); }
+.materials-separation-note b { color: var(--text); }
+
 @media (max-width: 960px) {
   .weekly-study-page .weekly-study-header { grid-template-columns: 76px minmax(0, 1fr); padding: 28px; }
   .weekly-study-page .drawer-week-number { width: 70px; min-width: 70px; height: 88px; }
@@ -225,15 +272,17 @@
   .weekly-header-metrics > span b { font-size: 14px; }
   .header-progress-content { grid-template-columns: 1fr; }
   .header-progress-content .complete-week-button { width: 100%; }
-  .weekly-study-page .weekly-four-tabs { min-height: 55px; padding-inline: 3px; }
-  .weekly-study-page .weekly-four-tabs button { min-height: 54px; padding-inline: 4px; font-size: 11px; }
+  .weekly-study-page .weekly-five-tabs { min-height: 55px; padding-inline: 3px; }
+  .weekly-study-page .weekly-five-tabs button { min-height: 54px; padding-inline: 3px; font-size: 10px; letter-spacing: .02em; }
   .week-navigation-strip { padding-inline: 12px; }
   .week-navigation-strip button { font-size: 11px; }
   .weekly-study-page .weekly-study-body { width: calc(100% - 24px); padding: 25px 0 55px; }
   .weekly-study-page .drawer-section-intro h3 { font-size: 29px; }
   .weekly-study-page .drawer-section-intro p { font-size: 16px; }
-  .weekly-syllabus-focus, .compact-study-map, .ai-material-card, .curated-materials, .mini-lab-card, .portfolio-milestone, .weekly-flashcards, .completion-criteria { padding: 20px 17px; }
-  .compact-study-map > div, .weekly-flashcards > div { grid-template-columns: 1fr; }
+  .weekly-syllabus-focus, .study-relevance-card, .data-science-use-card, .compact-study-map, .ai-material-card, .mini-lab-card, .portfolio-milestone, .weekly-flashcards, .completion-criteria, .materials-category { padding: 20px 17px; }
+  .compact-study-map > div, .weekly-flashcards > div, .data-science-use-card > div, .materials-resource-grid { grid-template-columns: 1fr; }
+  .starter-assets article { grid-template-columns: 1fr; }
+  .starter-assets article a { width: 100%; }
   .week-action-row, .question-actions { display: grid; grid-template-columns: 1fr; }
   .week-action-button, .question-actions > button { width: 100%; }
   .confidence-control { justify-content: space-between; }
