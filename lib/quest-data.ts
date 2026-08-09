@@ -1,6 +1,7 @@
 import roadmapJson from "@/data/roadmap.json";
 
 export type MasteryStatus = "nao-iniciado" | "vermelho" | "amarelo" | "verde" | "revisao";
+export type ContentLevel = "essential" | "important" | "good_to_know" | "optional";
 
 export type RoadmapWeek = {
   number: number;
@@ -15,6 +16,23 @@ export type RoadmapWeek = {
     summary: string;
     officialTopics: string[];
     outcomes: string[];
+  };
+  pedagogy: {
+    learningSections: Array<{
+      id: string;
+      officialItemId: string | null;
+      title: string;
+      contentLevel: ContentLevel;
+    }>;
+    levels: Array<{ contentLevel: ContentLevel; label: string; items: string[] }>;
+    completionCriteria: string[];
+  };
+  practice: {
+    exercises: string[];
+    codeExamples: Array<{ language: string; title: string; code: string }>;
+    tasks: string[];
+    examPractice: string;
+    notebook: string;
   };
   theoryAndBanking: {
     foundations: Array<{ title: string; body: string }>;
@@ -58,7 +76,7 @@ export type RoadmapData = {
     answers: number;
   };
   blocks: Array<{ id: number; title: string; weekNumbers: number[] }>;
-  syllabus: Array<{ id: string; text: string; block: string; week: number }>;
+  syllabus: Array<{ id: string; text: string; block: string; week: number; contentLevel: ContentLevel }>;
   weeks: RoadmapWeek[];
 };
 
@@ -78,6 +96,8 @@ export const blockPalette: Record<string, string> = {
   "PESQUISA OPERACIONAL": "#fdba74",
   "PROGRAMAÇÃO INTEIRA": "#f97316",
   "MIP (MIXED INTEGER PROGRAM)": "#e879f9",
+  OUTROS: "#38bdf8",
+  CONSOLIDAÇÃO: "#34d399",
 };
 
 export function currentRoadmapWeek(today = new Date()) {
@@ -89,7 +109,7 @@ export function currentRoadmapWeek(today = new Date()) {
   }).format(today);
   const date = new Date(`${isoDate}T12:00:00-03:00`);
   const start = new Date("2026-08-03T00:00:00-03:00");
-  const end = new Date("2027-01-17T23:59:59-03:00");
+  const end = new Date("2026-12-31T23:59:59-03:00");
   if (date < start) return 1;
   if (date > end) return roadmap.weeks.length;
   const day = Math.floor((date.getTime() - start.getTime()) / 86_400_000);

@@ -55,7 +55,7 @@ export function SyllabusView({ workspace, onUpdate, onSelectWeek }: SyllabusView
   return (
     <div className="view-stack syllabus-view">
       <header className="page-intro">
-        <div><span className="eyebrow"><ShieldCheck size={14} /> FONTE OFICIAL · ITAÚ UNIBANCO</span><h1>Ementa semanal em checklist</h1><p>{roadmap.metrics.syllabusItems} itens oficiais, apresentados na mesma ordem das 24 semanas. Marque seu domínio e abra qualquer semana sem sair da tela.</p></div>
+        <div><span className="eyebrow"><ShieldCheck size={14} /> FONTE OFICIAL · ITAÚ UNIBANCO</span><h1>Ementa semanal em checklist</h1><p>{roadmap.metrics.syllabusItems} itens oficiais, apresentados na ordem canônica das {roadmap.metrics.weeks} semanas. Marque seu domínio e abra qualquer semana sem sair da tela.</p></div>
         <div className="audit-badge"><Sparkles size={18} /><div><strong>Auditoria íntegra</strong><span>{roadmap.metrics.blocks} blocos · {roadmap.metrics.weeks} semanas · {roadmap.metrics.answers} respostas</span></div></div>
       </header>
 

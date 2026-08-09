@@ -7,6 +7,19 @@ export type SyllabusStudyGuide = {
   examFocus: string;
 };
 
+export type SyllabusStudyEnhancement = {
+  interpretation: string;
+  workflow: string[];
+  codeHint: string;
+  commonErrors: string[];
+  subtopics?: Array<{
+    title: string;
+    level: "essential" | "important" | "good_to_know" | "optional";
+    explanation: string;
+    banking: string;
+  }>;
+};
+
 const guide = (
   what: string,
   why: string,
@@ -459,3 +472,79 @@ export const syllabusStudyGuides: Record<string, SyllabusStudyGuide> = {
     "Saber o que o solver entrega, interpretar status e comparar opções sem decorar comandos de todos os produtos."),
 };
 
+const specificEnhancements: Partial<Record<string, SyllabusStudyEnhancement>> = {
+  "estat-03": {
+    interpretation: "Leia centro, dispersão, assimetria e caudas em conjunto. A média responde ao valor esperado, a mediana ao cliente típico e os percentis a cortes operacionais; variância e desvio mostram heterogeneidade.",
+    workflow: ["Inspecione histograma e boxplot.", "Compare média e mediana.", "Calcule quartis, IQR e percentis de negócio.", "Investigue extremos antes de decidir tratá-los.", "Descreva o efeito na decisão bancária."],
+    codeHint: "df['valor'].describe(percentiles=[.25, .5, .75, .9, .95])",
+    commonErrors: ["Usar apenas a média em uma distribuição assimétrica.", "Excluir outliers sem verificar se são fraude, erro ou cliente legítimo.", "Confundir variância com unidade original; o desvio padrão volta à unidade da variável."],
+    subtopics: [
+      { title: "Média", level: "essential", explanation: "Soma dividida pela quantidade; é sensível a extremos.", banking: "Ticket médio ajuda no volume esperado, mas pode ser puxado por poucas transações muito altas." },
+      { title: "Mediana", level: "essential", explanation: "Valor central após ordenar; é robusta a extremos.", banking: "Representa melhor o saldo típico quando a carteira tem uma cauda de clientes de alta renda." },
+      { title: "Quartis e percentis", level: "essential", explanation: "Cortes que dividem a distribuição ordenada; P90 deixa 90% dos valores abaixo dele.", banking: "Permitem definir faixas de risco, limites operacionais e públicos prioritários." },
+      { title: "Moda", level: "important", explanation: "Valor ou categoria mais frequente; pode haver mais de uma moda.", banking: "Mostra o canal ou produto mais comum, mas não resume sozinho uma variável contínua." },
+      { title: "Variância e desvio padrão", level: "essential", explanation: "Medem dispersão em torno da média; o desvio está na unidade original.", banking: "Uma carteira com maior dispersão de perda exige leitura de cauda e segmentação, não só média." },
+      { title: "IQR", level: "important", explanation: "Q3 − Q1; resume os 50% centrais e apoia a investigação de extremos.", banking: "É uma regra inicial de alerta para transações atípicas, nunca uma prova automática de fraude." },
+    ],
+  },
+  "aval-01": {
+    interpretation: "A métrica certa depende do custo do falso positivo e do falso negativo, do desbalanceamento e da capacidade operacional. Ranking, classificação por limiar, calibração e valor financeiro são avaliações diferentes.",
+    workflow: ["Defina o evento positivo e o custo dos erros.", "Crie baseline e matriz de confusão.", "Compare métricas sem escolher limiar no teste.", "Avalie por segmento e período.", "Traduza a métrica em impacto operacional."],
+    codeHint: "precision_recall_fscore_support(y_test, pred); roc_auc_score(y_test, score)",
+    commonErrors: ["Usar acurácia em classe rara.", "Dizer que Gini 50% equivale a moeda: moeda tem AUC 0,5 e Gini 0%.", "Interpretar AUC como probabilidade calibrada.", "Escolher threshold no conjunto de teste."],
+    subtopics: [
+      { title: "Precision", level: "essential", explanation: "Entre os casos marcados como positivos, quantos eram realmente positivos.", banking: "Qualidade da fila enviada à investigação de fraude." },
+      { title: "Recall", level: "essential", explanation: "Entre todos os positivos reais, quantos o modelo encontrou.", banking: "Cobertura das fraudes ou inadimplentes que o processo precisa capturar." },
+      { title: "F1", level: "essential", explanation: "Média harmônica entre precision e recall; útil quando ambos importam.", banking: "Compara soluções sob equilíbrio, mas não substitui custo financeiro nem escolha de limiar." },
+      { title: "ROC-AUC, Gini e KS", level: "essential", explanation: "Avaliam capacidade de ordenar classes em vários limiares. Gini = 2 × AUC − 1; KS é a maior separação entre acumuladas.", banking: "Muito usados em score de crédito, acompanhados de calibração e estabilidade." },
+      { title: "MAE, RMSE e R²", level: "essential", explanation: "MAE mede erro absoluto típico, RMSE penaliza mais erros grandes e R² compara variância explicada com uma baseline de média.", banking: "Escolha depende do custo de errar perdas, renda ou severidade; sempre leia resíduos e unidades." },
+      { title: "Threshold", level: "important", explanation: "Transforma score em decisão e altera precision, recall e volume.", banking: "Deve respeitar apetite de risco, capacidade da operação e custo de cada erro." },
+    ],
+  },
+  "aval-02": {
+    interpretation: "Uma validação boa imita como o modelo verá dados novos. O split não é burocracia: é a barreira contra memória, vazamento e otimismo.",
+    workflow: ["Defina unidade e tempo da previsão.", "Reserve teste/OOT intocado.", "Ajuste preprocessamento dentro do treino/fold.", "Selecione hiperparâmetros na validação.", "Reporte teste final uma única vez."],
+    codeHint: "cross_validate(pipeline, X, y, cv=StratifiedKFold(5), scoring=['roc_auc','f1'])",
+    commonErrors: ["Escalar ou fazer oversampling antes do split.", "Embaralhar dados temporais.", "Usar o teste repetidamente para escolher o modelo.", "Deixar o mesmo cliente em treino e teste quando isso gera vazamento."],
+    subtopics: [
+      { title: "Holdout", level: "essential", explanation: "Uma separação fixa, simples e rápida.", banking: "Adequado em bases grandes quando o corte representa produção." },
+      { title: "K-fold", level: "essential", explanation: "Alterna folds de validação e resume variação do desempenho.", banking: "Ajuda em bases menores, com estratificação ou grupos quando necessário." },
+      { title: "Leave-one-out", level: "good_to_know", explanation: "Cada observação vira validação uma vez; custa caro e pode ter alta variância.", banking: "Raramente é a primeira opção em bases bancárias volumosas." },
+      { title: "Out-of-sample", level: "essential", explanation: "Avaliação em observações não usadas no ajuste.", banking: "Indica generalização para clientes não vistos." },
+      { title: "Out-of-time", level: "essential", explanation: "Treina no passado e testa em período futuro.", banking: "É central para risco, fraude e propensão sujeitos a drift e mudança de safra." },
+    ],
+  },
+  "class-06": {
+    interpretation: "Compare o prior da classe com as evidências das features. A independência é condicional à classe; é uma simplificação útil, não a afirmação de que os dados são independentes no mundo real.",
+    workflow: ["Identifique o tipo das features.", "Escolha Gaussian, Bernoulli ou Multinomial.", "Faça o split e prepare dados sem leakage.", "Ajuste suavização/prior.", "Avalie ranking, limiar e calibração."],
+    codeHint: "Pipeline([('vetor', CountVectorizer()), ('modelo', MultinomialNB(alpha=1.0))])",
+    commonErrors: ["Usar MultinomialNB com valores negativos.", "Confundir independência marginal com condicional.", "Escolher a variante pelo nome, sem olhar a natureza do dado."],
+    subtopics: [
+      { title: "Gaussian Naive Bayes", level: "essential", explanation: "Modela cada feature contínua por uma Normal dentro de cada classe.", banking: "Baseline rápido para classificação com variáveis contínuas aproximadamente compatíveis." },
+      { title: "Bernoulli Naive Bayes", level: "essential", explanation: "Trabalha com presença/ausência ou indicadores binários.", banking: "Pode usar sinais como possui_produto, evento_ocorreu ou termo_presente." },
+      { title: "Multinomial Naive Bayes", level: "good_to_know", explanation: "Modela contagens não negativas, muito comum em bag-of-words.", banking: "Triagem de reclamações e mensagens por frequência de termos." },
+    ],
+  },
+};
+
+export function getSyllabusStudyEnhancement(id: string): SyllabusStudyEnhancement {
+  const specific = specificEnhancements[id];
+  if (specific) return specific;
+  const base = syllabusStudyGuides[id];
+  return {
+    interpretation: base?.examFocus ?? "Interprete o resultado no contexto do problema e confronte-o com uma baseline simples.",
+    workflow: [
+      "Defina a pergunta de negócio e a unidade analisada.",
+      "Inspecione a qualidade dos dados e evite vazamento.",
+      "Aplique o conceito com uma baseline simples.",
+      "Interprete o resultado e suas limitações.",
+      "Explique a decisão em linguagem de negócio.",
+    ],
+    codeHint: "# Implemente primeiro uma versão pequena, reproduzível e validada.",
+    commonErrors: [
+      "Aplicar a técnica sem verificar premissas e qualidade dos dados.",
+      "Confundir desempenho técnico com valor de negócio.",
+      "Omitir limitações, incerteza ou risco de vazamento.",
+    ],
+  };
+}

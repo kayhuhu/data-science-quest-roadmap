@@ -1,15 +1,19 @@
 # Data Science Quest
 
-Planner de estudos em Next.js para preparação da prova e da sabatina de Cientista de Dados do Itaú Unibanco. O roadmap v16 segue as 24 semanas do planejamento-base, cobre os 61 itens dos 13 blocos oficiais, inclui 24 projetos completos, 240 perguntas semanais, 51 perguntas de uma sabatina real e 84 questões de duas provas recebidas.
+Planner de estudos em Next.js para preparação da prova e da sabatina de Cientista de Dados do Itaú Unibanco. O roadmap v17 restaura as 22 semanas e os 22 projetos canônicos do roadmap v12, cobre os 61 itens dos 13 blocos oficiais, inclui 220 perguntas semanais, 51 perguntas de uma sabatina real e 84 questões de duas provas recebidas.
 
 Produção: `https://kayhuhu-roadmap.vercel.app`
 
-## O que mudou na v16
+## O que mudou na v17
 
-- os 61 itens oficiais agora possuem guias aplicados individuais: **o que é**, **por que importa**, **quando usar**, **quando não usar**, **como aplicar no banco** e **foco de prova/sabatina**;
+- as 22 semanas e os 22 projetos voltaram à identidade canônica do roadmap v12;
+- cada semana agora possui exatamente seis etapas: **Aprender, Praticar, Projeto, Sabatina, Revisar e Progresso**;
+- os 61 itens oficiais possuem guias aplicados individuais: **o que é**, **por que importa**, **quando usar**, **quando não usar**, **como interpretar**, **como aplicar no banco** e **foco de prova/sabatina**;
+- conteúdo recebe nível explícito: essencial, importante, bom saber ou opcional; aprofundamento opcional nunca bloqueia a conclusão;
+- a conclusão verde exige evidências: ementa essencial dominada, 80% da sabatina com confiança, prática, entrega mínima do projeto e capacidade de explicar, escolher e interpretar;
 - a central semanal recebeu tipografia maior e mais confortável, sem alterar a escala das demais páginas do planner;
 - a identificação de páginas do PDF-base foi retirada da interface semanal; a ordem das semanas continua preservada internamente;
-- o bloco **Estudar com IA** passou a pedir teoria necessária, aplicação em Ciência de Dados, prática em Python/pandas/SQL e casos bancários, sem exigir matemática acadêmica desnecessária;
+- o material **Estudar com IA** fica dentro de Aprender e oferece copiar/exportar prompt, marcar geração e vincular/abrir o PDF da semana;
 - as perguntas semanais foram reescritas no estilo observado nas provas e na sabatina: finalidade, escolha, comparação, pipeline, métrica, limitação, produção e aplicação bancária.
 
 ### Avaliações finais preservadas da v15
@@ -24,7 +28,7 @@ Produção: `https://kayhuhu-roadmap.vercel.app`
 ### Base preservada da v14
 
 - as semanas voltaram à ordem exata do PDF `planejamento_v10_3_ordem_luiza_ementa_fluxo_continuo.pdf`;
-- as semanas 1–20 seguem Luiza p. 1–96; as semanas 21–24 complementam a ementa;
+- a sequência de 22 semanas preserva o fluxo pedagógico do roadmap v12 e usa as três semanas finais para otimização, integração e capstone;
 - Avaliação de Modelos mantém suas bases nas semanas 6–8 e reaparece transversalmente nas semanas de regressão, classificação, agrupamento e redes neurais;
 - a ementa continua auditável como 61 itens nos 13 blocos oficiais, mesmo quando uma semana conecta mais de um bloco;
 - cada semana abre em tela cheia, dentro do aplicativo, e possui exatamente seis áreas;
@@ -38,30 +42,30 @@ Produção: `https://kayhuhu-roadmap.vercel.app`
 
 ## As seis áreas de cada semana
 
-1. **Visão Geral:** tema, itens oficiais, resultados e status de domínio.
-2. **Teoria e Aplicação Bancária:** guia individual de cada item oficial, critérios de uso, limites, apoio matemático opcional, casos e valor de negócio.
-3. **Materiais:** livros anteriores, aulas, artigos e documentação.
-4. **Estudar com IA:** prompt completo para material didático exportável em PDF.
-5. **Projeto (Estrutura Completa CD):** problema, dados, stack, VS Code, venv, requirements, código, testes, documentação e GitHub.
-6. **Perguntas de Sabatina:** dez cenários autorais da semana, respostas ideais e prompt para entrevista rigorosa. A sabatina real permanece separada como avaliação final geral.
+1. **Aprender:** ementa, intuição, uso, limites, interpretação, banco, implementação mínima, materiais e prompt/PDF de estudo.
+2. **Praticar:** exercícios guiados, exemplo de código, notebook e entrega mínima.
+3. **Projeto:** problema, dados, stack, VS Code, venv, requirements, código, testes, documentação e GitHub.
+4. **Sabatina:** dez cenários autorais, resposta ideal, confiança, flashcard e registro de erro.
+5. **Revisar:** pendências da ementa, flashcards, erros e atalhos para as centrais de revisão.
+6. **Progresso:** horas, domínio, sabatina, projeto e critérios verificáveis para concluir em verde.
 
 ## Ementa e distribuição
 
 | Bloco oficial | Semana(s) |
 | --- | --- |
-| Programação | 4 e 8 |
-| Estatística Básica | 1–2 |
-| Álgebra | 3 |
-| Avaliação de Modelos | 6–20 e 22 (transversal) |
-| Data Prep | 3–5 |
-| Banco de Dados | 21 |
-| Classificação | 11–16 e 22 |
-| Regressão | 9–10 e 14 |
-| Agrupamento | 17–20 |
-| IA Generativa | 23 |
-| Pesquisa Operacional | 24 |
-| Programação Inteira | 24 |
-| MIP | 24 |
+| Programação | 7 |
+| Estatística Básica | 1–3 |
+| Álgebra | 4 |
+| Avaliação de Modelos | 9–16 (transversal nos modelos) |
+| Data Prep | 5–6 |
+| Banco de Dados | 8 |
+| Classificação | 11–14 |
+| Regressão | 9–10 |
+| Agrupamento | 15–16 |
+| IA Generativa | 17–18 |
+| Pesquisa Operacional | 19 |
+| Programação Inteira | 19 |
+| MIP | 19 |
 
 ## Stack
 
@@ -99,7 +103,7 @@ npm run build
 npm run check
 ```
 
-`content:audit` gera `data/roadmap.json`, reconstrói os cinco datasets didáticos e falha se o roadmap-base não tiver exatamente 24 semanas, 13 blocos, 61 itens oficiais, 24 projetos, 240 perguntas e 240 respostas. O teste adicional audita separadamente as 51 perguntas reais e as 84 questões importadas.
+`content:audit` gera `data/roadmap.json`, reconstrói os cinco datasets didáticos e falha se o roadmap-base não tiver exatamente 22 semanas, 13 blocos, 61 itens oficiais, 22 projetos, 220 perguntas e 220 respostas. O teste adicional audita separadamente as 51 perguntas reais e as 84 questões importadas.
 
 ## Arquitetura relevante
 
@@ -116,7 +120,7 @@ lib/syllabus-study-guides.ts guias aplicados dos 61 itens oficiais
 lib/real-sabatina.ts         51 perguntas reais, prioridade e respostas estruturadas
 lib/quest-data.ts            tipos, paleta e leitura do roadmap
 public/datasets/             cinco CSVs didáticos reconstruídos
-scripts/roadmap-source.mjs   ementa oficial e conteúdo profundo das 24 semanas
+scripts/roadmap-source.mjs   ementa oficial e conteúdo profundo das 22 semanas
 scripts/generate-roadmap.mjs geração e auditoria de integridade
 scripts/import-assessments.py importação auditável do notebook recebido
 scripts/generate-assessment-datasets.mjs

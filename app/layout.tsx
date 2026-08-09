@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "katex/dist/katex.min.css";
 import "./globals.css";
+import "./weekly-study.css";
 
 const appUrl = process.env.NEXT_PUBLIC_APP_URL?.trim() || "https://kayhuhu-roadmap.vercel.app";
 
@@ -18,28 +19,28 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(appUrl),
   title: {
-    default: "Data Science Quest — Jornada de 24 semanas",
+    default: "Data Science Quest — Jornada de 22 semanas",
     template: "%s · Data Science Quest",
   },
   description:
-    "Roadmap completo para dominar a ementa de Cientista de Dados, construir 24 projetos e treinar 51 perguntas de sabatina e duas provas reais.",
+    "Roadmap completo para dominar a ementa de Cientista de Dados, construir 22 projetos e treinar 51 perguntas de sabatina e duas provas reais.",
   applicationName: "Data Science Quest",
   keywords: ["ciência de dados", "roadmap", "Itaú", "machine learning", "estudos"],
   openGraph: {
     title: "Data Science Quest",
     description:
-      "24 semanas na ordem do planejamento para dominar a ementa, construir projetos e defender decisões.",
+      "22 semanas na ordem canônica do roadmap v12 para dominar a ementa, construir projetos e defender decisões.",
     type: "website",
     locale: "pt_BR",
     url: "/",
     siteName: "Data Science Quest",
-    images: [{ url: "/og.png", width: 1792, height: 928, alt: "Data Science Quest — jornada visual de 24 semanas" }],
+    images: [{ url: "/og.png", width: 1792, height: 928, alt: "Data Science Quest — jornada visual de 22 semanas" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Data Science Quest",
     description:
-      "24 semanas na ordem do planejamento para dominar a ementa, construir projetos e defender decisões.",
+      "22 semanas na ordem canônica do roadmap v12 para dominar a ementa, construir projetos e defender decisões.",
     images: ["/og.png"],
   },
   alternates: { canonical: "/" },
