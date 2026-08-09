@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import { AssessmentHubView, SabatinaTestView } from "@/components/AssessmentViews";
 import { JourneyView } from "@/components/JourneyView";
+import { MlFundamentalsView } from "@/components/MlFundamentalsView";
 import { WeekDrawer } from "@/components/WeekDrawer";
 import { SyllabusView } from "@/components/SyllabusView";
 import { StudyStudio } from "@/components/StudyStudio";
@@ -49,6 +50,7 @@ import { useQuestWorkspace } from "@/lib/use-quest-workspace";
 type ActiveView =
   | "jornada"
   | "ementa"
+  | "fundamentos-machine-learning"
   | "pomodoro"
   | "estudio"
   | "flashcards"
@@ -67,6 +69,7 @@ const navGroups = [
     items: [
       { id: "jornada", label: "Visão geral", icon: LayoutDashboard },
       { id: "ementa", label: "Ementa oficial", icon: BookOpenCheck, badge: String(roadmap.metrics.syllabusItems) },
+      { id: "fundamentos-machine-learning", label: "Fundamentos ML", icon: BrainCircuit },
       { id: "projetos", label: "Projetos", icon: FolderGit2, badge: String(roadmap.metrics.projects) },
     ],
   },
@@ -75,7 +78,7 @@ const navGroups = [
     items: [
       { id: "pomodoro", label: "Sala de foco", icon: TimerReset },
       { id: "estudio", label: "Anotações", icon: NotebookPen },
-      { id: "flashcards", label: "Flashcards", icon: BrainCircuit, badge: String(roadmap.metrics.questions) },
+      { id: "flashcards", label: "Flashcards", icon: BrainCircuit, badge: String(roadmap.metrics.flashcards) },
       { id: "sabatina", label: "Sabatina por semana", icon: MessageCircleQuestion },
       { id: "sabatina-teste", label: "Sabatina teste", icon: Sparkles, badge: "51" },
       { id: "prova", label: "Provas reais", icon: FlaskConical, badge: "2" },
@@ -163,12 +166,13 @@ export function QuestApp({
     const common = { workspace, onUpdate: update };
     switch (active) {
       case "ementa": return <SyllabusView {...common} onSelectWeek={setSelectedWeek} />;
+      case "fundamentos-machine-learning": return <MlFundamentalsView onSelectWeek={setSelectedWeek} />;
       case "pomodoro": return <PomodoroView {...common} />;
       case "estudio": return <StudyStudio {...common} saveState={saveState} />;
       case "flashcards": return <FlashcardsView {...common} />;
       case "sabatina": return <SabatinaView {...common} />;
-      case "sabatina-teste": return <SabatinaTestView />;
-      case "prova": return <AssessmentHubView />;
+      case "sabatina-teste": return <SabatinaTestView {...common} />;
+      case "prova": return <AssessmentHubView {...common} />;
       case "projetos": return <ProjectsView {...common} />;
       case "analytics": return <AnalyticsView {...common} />;
       case "erros": return <ErrorsView {...common} />;
@@ -205,7 +209,7 @@ export function QuestApp({
         <div className="sidebar-bottom">
           <button className={active === "configuracoes" ? "active" : ""} onClick={() => navigate("configuracoes")}><Settings2 size={18} /><span>Configurações</span></button>
           <button><CircleHelp size={18} /><span>Guia de uso</span></button>
-          {!collapsed && <div className="source-seal"><Sparkles size={16} /><div><strong>roadmap-v17</strong><span>22 semanas · 61 itens</span></div></div>}
+          {!collapsed && <div className="source-seal"><Sparkles size={16} /><div><strong>roadmap-v18</strong><span>22 semanas · 72 itens</span></div></div>}
         </div>
         <button className="collapse-button" onClick={() => setCollapsed(!collapsed)} aria-label={collapsed ? "Expandir menu" : "Recolher menu"}>{collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}</button>
       </aside>

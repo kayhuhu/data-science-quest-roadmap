@@ -8,6 +8,9 @@ export type AssessmentQuestion = {
   correctIndex: number;
   topic: string;
   week: number;
+  block: string;
+  syllabusItem: string | null;
+  model: string | null;
   rationale: string;
   dataset?: string | null;
 };
@@ -22,7 +25,15 @@ export type Assessment = {
   questions: AssessmentQuestion[];
 };
 
-export const assessmentBank = assessmentJson.assessments as Assessment[];
+const inferBlock = (topic: string) => /sql|banco/i.test(topic) ? "BANCO DE DADOS" : /regress/i.test(topic) ? "REGRESSÃO" : /class|árvore|naive|svm|knn/i.test(topic) ? "CLASSIFICAÇÃO" : /cluster|agrup|k-means/i.test(topic) ? "AGRUPAMENTO" : /estat|probab|distrib/i.test(topic) ? "ESTATÍSTICA BÁSICA" : "OUTROS";
+const inferModel = (topic: string) => /regressão logística/i.test(topic) ? "Regressão Logística" : /regressão/i.test(topic) ? "Regressão" : /árvore/i.test(topic) ? "Árvore" : /naive/i.test(topic) ? "Naive Bayes" : /svm/i.test(topic) ? "SVM" : /knn/i.test(topic) ? "KNN" : /k-means/i.test(topic) ? "K-means" : null;
+
+type RawAssessment = Omit<Assessment, "questions"> & { questions: Array<Omit<AssessmentQuestion, "block" | "syllabusItem" | "model">> };
+
+export const assessmentBank = (assessmentJson.assessments as RawAssessment[]).map((assessment) => ({
+  ...assessment,
+  questions: assessment.questions.map((question) => ({ ...question, block: inferBlock(question.topic), syllabusItem: null, model: inferModel(question.topic) })),
+})) as Assessment[];
 
 export const assessmentQuestionCount = assessmentBank.reduce(
   (total, assessment) => total + assessment.questions.length,

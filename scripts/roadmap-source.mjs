@@ -32,8 +32,8 @@ export const officialBlocks = [
     title: "AVALIAÇÃO DE MODELOS",
     weekNumbers: [9, 10, 11, 12, 13, 14, 15, 16],
     items: [
-      ["Métricas de avaliação de modelo: KS, Gini, AUC, RMSE, MAE, F1, Recall, Precision, R2", 9],
-      ["Validações holdout, leave one out, k-fold, out of sample, out of time", 9],
+      ["Métricas de avaliação de modelo: KS, Gini, AUC, RMSE, MAE, F1, Recall, Precision, R2", 11, { id: "aval-01", coverageWeeks: [9, 10, 11, 12, 13, 14, 15, 16] }],
+      ["Validações holdout, leave one out, k-fold, out of sample, out of time", 9, { id: "aval-02", coverageWeeks: [9, 10, 11, 12, 13, 14, 15, 16] }],
     ],
   },
   {
@@ -98,16 +98,17 @@ export const officialBlocks = [
     title: "IA GENERATIVA",
     weekNumbers: [17, 18],
     items: [
-      ["Conceitos fundamentais de IA Generativa e NLP", 17],
-      ["Arquitetura transformer", 17],
-      ["In Context Learning", 18],
-      ["RAGs e bancos de dados vetoriais", 18],
-      ["Engenharia de Prompt", 18],
-      ["Técnicas de treinamento e fine tuning", 18],
-      ["Quantization", 18],
-      ["Embeddings", 17],
-      ["RLHF", 18],
-      ["Safeguards e Guardrails", 18],
+      ["Conceitos fundamentais de IA Generativa", 17, { id: "genai-01", order: 1 }],
+      ["Arquitetura transformer", 17, { id: "genai-02", order: 3 }],
+      ["In Context Learning", 18, { id: "genai-03", order: 4 }],
+      ["RAGs e bancos de dados vetoriais", 18, { id: "genai-04", order: 5 }],
+      ["Engenharia de Prompt", 18, { id: "genai-05", order: 6 }],
+      ["Técnicas de treinamento e fine tuning", 18, { id: "genai-06", order: 7 }],
+      ["Quantization", 18, { id: "genai-07", order: 8 }],
+      ["Embeddings", 17, { id: "genai-08", order: 9 }],
+      ["RLHF", 18, { id: "genai-09", order: 10 }],
+      ["Safeguards e Guardrails", 18, { id: "genai-10", order: 11 }],
+      ["Conceitos fundamentais de NLP", 17, { id: "genai-11", order: 2 }],
     ],
   },
   {
@@ -136,6 +137,22 @@ export const officialBlocks = [
       ["O que é MIP", 19],
       ["GAP e Best Bound", 19],
       ["Solvers", 19],
+    ],
+  },
+  {
+    title: "OUTROS",
+    weekNumbers: [13, 20, 21],
+    items: [
+      ["Hadoop / Hive", 20, { id: "other-01" }],
+      ["Spark / PySpark", 20, { id: "other-02" }],
+      ["Modelagem de grafos", 20, { id: "other-03" }],
+      ["Séries temporais", 20, { id: "other-04" }],
+      ["Detecção de anomalias", 21, { id: "other-05" }],
+      ["Ensemble modelling", 13, { id: "other-06", coverageWeeks: [13, 21], crossReference: "Conteúdo principal na Semana 13; referência na Semana 21." }],
+      ["Text mining", 21, { id: "other-07" }],
+      ["Deep Learning / TensorFlow", 21, { id: "other-08", coverageWeeks: [14, 21], crossReference: "Redes neurais na Semana 14; item oficial consolidado na Semana 21." }],
+      ["Reconhecimento de imagens", 21, { id: "other-09" }],
+      ["Speech analytics", 21, { id: "other-10" }],
     ],
   },
 ];
@@ -742,7 +759,7 @@ export const planning24WeekArchive = [
 
 const v12Project = (repo, title, objective, deliverables) => [repo, title, objective, deliverables];
 
-/** Ordem canônica do roadmap v12: 22 semanas, sem alterar os 61 itens oficiais. */
+/** Ordem canônica do roadmap v12: 22 semanas, com os 72 itens literais auditados. */
 export const weekSpecs = [
   buildWeek(1, [1], {
     blocks: ["ESTATÍSTICA BÁSICA"], sourceOrder: "Roadmap v12",
@@ -912,6 +929,6 @@ export const weekSpecs = [
     outcomes: ["Executar projeto end-to-end", "Resolver simulado prático", "Defender decisão bancária", "Mapear lacunas para revisão"],
     project: v12Project("22-banking-decision-platform-capstone", "Capstone end-to-end", "Integrar SQL, Data Prep, modelo, avaliação e apresentação.", ["Banco e features", "Pacote Python e testes", "Modelos comparados", "Relatório e apresentação", "Release reproduzível"]),
     resources: mergeResources(resources.programming, resources.database, resources.evaluation, resources.classification),
-    evaluationFocus: ["Cobertura dos 61 itens, reprodutibilidade, decisão, interpretação, comunicação e plano de monitoramento."],
+    evaluationFocus: ["Cobertura dos 72 itens, reprodutibilidade, decisão, interpretação, comunicação e plano de monitoramento."],
   }),
 ];

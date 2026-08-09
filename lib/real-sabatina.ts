@@ -2,8 +2,14 @@ export type SabatinaPriority = "manter" | "reforcar" | "urgente";
 
 export type RealSabatinaQuestion = {
   id: string;
+  block: string;
   week: number;
+  syllabusItem: string | null;
   topic: string;
+  model: string | null;
+  questionType: string;
+  source: "sabatina-real";
+  difficulty: "fundamental" | "aplicada" | "reforço";
   question: string;
   priority: SabatinaPriority;
   answer: string;
@@ -22,7 +28,12 @@ const q = (
   reasoning: string,
   banking: string,
   watchOut: string,
-): RealSabatinaQuestion => ({ id, week, topic, question, priority, answer, reasoning, banking, watchOut });
+): RealSabatinaQuestion => {
+  const block = week <= 8 ? "FUNDAMENTOS" : week <= 10 ? "REGRESSÃO" : week <= 14 ? "CLASSIFICAÇÃO" : "AGRUPAMENTO";
+  const questionType = /exemplo|situação|cenário|quando/i.test(question) ? "cenário prático" : /diferença|compare|tipos/i.test(question) ? "comparação" : /métrica|mede|curva|gini|recall|precisão|acurácia/i.test(question) ? "interpretação de métrica" : /pré-process|sequência|pipeline|tratamento/i.test(question) ? "pipeline" : /como funciona|realizado|chega/i.test(question) ? "mecanismo" : "conceito";
+  const model = /naive/i.test(topic) ? "Naive Bayes" : /árvore/i.test(topic) ? "Árvore de decisão" : /ensemble|random|boost/i.test(topic) ? "Ensembles" : /regressão/i.test(topic) ? "Regressão" : /k-means|agrupamento/i.test(topic) ? "K-means" : null;
+  return { id, block, week, syllabusItem: null, topic, model, questionType, source: "sabatina-real", difficulty: priority === "urgente" ? "reforço" : priority === "reforcar" ? "aplicada" : "fundamental", question, priority, answer, reasoning, banking, watchOut };
+};
 
 /**
  * Perguntas recebidas de uma sabatina real, preservadas na ordem da entrevista.

@@ -35,12 +35,22 @@ import {
   sabatinaPriorityLabel,
   type SabatinaPriority,
 } from "@/lib/real-sabatina";
+import type { QuestWorkspace } from "@/lib/use-quest-workspace";
+
+type AssessmentWorkspaceProps = {
+  workspace: QuestWorkspace;
+  onUpdate: (recipe: (current: QuestWorkspace) => QuestWorkspace) => void;
+};
 
 const priorityOrder: SabatinaPriority[] = ["urgente", "reforcar", "manter"];
 
-export function SabatinaTestView() {
+export function SabatinaTestView({ workspace, onUpdate }: AssessmentWorkspaceProps) {
   const [priority, setPriority] = useState<SabatinaPriority | "todas">("todas");
   const [topic, setTopic] = useState("todos");
+  const [block, setBlock] = useState("todos");
+  const [questionType, setQuestionType] = useState("todos");
+  const [wrongOnly, setWrongOnly] = useState(false);
+  const [practicalOnly, setPracticalOnly] = useState(false);
   const [index, setIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const [draft, setDraft] = useState("");
@@ -52,8 +62,12 @@ export function SabatinaTestView() {
   const questions = useMemo(
     () => realSabatinaQuestions.filter((item) =>
       (priority === "todas" || item.priority === priority) &&
-      (topic === "todos" || item.topic === topic)),
-    [priority, topic],
+      (topic === "todos" || item.topic === topic) &&
+      (block === "todos" || item.block === block) &&
+      (questionType === "todos" || item.questionType === questionType) &&
+      (!wrongOnly || workspace.sabatinaTestResults[item.id] === "wrong") &&
+      (!practicalOnly || ["cenário prático", "pipeline", "interpretação de métrica"].includes(item.questionType))),
+    [block, practicalOnly, priority, questionType, topic, workspace.sabatinaTestResults, wrongOnly],
   );
   const item = questions[index] ?? questions[0];
 
@@ -89,6 +103,10 @@ export function SabatinaTestView() {
       <section className="sabatina-filter-bar">
         <label><Filter size={16} /> Prioridade<select value={priority} onChange={(event) => { setPriority(event.target.value as SabatinaPriority | "todas"); chooseQuestion(0); }}><option value="todas">Todas</option>{priorityOrder.map((value) => <option value={value} key={value}>{sabatinaPriorityLabel[value]}</option>)}</select></label>
         <label>Tema<select value={topic} onChange={(event) => { setTopic(event.target.value); chooseQuestion(0); }}><option value="todos">Todos os temas</option>{topics.map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>Bloco<select value={block} onChange={(event) => { setBlock(event.target.value); chooseQuestion(0); }}><option value="todos">Todos</option>{[...new Set(realSabatinaQuestions.map((question) => question.block))].map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label>Tipo<select value={questionType} onChange={(event) => { setQuestionType(event.target.value); chooseQuestion(0); }}><option value="todos">Todos</option>{[...new Set(realSabatinaQuestions.map((question) => question.questionType))].map((value) => <option key={value}>{value}</option>)}</select></label>
+        <label className="binary-filter"><input type="checkbox" checked={practicalOnly} onChange={(event) => { setPracticalOnly(event.target.checked); chooseQuestion(0); }} /> Só aplicação prática</label>
+        <label className="binary-filter"><input type="checkbox" checked={wrongOnly} onChange={(event) => { setWrongOnly(event.target.checked); chooseQuestion(0); }} /> Só as que errei</label>
         <span>{questions.length} perguntas no filtro</span>
       </section>
 
@@ -128,7 +146,7 @@ export function SabatinaTestView() {
                 <article><span><Target size={17} /> APLICAÇÃO NO BANCO</span><p>{item.banking}</p></article>
               </div>
               <article className="answer-trap"><span><AlertTriangle size={17} /> ARMADILHA / APROFUNDAMENTO</span><p>{item.watchOut}</p></article>
-              <footer><button onClick={() => move(1)}>Entendi · ir para a próxima <ArrowRight size={16} /></button></footer>
+              <footer className="sabatina-self-result"><span>Como foi sua resposta?</span><button onClick={() => { onUpdate((current) => ({ ...current, sabatinaTestResults: { ...current.sabatinaTestResults, [item.id]: "wrong" } })); move(1); }}><XCircle size={15} /> Preciso revisar</button><button onClick={() => { onUpdate((current) => ({ ...current, sabatinaTestResults: { ...current.sabatinaTestResults, [item.id]: "correct" } })); move(1); }}><CheckCircle2 size={15} /> Respondi bem</button></footer>
             </section>
           )}
         </main>
@@ -153,27 +171,40 @@ function AssessmentCard({ assessment, onStart }: { assessment: Assessment; onSta
   );
 }
 
-export function AssessmentHubView() {
+export function AssessmentHubView({ workspace, onUpdate }: AssessmentWorkspaceProps) {
   const [selectedId, setSelectedId] = useState<Assessment["id"] | null>(null);
   const [mode, setMode] = useState<AssessmentMode>("estudo");
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [revealed, setRevealed] = useState(false);
   const [finished, setFinished] = useState(false);
+  const [blockFilter, setBlockFilter] = useState("todos");
+  const [weekFilter, setWeekFilter] = useState("todas");
+  const [modelFilter, setModelFilter] = useState("todos");
+  const [answerFilter, setAnswerFilter] = useState("todas");
   const assessment = assessmentBank.find((item) => item.id === selectedId);
   const question = assessment?.questions[index];
 
   const reset = (nextAssessment?: Assessment) => {
-    if (nextAssessment) setSelectedId(nextAssessment.id);
+    if (nextAssessment) {
+      setSelectedId(nextAssessment.id);
+      setAnswers(workspace.examDrafts[nextAssessment.id] ?? {});
+    } else {
+      setAnswers({});
+      if (assessment) onUpdate((current) => ({ ...current, examDrafts: { ...current.examDrafts, [assessment.id]: {} } }));
+    }
     setIndex(0);
-    setAnswers({});
     setRevealed(false);
     setFinished(false);
   };
 
   const selectAnswer = (optionIndex: number) => {
     if (!question || (mode === "estudo" && revealed)) return;
-    setAnswers((current) => ({ ...current, [question.id]: optionIndex }));
+    setAnswers((current) => {
+      const next = { ...current, [question.id]: optionIndex };
+      onUpdate((workspaceCurrent) => ({ ...workspaceCurrent, examDrafts: { ...workspaceCurrent.examDrafts, [assessment!.id]: next } }));
+      return next;
+    });
     if (mode === "estudo") setRevealed(true);
   };
 
@@ -182,11 +213,18 @@ export function AssessmentHubView() {
     setRevealed(mode === "estudo" && answers[assessment!.questions[nextIndex].id] !== undefined);
   };
 
+  const finishAttempt = () => {
+    if (!assessment || finished) return;
+    const attemptCorrect = assessment.questions.filter((item) => answers[item.id] === item.correctIndex).length;
+    onUpdate((current) => ({ ...current, examDrafts: { ...current.examDrafts, [assessment.id]: answers }, examAttempts: [{ id: crypto.randomUUID(), assessmentId: assessment.id, correct: attemptCorrect, answered: Object.keys(answers).length, total: assessment.questions.length, createdAt: new Date().toISOString() }, ...current.examAttempts] }));
+    setFinished(true);
+  };
+
   if (!assessment || !question) {
     return (
       <div className="assessment-hub view-stack">
         <header className="page-intro">
-          <div><span className="eyebrow"><FileQuestion size={15} /> PROVAS REAIS · AVALIAÇÃO FINAL</span><h1>Duas provas gerais. {assessmentQuestionCount} questões.</h1><p>Esta área não pertence a nenhuma semana. Use no encerramento da jornada: modo estudo para correção imediata ou simulado para abrir o gabarito apenas no final.</p></div>
+          <div><span className="eyebrow"><FileQuestion size={15} /> PROVAS REAIS · AVALIAÇÃO FINAL</span><h1>Duas provas gerais. {assessmentQuestionCount} questões.</h1><p>Esta área não pertence a nenhuma semana. Use no encerramento da jornada: modo estudo para correção imediata ou simulado para abrir o gabarito apenas no final. {workspace.examAttempts.length} tentativa(s) salva(s) neste dispositivo.</p></div>
           <div className="assessment-mode-toggle" aria-label="Modo da prova"><button className={mode === "estudo" ? "active" : ""} onClick={() => setMode("estudo")}><BookOpenCheck size={16} /> Modo estudo</button><button className={mode === "simulado" ? "active" : ""} onClick={() => setMode("simulado")}><Clock3 size={16} /> Modo simulado</button></div>
         </header>
         <section className="assessment-card-grid">{assessmentBank.map((item) => <AssessmentCard assessment={item} key={item.id} onStart={reset} />)}</section>
@@ -205,6 +243,11 @@ export function AssessmentHubView() {
   const selected = answers[question.id];
   const showAnswer = finished || (mode === "estudo" && revealed);
   const progress = answered / assessment.questions.length * 100;
+  const visibleQuestionIndices = assessment.questions.map((item, itemIndex) => ({ item, itemIndex })).filter(({ item }) => {
+    const chosen = answers[item.id];
+    const state = chosen === undefined ? "unanswered" : chosen === item.correctIndex ? "correct" : "wrong";
+    return (blockFilter === "todos" || item.block === blockFilter) && (weekFilter === "todas" || item.week === Number(weekFilter)) && (modelFilter === "todos" || item.model === modelFilter) && (answerFilter === "todas" || state === answerFilter);
+  });
 
   if (finished) {
     return (
@@ -239,7 +282,8 @@ export function AssessmentHubView() {
       <section className="assessment-workspace">
         <aside className="assessment-palette">
           <header><span>QUESTÕES</span><strong>{index + 1}/{assessment.questions.length}</strong></header>
-          <div>{assessment.questions.map((item, itemIndex) => <button key={item.id} className={`${itemIndex === index ? "active" : ""} ${answers[item.id] !== undefined ? "answered" : ""}`} onClick={() => goTo(itemIndex)}>{itemIndex + 1}</button>)}</div>
+          <section className="assessment-question-filters"><label>Bloco<select value={blockFilter} onChange={(event) => setBlockFilter(event.target.value)}><option value="todos">Todos</option>{[...new Set(assessment.questions.map((item) => item.block))].map((value) => <option key={value}>{value}</option>)}</select></label><label>Semana<select value={weekFilter} onChange={(event) => setWeekFilter(event.target.value)}><option value="todas">Todas</option>{[...new Set(assessment.questions.map((item) => item.week))].sort((a, b) => a - b).map((value) => <option key={value} value={value}>S{value}</option>)}</select></label><label>Modelo<select value={modelFilter} onChange={(event) => setModelFilter(event.target.value)}><option value="todos">Todos</option>{[...new Set(assessment.questions.map((item) => item.model).filter(Boolean))].map((value) => <option key={value!}>{value}</option>)}</select></label><label>Resposta<select value={answerFilter} onChange={(event) => setAnswerFilter(event.target.value)}><option value="todas">Todas</option><option value="correct">Corretas</option><option value="wrong">Erradas</option><option value="unanswered">Não respondidas</option></select></label></section>
+          <div>{visibleQuestionIndices.map(({ item, itemIndex }) => <button key={item.id} className={`${itemIndex === index ? "active" : ""} ${answers[item.id] !== undefined ? "answered" : ""}`} onClick={() => goTo(itemIndex)}>{itemIndex + 1}</button>)}</div>
           <footer><span><i className="current" /> Atual</span><span><i className="done" /> Respondida</span></footer>
         </aside>
 
@@ -257,11 +301,11 @@ export function AssessmentHubView() {
 
           {showAnswer && <section className="assessment-rationale"><header><Sparkles size={17} /><span>GABARITO COMENTADO</span></header><strong>Resposta: {String.fromCharCode(65 + question.correctIndex)} · {question.options[question.correctIndex]}</strong><ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>{question.rationale}</ReactMarkdown>{question.dataset && <p className="dataset-warning"><AlertTriangle size={16} /> CSV reconstruído para prática: o fluxo é reproduzível, mas o número pode diferir do arquivo original.</p>}</section>}
 
-          <footer className="assessment-navigation"><button disabled={index === 0} onClick={() => goTo(index - 1)}><ArrowLeft size={16} /> Anterior</button>{index < assessment.questions.length - 1 ? <button className="primary-button" onClick={() => goTo(index + 1)}>Próxima <ArrowRight size={16} /></button> : <button className="primary-button" onClick={() => setFinished(true)}><CheckCircle2 size={16} /> Finalizar e corrigir</button>}</footer>
+          <footer className="assessment-navigation"><button disabled={index === 0} onClick={() => goTo(index - 1)}><ArrowLeft size={16} /> Anterior</button>{index < assessment.questions.length - 1 ? <button className="primary-button" onClick={() => goTo(index + 1)}>Próxima <ArrowRight size={16} /></button> : <button className="primary-button" onClick={finishAttempt}><CheckCircle2 size={16} /> Finalizar e corrigir</button>}</footer>
         </main>
       </section>
 
-      {mode === "simulado" && <button className="finish-assessment-button" onClick={() => setFinished(true)}><Play size={16} /> Finalizar agora e abrir gabarito</button>}
+      {mode === "simulado" && <button className="finish-assessment-button" onClick={finishAttempt}><Play size={16} /> Finalizar agora e abrir gabarito</button>}
     </div>
   );
 }

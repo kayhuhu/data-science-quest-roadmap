@@ -1,84 +1,79 @@
 # Data Science Quest
 
-Planner de estudos em Next.js para preparação da prova e da sabatina de Cientista de Dados do Itaú Unibanco. O roadmap v17 restaura as 22 semanas e os 22 projetos canônicos do roadmap v12, cobre os 61 itens dos 13 blocos oficiais, inclui 220 perguntas semanais, 51 perguntas de uma sabatina real e 84 questões de duas provas recebidas.
+Planner de estudos em Next.js para a prova e a sabatina de Cientista de Dados do Itaú Unibanco. O roadmap v18 preserva a ordem pedagógica de 22 semanas, cobre os 72 itens literais da ementa em nível Júnior e prioriza compreensão, escolha, interpretação e aplicação bancária.
 
 Produção: `https://kayhuhu-roadmap.vercel.app`
 
-## O que mudou na v17
+## Escopo da v18
 
-- as 22 semanas e os 22 projetos voltaram à identidade canônica do roadmap v12;
-- cada semana agora possui exatamente seis etapas: **Aprender, Praticar, Projeto, Sabatina, Revisar e Progresso**;
-- os 61 itens oficiais possuem guias aplicados individuais: **o que é**, **por que importa**, **quando usar**, **quando não usar**, **como interpretar**, **como aplicar no banco** e **foco de prova/sabatina**;
-- conteúdo recebe nível explícito: essencial, importante, bom saber ou opcional; aprofundamento opcional nunca bloqueia a conclusão;
-- a conclusão verde exige evidências: ementa essencial dominada, 80% da sabatina com confiança, prática, entrega mínima do projeto e capacidade de explicar, escolher e interpretar;
-- a central semanal recebeu tipografia maior e mais confortável, sem alterar a escala das demais páginas do planner;
-- a identificação de páginas do PDF-base foi retirada da interface semanal; a ordem das semanas continua preservada internamente;
-- o material **Estudar com IA** fica dentro de Aprender e oferece copiar/exportar prompt, marcar geração e vincular/abrir o PDF da semana;
-- as perguntas semanais foram reescritas no estilo observado nas provas e na sabatina: finalidade, escolha, comparação, pipeline, métrica, limitação, produção e aplicação bancária.
+- 22 semanas na ordem canônica do planejamento;
+- 72 itens literais em 14 blocos, com semana principal, cobertura transversal e referências cruzadas;
+- quatro abas semanais, exatamente: **Estudar, Praticar, Sabatina e Revisar**;
+- progresso, status e horas sempre disponíveis no cabeçalho, sem uma aba própria;
+- checkpoint permanente em `/fundamentos-machine-learning` entre as Semanas 8 e 9;
+- 176 flashcards-semente atômicos, separados das 220 perguntas semanais;
+- 51 perguntas preservadas de uma sabatina real e 84 questões de duas provas recebidas;
+- Mini Labs de 1–3 horas em todas as semanas e seis projetos maiores nos marcos de portfólio;
+- cinco CSVs didáticos reconstruídos para as questões práticas cujos dados não acompanharam o notebook;
+- progresso, notas, PDFs anexados, flashcards, erros, provas e tentativas salvos no navegador.
 
-### Avaliações finais preservadas da v15
+“100% da ementa” significa que cada item é coberto no nível necessário para uma vaga Júnior: o que é, para que serve, como funciona, quando usar, quando evitar, como aparece em Ciência de Dados, aplicação bancária, interpretação, matemática necessária, prática mínima, limitações e sabatina. Isso não significa aprofundamento acadêmico indiscriminado.
 
-- uma nova página **Sabatina teste** reúne 51 perguntas reais como avaliação final geral, sem vínculo com semanas, com respostas em quatro camadas e prioridade baseada no desempenho original;
-- **Prova Itaú 1** virou um teste de 47 questões e **Prova Itaú 2** um teste de 37 questões, com modos estudo/simulado e gabarito comentado;
-- cinco CSVs didáticos foram reconstruídos para as questões práticas porque os arquivos originais não vieram com o notebook;
-- a ementa oficial passou a aparecer na ordem das semanas e como checklist de domínio;
-- cada semana explicita “o que é”, “para que serve”, “como funciona” e “como usar no banco”;
-- a inicialização funciona mesmo quando o navegador bloqueia armazenamento local;
+## As quatro abas de cada semana
 
-### Base preservada da v14
+1. **Estudar:** começa pela ementa literal; depois mostra mapa compacto de conceitos, prompt para gerar a apostila, PDF anexado e três materiais prioritários.
+2. **Praticar:** Mini Lab de 1–3 horas, checklist, estrutura mínima de arquivos, README, exemplo de código e fluxo Git/GitHub.
+3. **Sabatina:** dez perguntas aplicadas, resposta ideal, metadados, confiança, criação de flashcard e registro no caderno de erros.
+4. **Revisar:** flashcards atômicos, itens pendentes, erros e critério compacto de domínio.
 
-- as semanas voltaram à ordem exata do PDF `planejamento_v10_3_ordem_luiza_ementa_fluxo_continuo.pdf`;
-- a sequência de 22 semanas preserva o fluxo pedagógico do roadmap v12 e usa as três semanas finais para otimização, integração e capstone;
-- Avaliação de Modelos mantém suas bases nas semanas 6–8 e reaparece transversalmente nas semanas de regressão, classificação, agrupamento e redes neurais;
-- a ementa continua auditável como 61 itens nos 13 blocos oficiais, mesmo quando uma semana conecta mais de um bloco;
-- cada semana abre em tela cheia, dentro do aplicativo, e possui exatamente seis áreas;
-- teoria inclui fundamentação aplicada, limites, apoio opcional em LaTeX e aplicação bancária;
-- cada semana mostra os itens oficiais relacionados e um protocolo explícito de validação;
-- materiais preservam livros anteriores e acrescentam vídeos, artigos e documentação;
-- cada semana possui prompts copiáveis para resumo/PDF e simulação de sabatina;
-- projetos agora começam no VS Code, passam por venv, dependências, testes e documentação e terminam no GitHub `kayhuhu`;
-- a aba Projetos usa o mesmo guia completo de dez etapas.
-- o XP é recalculado por evidências salvas; alternar estados ou rever o mesmo cartão não duplica pontos.
-
-## As seis áreas de cada semana
-
-1. **Aprender:** ementa, intuição, uso, limites, interpretação, banco, implementação mínima, materiais e prompt/PDF de estudo.
-2. **Praticar:** exercícios guiados, exemplo de código, notebook e entrega mínima.
-3. **Projeto:** problema, dados, stack, VS Code, venv, requirements, código, testes, documentação e GitHub.
-4. **Sabatina:** dez cenários autorais, resposta ideal, confiança, flashcard e registro de erro.
-5. **Revisar:** pendências da ementa, flashcards, erros e atalhos para as centrais de revisão.
-6. **Progresso:** horas, domínio, sabatina, projeto e critérios verificáveis para concluir em verde.
+O status verde exige ementa oficial estudada, Mini Lab, entrega mínima, desempenho satisfatório na sabatina, flashcards essenciais revisados e capacidade declarada de explicar, aplicar e interpretar. Livros extras, vídeos opcionais e projetos grandes não bloqueiam a conclusão.
 
 ## Ementa e distribuição
 
-| Bloco oficial | Semana(s) |
+| Bloco | Semana(s) |
 | --- | --- |
-| Programação | 7 |
 | Estatística Básica | 1–3 |
 | Álgebra | 4 |
-| Avaliação de Modelos | 9–16 (transversal nos modelos) |
 | Data Prep | 5–6 |
+| Programação | 7 |
 | Banco de Dados | 8 |
-| Classificação | 11–14 |
+| Avaliação de Modelos | 9–16, aplicada ao tipo de modelo |
 | Regressão | 9–10 |
+| Classificação | 11–14 |
 | Agrupamento | 15–16 |
 | IA Generativa | 17–18 |
-| Pesquisa Operacional | 19 |
-| Programação Inteira | 19 |
-| MIP | 19 |
+| Pesquisa Operacional, Programação Inteira e MIP | 19 |
+| Outros: Big Data, grafos, séries, anomalia, ensembles, texto, deep learning, imagem e speech | 13, 20–21 |
+| Consolidação | 22, sem teoria nova |
+
+Casos auditados automaticamente:
+
+- Semana 1: Propriedades de Distribuições, sem virar uma EDA completa;
+- Semana 9: somente MAE, RMSE, R² e validações aplicáveis à regressão;
+- Semana 16: anomalia é contexto, não item oficial;
+- Semana 17: text mining é contexto, não item oficial;
+- Ensemble modelling aponta para a Semana 13 e não é reensinado na Semana 21.
+
+## Avaliações e revisão
+
+- **Sabatina por semana:** treino autoral ligado ao conteúdo semanal.
+- **Sabatina teste:** avaliação final geral com as 51 perguntas reais, filtros e respostas estruturadas.
+- **Provas reais:** 47 + 37 questões no texto original, em modo estudo ou simulado, com filtros e histórico local.
+- **Flashcards:** filtros por bloco, semana, ementa/conceito/modelo, tipo, estado e fonte.
+- **Caderno de erros:** resposta dada, correta, erro conceitual, tema, próxima revisão e conversão em flashcard.
 
 ## Stack
 
-- Next.js 16.3 (App Router)
+- Next.js 16.3, App Router
 - React 19
 - TypeScript 5.9
 - CSS responsivo próprio
-- KaTeX + React Markdown para fórmulas e notas
-- Recharts para analytics
-- armazenamento local no navegador para progresso e anotações
-- Vercel para publicação
+- KaTeX e React Markdown
+- Recharts
+- armazenamento local e IndexedDB para dados pessoais e PDFs
+- GitHub e Vercel
 
-## Executar no seu computador
+## Executar localmente
 
 Pré-requisitos: Node.js 22 e npm.
 
@@ -91,9 +86,7 @@ npm run dev
 
 Abra `http://localhost:3000`.
 
-Se o repositório novo ainda não tiver sido criado, use esta pasta local e siga o guia de migração antes do `git clone`.
-
-## Comandos de qualidade
+## Qualidade
 
 ```powershell
 npm run content:audit
@@ -103,63 +96,33 @@ npm run build
 npm run check
 ```
 
-`content:audit` gera `data/roadmap.json`, reconstrói os cinco datasets didáticos e falha se o roadmap-base não tiver exatamente 22 semanas, 13 blocos, 61 itens oficiais, 22 projetos, 220 perguntas e 220 respostas. O teste adicional audita separadamente as 51 perguntas reais e as 84 questões importadas.
+`content:audit` reconstrói o roadmap e os datasets e falha se não encontrar exatamente 22 semanas, 14 blocos, 72 itens, 6 marcos de portfólio, 220 perguntas, 220 respostas e 176 flashcards-semente. Os testes também auditam as 51 perguntas reais, as 84 questões importadas e os casos especiais de cobertura.
 
-## Arquitetura relevante
+## Arquitetura
 
 ```text
-app/                         rotas, layout e CSS global
-components/WeekDrawer.tsx    central semanal com as seis áreas
-components/ProjectGuidePanel.tsx
-                              guia completo compartilhado por Semana e Projetos
-components/AssessmentViews.tsx sabatina real e duas provas interativas
-data/roadmap.json            artefato canônico gerado para a interface
-data/assessments.json        47 + 37 questões, alternativas e gabaritos
-lib/project-guides.ts        execução iniciante, Engenharia de Software e prompts
-lib/syllabus-study-guides.ts guias aplicados dos 61 itens oficiais
-lib/real-sabatina.ts         51 perguntas reais, prioridade e respostas estruturadas
-lib/quest-data.ts            tipos, paleta e leitura do roadmap
-public/datasets/             cinco CSVs didáticos reconstruídos
-scripts/roadmap-source.mjs   ementa oficial e conteúdo profundo das 22 semanas
-scripts/generate-roadmap.mjs geração e auditoria de integridade
-scripts/import-assessments.py importação auditável do notebook recebido
-scripts/generate-assessment-datasets.mjs
-                              geração determinística dos CSVs de prática
-docs/MIGRACAO_GITHUB_KAYHUHU.md
-                              troca de conta, cópia, push e Vercel passo a passo
+app/weekly-study.css             layout responsivo das quatro abas
+components/WeekDrawer.tsx       central semanal
+components/MlFundamentalsView.tsx
+                                 checkpoint entre as Semanas 8 e 9
+components/AssessmentViews.tsx  sabatina final e provas interativas
+data/roadmap.json               artefato canônico gerado
+data/assessments.json           47 + 37 questões originais
+lib/real-sabatina.ts            51 perguntas reais e metadados
+lib/use-quest-workspace.ts      persistência e regras de evidência
+scripts/canonical-study-scope.mjs
+                                 escopo pedagógico das 22 semanas
+scripts/roadmap-source.mjs      ementa literal e ordem do roadmap
+scripts/generate-roadmap.mjs    geração e auditoria automática
+public/datasets/                cinco CSVs didáticos reconstruídos
 ```
 
-## GitHub: migração para `kayhuhu`
+## GitHub e Vercel
 
-O projeto foi copiado para a conta `kayhuhu`, e `origin` aponta para o novo repositório. O remoto antigo permanece apenas como `old-origin` para referência.
+O remoto principal deve ser `https://github.com/kayhuhu/data-science-quest-roadmap.git`. O passo a passo para trocar de conta e preservar o histórico está em [docs/MIGRACAO_GITHUB_KAYHUHU.md](docs/MIGRACAO_GITHUB_KAYHUHU.md).
 
-Siga o guia completo, sem pular as verificações:
+Depois do push, conecte esse repositório e a branch `main` ao projeto da Vercel. O domínio de produção esperado é `kayhuhu-roadmap.vercel.app`.
 
-**[Migração GitHub anitacr → kayhuhu](docs/MIGRACAO_GITHUB_KAYHUHU.md)**
+## Privacidade e direitos autorais
 
-Resumo dos comandos principais, depois de autenticar `kayhuhu`:
-
-```powershell
-gh auth logout -h github.com -u anitacr
-gh auth login -h github.com -p https -w --clipboard
-gh api user --jq .login
-git remote rename origin old-origin
-gh repo create kayhuhu/data-science-quest-roadmap --public --source . --remote origin --push
-```
-
-## Vercel
-
-Depois do push no repositório novo:
-
-1. abra o projeto no dashboard da Vercel;
-2. vá a **Settings → Git**;
-3. desconecte o repositório antigo;
-4. conecte `kayhuhu/data-science-quest-roadmap`;
-5. confirme `main` como branch de produção;
-6. faça um novo deployment.
-
-Também é possível usar `vercel git disconnect`, `vercel git connect` e `vercel --prod` na raiz do projeto.
-
-## Conteúdo, privacidade e direitos autorais
-
-O planner registra referências, anotações próprias, imagens permitidas, fórmulas em LaTeX e trechos curtos necessários. Não publique livros/PDFs protegidos, dados bancários, PII, tokens, `.env` ou bases confidenciais. Projetos de portfólio devem usar dados públicos licenciados ou dados sintéticos explicitamente identificados.
+O planner pode armazenar referências, anotações próprias, imagens permitidas, fórmulas em LaTeX e trechos curtos necessários. Não publique livros ou PDFs protegidos, dados bancários, PII, tokens, `.env` ou bases confidenciais. Projetos devem usar dados públicos licenciados ou dados sintéticos identificados.
