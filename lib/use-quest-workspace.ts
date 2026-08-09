@@ -30,6 +30,27 @@ export type ErrorEntry = {
   correction: string;
   resolved: boolean;
   createdAt: string;
+  responseGiven?: string;
+  correctResponse?: string;
+  conceptualError?: string;
+  topic?: string;
+  syllabusItem?: string | null;
+  nextReview?: string;
+};
+
+export type FlashcardState = "new" | "learning" | "due" | "late" | "mastered";
+
+export type ManualFlashcard = {
+  id: string;
+  front: string;
+  back: string;
+  block: string;
+  week: number;
+  syllabusItem: string | null;
+  concept: string;
+  model: string | null;
+  type: string;
+  source: "manual";
 };
 
 export type WeekEvidence = {
@@ -56,7 +77,12 @@ export type QuestWorkspace = {
   sessions: StudySession[];
   errors: ErrorEntry[];
   reviewedFlashcards: string[];
+  flashcardState: Record<string, FlashcardState>;
+  manualFlashcards: ManualFlashcard[];
   sabatinaAttempts: Array<{ id: string; week: number; score: number; createdAt: string }>;
+  sabatinaTestResults: Record<string, "correct" | "wrong">;
+  examDrafts: Record<string, Record<string, number>>;
+  examAttempts: Array<{ id: string; assessmentId: string; correct: number; answered: number; total: number; createdAt: string }>;
   xp: number;
   settings: {
     weeklyGoalHours: number;
@@ -116,7 +142,12 @@ export const emptyWorkspace: QuestWorkspace = {
   sessions: [],
   errors: [],
   reviewedFlashcards: [],
+  flashcardState: {},
+  manualFlashcards: [],
   sabatinaAttempts: [],
+  sabatinaTestResults: {},
+  examDrafts: {},
+  examAttempts: [],
   xp: 0,
   settings: {
     weeklyGoalHours: 10,
@@ -192,6 +223,13 @@ function normalizeWorkspace(value: unknown): QuestWorkspace {
     materialPdfs: value.materialPdfs ?? {},
     questionConfidence: value.questionConfidence ?? {},
     savedFlashcards: value.savedFlashcards ?? [],
+    reviewedFlashcards: value.reviewedFlashcards ?? [],
+    flashcardState: value.flashcardState ?? {},
+    manualFlashcards: value.manualFlashcards ?? [],
+    sabatinaAttempts: value.sabatinaAttempts ?? [],
+    sabatinaTestResults: value.sabatinaTestResults ?? {},
+    examDrafts: value.examDrafts ?? {},
+    examAttempts: value.examAttempts ?? [],
     settings: { ...emptyWorkspace.settings, ...value.settings },
   };
   return { ...normalized, xp: calculateQuestXp(normalized) };
@@ -208,6 +246,8 @@ export function weekCompletionEvidence(workspace: QuestWorkspace, week: RoadmapW
     questionConfidence: week.sabatina.map((_, index) => workspace.questionConfidence[`${week.number}-${index + 1}`] ?? 0),
     practiceComplete: Boolean(evidence?.practiceComplete),
     projectSteps: workspace.projectChecklist?.[weekKey]?.length ?? 0,
+    reviewedFlashcards: week.flashcards.filter((card) => workspace.reviewedFlashcards.includes(card.id)).length,
+    totalFlashcards: week.flashcards.length,
     explainReady: Boolean(evidence?.explainReady),
     useReady: Boolean(evidence?.useReady),
     interpretationReady: Boolean(evidence?.interpretationReady),

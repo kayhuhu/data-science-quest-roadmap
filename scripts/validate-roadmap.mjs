@@ -1,9 +1,9 @@
 import roadmap from "../data/roadmap.json" with { type: "json" };
 
-const expected = { weeks: 22, blocks: 13, syllabusItems: 61, projects: 22, questions: 220, answers: 220 };
+const expected = { weeks: 22, blocks: 14, syllabusItems: 72, projects: 6, questions: 220, answers: 220, flashcards: 176 };
 for (const [key, value] of Object.entries(expected)) {
   if (roadmap.metrics[key] !== value) {
     throw new Error(`Auditoria falhou em ${key}: esperado ${value}, recebido ${roadmap.metrics[key]}`);
   }
 }
-console.log("Roadmap v14 íntegro:", roadmap.metrics);
+console.log("Roadmap v18 íntegro:", roadmap.metrics);

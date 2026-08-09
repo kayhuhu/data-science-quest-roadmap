@@ -1,5 +1,6 @@
 import { writeFile } from "node:fs/promises";
 import { officialBlocks, weekSpecs } from "./roadmap-source.mjs";
+import { coveragePillars, scopeByWeek } from "./canonical-study-scope.mjs";
 
 const idPrefix = {
   "PROGRAMAÇÃO": "prog",
@@ -15,15 +16,23 @@ const idPrefix = {
   "PESQUISA OPERACIONAL": "po",
   "PROGRAMAÇÃO INTEIRA": "pi",
   "MIP (MIXED INTEGER PROGRAM)": "mip",
+  OUTROS: "other",
 };
 
-const syllabus = officialBlocks.flatMap((block) => block.items.map(([text, week], index) => ({
-  id: `${idPrefix[block.title]}-${String(index + 1).padStart(2, "0")}`,
-  text,
-  block: block.title,
-  week,
-  contentLevel: "essential",
-})));
+const syllabus = officialBlocks.flatMap((block) => block.items
+  .map(([text, week, metadata = {}], index) => ({
+    id: metadata.id ?? `${idPrefix[block.title]}-${String(index + 1).padStart(2, "0")}`,
+    text,
+    block: block.title,
+    week,
+    coverageWeeks: metadata.coverageWeeks ?? [week],
+    crossReference: metadata.crossReference ?? null,
+    contentLevel: "essential",
+    coveragePillars,
+    order: metadata.order ?? index + 1,
+  }))
+  .sort((first, second) => first.order - second.order)
+  .map((item) => Object.fromEntries(Object.entries(item).filter(([key]) => key !== "order"))));
 
 const practiceCodeByWeek = {
   1: ["python", "Resumo robusto de uma carteira", `import pandas as pd
@@ -147,70 +156,47 @@ const evaluationFor = (spec) => spec.evaluationFocus.length ? spec.evaluationFoc
   "Verificar qualidade dos dados, interpretar a saída, comparar um baseline e explicar limitações no contexto bancário.",
 ];
 
-function buildStudyPrompt(spec, officialTopics) {
-  const topics = officialTopics.length ? officialTopics : spec.content;
-  const evaluationFocus = evaluationFor(spec);
-  return `Você é um professor de Ciência de Dados especializado em ensinar iniciantes.
+function buildStudyPrompt(spec, officialTopics, scope) {
+  const topics = officialTopics.length ? officialTopics : scope.concepts;
+  return `Atue como professor e mentor de Ciência de Dados para uma pessoa que parte de conhecimento zero e está se preparando para uma prova e uma sabatina de Cientista de Dados Júnior.
 
-Estou estudando para uma vaga e uma prova de Cientista de Dados Júnior.
+Crie uma apostila completa da SEMANA ${spec.number} — ${scope.title}. O material deve cobrir 100% da ementa desta semana no nível Júnior: completo para compreender, aplicar, interpretar e defender, sem aprofundamento acadêmico que não ajude nessas decisões.
 
-SEMANA ${spec.number}: ${spec.title}
+EMENTA LITERAL DA SEMANA:
+${topics.map((topic) => `- ${topic}`).join("\n")}
 
-Nesta semana preciso dominar:
-${topics.map((topic, index) => `${index + 1}. ${topic}`).join("\n")}
+MAPA DE CONCEITOS NECESSÁRIOS:
+${scope.concepts.map((concept) => `- ${concept}`).join("\n")}
 
-OBJETIVO DA SEMANA: ${spec.summary}
+Para cada item da ementa, ensine em progressão: intuição → significado → aplicação → interpretação → matemática necessária → prática mínima. Garanta explicitamente:
+- o que é e para que serve;
+- como funciona, sem pular termos básicos;
+- quando usar e quando não usar;
+- como aparece em Ciência de Dados;
+- ao menos um caso bancário concreto (crédito, fraude, risco, cobrança, propensão ou operações);
+- como interpretar a saída e transformar o resultado em decisão;
+- a matemática estritamente necessária, explicando símbolos e leitura da fórmula;
+- uma aplicação mínima em Python ou SQL quando fizer sentido;
+- premissas, limitações, erros comuns e alternativas;
+- perguntas de sabatina aplicada com respostas técnicas ideais.
 
-Meu objetivo não é estudar matemática acadêmica pesada. Quero terminar o material conseguindo:
-- explicar cada conceito com minhas palavras;
-- entender por que ele existe;
-- reconhecer quando é usado e quando não usar;
-- interpretar resultados sem tirar conclusões indevidas;
-- aplicar um exemplo simples em Python ou SQL;
-- explicar um caso bancário;
-- responder perguntas de sabatina e uma prova prática Júnior.
+Quando houver modelo de Machine Learning, inclua somente o que for pertinente ao modelo: tipo de problema, dados de entrada, preprocessing, pipeline sem leakage, parâmetros e hiperparâmetros, função de custo em intuição, métricas aplicáveis, validação adequada, overfitting/underfitting, vantagens, limites e monitoramento. Não force esses tópicos onde não se aplicam.
 
-Crie uma apostila completa e didática, assumindo que começo sem conhecimento prévio. Para CADA conceito, siga obrigatoriamente:
-1. O que é?
-2. Intuição simples.
-3. Por que existe?
-4. Quando é usado em Ciência de Dados?
-5. Exemplo prático bancário.
-6. Como interpretar o resultado, gráfico ou métrica.
-7. Quando usar.
-8. Quando não usar.
-9. Limitações e premissas.
-10. Exemplo simples.
-11. Implementação curta em Python ou SQL, quando aplicável.
-12. Matemática essencial: fórmula, símbolos, parâmetros e interpretação da saída.
-13. Erros comuns, principalmente de interpretação.
-14. Relação com os outros conceitos da semana.
-15. Perguntas de sabatina no estilo de uma entrevista real.
-16. Respostas comentadas.
+AVALIAÇÃO APLICÁVEL NESTA SEMANA:
+${scope.appliedEvaluation.length ? scope.appliedEvaluation.map((item) => `- ${item}`).join("\n") : "- interpretação correta, aplicação mínima e limites"}
 
-Use linguagem progressiva: INTUIÇÃO PRIMEIRO → TÉCNICA DEPOIS. Não use um termo técnico antes de explicá-lo. Coloque demonstrações, derivações e detalhes acadêmicos somente em uma seção recolhida chamada “Aprofundamento opcional — não necessário para concluir esta semana”.
+CONTEXTO PERMITIDO (apenas para conectar ideias):
+${scope.context.map((item) => `- ${item}`).join("\n")}
 
-Para modelos de Machine Learning, cubra também: tipo de problema; premissas; preprocessing; escala; categóricas; missings; outliers; desbalanceamento; hiperparâmetros e o que controlam; função de custo; métricas; validação; overfitting; underfitting; vantagens; desvantagens; alternativas; monitoramento em produção; e um exemplo pequeno em sklearn.
+NÃO TRANSFORME EM CONTEÚDO OFICIAL DESTA SEMANA:
+${scope.exclusions.map((item) => `- ${item}`).join("\n")}
 
-Inclua no final:
-- resumo da semana e mapa mental;
-- tabela “quando usar cada técnica”;
-- exemplos bancários;
-- checklist de domínio;
-- 15 a 20 perguntas de sabatina com respostas completas;
-- 5 exercícios práticos com gabarito;
-- mini laboratório em Python ou SQL;
-- conexão com o projeto “${spec.project[1]}”.
-
-CONTEÚDOS ESSENCIAIS: ${spec.content.join("; ")}.
-MATEMÁTICA DE APOIO: ${spec.formula}. Explique-a somente depois da intuição.
-APLICAÇÃO BANCÁRIA: ${spec.bankApplication}
-COMO VALIDAR: ${evaluationFocus.join("; ")}
+Inclua exemplos resolvidos, pequenos exercícios com gabarito, um resumo final, um mapa de decisão “quando usar / quando não usar”, checklist de domínio e sabatina. Não imponha quantidade de páginas ou capítulos, não despeje fórmulas e não antecipe conteúdo de semanas futuras.
 
 MATERIAIS DE APOIO:
 ${[...spec.resources.books, ...spec.resources.videos, ...spec.resources.articles].map((item) => `- ${item}`).join("\n")}
 
-Use os materiais como referência, mas não presuma que um material isolado contém tudo. Não invente fontes. Ao final, confirme onde cada item da semana foi coberto.`;
+Use os materiais como referência, não invente fontes e finalize com uma auditoria que indique onde cada item literal da ementa foi ensinado.`;
 }
 
 function buildPedagogy(spec, officialItems) {
@@ -252,8 +238,61 @@ function buildPractice(spec) {
     codeExamples: [{ language, title, code }],
     tasks: ["Executar o exemplo curto", "Alterar um parâmetro e comparar", "Registrar interpretação em uma nota", "Responder cinco perguntas sem consulta"],
     examPractice: `Em até 45 minutos, resolva um caso sobre “${spec.title}”, mostre o raciocínio, produza uma saída verificável e escreva uma recomendação de cinco linhas.`,
-    notebook: `notebooks/semana-${String(spec.number).padStart(2, "0")}-pratica.ipynb`,
+    notebook: `week-${String(spec.number).padStart(2, "0")}/notebook.ipynb`,
   };
+}
+
+function buildMiniLab(spec, scope) {
+  const weekFolder = `week-${String(spec.number).padStart(2, "0")}`;
+  const files = scope.miniLab.kind === "sql"
+    ? [`${weekFolder}/queries.sql`, `${weekFolder}/README.md`]
+    : [`${weekFolder}/notebook.ipynb`, `${weekFolder}/README.md`];
+  return {
+    ...scope.miniLab,
+    files,
+    readmeQuestions: [
+      "Qual pergunta foi respondida?",
+      "Quais decisões de preparação foram tomadas?",
+      "O que o resultado significa no contexto bancário?",
+      "Quais limitações e próximos passos ficaram?",
+    ],
+    gitFlow: [
+      `git switch -c week-${String(spec.number).padStart(2, "0")}`,
+      `git add ${weekFolder}`,
+      `git commit -m "feat: complete week ${String(spec.number).padStart(2, "0")} mini lab"`,
+      "git push -u origin HEAD",
+      "Abra um Pull Request no GitHub, revise os arquivos e faça o merge.",
+    ],
+  };
+}
+
+function buildFlashcards(spec, scope, officialItems) {
+  return scope.map.flatMap((concept, index) => [
+    {
+      id: `week-${spec.number}-seed-${index + 1}-definition`,
+      front: `O que é ${concept.name}?`,
+      back: concept.what,
+      block: spec.block,
+      week: spec.number,
+      syllabusItem: officialItems[index % Math.max(officialItems.length, 1)]?.id ?? null,
+      concept: concept.name,
+      model: null,
+      type: "conceito",
+      source: "seed",
+    },
+    {
+      id: `week-${spec.number}-seed-${index + 1}-interpretation`,
+      front: `Por que ${concept.name} importa e como aparece no banco?`,
+      back: `${concept.why} ${concept.banking}`,
+      block: spec.block,
+      week: spec.number,
+      syllabusItem: officialItems[index % Math.max(officialItems.length, 1)]?.id ?? null,
+      concept: concept.name,
+      model: null,
+      type: "interpretação",
+      source: "seed",
+    },
+  ]);
 }
 
 function buildSabatinaPrompt(spec, officialTopics) {
@@ -284,6 +323,7 @@ function buildSabatina(spec) {
   const [caseOne, caseTwo, caseThree] = spec.cases;
   const officialText = syllabus.filter((item) => item.week === spec.number).map((item) => item.text).join("; ") || spec.content.join("; ");
   const evaluationFocus = evaluationFor(spec);
+  const questionTypes = ["conceito", "mecanismo", "escolha", "aplicação bancária", "pipeline", "comparação", "métrica e validação", "limitações", "monitoramento", "comunicação executiva"];
   return [
     {
       question: `O que é “${spec.title}”, para que serve e quais itens oficiais ele cobre?`,
@@ -325,10 +365,24 @@ function buildSabatina(spec) {
       question: `Explique em dois minutos como você usaria ${fifth.toLocaleLowerCase("pt-BR")} para um gestor do banco, incluindo benefício, limite e monitoramento.`,
       answer: `Estrutura ideal: problema e decisão; por que o método serve; população e dados; evidência e baseline; benefício; principal limitação; e como monitorar ou recuar. ${spec.bankApplication}`,
     },
-  ];
+  ].map((item, index) => ({
+    ...item,
+    id: `week-${spec.number}-question-${index + 1}`,
+    block: spec.block,
+    week: spec.number,
+    syllabusItem: syllabus.find((syllabusItem) => syllabusItem.week === spec.number)?.id ?? null,
+    topic: spec.content[index % spec.content.length],
+    model: spec.blocks.some((block) => ["CLASSIFICAÇÃO", "REGRESSÃO", "AGRUPAMENTO"].includes(block)) ? spec.title : null,
+    questionType: questionTypes[index],
+    source: "questao-adicional",
+    sourceLabel: "Questão adicional",
+    difficulty: index < 3 ? "fundamental" : index < 8 ? "aplicada" : "avançada-júnior",
+  }));
 }
 
 const weeks = weekSpecs.map((spec) => {
+  const scope = scopeByWeek.get(spec.number);
+  if (!scope) throw new Error(`Escopo canônico ausente para a semana ${spec.number}.`);
   const officialItems = syllabus.filter((item) => item.week === spec.number);
   const officialTopics = officialItems.map((item) => item.text);
   const [repo, title, objective, deliverables] = spec.project;
@@ -336,13 +390,21 @@ const weeks = weekSpecs.map((spec) => {
   const evaluationFocus = evaluationFor(spec);
   return {
     number: spec.number,
-    title: spec.title,
+    title: scope.title,
     period: spec.period,
     block: spec.block,
     blocks: spec.blocks,
     objective: spec.summary,
     syllabus: officialTopics,
-    content: spec.content,
+    content: scope.concepts,
+    studyScope: {
+      concepts: scope.concepts,
+      map: scope.map,
+      context: scope.context,
+      exclusions: scope.exclusions,
+      appliedEvaluation: scope.appliedEvaluation,
+      crossReferences: scope.crossReferences,
+    },
     overview: {
       summary: spec.summary,
       officialTopics,
@@ -350,6 +412,7 @@ const weeks = weekSpecs.map((spec) => {
     },
     pedagogy,
     practice: buildPractice(spec),
+    miniLab: buildMiniLab(spec, scope),
     theoryAndBanking: {
       foundations: [
         { title: "O que é e por que existe", body: spec.foundation },
@@ -371,31 +434,33 @@ const weeks = weekSpecs.map((spec) => {
     materials: spec.resources.books,
     videos: spec.resources.videos,
     prompts: {
-      study: buildStudyPrompt(spec, officialTopics),
+      study: buildStudyPrompt(spec, officialTopics, scope),
       sabatina: buildSabatinaPrompt(spec, officialTopics),
     },
-    project: { repo, title, objective, deliverables, learningOutcomes: spec.outcomes },
+    project: { repo, title, objective, deliverables, learningOutcomes: spec.outcomes, portfolioMilestone: scope.portfolioMilestone },
     sabatina: buildSabatina(spec),
+    flashcards: buildFlashcards(spec, scope, officialItems),
   };
 });
 
 const roadmap = {
-  sourceVersion: "v17 — roadmap v12 em 22 semanas + pedagogia Júnior",
-  syllabusVersion: "Ementa oficial fornecida em 08/08/2026",
+  sourceVersion: "v18 — 100% da ementa Júnior + quatro abas semanais",
+  syllabusVersion: "Ementa oficial integral auditada em 09/08/2026",
   metrics: {
     weeks: weeks.length,
     blocks: officialBlocks.length,
     syllabusItems: syllabus.length,
-    projects: weeks.length,
+    projects: weeks.filter((week) => week.project.portfolioMilestone).length,
     questions: weeks.reduce((sum, week) => sum + week.sabatina.length, 0),
     answers: weeks.reduce((sum, week) => sum + week.sabatina.filter((item) => item.answer).length, 0),
+    flashcards: weeks.reduce((sum, week) => sum + week.flashcards.length, 0),
   },
   blocks: officialBlocks.map((block, index) => ({ id: index + 1, title: block.title, weekNumbers: block.weekNumbers })),
   syllabus,
   weeks,
 };
 
-const expected = { weeks: 22, blocks: 13, syllabusItems: 61, projects: 22, questions: 220, answers: 220 };
+const expected = { weeks: 22, blocks: 14, syllabusItems: 72, projects: 6, questions: 220, answers: 220, flashcards: 176 };
 for (const [key, value] of Object.entries(expected)) {
   if (roadmap.metrics[key] !== value) throw new Error(`Auditoria falhou em ${key}: esperado ${value}, recebido ${roadmap.metrics[key]}`);
 }
@@ -403,6 +468,13 @@ if (new Set(weeks.map((week) => week.number)).size !== 22) throw new Error("Sema
 if (weeks.some((week) => !week.blocks.length || !week.theoryAndBanking.validation.length)) throw new Error("Toda semana deve registrar blocos e protocolo de avaliação.");
 if (weeks.some((week) => week.pedagogy.learningSections.length === 0 || week.practice.exercises.length < 5)) throw new Error("Toda semana deve possuir conteúdo pedagógico e prática.");
 if (weeks.some((week) => week.sabatina.length !== 10)) throw new Error("Cada semana deve ter exatamente dez perguntas de sabatina.");
+if (weeks.some((week) => week.flashcards.length < 8 || week.flashcards.length > 12)) throw new Error("Cada semana deve ter de oito a doze flashcards-semente.");
+if (syllabus.some((item) => item.coveragePillars.length !== 12 || !item.coverageWeeks.length)) throw new Error("Todo item oficial deve possuir doze pilares de cobertura e semana de estudo.");
+if (weeks.find((week) => week.number === 1)?.title !== "Propriedades de Distribuições") throw new Error("A Semana 1 deve manter o título canônico.");
+if (weeks.find((week) => week.number === 9)?.studyScope.appliedEvaluation.some((item) => ["AUC", "KS", "Gini", "F1", "Recall", "Precision"].includes(item))) throw new Error("A Semana 9 não pode antecipar métricas de classificação.");
+if (!weeks.find((week) => week.number === 16)?.studyScope.exclusions.some((item) => item.includes("anomalia"))) throw new Error("Anomalia deve ser apenas contexto na Semana 16.");
+if (!weeks.find((week) => week.number === 17)?.studyScope.exclusions.some((item) => item.includes("text mining"))) throw new Error("Text mining deve ser apenas contexto na Semana 17.");
+if (!syllabus.find((item) => item.id === "other-06")?.coverageWeeks.includes(13)) throw new Error("Ensemble modelling deve apontar para a Semana 13.");
 
 await writeFile(new URL("../data/roadmap.json", import.meta.url), `${JSON.stringify(roadmap, null, 2)}\n`, "utf8");
-console.log("Roadmap v17 íntegro:", roadmap.metrics);
+console.log("Roadmap v18 íntegro:", roadmap.metrics);

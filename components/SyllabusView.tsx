@@ -89,7 +89,7 @@ export function SyllabusView({ workspace, onUpdate, onSelectWeek }: SyllabusView
                 const status = workspace.syllabusStatus[item.id] ?? "nao-iniciado";
                 return <div className={`syllabus-check-item ${status}`} key={item.id}>
                   <button className="syllabus-check-control" onClick={() => cycleStatus(item.id)} aria-label={`Alterar status de ${item.text}: ${statusLabel(status)}`}><span>{status === "verde" ? <CheckCircle2 size={18} /> : <i />}</span></button>
-                  <div><strong>{item.text}</strong><small>{statusLabel(status)} · {item.id.toUpperCase()}</small></div>
+                  <div><strong>{item.text}</strong><small>{statusLabel(status)} · {item.id.toUpperCase()} · cobertura {item.coverageWeeks.map((weekNumber) => `S${weekNumber}`).join(", ")}</small>{item.crossReference && <p>{item.crossReference}</p>}</div>
                   <button className="block-chip block-chip-button" style={{ "--chip-color": blockPalette[item.block] ?? "#4dd7fa" } as React.CSSProperties} onClick={() => setBlock(item.block)}>{item.block}</button>
                 </div>;
               })}

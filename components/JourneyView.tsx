@@ -36,7 +36,7 @@ type JourneyViewProps = {
 const quickActions = [
   { id: "pomodoro", label: "Iniciar foco", hint: "25 min", icon: Play, accent: "cyan" },
   { id: "estudio", label: "Nova anotação", hint: "Markdown + LaTeX", icon: NotebookPen, accent: "violet" },
-  { id: "flashcards", label: "Revisar cards", hint: `${roadmap.metrics.questions} disponíveis`, icon: BrainCircuit, accent: "green" },
+  { id: "flashcards", label: "Revisar cards", hint: `${roadmap.metrics.flashcards} disponíveis`, icon: BrainCircuit, accent: "green" },
   { id: "sabatina", label: "Treinar sabatina", hint: "Resposta em voz alta", icon: MessageCircleQuestion, accent: "coral" },
 ];
 
@@ -93,6 +93,12 @@ export function JourneyView({ workspace, studySeconds, greenItems, onSelectWeek,
         <div><span className="eyebrow muted">MAPA DA EXPEDIÇÃO</span><h2>{roadmap.metrics.weeks} missões. Uma evolução contínua.</h2></div>
         <button className="text-button" onClick={() => onNavigate("ementa")}>Ver ementa completa <ArrowRight size={15} /></button>
       </section>
+
+      <button className="ml-checkpoint-card" onClick={() => onNavigate("fundamentos-machine-learning")}>
+        <span className="checkpoint-icon"><BrainCircuit size={24} /></span>
+        <span><small>CHECKPOINT ENTRE AS SEMANAS 8 E 9</small><strong>Fundamentos de Machine Learning</strong><em>Modelo, X/y, supervisionado, treino/validação/teste, fit, transform, predict, métricas e overfitting.</em></span>
+        <ArrowRight size={19} />
+      </button>
 
       <section className="roadmap-layout">
         <div className="quest-board" aria-label={`Roadmap de ${roadmap.metrics.weeks} semanas`}>

@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s · Data Science Quest",
   },
   description:
-    "Roadmap completo para dominar a ementa de Cientista de Dados, construir 22 projetos e treinar 51 perguntas de sabatina e duas provas reais.",
+    "Roadmap de 22 semanas para dominar 72 itens da ementa de Cientista de Dados, praticar Mini Labs e treinar sabatinas e provas reais.",
   applicationName: "Data Science Quest",
   keywords: ["ciência de dados", "roadmap", "Itaú", "machine learning", "estudos"],
   openGraph: {

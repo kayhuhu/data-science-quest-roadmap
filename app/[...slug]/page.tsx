@@ -6,6 +6,7 @@ const viewByRoute = {
   roadmap: "jornada",
   blocos: "jornada",
   ementa: "ementa",
+  "fundamentos-machine-learning": "fundamentos-machine-learning",
   estudos: "pomodoro",
   pomodoro: "pomodoro",
   anotacoes: "estudio",

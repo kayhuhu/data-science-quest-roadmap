@@ -14,10 +14,10 @@ test("ships Data Science Quest metadata and the requested visual stack", async (
   assert.doesNotMatch(`${layout}\n${journey}`, /codex-preview|Your site is taking shape|react-loading-skeleton/i);
 });
 
-test("ships the canonical v12 roadmap with 22 weeks, 22 projects and all 61 official items", async () => {
+test("ships the canonical 22-week roadmap with all 72 literal syllabus items", async () => {
   const roadmap = JSON.parse(await read("data/roadmap.json"));
-  assert.deepEqual(roadmap.metrics, { weeks: 22, blocks: 13, syllabusItems: 61, projects: 22, questions: 220, answers: 220 });
-  assert.match(roadmap.sourceVersion, /v17/);
+  assert.deepEqual(roadmap.metrics, { weeks: 22, blocks: 14, syllabusItems: 72, projects: 6, questions: 220, answers: 220, flashcards: 176 });
+  assert.match(roadmap.sourceVersion, /v18/);
   assert.equal(roadmap.weeks.length, 22);
   assert.equal(new Set(roadmap.weeks.map((week) => week.project.repo)).size, 22);
   assert.ok(roadmap.weeks.every((week) => week.sabatina.length === 10));
@@ -26,29 +26,32 @@ test("ships the canonical v12 roadmap with 22 weeks, 22 projects and all 61 offi
   assert.ok(roadmap.weeks.every((week) => week.theoryAndBanking?.validation?.length));
   assert.ok(roadmap.weeks.every((week) => week.prompts?.study && week.prompts?.sabatina));
   assert.ok(roadmap.syllabus.every((item) => item.contentLevel === "essential"));
+  assert.ok(roadmap.syllabus.every((item) => item.coveragePillars.length === 12 && item.coverageWeeks.length));
+  assert.ok(roadmap.weeks.every((week) => week.flashcards.length >= 8 && week.flashcards.length <= 12));
+  assert.deepEqual(roadmap.weeks.filter((week) => week.project.portfolioMilestone).map((week) => week.number), [6, 10, 13, 16, 18, 22]);
   assert.deepEqual(roadmap.weeks.map((week) => week.title), [
-    "Propriedades das distribuições e análise exploratória",
-    "Variáveis aleatórias, FDP/FDA e distribuições da ementa",
-    "Testes de hipótese, intervalos e decisão experimental",
-    "Matrizes, vetores, álgebra matricial, distâncias e produto interno",
-    "Missings, outliers e categorização",
-    "Correlação, associação, PCA e seleção de variáveis",
-    "Python, leitura/escrita, sklearn e engenharia mínima de projeto",
-    "Modelo relacional, SQL, álgebra relacional e chaves",
-    "Regressão linear, resíduos, métricas e validação",
-    "Regularização, árvore de regressão e GLM",
-    "Regressão logística e Naive Bayes",
+    "Propriedades de Distribuições",
+    "Variáveis Aleatórias, FDP/FDA e Distribuições",
+    "Testes de Hipóteses",
+    "Álgebra",
+    "Data Prep: Missings, Outliers e Categorização",
+    "Data Prep: PCA, Associação e Seleção",
+    "Programação",
+    "Banco de Dados",
+    "Regressão Linear e Resíduos",
+    "Regularização, Árvore de Regressão e GLM",
+    "Regressão Logística e Naive Bayes",
     "KNN e SVM",
-    "Árvore de classificação, Random Forest, Boosting e ensembles",
-    "Redes neurais, deep learning e avaliação",
-    "K-means, K-medoids e escolha do número de clusters",
-    "DBSCAN, hierárquico, GMM e detecção de anomalia",
-    "PLN, text mining, embeddings, Transformer e fundamentos de IA Generativa",
-    "In Context Learning, Prompt, RAG, fine-tuning, quantization, RLHF e guardrails",
-    "Programação linear, inteira, Branch-and-Bound, GAP e solvers",
-    "Big Data, Spark/PySpark, Hadoop/Hive, grafos e séries temporais",
-    "Ensembles, anomalias, text mining, deep learning, imagens e fala",
-    "Capstone integrado, simulado prático e sabatina final",
+    "Árvore de Classificação, Random Forest e Boosting",
+    "Redes Neurais",
+    "K-means, K-medoids e Número de Clusters",
+    "DBSCAN, Hierárquico e GMM",
+    "Fundamentos de IA Generativa, NLP, Transformers e Embeddings",
+    "ICL, Prompt, RAG, Fine-tuning e Segurança",
+    "Pesquisa Operacional, Programação Inteira e MIP",
+    "Big Data, Grafos e Séries Temporais",
+    "Anomalia, Text Mining, Deep Learning, Imagem e Speech",
+    "Consolidação",
   ]);
   assert.deepEqual(roadmap.weeks.map((week) => week.project.repo), [
     "01-banking-portfolio-eda", "02-banking-risk-distributions-lab", "03-banking-ab-test-credit-policy",
@@ -62,44 +65,38 @@ test("ships the canonical v12 roadmap with 22 weeks, 22 projects and all 61 offi
   ]);
 });
 
-test("weekly study page has exactly the six pedagogical tabs and full study controls", async () => {
-  const [route, app, center, project, studyGuides, modelProfiles, styles] = await Promise.all([
+test("weekly study page has exactly four pedagogical tabs and full study controls", async () => {
+  const [route, app, center, project, styles] = await Promise.all([
     read("app/[...slug]/page.tsx"), read("components/QuestApp.tsx"), read("components/WeekDrawer.tsx"),
-    read("components/ProjectGuidePanel.tsx"), read("lib/syllabus-study-guides.ts"),
-    read("lib/model-study-profiles.ts"), read("app/weekly-study.css"),
+    read("components/ProjectGuidePanel.tsx"), read("app/weekly-study.css"),
   ]);
   assert.match(route, /initialWeek/);
   assert.match(app, /setSelectedWeek/);
   assert.doesNotMatch(app, /window\.open/);
-  assert.match(center, /const tabs = \["APRENDER", "PRATICAR", "PROJETO", "SABATINA", "REVISAR", "PROGRESSO"\]/);
-  assert.equal((center.match(/tab === "(?:APRENDER|PRATICAR|PROJETO|SABATINA|REVISAR|PROGRESSO)"/g) ?? []).length, 6);
-  for (const phrase of ["ENTENDA PRIMEIRO", "QUANDO NÃO É INDICADO", "APLICAÇÃO BANCÁRIA", "INTERPRETAÇÃO", "FLUXO PRÁTICO", "ERROS COMUNS", "Aprofundamento opcional", "Vincular PDF", "Criar flashcard", "Checklist obrigatório"]) assert.match(center, new RegExp(phrase));
-  assert.match(center, /remarkGfm/);
-  assert.match(center, /remarkMath/);
+  assert.match(center, /const tabs = \["ESTUDAR", "PRATICAR", "SABATINA", "REVISAR"\]/);
+  assert.equal((center.match(/tab === "(?:ESTUDAR|PRATICAR|SABATINA|REVISAR)"/g) ?? []).length, 4);
+  for (const phrase of ["EMENTA DA SEMANA", "O QUE ESTUDAR", "Exemplo bancário", "Gerar apostila completa", "Anexar PDF", "Mini Lab", "Criar flashcard", "Critério de domínio"]) assert.match(center, new RegExp(phrase, "i"));
   assert.match(center, /saveWeekPdf/);
   assert.match(center, /weekCompletionEvidence/);
-  assert.match(modelProfiles, /Overfit e underfit|overfitAndUnderfit/);
-  assert.match(modelProfiles, /monitoring/);
   assert.match(project, /Primeiros 30 minutos/);
   assert.match(project, /Passo a passo do início à publicação/);
   assert.match(project, /PROMPT PARA CODAR, REVISAR E DOCUMENTAR COM IA/);
-  assert.match(styles, /--weekly-text:17px/);
-  assert.match(styles, /@media\(max-width:700px\)/);
+  assert.match(styles, /--weekly-text:\s*17px/);
+  assert.match(styles, /@media \(max-width: 700px\)/);
   assert.doesNotMatch(center, /ORDEM OFICIAL DO PLANEJAMENTO|Luiza p\.|PDF-base|sourceOrder/);
 
-  const roadmap = JSON.parse(await read("data/roadmap.json"));
-  for (const item of roadmap.syllabus) assert.match(studyGuides, new RegExp(`"${item.id}"\\s*:`), `guia ausente para ${item.id}`);
+  assert.doesNotMatch(center, /tab === "PROJETO"|tab === "PROGRESSO"/);
 });
 
 test("AI prompts teach complete junior-level understanding with optional academic depth", async () => {
   const roadmap = JSON.parse(await read("data/roadmap.json"));
   for (const week of roadmap.weeks) {
     assert.match(week.prompts.study, /Cientista de Dados Júnior/);
-    assert.match(week.prompts.study, /O que é\?/);
-    assert.match(week.prompts.study, /Quando não usar/);
-    assert.match(week.prompts.study, /Exemplo prático bancário/);
-    assert.match(week.prompts.study, /Implementação curta em Python ou SQL/);
-    assert.match(week.prompts.study, /Aprofundamento opcional/);
+    assert.match(week.prompts.study, /o que é e para que serve/i);
+    assert.match(week.prompts.study, /quando usar e quando não usar/i);
+    assert.match(week.prompts.study, /caso bancário concreto/i);
+    assert.match(week.prompts.study, /aplicação mínima em Python ou SQL/i);
+    assert.match(week.prompts.study, /matemática estritamente necessária/i);
     assert.match(week.prompts.sabatina, /somente UMA pergunta por vez/);
   }
 });

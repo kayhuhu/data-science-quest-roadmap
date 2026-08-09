@@ -3,6 +3,19 @@ import roadmapJson from "@/data/roadmap.json";
 export type MasteryStatus = "nao-iniciado" | "vermelho" | "amarelo" | "verde" | "revisao";
 export type ContentLevel = "essential" | "important" | "good_to_know" | "optional";
 
+export type WeeklyFlashcard = {
+  id: string;
+  front: string;
+  back: string;
+  block: string;
+  week: number;
+  syllabusItem: string | null;
+  concept: string;
+  model: string | null;
+  type: string;
+  source: string;
+};
+
 export type RoadmapWeek = {
   number: number;
   title: string;
@@ -12,6 +25,14 @@ export type RoadmapWeek = {
   objective: string;
   syllabus: string[];
   content: string[];
+  studyScope: {
+    concepts: string[];
+    map: Array<{ name: string; what: string; why: string; banking: string; more: string }>;
+    context: string[];
+    exclusions: string[];
+    appliedEvaluation: string[];
+    crossReferences: Array<{ item: string; label: string }>;
+  };
   overview: {
     summary: string;
     officialTopics: string[];
@@ -33,6 +54,16 @@ export type RoadmapWeek = {
     tasks: string[];
     examPractice: string;
     notebook: string;
+  };
+  miniLab: {
+    title: string;
+    objective: string;
+    duration: string;
+    kind: string;
+    steps: string[];
+    files: string[];
+    readmeQuestions: string[];
+    gitFlow: string[];
   };
   theoryAndBanking: {
     foundations: Array<{ title: string; body: string }>;
@@ -60,8 +91,23 @@ export type RoadmapWeek = {
     objective: string;
     deliverables: string[];
     learningOutcomes: string[];
+    portfolioMilestone: boolean;
   };
-  sabatina: Array<{ question: string; answer: string }>;
+  sabatina: Array<{
+    id: string;
+    question: string;
+    answer: string;
+    block: string;
+    week: number;
+    syllabusItem: string | null;
+    topic: string;
+    model: string | null;
+    questionType: string;
+    source: string;
+    sourceLabel: string;
+    difficulty: string;
+  }>;
+  flashcards: WeeklyFlashcard[];
 };
 
 export type RoadmapData = {
@@ -74,9 +120,19 @@ export type RoadmapData = {
     projects: number;
     questions: number;
     answers: number;
+    flashcards: number;
   };
   blocks: Array<{ id: number; title: string; weekNumbers: number[] }>;
-  syllabus: Array<{ id: string; text: string; block: string; week: number; contentLevel: ContentLevel }>;
+  syllabus: Array<{
+    id: string;
+    text: string;
+    block: string;
+    week: number;
+    coverageWeeks: number[];
+    crossReference: string | null;
+    contentLevel: ContentLevel;
+    coveragePillars: string[];
+  }>;
   weeks: RoadmapWeek[];
 };
 

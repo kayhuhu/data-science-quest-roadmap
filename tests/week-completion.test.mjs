@@ -9,6 +9,8 @@ const completeInput = {
   questionConfidence: [2, 2, 3, 2, 2, 3, 2, 2, 0, 0],
   practiceComplete: true,
   projectSteps: 3,
+  reviewedFlashcards: 8,
+  totalFlashcards: 8,
   explainReady: true,
   useReady: true,
   interpretationReady: true,
